@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<title>CONTAM Results Exporter - Contaminant Options (Cont'd)</title>
+<link rel="stylesheet" href="../../index.css">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+  function do_onload()
+  {
+    var CWD = window.parent.CWD;
+    var ctmsList = document.getElementById("ctmsList");
+    var gasUnits = document.getElementById("gasUnits");
+    var particleUnits = document.getElementById("particleUnits");
+    
+    var varArray = ["CONTAM.Project.Ctm", "CONTAM.Units.Strings.Concentration_P"
+    , "CONTAM.Units.Strings.Concentration_N"];
+    CWD.GetArrayOfContamVariables(varArray).then(function(result)
+    {
+      result.Ctm.forEach(doCtms);
+      result.Concentration_P.forEach(doParts);
+      result.Concentration_N.forEach(doGas)
+    });
+    
+    function doGas(unitString, index)
+    {
+      var option = document.createElement("option");
+      option.innerHTML = unitString;
+      option.value = index;
+      gasUnits.add(option);
+    }
+    
+    function doParts(unitString, index)
+    {
+      var option = document.createElement("option");
+      option.innerHTML = unitString;
+      option.value = index;
+      particleUnits.add(option);
+    }
+    
+    function doCtms(ctm, index)
+    {
+      var option = document.createElement("option");
+      option.text = (index+1).toString() + " " + ctm.name;
+      option.value = index;
+      ctmsList.add(option);
+    }
+  }
+  
+  function on_ok()
+  {
+    var CREUI = window.parent.CREUI;
+    var ctmsList = document.getElementById("ctmsList");
+    var CONTAMUnits = document.getElementById("CONTAMUnits");
+    var ctmByRow = document.getElementById("ctmByRow");
+    var gasUnits = document.getElementById("gasUnits");
+    var particleUnits = document.getElementById("particleUnits");
+    var outputAmbtCtm = document.getElementById("outputAmbtCtm");
+    
+    if(CREUI.options.normalExport.doNormalCtms)
+    {
+      CREUI.options.normalExport.selectedCtms = CREUI.getSelectValues(ctmsList);
+      if(CREUI.options.normalExport.selectedCtms.length == 0)
+      {
+        alert("A contaminant must be selected.");
+        return;
+      }
+      CREUI.options.normalExport.useContamUnits = CONTAMUnits.checked;
+      CREUI.options.normalExport.ctmOutputType = ctmByRow.checked;
+      CREUI.options.normalExport.gasUnits = gasUnits.selectedIndex;
+      CREUI.options.normalExport.particleUnits = particleUnits.selectedIndex;
+      CREUI.options.normalExport.outputAmbtCtm = outputAmbtCtm.checked;
+      CREUI.options.normalExport.doNormalCtms = false;
+    }
+    else if(CREUI.options.averageExport.doAvgCtms)
+    {
+      CREUI.options.averageExport.selectedCtms = CREUI.getSelectValues(ctmsList);
+      if(CREUI.options.averageExport.selectedCtms.length == 0)
+      {
+        alert("A contaminant must be selected.");
+        return;
+      }
+      CREUI.options.averageExport.useContamUnits = CONTAMUnits.checked;
+      CREUI.options.averageExport.ctmOutputType = ctmByRow.checked;
+      CREUI.options.averageExport.gasUnits = gasUnits.selectedIndex;
+      CREUI.options.averageExport.particleUnits = particleUnits.selectedIndex;
+      CREUI.options.averageExport.outputAmbtCtm = outputAmbtCtm.checked;
+      CREUI.options.averageExport.doAvgCtms = false;
+    }    
+    CREUI.CloseDialog(true)
+  }
+  
+  function selectAll()
+  {
+    var ctmsList = document.getElementById("ctmsList");
+    for (var i=0; i<ctmsList.options.length; i++) 
+    {
+      ctmsList.options[i].selected = true;
+    }    
+  }
+</script>
+</head>
+<body onload="do_onload();" class="notemplate">
+  <div style="display: flex;flex-flow: row;">
+    <div class="section">
+      <div>Contaminants</div><br>
+      <select size="10" id="ctmsList" multiple style="min-width: 10em;"></select><br>
+      <input type="button" value="Select All" style="margin: 10px;" onclick="selectAll();">
+    </div>
+    <div style="display: flex;flex-flow: column;">
+      <div class="section">
+        <input type="checkbox" id="outputAmbtCtm"> Output Ambient Concentration
+      </div>
+      <div class="section">
+        <div>Select the concentration units in which to report results.</div><br>
+        <input type="radio" name="unitType" id="CONTAMUnits" checked> Use units specified in CONTAM.<br>
+        <input type="radio" name="unitType" id="UserUnits"> Use these contaminant units:
+        <div style="display: inline-block; margin-left:2ex;margin-right:1ex;">Gaseous:</div>
+        <select id="gasUnits"></select>
+        <div style="display: inline-block; margin-left:2ex;margin-right:1ex;">Particles:</div>
+        <select id="particleUnits"></select>
+      </div>
+      <div class="section">
+        <div>Select how to organize the output.</div><br>
+        <input type="radio" name="outputType" id="ctmByRow" checked> Contaminants by Row / Zones, Junctions and Terminals by Column<br>
+        <input type="radio" name="outputType" id="nodeByRow"> Zones, Junctions and Terminals by Row / Contaminants by Column
+      </div>
+    </div>
+  </div>
+  <div>
+    <input type="button" value="Cancel" style="margin: 10px;"
+           onclick="window.parent.CRE.CloseDialog(false)">
+    <input type="button" value="Next" style="margin: 10px;"
+           onclick="on_ok();">
+  </div>
+</body>
+</html>

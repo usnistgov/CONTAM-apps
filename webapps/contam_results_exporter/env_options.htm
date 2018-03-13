@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<title>CONTAM Results Exporter - Environment Options (Cont'd)</title>
+<link rel="stylesheet" href="../../index.css">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+  function do_onload()
+  {
+    //var CONTAM = window.parent.CONTAM;
+  }
+  
+  function on_ok()
+  {
+    var CREUI = window.parent.CREUI;
+    var bldgTemp = document.getElementById("bldgTemp");
+    var bldgDens = document.getElementById("bldgDens");
+    var bldgPress = document.getElementById("bldgPress");
+    var ambtTemp = document.getElementById("ambtTemp");
+    var ambtPress = document.getElementById("ambtPress");
+    var ambtWspd = document.getElementById("ambtWspd");
+    var ambtWdir = document.getElementById("ambtWdir");
+    var TempUnits = document.getElementById("TempUnits");
+    var DensUnits = document.getElementById("DensUnits");
+    var PressUnits = document.getElementById("PressUnits");
+    var WSUnits = document.getElementById("WSUnits");
+    var cndByRow = document.getElementById("cndByRow");
+    
+    CREUI.options.normalExport.bldgTemp = bldgTemp.checked;
+    CREUI.options.normalExport.bldgDens = bldgDens.checked;
+    CREUI.options.normalExport.bldgPress = bldgPress.checked;
+    CREUI.options.normalExport.ambtTemp = ambtTemp.checked;
+    CREUI.options.normalExport.ambtPress = ambtPress.checked;
+    CREUI.options.normalExport.ambtWspd = ambtWspd.checked;
+    CREUI.options.normalExport.ambtWdir = ambtWdir.checked;
+    
+    CREUI.options.normalExport.TempUnits = TempUnits.selectedIndex;
+    CREUI.options.normalExport.DensUnits = DensUnits.selectedIndex;
+    CREUI.options.normalExport.PressUnits = PressUnits.selectedIndex;
+    CREUI.options.normalExport.WSUnits = WSUnits.selectedIndex;
+    
+    CREUI.options.normalExport.envOutputType = cndByRow.checked;
+    CREUI.CloseDialog(true)
+  }
+  
+  function selectAll()
+  {
+    var ctmsList = document.getElementById("ctmsList");
+    for (var i=0; i<ctmsList.options.length; i++) 
+    {
+      ctmsList.options[i].selected = true;
+    }    
+  }
+</script>
+</head>
+<body onload="do_onload();" class="notemplate">
+  <div style="display:flex; flex-flow:row;">
+    <div style="display:flex; flex-flow:column;">
+      <div style="display:flex; flex-flow:row;">
+        <div class="section">
+          <div>Select the conditions to output.</div><br>
+          <div class="section">
+            Building Conditions:<br><br>
+            <input type="checkbox" id="bldgTemp">Temperature<br>
+            <input type="checkbox" id="bldgPress">Pressure<br>
+            <input type="checkbox" id="bldgDens">Density
+          </div>
+          <div class="section">
+            Ambient Conditions:<br><br>
+            <input type="checkbox" id="ambtTemp">Temperature<br>
+            <input type="checkbox" id="ambtPress">Pressure<br>
+            <input type="checkbox" id="ambtWspd">Wind Speed<br>
+            <input type="checkbox" id="ambtWdir">Wind Direction
+          </div>
+        </div>
+        <div class="section">
+          <div>Select the units for them to be reported.</div><br>
+          <div style="display:flex; flex-flow:column;">
+            <div class="section">
+              <div style="display:inline-block; min-width: 7em;">Temperature:</div>
+              <select id="TempUnits">
+                <option value="0">K</option>
+                <option value="1">R</option>
+                <option value="2">&deg;C</option>
+                <option value="3">&deg;F</option>
+              </select>
+            </div>
+            <div class="section">
+              <div style="display:inline-block; min-width: 7em;">Density:</div>            
+              <select id="DensUnits">
+                <option value="0">kg/m&sup3;</option>
+                <option value="1">lb/ft&sup3;</option>
+                <option value="2">g/cm&sup3;</option>
+              </select>
+            </div>
+            <div class="section">
+              <div style="display:inline-block; min-width: 7em;">Pressure:</div>            
+              <select id="PressUnits">
+                <option value="0">Pa</option>
+                <option value="1">in_H2O</option>
+                <option value="2">kPa</option>
+                <option value="3">in_Hg</option>
+                <option value="4">atm</option>
+                <option value="5">psi</option>
+                <option value="6">mm_Hg</option>
+              </select>
+            </div>
+            <div class="section">
+              <div style="display:inline-block; min-width: 7em;">Wind Speed:</div>            
+              <select id="WSUnits">
+                <option value="0">m/s</option>
+                <option value="1">fpm</option>
+                <option value="2">cm/s</option>
+                <option value="3">mph</option>
+                <option value="4">m/h</option>
+                <option value="5">km/h</option>
+                <option value="6">knots</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div>Select how to organize the output.</div><br>
+        <input type="radio" name="outputType" id="cndByRow" checked> Conditions by Row / Zones, Junctions and Terminals by Column<br>
+        <input type="radio" name="outputType" id="nodeByRow"> Zones, Junctions and Terminals by Row / Conditions by Column
+      </div>
+    </div>
+  </div>
+  <div>
+    <input type="button" value="Cancel" style="margin: 10px;"
+           onclick="window.parent.CREUI.CloseDialog(false)">
+    <input type="button" value="Next" style="margin: 10px;"
+           onclick="on_ok();">
+  </div>
+</body>
+</html>

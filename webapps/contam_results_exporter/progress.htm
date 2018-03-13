@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>CONTAM Results Exporter</title>
+<link rel="stylesheet" href="../../index.css">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+  function SetDateTime(date, time)
+  {
+    var DateDisplay = document.getElementById("DateDisplay");
+    var TimeDisplay = document.getElementById("TimeDisplay");
+    DateDisplay.textContent = date;
+    TimeDisplay.textContent = time;
+  }
+</script>
+</head>
+<body class="notemplate">
+  <div class="section">Date: <span id="DateDisplay"></span></div>
+  <div class="section">Time: <span id="TimeDisplay"></span></div>
+</body>
+</html>

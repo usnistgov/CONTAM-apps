@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<title>CONTAM Results Exporter - Select Nodes</title>
+<link rel="stylesheet" href="../../index.css">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+  function do_onload()
+  {
+    var CWD = window.parent.CWD;
+    var zonesList = document.getElementById("zonesList");
+    var jctsList = document.getElementById("jctsList");
+    var termsList = document.getElementById("termsList");
+    var i;
+    
+    var varArray = ["CONTAM.Project.ZoneList", "CONTAM.Project.JctList"];
+    CWD.GetArrayOfContamVariables(varArray).then(function(result)
+    {
+      result.ZoneList.forEach(doZones);
+      result.JctList.forEach(doJcts);
+      result.JctList.forEach(doTerms);
+    });
+    
+    function doZones(zone)
+    {
+      var option = document.createElement("option");
+      option.text = zone.nr.toString() + " " + zone.name + " lvl: " + zone.pld.nr;
+      option.value = zone.nr;
+      zonesList.add(option);
+    }
+    
+    function doJcts(jct)
+    {
+      if(jct.jtype == 0)
+      {
+        var option = document.createElement("option");
+        option.text = jct.nr;
+        option.value = jct.nr;
+        jctsList.add(option);
+      }
+    }
+    
+    function doTerms(term)
+    {
+      if(term.jtype > 0)
+      {
+        var option = document.createElement("option");
+        option.text = term.nr;
+        option.value = term.nr;
+        termsList.add(option);
+      }
+    }
+
+  }
+  
+  function on_ok()
+  {
+    var CREUI = window.parent.CREUI;
+    var zonesList = document.getElementById("zonesList");
+    var jctsList = document.getElementById("jctsList");
+    var termsList = document.getElementById("termsList");
+    
+    if(zonesList.selectedIndex == -1 &&
+       jctsList.selectedIndex == -1 &&
+       termsList.selectedIndex == -1)
+    {
+      alert("A zone, junction, or terminal must be selected.");
+      return;
+    }
+    if(CREUI.options.normalExport.doCtmNodes)
+    {
+      CREUI.options.normalExport.ctmZones = CREUI.getSelectValues(zonesList);
+      CREUI.options.normalExport.ctmJcts =  CREUI.getSelectValues(jctsList);
+      CREUI.options.normalExport.ctmTerms = CREUI.getSelectValues(termsList);
+      CREUI.options.normalExport.doCtmNodes = false;
+    }
+    else if(CREUI.options.normalExport.doEnvNodes)
+    {
+      CREUI.options.normalExport.envZones = CREUI.getSelectValues(zonesList);
+      CREUI.options.normalExport.envJcts =  CREUI.getSelectValues(jctsList);
+      CREUI.options.normalExport.envTerms = CREUI.getSelectValues(termsList);
+      CREUI.options.normalExport.doEnvNodes = false;
+    }
+    else if(CREUI.options.averageExport.DoAvgTimeNodes)
+    {
+      CREUI.options.averageExport.avgtZones = CREUI.getSelectValues(zonesList);
+      CREUI.options.averageExport.avgtJcts =  CREUI.getSelectValues(jctsList);
+      CREUI.options.averageExport.avgtTerms = CREUI.getSelectValues(termsList);
+      CREUI.options.averageExport.DoAvgTimeNodes = false;
+    }
+    else if(CREUI.options.averageExport.DoSpacAvgNodes)
+    {
+      CREUI.options.averageExport.savgZones = CREUI.getSelectValues(zonesList);
+      CREUI.options.averageExport.savgJcts =  CREUI.getSelectValues(jctsList);
+      CREUI.options.averageExport.savgTerms = CREUI.getSelectValues(termsList);
+      CREUI.options.averageExport.DoSpacAvgNodes = false;
+    }
+
+    CREUI.CloseDialog(true)
+  }
+</script>
+</head>
+<body onload="do_onload();" class="notemplate">
+<h3>Select which zones, duct junctions and duct terminals to output</h3>
+  <div style="display:flex; flex-flow:row;">
+    <div class="section">
+      <div style="font-weight: 600; padding-bottom:5px;">Zones</div>
+      <select size="10" id="zonesList" multiple></select>       
+    </div>
+    <div class="section">
+      <div style="font-weight: 600; padding-bottom:5px;">Junctions</div>
+      <select size="10" id="jctsList" multiple></select>       
+    </div>
+    <div class="section">
+      <div style="font-weight: 600; padding-bottom:5px;">Terminals</div>
+      <select size="10" id="termsList" multiple></select>       
+    </div>
+  </div>
+  <div style="clear:both;">
+    <input type="button" value="Cancel" style="margin: 10px;"
+           onclick="window.parent.CREUI.CloseDialog(false)">
+    <input type="button" value="Next" style="margin: 10px;"
+           onclick="on_ok();">
+  </div>
+</body>
+</html>

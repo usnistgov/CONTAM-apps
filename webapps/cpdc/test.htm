@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<title>test log min</title>
+<script type="text/javascript" src="main.js"></script>
+
+  <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+  
+  <link rel="stylesheet" type="text/css" href="jquery.jqplot.css" />
+  
+  <!-- BEGIN: load jquery -->
+  <script language="javascript" type="text/javascript" src="jquery.min.js"></script>
+  <!-- END: load jquery -->
+  
+  <!-- BEGIN: load jqplot -->
+  <script language="javascript" type="text/javascript" src="jquery.jqplot.js"></script>
+  <script language="javascript" type="text/javascript" src="plugins/jqplot.canvasTextRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  <script type="text/javascript" language="javascript" src="plugins/jqplot.logAxisRenderer.min.js"></script>
+
+  <!-- END: load jqplot -->
+  <script type="text/javascript" language="javascript">
+  
+  $(document).ready(function(){
+      $.jqplot.config.enablePlugins = true;
+
+$.jqplot('chartdiv',  [[[1, 2],[3,5.12],[5,13.1],[7,33.6],[9,85.9],[11,219.9]]],
+{ title:'Exponential Line',
+  axes:{yaxis:{renderer: $.jqplot.LogAxisRenderer,min: 10, max: 100,},},
+  series:[{color:'#5FAB78'}]
+});
+      
+  });
+  
+  </script>
+</head>
+<body>
+<div id="chartdiv" style="height:400px;width:300px; "></div>
+</body>
+</html>

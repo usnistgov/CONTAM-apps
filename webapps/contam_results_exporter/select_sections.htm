@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<title>CONTAM Results Exporter - Select Sections</title>
+<link rel="stylesheet" href="../../index.css">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+  function do_onload()
+  {
+    var CWD = window.parent.CWD;
+    var varArray = ["CONTAM.Simread.zcres", "CONTAM.Simread.zfres", "CONTAM.Simread.pfres"];
+    CWD.GetArrayOfContamVariables(varArray).then(function(result)
+    {
+      if(result.zcres == 1)
+      {
+        document.getElementById("contamsAvailable").textContent = 
+          "Contaminant results are in .sim file.";
+        document.getElementById("contamsPresent").style.display = "inline";
+        document.getElementById("contamsNotPresent").style.display = "none";
+      }
+      else
+      {
+        document.getElementById("contamsAvailable").textContent = 
+          "Contaminant results are not in .sim file.";
+        document.getElementById("ctmCheckBox").disabled = true;
+        document.getElementById("contamsPresent").style.display = "none";
+        document.getElementById("contamsNotPresent").style.display = "inline";
+      }
+      if(result.zfres == 1)
+      {
+        document.getElementById("evnAvailable").textContent = 
+          "Environmental results are in .sim file.";
+        document.getElementById("envPresent").style.display = "inline";
+        document.getElementById("envNotPresent").style.display = "none";
+      }
+      else
+      {
+        document.getElementById("evnAvailable").textContent = 
+          "Environmental results are not in .sim file.";
+        document.getElementById("evnCheckBox").disabled = true;
+        document.getElementById("envPresent").style.display = "none";
+        document.getElementById("envNotPresent").style.display = "inline";
+      }
+      if(result.pfres == 1)
+      {
+        document.getElementById("airflowAvailable").textContent = 
+          "Airflow results are in .sim file.";
+        document.getElementById("linksPresent").style.display = "inline";
+        document.getElementById("linksNotPresent").style.display = "none";
+      }
+      else
+      {
+        document.getElementById("airflowAvailable").textContent = 
+          "Airflow results are not in .sim file.";
+        document.getElementById("linkCheckBox").disabled = true;
+        document.getElementById("linksPresent").style.display = "none";
+        document.getElementById("linksNotPresent").style.display = "inline";
+      }
+    });
+  }
+  
+  function on_ok()
+  {
+    var CREUI = window.parent.CREUI;
+    CREUI.options.normalExport.exportCtms = document.getElementById("ctmCheckBox").checked;
+    CREUI.options.normalExport.exportEnv = document.getElementById("evnCheckBox").checked;
+    CREUI.options.normalExport.exportAF = document.getElementById("linkCheckBox").checked;
+    if(CREUI.options.normalExport.exportCtms == false &&
+      CREUI.options.normalExport.exportEnv == false &&
+      CREUI.options.normalExport.exportAF == false)
+    {
+      alert("At least one section must be selected or click the Cancel button.");
+      return;
+    }
+    CREUI.CloseDialog(true)
+  }
+</script>
+</head>
+<body onload="do_onload();" class="notemplate">
+  <div style="display:flex; flex-flow:row;">
+    <div style="display:flex; flex-flow:column;">
+      <h3>Select which type of results to output.</h3>
+      <div class="section">
+        <input type="checkbox" id="ctmCheckBox"> Output Contaminant Concentration Results<br>
+        <div>
+          <svg height="20" width="20" id="contamsPresent" style="vertical-align:bottom;">
+            <circle cx="10" cy="10" r="8" fill="green" />
+            <line x1="7" y1="9" x2="10" y2="13" style="stroke:white;stroke-width:2" />
+            <line x1="10" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+          </svg>
+          <svg height="20" width="20" id="contamsNotPresent" style="vertical-align:bottom;">
+            <circle cx="10" cy="10" r="8" fill="red" />
+            <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+            <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+          </svg>
+          <span id="contamsAvailable"></span>
+        </div>
+      </div>
+      <div class="section">
+        <input type="checkbox" id="evnCheckBox"> Output Ambient and Zone Results - Temperature, Pressure, Density, Wind Speed, and Wind Direction<br>
+        <div>
+          <svg height="20" width="20" id="envPresent" style="vertical-align:bottom;">
+            <circle cx="10" cy="10" r="8" fill="green" />
+            <line x1="7" y1="9" x2="10" y2="13" style="stroke:white;stroke-width:2" />
+            <line x1="10" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+          </svg> 
+          <svg height="20" width="20" id="envNotPresent" style="vertical-align:bottom;">
+            <circle cx="10" cy="10" r="8" fill="red" />
+            <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+            <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+          </svg> 
+          <span id="evnAvailable"></span>
+        </div>
+      </div>
+      <div class="section">
+        <input type="checkbox" id="linkCheckBox"> Output Airflow Results<br>
+        <div>
+          <svg height="20" width="20" id="linksPresent" style="vertical-align:bottom;">
+            <circle cx="10" cy="10" r="8" fill="green" />
+            <line x1="7" y1="9" x2="10" y2="13" style="stroke:white;stroke-width:2" />
+            <line x1="10" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+          </svg> 
+          <svg height="20" width="20" id="linksNotPresent" style="vertical-align:bottom;">
+            <circle cx="10" cy="10" r="8" fill="red" />
+            <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+            <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+          </svg> 
+          <span id="airflowAvailable"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="button" value="Cancel" style="margin: 10px;"
+         onclick="window.parent.CREUI.CloseDialog(false)">
+  <input type="button" value="Next" style="margin: 10px;"
+         onclick="on_ok();">
+
+</body>
+</html>

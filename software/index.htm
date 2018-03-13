@@ -1,0 +1,481 @@
+<!DOCTYPE HTML>
+<html><!-- InstanceBegin template="/Templates/IAQanalysis.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<!-- InstanceBeginEditable name="doctitle" -->
+		<title>Available Software Tools</title>
+		<!-- InstanceEndEditable -->
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="shortcut icon" href="http://www.bfrl.nist.gov/IAQanalysis/favicon.ico" type="image/x-icon">
+<style type="text/css">
+			<!-- @import url("../index.css"); -->
+		</style>
+<link rel="stylesheet" type="text/css" href="../print.css" media="print">
+<script language="JavaScript" id="_fed_an_js_tag" src="/js/federated-analytics.all.min.js?agency=NIST&subagency=bfrl&pua=UA-42404149-15&yt=true"></script>
+<script>
+
+function hideall()
+{
+  var x = document.getElementsByClassName("showhide");
+  var i;
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+}
+
+function show(id, scroll)
+{
+  var details = document.getElementById(id);
+  if(details.style.display == "none")
+  {
+    details.style.display = 'table-row';
+    document.getElementById(scroll).scrollIntoView();
+  }
+  else
+  {
+    details.style.display = 'none';
+  }
+  
+}
+
+function hide(id)
+{
+  document.getElementById(id).style.display = 'none';
+}
+
+</script>
+<!-- InstanceBeginEditable name="head" -->   <link rel="Index" href="../sitemap.htm">
+   <link rel="Contents" href="../index.htm">
+   <link rel="Home" href="../index.htm">
+   <link rel="Up" href="../index.htm">		
+   <style type="text/css">
+      <!-- @import url(.././software.css);   -->
+   </style><!-- InstanceEndEditable -->
+</head>
+<body onload="hideall();">
+<div id="container">
+  <div id="top">
+    <div class="templhead">
+      <div class="nomargin">
+        <div class="templtitle"> 
+			<img src="../images/iaqalogo.png" alt="Contam Logo" name="templogo" width="49" height="51" id="templogo"> 
+			<acronym title="National Institute of Standards and Technology">NIST</acronym> Multizone Modeling Website 
+		</div>
+      </div>
+    </div>
+    <div id="list">
+      <div><a href="../index.htm" id="home" title="Multizone Modeling Homepage">Home</a></div>
+      <div><a href="index.htm" id="software" title="support and download of computer software used for modeling multizone buildings">Software</a></div>
+      <div><a href="../case%20studies/index.htm" id="cases" title="presentations of case studies of the application of CONTAM">Case Studies</a></div>
+      <div><a href="../publications/index.htm" id="pubs" title="NIST publications that are related to multizone modeling">Publications</a></div>
+      <div><a href="../applications/index.htm" id="apps" title="discussion of how multizone software can be used for a variety of applications">Applications</a></div>
+      <div><a href="../links.htm" id="links" title="Links to other IAQ analysis related material.">Links</a></div>
+	  <div id="listspacer">&nbsp;</div>
+      <div><a href="../feedback.htm" class="head" id="feedback">Feedback</a></div>
+      <div><a href="../sitemap.htm" class="head" id="sitemap">Site Map</a></div>
+    </div>
+  </div>
+  <div id="flexcontainer">
+	<div id="content"> <!-- InstanceBeginEditable name="Content" -->
+      <div id="title">
+        <div style="transform: perspective( 600px )rotateY(40deg);display:inline-block;">
+          <img src="../images/utils.png" style="vertical-align:middle;">
+        </div>
+        <div style="display:inline-block; padding-left:1ex;">
+          Software Tools
+        </div>
+      </div>
+
+		   </h1>
+   	<p>The links below are sites that take you to the related
+   		software.&nbsp; You will find program downloads, support, demos,
+   		descriptions, and up to date information on the latest changes to each
+   		software tool:
+   	</p>
+    <div style="overflow:auto;">
+      <table>
+         <caption>Modeling Software</caption>
+         <thead>
+            <tr>
+               <th>Logo</th>
+               <th class="programcol">Program</th>
+               <th class="desccol">Description</th>
+               <th>Version</th>
+               <th>Last Updated</th>
+           </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td><a href="../CONTAM/index.htm"><img src="../images/iaqalogo.gif" alt="CONTAM Software Icon" width="49" height="51" border="0" class="borderless"></a></td>
+               <td class="programcol">
+                  <a href="../CONTAM/index.htm">CONTAM</a></td>
+               <td class="desccol">
+                  <em>Multizone Airflow and Contaminant Transport Analysis Software</em></td>
+              <td class="center redtext">3.2.0.2</td>
+               <td class="center redtext">Feb 5th, 2016</td>
+            </tr>
+            <!-- simread-->
+            <tr id="cfd0">
+              <td>
+                <a onclick="show('cfd0details', 'cfd0');">
+                  <img src="../images/cfd0logo.gif" alt="CFD0 Editor Logo" width="50" height="50" border="0">
+                </a>
+              </td>
+              <td class="programcol">
+                <a onclick="show('cfd0details', 'cfd0');">CFD0 Editor</a> 
+              </td>
+              <td class="desccol"><em>A CFD Editor for use with CONTAM </em></td>
+              <td class="center redtext">3.2</td>
+              <td class="center redtext">August 18th, 2015</td>
+            </tr>
+            <tr id="cfd0details" class="showhide">
+              <td colspan="5">
+                <div>
+                  <h2>CFD0 Editor</h2>
+                  <p>The CFD0 Editor software enables you to define and view a CFD domain 
+                    for detailed airflow and contaminant transport analysis. You can use 
+                    it to define a CFD domain for either <em>internal-zone</em> or 
+                    <em>external-zone coupling</em> with an associated multizone CONTAM 
+                    model, or to define a stand-alone CFD domain for separate analysis 
+                    with the zero-equation computational fluid dynamics software CFD0 that 
+                    is provided along with the CFD0 Editor. CFD0 Editor provides for the 
+                    definition of the domain, grid and boundary conditions and also allows 
+                    you to view simulation results within a three-dimensional 
+                    representation of the domain.
+                  </p>
+                  <p>The following procedure enables you to save the &quot;CFD0 Editor 
+                    Setup.msi&quot; file to your computer. This file contains all of the 
+                    files needed for CFD0 Editor except the Microsoft .NET Framework 4.0 
+                    Client Profile. That can be obtained from the 
+                    <a href="http://www.nist.gov/cgi-bin/exit_nist.cgi?url=http://www.microsoft.com/en-us/download/details.aspx?id=17113">Microsoft Website</a>
+                    or through Windows Update.
+                  </p>
+                  <p>Download CFD0 Editor: 
+                    <a href="../docs/CFD0EditorSetup.msi">[CFD0 Editor Setup.msi]</a> 
+                    (approximately - 2.20 MB) 
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System.">
+                  </p>                
+                  <p><a onclick="hide('cfd0details');">Hide</a></p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><img src="../images/type98 icon.png" alt="Type 98 icon" width="48" height="48"></td>
+              <td class="programcol"><a href="Type98desc.html">Type 98 </a></td>
+              <td class="desccol"><em>Software for running coupled CONTAM/TRNSYS simulations </em></td>
+              <td class="center redtext">3.2</td>
+              <td class="center redtext">Sept 3rd, 2015</td>
+            </tr>
+            <tr>
+              <td><a href="CSTdesc.htm"><img src="../images/Cloudy-Daytime-48x48.png" alt="Climate Suitability Tool Logo" width="48" height="48" border="0"></a></td>
+              <td class="programcol"><a href="CSTdesc.htm">Climate Suitability Tool </a></td>
+              <td class="desccol"><em>A web application for determining the suitability of a location for natural ventilation. </em></td>
+              <td class="center redtext">1.0</td>
+              <td class="center redtext">Nov 28th, 2012 </td>
+            </tr>
+            <tr>
+               <td>
+      				<a href="LOOPDAdesc.htm"><img src="../images/LoopDA.png" alt="LoopDA Software Icon" width="50" height="50" class="borderless"></a>               </td>
+               <td class="programcol">
+                  <a href="LOOPDAdesc.htm">LoopDA</a>               </td>
+               <td class="desccol">
+                  <em>A Natural Ventilation Opening Sizing Tool</em>               </td>
+               <td class="center redtext">3.0.1.1</td>
+               <td class="center redtext">March 13th, 2012</td>
+            </tr>
+         </tbody>
+      </table>
+    </div>
+    <div style="overflow:auto;">
+      <table>
+         <caption>Utility Software</caption>
+         <thead>
+            <tr>
+               <th>Logo</th>
+               <th class="programcol">Program</th>
+               <th class="desccol">Description</th>
+               <th>Version</th>
+               <th>Last Updated</th>
+           </tr>
+         </thead>
+          <tbody>
+            <tr id="contam3dexporter">
+              <td>
+                <a onclick="show('contam3dexporterdetails', 'contam3dexporter');">
+                  <img src="../images/contam3dexporter.png" alt="CONTAM 3D Exporter Icon" class="borderless">
+                </a>
+              </td>
+              <td class="programcol">
+                <a onclick="show('contam3dexporterdetails', 'contam3dexporter');">Contam 3D Exporter</a>
+              </td>
+              <td class="desccol">
+                <em>Exporting CONTAM model to 3D models</em></td>
+              <td class="center redtext">3.2.0.1</td>
+              <td class="center redtext">Sept 15th, 2015</td>
+            </tr>
+            <tr id="contam3dexporterdetails" class="showhide">
+              <td colspan="5">
+                <div>
+                  <h2>Contam 3D Exporter</h2>
+                  <p>
+                    The CONTAM 3D Exporter converts a CONTAM model to 3d models for 
+                    EnergyPlus, TRNSYS and CFD0.  This includes creating CONTAM FMU's 
+                    for coupling CONTAM with EnergyPlus.
+                  </p>
+                  <p>Download Contam 3D Exporter:<br> 
+                    64 Bit:
+                    <a href="../docs/Contam3DExport_SetupProject.msi">
+                      [Contam3DExport_SetupProject.msi]
+                    </a> 
+                    (approximately - 62.4 MB) 
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System.">
+                    <br>
+                    32 Bit:
+                    <a href="../docs/Contam3DExportx86_SetupProject.msi">
+                      [Contam3DExportx86_SetupProject.msi]
+                    </a> 
+                    (approximately - 51 MB) 
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System.">
+                  </p>
+                  <p> This file contains all of the files needed for Contam 3D Exporter 
+                    except the Microsoft .NET Framework version 4.5. That can be obtained 
+                    from the 
+                    <a href="http://www.nist.gov/cgi-bin/exit_nist.cgi?url=http://www.microsoft.com/en-us/download/details.aspx?id=30653">
+                      Microsoft Website
+                    </a> or through Windows Update. 
+                  </p>
+                  <p><a onclick="hide('contam3dexporterdetails');">Hide</a></p>
+                </div>
+              </td>
+            </tr>
+            <tr id="contamrv">
+              <td>
+                <a onclick="show('contamrvdetails', 'contamrv');">
+                  <img src="../images/contamrvlogo.gif" alt="ContamRV Software Icon" width="50" height="50" border="0" class="borderless">
+                </a>
+              </td>
+              <td class="programcol">
+                <a onclick="show('contamrvdetails', 'contamrv');">ContamRV</a>
+              </td>
+              <td class="desccol">
+                <em>Results Viewing Software for CONTAM</em></td>
+              <td class="center redtext">3.2.0.1</td>
+              <td class="center redtext">Nov 13th, 2015</td>
+            </tr>
+            <tr id="contamrvdetails" class="showhide">
+              <td colspan="5">
+                <div>
+                  <h2>ContamRV</h2>
+                  <p>
+                    The Contam Results Viewer, ContamRV, is a tool for visualizing 
+                    contaminant concentration and airflow results of CONTAM simulations. 
+                    ContamRV displays buildings in SketchPad form very similar to the 
+                    manner in which ContamW does. The program provides you with a 
+                    color-coded display of zone contaminant concentrations and enables 
+                    the animation of transient simulation results.
+                  </p>
+                  <p>Download ContamRV: 
+                    <a href="../docs/ContamRV%20Setup.msi">
+                      [ContamRV Setup.msi]
+                    </a> 
+                    (approximately - 2 MB) 
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System.">
+                  </p>
+                  <p> This file contains all of the files needed for ContamRV except the 
+                    Microsoft .NET Framework version 4.0. That can be obtained from the 
+                    <a href="http://www.nist.gov/cgi-bin/exit_nist.cgi?url=http://www.microsoft.com/en-us/download/details.aspx?id=17113">
+                      Microsoft Website
+                    </a> or through Windows Update. 
+                  </p>
+                  <p><a onclick="hide('contamrvdetails');">Hide</a></p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="../webapps/contam_results_exporter/desc.htm">
+                  <img src="../images/utils.png" alt="Utility Software Icon" width="48" height="48" class="borderless">
+                </a>
+              </td>
+              <td class="programcol"><a href="../webapps/contam_results_exporter/desc.htm">Contam Results Export Tool</a></td>
+              <td class="desccol"><em>CONTAM simulation result export software with web interface</em></td>
+              <td class="center redtext">3.2</td>
+              <td class="center redtext">May 2nd, 2017</td>
+            </tr>
+            <tr>
+              <td><a href="WEATHERdesc.htm"><img src="../images/Weather48x48.png" alt="Weather Software Icon" width="48" height="48" border="0" class="borderless"></a> </td>
+              <td class="programcol"><a href="WEATHERdesc.htm">Contam Weather File Creator</a> </td>
+              <td class="desccol"><em>A Weather File Creation\Conversion Web Application for CONTAM</em></td>
+              <td class="center redtext">1.1</td>
+              <td class="center redtext">Jan 9th, 2014</td>
+            </tr>
+            <tr>
+              <td><img src="../images/partdist.png" alt="particle dsitribution icon" width="50" height="63"></td>
+              <td class="programcol"><a href="CPDC/index.htm">CONTAM Particle Distribution Calculator </a></td>
+              <td class="desccol"> Web Application to develop  user-defined particle size distributions for use in CONTAM.</td>
+              <td class="center redtext">1.0</td>
+              <td class="center redtext">Jan 31st, 2013 </td>
+            </tr>
+            <tr>
+              <td><img src="../images/contamlinklogosm.png" alt="ContamLink Log" class="borderless"></td>
+              <td class="programcol"><a href="CONTAMLINKdesc.htm">ContamLink</a></td>
+              <td class="desccol"><em>CONTAM Source Library Creation Software </em></td>
+              <td class="center redtext">3.0.1.1</td>
+              <td class="center redtext">Sep 11th, 2012 </td>
+            </tr>
+            <!-- simread-->
+            <tr id="simread">
+              <td>
+                <a onclick="show('simreaddetails', 'simread');">
+                  <img src="../images/utils.png" alt="Utility Software Icon" class="borderless">
+                </a>
+              </td>
+              <td class="programcol">
+                <a onclick="show('simreaddetails', 'simread');">SimRead3</a>
+              </td>
+              <td class="desccol"><em>CONTAM simulation file conversion  command-line application</em></td>
+              <td class="center redtext">3.2</td>
+              <td class="center redtext">Sept 4th, 2015</td>
+            </tr>
+            <tr id="simreaddetails" class="showhide">
+              <td colspan="5">
+                <div>
+                  <h2 id="simread">SimRead3</h2>
+                  <p> The main CONTAM result file, the SIM file, is a binary file. In 
+                    general, binary files are significantly smaller and faster to work 
+                    with than text files but must be translated by specialty programs in 
+                    order for their contents to be human readable. 
+                  </p>
+                  <p> SimRead3 is a utility provided to enable you to create text files 
+                    from SIM files. It enables you to select the information you want to 
+                    obtain from the SIM file and export it to tab-delimitted files that 
+                    can then be easily imported into a spreadsheet program for further 
+                    analysis. 
+                  </p>
+                  <p>Download SimRead3 version 3.2: [
+                    <a href="../docs/simread32.zip">simread32.zip</a>] 
+                    (approximately 120 KB) 
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System."> 
+                  </p>
+                  <p><a onclick="hide('simreaddetails');">Hide</a></p>
+                </div>
+              </td>
+            </tr>
+            <!-- PrjUp-->
+            <tr = id="prjup">
+              <td>
+                <a onclick="show('prjupdetails', 'prjup');">
+                  <img src="../images/utils.png" alt="Utility Software Icon" width="48" height="48" class="borderless">
+                </a>
+              </td>
+              <td class="programcol">
+                <a onclick="show('prjupdetails', 'prjup');">PrjUp32</a>
+              </td>
+              <td class="desccol">Command line tool to upgrade CONTAM project files</td>
+              <td class="center redtext">3.2.0.1</td>
+              <td class="center redtext">Sept 15th, 2015</td>
+            </tr>
+            <tr id="prjupdetails" class="showhide">
+              <td colspan="5">
+                <div>
+                  <h2 id="prjup">PrjUp32</h2>
+                  <p> PrjUp3 upgrades CONTAM projects files from previous version 
+                    (1.0, 2.0, 2.1, 2.4 3.0 or 3.1) to the current version 3.2. 
+                  </p>
+                  <p> Download PrjUp: [<a href="../docs/prjup32.zip">PrjUp32.zip</a>] 
+                    (approximately 113 KB) 
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System.">
+                  </p>
+                  <p><a onclick="hide('prjupdetails');">Hide</a></p>
+                </div>
+              </td>
+            </tr>
+            <!-- 1DZ Read-->
+            <tr id="onedzread">
+              <td>
+                <a onclick="show('onedzreaddetails', 'onedzread');">
+                  <img src="../images/utils.png" alt="Utility Software Icon" width="48" height="48" class="borderless">
+                </a>
+              </td>
+              <td class="programcol">
+                <a onclick="show('onedzreaddetails', 'onedzread');">1DZRead</a>
+              </td>
+              <td class="desccol"><em>A CONTAM 1D Zone Data file converter</em></td>
+              <td class="center redtext">1.0</td>
+              <td class="center redtext">Jan 4th, 2007</td>
+            </tr>
+            <tr id="onedzreaddetails" class="showhide">
+              <td colspan="5">
+                <div>
+                  <h2 id="onedz">1D Zone Data file converter</h2>
+                  <p>1DZRead is a command line utility that converts 1D zone contaminant 
+                    simulation data to tab-delimited files. These results can only be 
+                    generated using CONTAM's Short Time Step contaminant simulation method.
+                  </p>
+                  <p> To use the program, place the file <em>1DZRead.exe</em> into a 
+                    directory that contains the PRJ and associated 1D result files (RXR 
+                    and RZ1 files). Drag-and-drop the PRJ file onto the 1DZRead.exe icon 
+                    and respond to the input prompts which enable you to select the zones, 
+                    contaminants and number of cells to output. You can then open the 
+                    tab-delimited file with a spreadsheet program to view the results.
+                  </p>
+                  <p>Download 1D Zone Data file converter: [
+                    <a href="../docs/1DZRead.zip">1DZRead.zip</a>] 
+                    (approximately 60 KB)  
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System.">
+                  </p>
+                  <p><a onclick="hide('onedzreaddetails');">Hide</a></p>
+                </div>
+              </td>
+            </tr>
+            <!-- WPC Translator-->
+            <tr id="wpctrans">
+              <td>
+                <a onclick="show('wpctransdetails', 'wpctrans');">
+                  <img src="../images/utils.png" alt="Utility Software Icon" width="48" height="48" class="borderless">
+                </a>
+              </td>
+              <td class="programcol">
+                <a onclick="show('wpctransdetails', 'wpctrans');">WPC Translator</a>
+              </td>
+              <td class="desccol"><em>Use to convert external wind pressures calculated using CFD0 to CONTAM wind pressure profile library format.</td>
+              <td class="center redtext">1.0</td>
+              <td class="center redtext">Dec 13th, 2010 </td>
+            </tr>
+            <tr id="wpctransdetails" class="showhide">
+              <td colspan="5">
+                <div>
+                  <h2>WPC Translator</h2>
+                  <p>Use to convert external wind pressures calculated using CFD0 to 
+                    CONTAM wind pressure profile library format. See the 
+                    <a href="../CONTAM/Tutorials.htm">CONTAM 3.0 Tutorial</a> for more 
+                    information.
+                  </p>
+                  <p>Download WPCTranslator: [
+                    <a href="../docs/WPCTranslator.zip">WPCTranslator.zip</a>] 
+                    (approximately 16 KB) 
+                    <img src="../images/winicon.png" alt="This program is for the Windows Operating System.">
+                  </p>
+                  <p><a onclick="hide('wpctransdetails');">Hide</a></p>
+                </div>
+              </td>
+            </tr>
+         </tbody>
+      </table>
+      </div>
+<!-- InstanceEndEditable --> </div>
+	<div id="flexcontainer2">
+		<div id="leftnav"> <!-- InstanceBeginEditable name="Nav" -->
+    <a href="../CONTAM/disclaimer.htm">Disclaimer</a>
+<!-- InstanceEndEditable --> </div>
+		<div id="footer"> <!-- InstanceBeginEditable name="footer" -->				Page
+            Updated : 
+            <!-- #BeginDate format:Am3 -->6/14/2017<!-- #EndDate -->
+            <br>
+				Page Created : 02/2003<br>
+            <!-- InstanceEndEditable --> </div>
+	</div>
+  </div>
+</div>
+</body>
+<!-- InstanceEnd --></html>

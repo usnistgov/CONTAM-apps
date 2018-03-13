@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<title>CONTAM Results Exporter - Save Files</title>
+<link rel="stylesheet" href="../../index.css">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+  function do_onload()
+  {
+    var CREUI = window.parent.CREUI;
+    
+    for (i = 0; i < CREUI.saveFilesData.length; i++) 
+    {
+      var saveDiv = document.createElement("div");
+      var savelink = document.createElement("a");
+      var saveInsertDiv = document.getElementById("saveInsertDiv");
+      var filename = CREUI.saveFilesData[i].name;
+      //bad microsoft
+      if(window.navigator.msSaveOrOpenBlob) 
+      {
+        savelink.onclick  = function()
+        {
+          window.navigator.msSaveOrOpenBlob(CREUI.saveFilesData[i].blob, filename);
+        }
+        savelink.style.cursor = "pointer";
+        savelink.style.color = "#00f";
+        savelink.style.textDecoration = "underline";
+      }
+      else
+      {
+        savelink.download = filename;
+        savelink.href = window.URL.createObjectURL(CREUI.saveFilesData[i].blob);
+      }
+      savelink.textContent = CREUI.saveFilesData[i].linktext;
+      saveDiv.className = "section";
+      saveDiv.appendChild(savelink);
+      saveInsertDiv.appendChild(saveDiv);
+    }
+  }
+
+</script>
+</head>
+<body onload="do_onload();" class="notemplate">
+  <div style="display:flex; flex-flow:row;">
+    <div style="display:flex; flex-flow:column;" id="saveInsertDiv">
+    </div>
+  </div>
+
+</body>
+</html>

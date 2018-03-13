@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<title>CONTAM to EnergyPlus Infiltration Tool</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" href="../../index.css">
+<script type="text/javascript" src="../contam/units_1.js"></script>
+<script>
+function on_load()
+{
+  var CREUI = window.parent.CREUI;
+  var BSA_Input = document.getElementById('BSA_Input');
+  var BSA_Combo = document.getElementById('BSA_Combo');
+  CONTAM.Units.SetupUnitInputs(BSA_Input, BSA_Combo, 0, 
+    CONTAM.Units.AreaConvert, 1000, CONTAM.Units.Strings.Area);
+  CREUI.options.ACHExport.idfFileName = "file.idf";
+  CREUI.options.ACHExport.csvFileName = "file.csv";
+}
+
+function on_ok()
+{
+  var CREUI = window.parent.CREUI;
+  var achFileInput = document.getElementById("ach-input");
+  var BSA_Input = document.getElementById('BSA_Input');
+
+  if(!achFileInput.files || achFileInput.files.length == 0)
+  {
+    alert("Select an ACH file.");
+    return;
+  }
+  
+  //check building surface area
+  var BSA = parseFloat(BSA_Input.baseValue);
+  if(BSA <= 0)
+  {
+    alert("The building surface area must be greater than zero.");
+    return;
+  }
+  CREUI.options.ACHExport.BSA = BSA;
+  CREUI.options.ACHExport.achFile = achFileInput.files[0];
+  CREUI.options.ACHExport.outputFileName = document.getElementById("outputfilename").value;
+  CREUI.CloseDialog(true);
+}
+
+function changeOutputFilename()
+{
+  var CREUI = window.parent.CREUI;
+  var outputfilename = document.getElementById("outputfilename");
+  var filename = outputfilename.value;
+  var idfbox = document.getElementById("idf-filename");
+  var csvbox = document.getElementById("csv-filename");
+  
+  CREUI.options.ACHExport.idfFileName = filename + ".idf";
+  idfbox.textContent = CREUI.options.ACHExport.idfFileName;
+  
+  CREUI.options.ACHExport.csvFileName = filename + ".csv";
+  csvbox.textContent = CREUI.options.ACHExport.csvFileName;
+}
+
+function UpdateFileNames()
+{
+  var achFileInput = document.getElementById("ach-input");
+  if(achFileInput.files.length == 0)
+    return;
+  var CREUI = window.parent.CREUI;
+  var filename = achFileInput.files[0].name;
+  var outputfilename = document.getElementById("outputfilename");
+  var index = filename.indexOf(".");
+  outputfilename.value = filename.substring(0,index);
+  changeOutputFilename.apply(outputfilename);
+}
+</script>
+</head>
+<body onload="on_load()" class="notemplate">
+  <div style="display:flex; flex-flow:row;">
+    <div style="display:flex; flex-flow:column;">
+      <div class="section">
+        <div style="display: inline-block; min-width: 31ex;">Select a CONTAM ACH File (*.ach):</div>
+        <input type="file" id="ach-input" onChange="UpdateFileNames();">
+      </div>
+      <div class="section">
+        <div style="display: inline-block; min-width: 31ex;">Enter a name for the output files:</div>
+        <input type="text" id="outputfilename" style="width: 16em;" onChange="changeOutputFilename()" value="file">
+      </div>
+      <div class="section">
+        <div style="display: inline-block; min-width: 31ex;">IDF filename:</div>
+        <div style="display: inline-block;" id="idf-filename">file.idf</div>
+      </div>
+      <div class="section">
+        <div style="display: inline-block; min-width: 31ex;">CSV Schedule filename:</div>
+        <div style="display: inline-block;" id="csv-filename">file.csv</div>
+      </div>
+      <div class="section">
+        <div style="display: inline-block; min-width: 31ex;">Building Surface Area</div>
+        <input type="number" step="any" min="0" value="1000" id="BSA_Input">
+        <select id="BSA_Combo"></select>
+      </div>
+      <div>
+        <input type="button" value="Cancel" style="margin: 10px;"
+               onclick="CREUI.CloseDialog(false);">
+        <input type="button" value="OK" style="margin: 10px;"
+               onclick="on_ok()">
+      </div>
+    </div>
+  </div>
+</body>
+<!-- InstanceEnd --></html>

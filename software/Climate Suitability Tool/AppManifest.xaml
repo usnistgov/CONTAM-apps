@@ -1,0 +1,22 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="Climate Suitability Web App" EntryPointType="Climate_Suitability_Web_App.App" RuntimeVersion="4.0.50826.0">
+  <Deployment.OutOfBrowserSettings>
+    <OutOfBrowserSettings ShortName="Climate Suitability Web App" EnableGPUAcceleration="False" ShowInstallMenuItem="True">
+      <OutOfBrowserSettings.Blurb>Climate Suitability Web App for use when offline or for easy access from your desktop.</OutOfBrowserSettings.Blurb>
+      <OutOfBrowserSettings.WindowSettings>
+        <WindowSettings Title="Climate Suitability Web App" Height="720" Width="920" />
+      </OutOfBrowserSettings.WindowSettings>
+      <OutOfBrowserSettings.Icons>
+        <Icon Size="16,16">Cloudy-Daytime-16x16.png</Icon>
+        <Icon Size="32,32">Cloudy-Daytime-32x32.png</Icon>
+        <Icon Size="48,48">Cloudy-Daytime-48x48.png</Icon>
+        <Icon Size="128,128">Cloudy-Daytime-128x128.png</Icon>
+      </OutOfBrowserSettings.Icons>
+    </OutOfBrowserSettings>
+  </Deployment.OutOfBrowserSettings>
+  <Deployment.Parts>
+    <AssemblyPart x:Name="Climate Suitability Web App" Source="Climate Suitability Web App.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls" Source="System.Windows.Controls.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Toolkit" Source="System.Windows.Controls.Toolkit.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Toolkit.Internals" Source="System.Windows.Controls.Toolkit.Internals.dll" />
+  </Deployment.Parts>
+</Deployment>

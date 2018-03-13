@@ -1,0 +1,20 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="ContamWeatherFileCreator" EntryPointType="ContamWeatherFileCreator.App" RuntimeVersion="3.0.40818.0">
+  <Deployment.OutOfBrowserSettings>
+    <OutOfBrowserSettings ShortName="Contam Weather File CreatorApplication" EnableGPUAcceleration="False" ShowInstallMenuItem="True">
+      <OutOfBrowserSettings.Blurb>Use the Contam Weather File Web Application on your desktop; at home, at work or on the go.</OutOfBrowserSettings.Blurb>
+      <OutOfBrowserSettings.WindowSettings>
+        <WindowSettings Title="Contam Weather File Web Application" Height="925" Width="1000" />
+      </OutOfBrowserSettings.WindowSettings>
+      <OutOfBrowserSettings.Icons>
+        <Icon Size="16,16">16x16.png</Icon>
+        <Icon Size="32,32">32x32.png</Icon>
+        <Icon Size="48,48">48x48.png</Icon>
+        <Icon Size="128,128">128x128.png</Icon>
+      </OutOfBrowserSettings.Icons>
+    </OutOfBrowserSettings>
+  </Deployment.OutOfBrowserSettings>
+  <Deployment.Parts>
+    <AssemblyPart x:Name="ContamWeatherFileCreator" Source="ContamWeatherFileCreator.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls" Source="System.Windows.Controls.dll" />
+  </Deployment.Parts>
+</Deployment>

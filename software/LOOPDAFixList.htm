@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html><!-- InstanceBegin template="/Templates/IAQanalysis.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<!-- InstanceBeginEditable name="doctitle" -->
+		<title>LoopDA Program Modifications</title>
+		<!-- InstanceEndEditable -->
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="shortcut icon" href="http://www.bfrl.nist.gov/IAQanalysis/favicon.ico" type="image/x-icon">
+<style type="text/css">
+			<!-- @import url("../index.css"); -->
+		</style>
+<link rel="stylesheet" type="text/css" href="../print.css" media="print">
+<script language="JavaScript" id="_fed_an_js_tag" src="/js/federated-analytics.all.min.js?agency=NIST&subagency=bfrl&pua=UA-42404149-15&yt=true"></script>
+<!-- InstanceBeginEditable name="head" -->		<meta name="description" content="A list of modifications made to LoopDA.">
+		
+		<meta name="keywords" content="airflow analysis; building technology; computer program; design tool; indoor air quality; multizone analysis; natural ventilation">
+   <link rel="Index" href="../sitemap.htm">
+   <link rel="Contents" href="index.htm">
+   <link rel="Home" href="../index.htm">
+   <link rel="Up" href="index.htm">		
+   <style type="text/css">
+      <!-- @import url(.././software.css); -->
+   </style><!-- InstanceEndEditable -->
+</head>
+<body>
+<div id="container">
+  <div id="top">
+    <div class="templhead">
+      <div class="nomargin">
+        <div class="templtitle"> 
+			<img src="../images/iaqalogo.png" alt="Contam Logo" name="templogo" width="49" height="51" id="templogo"> 
+			<acronym title="National Institute of Standards and Technology">NIST</acronym> Multizone Modeling Website 
+		</div>
+      </div>
+    </div>
+    <div id="list">
+      <div><a href="../index.htm" id="home" title="Multizone Modeling Homepage">Home</a></div>
+      <div><a href="index.htm" id="software" title="support and download of computer software used for modeling multizone buildings">Software</a></div>
+      <div><a href="../case%20studies/index.htm" id="cases" title="presentations of case studies of the application of CONTAM">Case Studies</a></div>
+      <div><a href="../publications/index.htm" id="pubs" title="NIST publications that are related to multizone modeling">Publications</a></div>
+      <div><a href="../applications/index.htm" id="apps" title="discussion of how multizone software can be used for a variety of applications">Applications</a></div>
+      <div><a href="../links.htm" id="links" title="Links to other IAQ analysis related material.">Links</a></div>
+	  <div id="listspacer">&nbsp;</div>
+      <div><a href="../feedback.htm" class="head" id="feedback">Feedback</a></div>
+      <div><a href="../sitemap.htm" class="head" id="sitemap">Site Map</a></div>
+    </div>
+  </div>
+  <div id="flexcontainer">
+	<div id="content"> <!-- InstanceBeginEditable name="Content" -->
+      <div id="title">
+        <div style="transform: perspective( 600px )rotateY(40deg);display:inline-block;">
+          <img src="../images/loopda2.png" style="vertical-align:middle;">
+        </div>
+        <div style="display:inline-block; padding-left:1ex;">
+          LoopDA
+        </div>
+      </div>
+
+           <h2>Modifications to LoopDA</h2>
+		     <p>
+		       LoopDA 3.0 is an update to LoopDA 1.0. It is referred to as 3.0, because it utilizes the simulation
+			   engine of CONTAM 3.0 to perform the analysis. The following is a list of new features of version
+		       3.0. Some of these features were influenced by the feedback provided by a design engineer 
+		       who evaluated the usability of version 1.0 [Daly 2003].
+			</p>   
+			 <h3>Added a Simple Thermal Design Calculation</h3>
+			<p>
+		       In version 1.0, the user was required to select a design airflow rate and temperature difference
+			   based on their judgment or calculations performed external to the program. LoopDA 3.0 now 
+			   provides a simple thermal design calculation that determines these values based on a new set 
+			   of zone properties including: zone dimensions (floor area and external surface area), minimum 
+			   airflow requirements, heat sources and overall heat transfer coefficient of the external surface area.
+			   A Simple Thermal Design dialog box provides a list of available loops and associated zones along 
+			   with relevant airflow requirements (minimum ventilation rate and cooling load). Users set the 
+			   design airflow rate for each loop based on this information then execute the simple thermal 
+			   design calculation to: 
+			   <ul>
+                 <li>balance the airflow through the loops,</li>
+				 <li>set the design airflow rates for the natural ventilation airflow components (paths and ducts),</li>
+				 <li>perform a steady-state heat transfer calculation to determine the resultant temperature 
+                   of ventilation air for each of the airflow components.</li>
+			   </ul>
+			</p>
+			<h3>Modified Loop Drawing</h3>
+			<p>
+		       In LoopDA 1.0 the user was required to draw the complete pressure loop that started and 
+			   ended at the same point on the SketchPad. Now one need only draw an "arrow" that indicates 
+			   the intended airflow paths through the building. Drawing begins outside of the building through 
+			   the desired flow paths and ducts, and ends just outside the path (or duct) through which the air 
+			   is to exit. This approach provides a more conceptual view of how a designer might represent 
+			   their intended airflow patterns.
+			</p>
+			<h3>Integrated Asymptotic Plots</h3>
+			<p>
+	       		LoopDA 1.0 required the user to export loop data to a text file, import the text file to a 
+				spreadsheet template, and then utilize the spreadsheet to generate  so-called asymptotic 
+				plots of the relationship between the sizes of the airflow paths and ducts associated with each loop. 
+				The need for this cumbersome process has been eliminated. The ability to generate and view 
+				these plots has been directly integrated into the program, greatly streamlining the design process.				
+			</p>
+			<h3>Streamlined LoopDA Interface</h3>
+			<p>
+				LoopDA 1.0 was largely based on the ContamW code base. This resulted in an interface that 
+				contained some unnecessary and somewhat cumbersome features. The following is a list of 
+				how the interface has been streamlined:
+		   <ol>
+					<li>The menus have been reduced to include only LoopDA-related commands.</li>
+					<li>The icon placement menu only allows the drawing of LoopDA-related icons: zones, paths and annotations.</li>
+					<li>Wind pressure is now simply accounted for via a wind pressure coefficient provided for 
+						each individual envelope path or duct terminal.</li>
+					<li>Only those flow element types available in LoopDA are listed for selection (orifice, 
+						general powerlaw, self-regulating vent). The creation of each flow path or duct now 
+						automatically generates a distinct airflow or ductflow element.</li>
+					<li>Zone properties have been enhanced to support the simple thermal design calculation.</li>
+		   </ol>
+			</p>
+			<h3>Simplified Analysis Calculation</h3>
+			<p>
+				The calculations consist only of steady airflow calculations by ContamX, so access to the simulation run 
+				control has been omitted. If one wishes to perform a more detailed calculation, 
+				the LoopDA project can be saved as a CONTAM project to utilize the full capability of CONTAM. 
+				A comparison between the design and analysis values  is provided directly on the SketchPad.
+			</p>
+			<h3>Added a Self-regulating Vent</h3>
+			<p>
+				A self-regulating vent airflow component was added based on the work of James Axley [Axley 2001a].
+			</p>	
+
+           <!-- InstanceEndEditable --> </div>
+	<div id="flexcontainer2">
+		<div id="leftnav"> <!-- InstanceBeginEditable name="Nav" -->      <div class="header">LoopDA</div>
+			<ul>
+				<li><a href="LOOPDAdesc.htm">Description</a></li>
+				<li>Program Modifications</li>
+				<li><a href="LOOPDAdownload.htm">Download</a></li>
+				<li><a href="LOOPDAmanual.htm">User Guide</a></li>
+			</ul><!-- InstanceEndEditable --> </div>
+		<div id="footer"> <!-- InstanceBeginEditable name="footer" -->				Page Updated : 
+            <!-- #BeginDate format:Am3 -->03/07/2012<!-- #EndDate -->
+            <br>
+				Page Created : 04/2003<br>
+            <!-- InstanceEndEditable --> </div>
+	</div>
+  </div>
+</div>
+</body>
+<!-- InstanceEnd --></html>

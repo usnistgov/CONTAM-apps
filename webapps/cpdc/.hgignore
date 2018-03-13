@@ -1,0 +1,4 @@
+syntax: glob
+*.suo
+jqplot/docs/*
+jqplot/examples/*

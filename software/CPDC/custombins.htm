@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+<head>
+<title>CONTAM Particle Distribution Calculator - Custom Bins</title>
+<style type="text/css">
+ body
+ {
+   background-color: #C98847;
+   color : black
+ }
+ td
+ {
+   background-color: #D9B898; 
+   border: solid #998C7F thin;
+   color : black;
+ }
+ 
+ th
+ {
+   background-color:#998C7F;
+   border: solid #998C7F thin;
+   color : black;
+   font-weight: bold; 
+   vertical-align: bottom;
+ }
+ .so 
+ {
+   background-color: #D9B898; 
+   border: outset #998C7F medium;
+   color : ButtonText;
+ }
+</style>
+<script type="text/javascript">
+  var pd;
+  
+  function init()
+  {
+    if(window.parent.pd === undefined)
+      alert('This page must be used as part of the CONTAM PDC.');
+    pd = window.parent.pd;
+    if (pd.Dp === undefined)
+      window.numBins = 0;
+    else
+      window.numBins = pd.NB;
+    document.getElementById('NumBins').value = numBins.toString();
+  }
+  
+  function SetBins()
+  {
+    var numBinsStr = document.getElementById('NumBins').value;
+    window.numBins = parseInt(numBinsStr);
+    if(isNaN(window.numBins))
+    {
+      alert('The value given for number of bins is not a valid integer.');
+      return;
+    }
+    if(window.numBins < 1 ||
+       window.numBins > 100)
+    {
+      alert('The number of bins must be in the range of 1 to 100');
+      return;
+    }
+    
+    var ids = ['tbody'];
+    ClearChildNodes(ids);
+    var tbody = document.getElementById('tbody');
+    
+    var i;
+    for(i=0;i<window.numBins;++i)
+    {
+      var tr = tbody.insertRow(-1);
+      
+      var td1 = tr.insertCell(-1);
+      td1.textContent = (i+1).toString();
+      
+      var td2 = tr.insertCell(-1);
+      var input = document.createElement('input');
+      input.type = 'text';
+      if(pd.Dp[i] === undefined)
+        input.value = (0.01 * (i + 1)).toString();
+      else
+        input.value = pd.Dp[i].toString();
+      td2.appendChild(input);
+
+      var td3 = tr.insertCell(-1);
+      var input2 = document.createElement('input');
+      input2.type = 'text';
+      if (pd.ni1[i] === undefined)
+        input2.value = '0';
+      else
+        input2.value = pd.ni1[i].toString();
+      td3.appendChild(input2);
+
+      if (pd.Mode > 1)
+      {
+        var td4 = tr.insertCell(-1);
+        var input3 = document.createElement('input');
+        input3.type = 'text';
+        if (pd.ni2[i] === undefined)
+          input3.value = '0';
+        else
+          input3.value = pd.ni2[i].toString();
+        td4.appendChild(input3);
+      }
+
+      if (pd.Mode > 2)
+      {
+        var td5 = tr.insertCell(-1);
+        var input4 = document.createElement('input');
+        input4.type = 'text';
+        if (pd.ni3[i] === undefined)
+          input4.value = '0';
+        else
+          input4.value = pd.ni3[i].toString();
+        td5.appendChild(input4);
+      }
+    } 
+    
+  }
+
+  ClearChildNodes = function (nodeids)
+  {
+    var i;
+    for(i=0; i<nodeids.length; i++)
+    {
+      var node  = document.getElementById(nodeids[i]);
+      while (node.hasChildNodes())
+      {
+        node.removeChild(node.firstChild);
+      }
+    }
+  }
+  
+  function Cancel()
+  {
+    pd.CloseDialog(false);
+  }
+  
+  function Ok()
+  {
+    var i;
+    var tbody = document.getElementById('tbody');
+
+    if (window.numBins > 0)
+    {
+      window.Bins = [];
+      window.Ni1 = [];
+      if (pd.Mode > 1)
+        window.Ni2 = [];
+      if (pd.Mode > 2)
+        window.Ni3 = [];
+
+      for (i = 0; i < window.numBins; ++i)
+      {
+        var tr = tbody.children[i];
+        var td2 = tr.children[1];
+        var td3 = tr.children[2];
+        if (pd.Mode > 1)
+          var td4 = tr.children[3];
+        if (pd.Mode > 2)
+          var td5 = tr.children[4];
+        var input = td2.children[0];
+        var input2 = td3.children[0];
+        if (pd.Mode > 1)
+          var input3 = td4.children[0];
+        if (pd.Mode > 2)
+          var input4 = td5.children[0];
+
+        var bindiam = parseFloat(input.value);
+        if (isNaN(bindiam))
+        {
+          alert('A bin diameter value is not a valid number: ' + input.value);
+          return;
+        }
+        if (bindiam <= window.Bins[i - 1])
+        {
+          alert('The bin diameters must be in ascending order.');
+          return;
+        }
+        window.Bins[i] = bindiam;
+
+        var binNi1 = parseFloat(input2.value);
+        if (isNaN(binNi1))
+        {
+          alert('A bin concentration value is not a valid number: ' + input2.valueOf);
+          return;
+        }
+        window.Ni1[i] = binNi1;
+
+        if (pd.Mode > 1)
+        {
+          var binNi2 = parseFloat(input3.value);
+          if (isNaN(binNi2))
+          {
+            alert('A bin concentration value is not a valid number: ' + input3.valueOf);
+            return;
+          }
+          window.Ni2[i] = binNi2;
+        }
+
+        if (pd.Mode > 2)
+        {
+          var binNi3 = parseFloat(input4.value);
+          if (isNaN(binNi3))
+          {
+            alert('A bin concentration value is not a valid number: ' + input4.valueOf);
+            return;
+          }
+          window.Ni3[i] = binNi3;
+        }
+      }
+      pd.CloseDialog(true);
+    }
+    else
+      alert('No bins have been defined');
+  }
+
+
+</script>
+</head>
+<body onload="init();">
+  <div>Number of Bins: <input type="text" value="5" id="NumBins"> <input type="button" onclick="SetBins();" value="Apply"></div>
+  <br>
+  <table class="so">
+    <thead>
+      <tr>
+        <th>Bin #</th>
+        <th>Bin midpoint diameter &micro;m</th>
+        <th>Bin concentration #/cm<sup>3</sup> - Mode 1</th>
+        <th>Bin concentration #/cm<sup>3</sup> - Mode 2</th>
+        <th>Bin concentration #/cm<sup>3</sup> - Mode 3</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+  </table>     
+  <br>
+  <div><input type="button" value="Ok" onclick="Ok();"> <input type="button" onclick="Cancel();" value="Cancel"></div>
+</body>
+</html>

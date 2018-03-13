@@ -1,0 +1,521 @@
+<!DOCTYPE HTML>
+<html><!-- InstanceBegin template="/Templates/IAQanalysis.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>CONTAM Particle Distribution Calculator</title>
+<!-- InstanceEndEditable -->
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="shortcut icon" href="http://www.bfrl.nist.gov/IAQanalysis/favicon.ico" type="image/x-icon">
+<style type="text/css">
+			<!-- @import url("../../index.css"); -->
+		</style>
+<link rel="stylesheet" type="text/css" href="../../print.css" media="print">
+<script language="JavaScript" id="_fed_an_js_tag" src="/js/federated-analytics.all.min.js?agency=NIST&subagency=bfrl&pua=UA-42404149-15&yt=true"></script>
+<!-- InstanceBeginEditable name="head" -->
+<link rel="stylesheet" type="text/css" href="../../software.css">
+<style type="text/css">
+ 
+  .table { display: table; }
+  .tr { display: table-row; }
+  .td 
+  { 
+    display: table-cell; 
+    padding: 2px;
+  }
+  .th 
+  { 
+    display: table-cell; 
+    font-weight: bold; 
+    padding: 2px;
+  }
+  .lh { line-height: 1.8em; }
+  .so 
+  {
+    background-color: #F4F5F9; 
+    border: solid #679595 2px;
+    color : black;
+    border-radius:10px;
+    padding:5px;
+  }
+  .si 
+  {
+    background-color: white; 
+    border: solid #679595 medium;
+    color : black;
+  }
+ 
+  .jqplot-target
+  {
+    color: black !important;
+  } 
+ 
+  caption
+  {
+    margin-top: 10px;
+    font-size:  x-large;
+  }
+</style>
+<script type="text/javascript" src="main.js"></script>
+
+  <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../src/excanvas.min.js"></script><![endif]-->
+  
+  <link rel="stylesheet" type="text/css" href="jqplot/jquery.jqplot.css" />
+  
+  <!-- BEGIN: load jquery -->
+  <script language="javascript" type="text/javascript" src="jqplot/jquery.min.js"></script>
+  <!-- END: load jquery -->
+  
+  <!-- BEGIN: load jqplot -->
+  <script language="javascript" type="text/javascript" src="jqplot/jquery.jqplot.js"></script>
+  <script language="javascript" type="text/javascript" src="jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  <script type="text/javascript" language="javascript" src="jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+
+  <!-- END: load jqplot -->
+  <script type="text/javascript" language="javascript">
+  
+  $(document).ready(function(){
+      $.jqplot.config.enablePlugins = true;
+  });
+  
+  </script>
+<script language="JavaScript" id="_fed_an_js_tag" src="/js/federated-analytics.all.min.js?agency=NIST&subagency=bfrl&pua=UA-42404149-15&yt=true"></script>  
+<!-- InstanceEndEditable -->
+</head>
+<body>
+<div id="container">
+  <div id="top">
+    <div class="templhead">
+      <div class="nomargin">
+        <div class="templtitle"> 
+			<img src="../../images/iaqalogo.gif" alt="Contam Logo" name="templogo" width="49" height="51" id="templogo"> 
+			<acronym title="National Institute of Standards and Technology">NIST</acronym> Multizone Modeling Website 
+		</div>
+      </div>
+    </div>
+    <div id="list">
+      <div><a href="../../index.htm" id="home" title="Multizone Modeling Homepage">Home</a></div>
+      <div><a href="../software/index.htm" id="software" title="support and download of computer software used for modeling multizone buildings">Software</a></div>
+      <div><a href="../../case studies/index.htm" id="cases" title="presentations of case studies of the application of CONTAM">Case Studies</a></div>
+      <div><a href="../../publications/index.htm" id="pubs" title="NIST publications that are related to multizone modeling">Publications</a></div>
+      <div><a href="../../applications/index.htm" id="apps" title="discussion of how multizone software can be used for a variety of applications">Applications</a></div>
+      <div><a href="../../links.htm" id="links" title="Links to other IAQ analysis related material.">Links</a></div>
+	  <div id="listspacer">&nbsp;</div>
+      <div><a href="../../feedback.htm" class="head" id="feedback">Feedback</a></div>
+      <div><a href="../../sitemap.htm" class="head" id="sitemap">Site Map</a></div>
+    </div>
+  </div>
+  <div id="flexcontainer">
+	<div id="content"> <!-- InstanceBeginEditable name="Content" -->
+<noscript><p>Javascript is required for this tool.</p></noscript> 
+<div id="title">
+  <div style="transform: perspective( 600px )rotateY(40deg);display:inline-block;">
+    <img src="../../images/utils.png" style="vertical-align:middle;">
+  </div>
+  <div style="display:inline-block; padding-left:1ex;">
+    CONTAM Particle Distribution Calculator
+  </div>
+</div>
+<h2>Inputs</h2>
+<div style="clear:left; margin: 5px; float:left;" class="so">
+  <div class="table">
+    <div class="tr">
+      <div class="th">General</div>
+      <div class="th"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Number of Modes:</div>
+      <div class="td lh">
+        <input type="radio" id="mode1" name="modes" checked onClick="pd.ModesChange();">1
+        <input type="radio" id="mode2" name="modes" onClick="pd.ModesChange();">2
+        <input type="radio" id="mode3" name="modes" onClick="pd.ModesChange();">3
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td">Bins:</div>
+      <div class="td lh">
+        <input type="radio" id="regularbins" name="bins" checked onClick="pd.BinsChange();">Auto Bins
+        <input type="radio" id="custombins" name="bins" onClick="pd.BinsChange();">User-Defined Bins
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td">Number of Bins:</div>
+      <div class="td lh"><input type="text" id="nb" value="20"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Smallest Particle Diameter:</div>
+      <div class="td lh"><input type="text" id="d1" value="0.001"> &micro;m</div>
+    </div>
+    <div class="tr">
+      <div class="td">Largest Particle Diameter:</div>
+      <div class="td lh"><input type="text" id="dn" value="10"> &micro;m</div>
+    </div>
+    <div class="tr">
+      <div class="td" style="text-align:center;">
+        <input type="button" value="Define User Bins" onClick="pd.UseCustomBins();" id="usecustombins" disabled>
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td">&rho; air:</div>
+      <div class="td lh"><input type="text" id="rhoa" value="1.2041"> kg/m<sup>3</sup></div>
+    </div>
+    <div class="tr">
+      <div class="td">&rho; particles:</div>
+      <div class="td lh"><input type="text" id="rhop" value="1200"> kg/m<sup>3</sup></div>
+    </div>
+  </div>
+</div>
+<div style="margin: 5px; float:left;" class="so" id="mode1inputs">
+  <div class="table">
+    <div class="tr">
+      <div class="th">Mode 1</div>
+      <div class="th"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Distribution Type:</div>
+      <div class="td lh">
+        <input type="radio" id="lognormal1" name="dt1" checked onClick="pd.Distr1Change();"> LogNormal 
+        <input type="radio" id="normal1" name="dt1" onClick="pd.Distr1Change();"> Normal
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td" id="m1text">&micro;<sub>g</sub>:</div>
+      <div class="td lh"><input type="text" id="m1" value="0.014"> &micro;m</div>        
+    </div>
+    <div class="tr">
+      <div class="td" id="std1text">&sigma;<sub>g</sub>:</div>
+      <div class="td lh"><input type="text" id="std1" value="1.8"> &micro;m</div>        
+    </div>
+    <div class="tr">
+      <div class="td">Total N:</div>
+      <div class="td lh"><input type="text" id="tnc1" value="106000"> #/cm<sup>3</sup></div>        
+    </div>
+  </div>
+</div>
+<div style="margin: 5px; float:left;display:none;" class="so" id="mode2inputs">
+  <div class="table">
+    <div class="tr">
+      <div class="th">Mode 2</div>
+      <div class="th"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Distribution Type:</div>
+      <div class="td lh">
+        <input type="radio" id="lognormal2" name="dt2" checked onClick="pd.Distr2Change();"> LogNormal 
+        <input type="radio" id="normal2" name="dt2" onClick="pd.Distr2Change();"> Normal
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td" id="m2text">&micro;<sub>g</sub>:</div>
+      <div class="td lh"><input type="text" id="m2" value="0.054"> &micro;m</div>        
+    </div>
+    <div class="tr">
+      <div class="td" id="std2text">&sigma;<sub>g</sub>:</div>
+      <div class="td lh"><input type="text" id="std2" value="2.16"> &micro;m</div>        
+    </div>
+    <div class="tr">
+      <div class="td">Total N:</div>
+      <div class="td lh"><input type="text" id="tnc2" value="32000"> #/cm<sup>3</sup></div>        
+    </div>
+  </div>
+</div>
+<div style="margin: 5px; float:left;display:none;" class="so" id="mode3inputs">
+  <div class="table">
+    <div class="tr">
+      <div class="th">Mode 3</div>
+      <div class="th"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Distribution Type:</div>
+      <div class="td lh">
+        <input type="radio" id="lognormal3" name="dt3" checked onClick="pd.Distr3Change();"> LogNormal 
+        <input type="radio" id="normal3" name="dt3" onClick="pd.Distr3Change();"> Normal
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td" id="m3text">&micro;<sub>g</sub>:</div>
+      <div class="td lh"><input type="text" id="m3" value="0.86"> &micro;m</div>        
+    </div>
+    <div class="tr">
+      <div class="td" id="std3text">&sigma;<sub>g</sub>:</div>
+      <div class="td lh"><input type="text" id="std3" value="2.21"> &micro;m</div>        
+    </div>
+    <div class="tr">
+      <div class="td">Total N:</div>
+      <div class="td lh"><input type="text" id="tnc3" value="5.4"> #/cm<sup>3</sup></div>        
+    </div>
+  </div>
+</div>
+<div style="clear:both; margin: 5px;">
+  <input type="button" value="Calculate" onClick="pd.Run();">
+  <input type="button" value="Help" onClick="pd.Help();">
+</div>
+<h2 id="resultsheader" style="display:none;">Results</h2>
+<div>
+  <table style="float:left; margin: 5px;display:none;" class="so" id="mode1calcs">
+    <caption>Mode 1</caption>
+    <thead>
+      <tr id="calcs1head">
+      </tr>
+    </thead>
+    <tbody id="calcs1">
+    </tbody>
+  </table>
+  <table style="float:left; margin: 5px;display:none;" class="so" id="mode2calcs">
+    <caption>Mode 2</caption>
+    <thead>
+      <tr id="calcs2head">
+      </tr>
+    </thead>
+    <tbody id="calcs2">
+    </tbody>
+  </table>
+  <table style="float:left; margin: 5px;display:none;" class="so" id="mode3calcs">
+    <caption>Mode 3</caption>
+    <thead>
+      <tr id="calcs3head">
+      </tr>
+    </thead>
+    <tbody id="calcs3">
+    </tbody>
+  </table>
+</div>
+<div style="display:none;float:left; margin: 5px; clear:left;" id="plots" class="so">
+  <div style="font-weight: bold;">Plots</div>
+  <div style="padding: 10px;">
+    <div style="display:inline-block; padding: 2px;">
+      <input type="radio" id="PlotNi" name="Plots" checked onClick="pd.ChangePlot();"><abbr title="# of Particles">N</abbr>
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="PlotdNi" name="Plots" onClick="pd.ChangePlot();">&Delta;N/&Delta;lnD
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotvi" name="Plots" onClick="pd.ChangePlot();"><abbr title="Volume">V</abbr>
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotdvi" name="Plots" onClick="pd.ChangePlot();">&Delta;V/&Delta;lnD
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotmi" name="Plots" onClick="pd.ChangePlot();"><abbr title="Mass">M</abbr>
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotdmi" name="Plots" onClick="pd.ChangePlot();">&Delta;M/&Delta;lnD
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotmfi" name="Plots" onClick="pd.ChangePlot();"><abbr title="Mass Fraction">m</abbr>
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotdmfi" name="Plots" onClick="pd.ChangePlot();">&Delta;m/&Delta;lnD
+    </div>
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotai" name="Plots" onClick="pd.ChangePlot();"><abbr title="Area">A</abbr>
+    </div>
+
+    <div style="display:inline-block; margin-left: 10px; padding: 2px;">
+      <input type="radio" id="Plotdai" name="Plots" onClick="pd.ChangePlot();">&Delta;A/&Delta;lnD
+    </div>
+    <div style="margin-top: 5px;">
+      <input type="checkbox" id="plotmarkers" checked onClick="pd.ChangeMarkers();">Show datapoints
+    </div>
+  </div>
+</div>
+<div style="clear:left; float:left; margin:5px;display:none;" class="so" id="mode1plot">
+  <h3 style="margin:0px;">Mode 1</h3>
+  <div style="padding:10px;">
+    <div id="chart1" style="margin-top:20px; margin-left:20px; width:800px; height:600px; padding-right: 20px;"></div>
+  </div>
+</div>
+<div style="float:left; margin:5px;display:none;" class="so" id="mode2plot">
+  <h3 style="margin:0px;">Mode 2</h3>
+  <div style="padding:10px;">
+    <div id="chart2" style="margin-top:20px; margin-left:20px; width:800px; height:600px; padding-right: 20px;"></div>
+  </div>
+</div>
+<div style="float:left; margin:5px;display:none;" class="so" id="mode3plot">
+  <h3 style="margin:0px;">Mode 3</h3>
+  <div style="padding:10px;">
+    <div id="chart3" style="margin-top:20px; margin-left:20px; width:800px; height:600px; padding-right: 20px;"></div>
+  </div>
+</div>
+<div style="clear:left; margin:5px; float:left;display:none;" class="so" id="combinedplot">
+  <h3 style="margin:0px;">Combined</h3>
+  <div style="padding:10px;">
+    <div id="chart4" style="margin-top:20px; margin-left:20px; width:900px; height:600px; padding-right: 20px;"></div>
+    <div style="text-align:center; margin-top: 10px;">
+      <div style="display:inline-block; margin-left: 15px; padding: 2px;" class="si">
+        <input type="radio" id="xaxisLog" name="xaxis" checked onClick="pd.ChangePlot();">X-axis natural log
+      </div>
+      <div style="display:inline-block; margin-left: 15px; padding: 2px;" class="si">
+        <input type="radio" id="xaxisLinear" name="xaxis" onClick="pd.ChangePlot();">X-axis linear
+      </div>
+      <div style="display:inline-block; margin-left: 15px; padding: 2px;" class="si">
+        <input type="radio" id="yaxisLog" name="yaxis" checked onClick="pd.ChangePlot();">Y-axis natural log
+      </div>
+      <div style="display:inline-block; margin-left: 15px; padding: 2px;" class="si">
+        <input type="radio" id="yaxisLinear" name="yaxis" onClick="pd.ChangePlot();">Y-axis linear
+      </div>
+    </div>
+    <div style="padding: 5px; text-align: center; margin-top: 5px;">
+      Y value min: <input type="text" id="yaxismin"> Y value max: <input type="text" id="yaxismax"> 
+      <input type="button" onClick="pd.SetYAxis(true);" value="Set Y value range">
+      <input type="button" onClick="pd.SetYAxis(false);" value="Auto Y value range">
+    </div>
+  </div>
+</div>
+<div style="clear:left; margin-top: 10px; margin-bottom: 10px; float:left; display:none;" class="so" id="contamlib">
+  <h3 style="margin:0px;">CONTAM Library</h3>
+  <div style="padding: 10px;">
+    <textarea id="libtext" style="width: 900px; height: 500px;" wrap="off"></textarea>
+  </div>
+</div>
+<div style="clear:left; margin-top: 10px; margin-bottom: 10px; float:left; display:none;" class="so" id="ctmfile">
+  <h3 style="margin:0px;">CONTAM Contaminant File</h3>
+  <div style="padding: 10px;">
+    <textarea id="ctmtext" style="width: 900px; height: 500px;" wrap="off"></textarea>
+  </div>
+</div>
+<div style="clear:left; margin: 5px; display:none;" id="resultsbutton">
+  <input type="button" onClick="pd.ShowHideResults();" value="Show/Hide Calculation Results">
+</div>
+<div id="resultscalcs" style="display:none;">
+  <table class="so">
+    <caption>General calculations</caption>
+    <thead>
+      <tr>
+        <th>bin</th>
+        <th>Dp</th>
+        <th>Vp</th>
+        <th>V<sub>lo</sub></th>
+        <th>V<sub>hi</sub></th>
+        <th>D<sub>lo</sub></th>
+        <th>D<sub>hi</sub></th>
+        <th>Vrat</th>
+        <th>Mp</th>
+
+        <th>&Delta;v</th>
+        <th>&Delta;d</th>
+        <th>ln(Dp)</th>
+      </tr>
+    </thead>
+    <tbody id="resultbodygen">
+    </tbody>
+  </table>
+  <table class="so">
+    <caption>Mode1 calculations</caption>
+    <thead>
+      <tr>
+        <th>bin</th>
+        <th>Dp</th>
+        <th>n<sub>i</sub></th>
+        <th>&Delta;lnDp</th>
+        <th>&Delta;N/&Delta;lnDp</th>
+        <th>Ni/&Delta;Dp</th>
+        <th>n[ln(Dp) - ln(&micro;g)]<sup>2</sup></th>
+        <th>N(Dp-Davg)<sup>2</sup></th>
+        <th>v<sub>i</sub></th>
+        <th>&Delta;v/&Delta;lnDp</th>
+        <th>m<sub>i</sub></th>
+        <th>&Delta;m/&Delta;lnDp</th>
+        <th>mf<sub>i</sub></th>
+        <th>&Delta;mf/&Delta;lnDp</th>
+        <th>a<sub>i</sub></th>
+        <th>&Delta;a/&Delta;lnDp</th>
+      </tr>
+    </thead>
+    <tbody id="resultbody1">
+    </tbody>
+  </table>
+  <table class="so">
+    <caption>Mode2 calculations</caption>
+    <thead>
+      <tr>
+        <th>bin</th>
+        <th>Dp</th>
+        <th>n<sub>i</sub></th>
+        <th>&Delta;lnDp</th>
+        <th>&Delta;N/&Delta;lnDp</th>
+        <th>Ni/&Delta;Dp</th>
+        <th>n[ln(Dp) - ln(&micro;g)]<sup>2</sup></th>
+        <th>N(Dp-Davg)<sup>2</sup></th>
+        <th>v<sub>i</sub></th>
+        <th>&Delta;v/&Delta;lnDp</th>
+        <th>m<sub>i</sub></th>
+        <th>&Delta;m/&Delta;lnDp</th>
+        <th>mf<sub>i</sub></th>
+        <th>&Delta;mf/&Delta;lnDp</th>
+        <th>a<sub>i</sub></th>
+        <th>&Delta;a/&Delta;lnDp</th>
+      </tr>
+    </thead>
+    <tbody id="resultbody2">
+    </tbody>
+  </table>
+  <table class="so">
+    <caption>Mode3 calculations</caption>
+    <thead>
+      <tr>
+        <th>bin</th>
+        <th>Dp</th>
+        <th>n<sub>i</sub></th>
+        <th>&Delta;lnDp</th>
+        <th>&Delta;N/&Delta;lnDp</th>
+        <th>Ni/&Delta;Dp</th>
+        <th>n[ln(Dp) - ln(&micro;g)]<sup>2</sup></th>
+        <th>N(Dp-Davg)<sup>2</sup></th>
+        <th>v<sub>i</sub></th>
+        <th>&Delta;v/&Delta;lnDp</th>
+        <th>m<sub>i</sub></th>
+        <th>&Delta;m/&Delta;lnDp</th>
+        <th>mf<sub>i</sub></th>
+        <th>&Delta;mf/&Delta;lnDp</th>
+        <th>a<sub>i</sub></th>
+        <th>&Delta;a/&Delta;lnDp</th>
+      </tr>
+    </thead>
+    <tbody id="resultbody3">
+    </tbody>
+  </table>
+</div>
+  <!-- dialog -->
+  <div id="dialogcontainer">
+    <div style="height: 10%;"></div>
+    <div id="dialogwindow">
+      <div id="dialogtitlecontainer">
+        <div id="dialogtitlebar">
+          <div id="dialogtitlebox">
+            <span id="dialogtitle">title</span>
+          </div>
+          <div id="dialogclosebutton">
+            <svg height="20" width="20" onclick="pd.CloseDialog(false);" style="cursor: pointer;">
+              <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2"  id="dialogclosebuttoncircle" />
+              <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+              <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+            </svg> 
+          </div>
+        </div>
+      </div>
+      <div id="dialogframecontainer">
+        <iframe id="dialogframe"></iframe>
+      </div>
+    </div>
+  </div>
+
+	<!-- InstanceEndEditable --> </div>
+	<div id="flexcontainer2">
+		<div id="leftnav"> <!-- InstanceBeginEditable name="Nav" -->
+      <div class="header">Particle Distribution Calculator</div>
+      <ul>
+        <li>Application</li>
+        <li><a href="help.htm">Help</a></li>
+      </ul>
+<!-- InstanceEndEditable --> </div>
+		<div id="footer"> <!-- InstanceBeginEditable name="footer" -->
+    Page Updated : <!-- #BeginDate format:Am3 -->11/05/2014<!-- #EndDate --><br>
+    Page Created : 11/14
+<!-- InstanceEndEditable --> </div>
+	</div>
+  </div>
+</div>
+</body>
+<!-- InstanceEnd --></html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<title>CONTAM Results Exporter - Select which paths, duct segments, duct leakages and duct terminals to output</title>
+<link rel="stylesheet" href="../../index.css">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+  function do_onload()
+  {
+    var CWD = window.parent.CWD;
+    var pathList = document.getElementById("pathList");
+    var dctList = document.getElementById("dctList");
+    var leakList = document.getElementById("leakList");
+    var termsList = document.getElementById("termsList");
+    var i;
+    
+    var varArray = ["CONTAM.Project.PathList", "CONTAM.Project.DctList",
+      "CONTAM.Project.JctList"];
+    CWD.GetArrayOfContamVariables(varArray).then(function(result)
+    {
+      result.PathList.forEach(doPaths);
+      result.DctList.forEach(doDucts);
+      result.JctList.forEach(doTerms);
+      CWD.CallContamFunction("CONTAM.Simread.getLeaks").then(function(leaks)
+      {
+        leaks.forEach(doLeaks);
+      });
+    });
+    
+    function doPaths(pth)
+    {
+      var option = document.createElement("option");
+      option.text = pth.nr.toString() + " lvl: " + pth.pld.nr;
+      option.value = pth.nr;
+      pathList.add(option);
+    }
+    
+    function doDucts(dct)
+    {
+      var option = document.createElement("option");
+      option.text = dct.nr;
+      option.value = dct.nr;
+      dctList.add(option);
+    }
+    
+    function doLeaks(leak)
+    {
+      var option = document.createElement("option");
+      option.text = leak;
+      option.value = leak;
+      leakList.add(option);
+    }
+    
+    function doTerms(jct)
+    {
+      if(jct.jtype > 0)
+      {
+        var option = document.createElement("option");
+        option.text = jct.nr + " lvl: " + jct.pld.nr;
+        option.value = jct.nr;
+        termsList.add(option);
+      }
+    }
+  }
+  
+  function on_ok()
+  {
+    var CREUI = window.parent.CREUI;
+    var pathList = document.getElementById("pathList");
+    var dctList = document.getElementById("dctList");
+    var leakList = document.getElementById("leakList");
+    var termsList = document.getElementById("termsList");
+    
+    if(pathList.selectedIndex == -1 &&
+       dctList.selectedIndex == -1 &&
+       leakList.selectedIndex == -1 &&
+       termsList.selectedIndex == -1)
+    {
+      alert("A path, duct, leak or terminal must be selected.");
+      return;
+    }
+    CREUI.options.normalExport.linkPaths = CREUI.getSelectValues(pathList);
+    CREUI.options.normalExport.linkDcts =  CREUI.getSelectValues(dctList);
+    CREUI.options.normalExport.linkLeaks = CREUI.getSelectValues(leakList);
+    CREUI.options.normalExport.linkTerms = CREUI.getSelectValues(termsList);
+    CREUI.options.normalExport.doCtmNodes = false;
+    CREUI.CloseDialog(true)
+  }
+</script>
+</head>
+<body onload="do_onload();" class="notemplate">
+<h3>Select which paths, duct segments, duct leakages and duct terminals to output</h3>
+<div style="display:flex; flex-flow:row;">
+  <div class="section">
+    <div style="font-weight: 600; padding-bottom:5px;">Paths</div>
+    <select size="10" id="pathList" multiple></select>       
+  </div>
+  <div class="section">
+    <div style="font-weight: 600; padding-bottom:5px;">Duct Segments</div>
+    <select size="10" id="dctList" multiple></select>       
+  </div>
+  <div class="section">
+    <div style="font-weight: 600; padding-bottom:5px;">Duct Leakages (Junction #s)</div>
+    <select size="10" id="leakList" multiple></select>       
+  </div>
+  <div class="section">
+    <div style="font-weight: 600; padding-bottom:5px;">Duct Terminals</div>
+    <select size="10" id="termsList" multiple></select>       
+  </div>
+</div>
+<div>
+  <input type="button" value="Cancel" style="margin: 10px;"
+         onclick="window.parent.CREUI.CloseDialog(false)">
+  <input type="button" value="Next" style="margin: 10px;"
+         onclick="on_ok();">
+</div>
+
+</body>
+</html>
