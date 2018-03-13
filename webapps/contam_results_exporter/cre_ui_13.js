@@ -29,7 +29,7 @@ window.onload = function()
     "../contam_results_exporter/exposure_export_3.js",
     "../contam_results_exporter/ep_infil_export_1.js",
     "../contam_results_exporter/ach_export.js",
-    "../jszip/dist/jszip.js"];
+    "../jszip/jszip.js"];
   CWD.Init(new Worker("../contam/contam_worker_2.js"));
   CWD.SetOnMessageFunction(CREUI.onWorkerMessage);
   CWD.LoadURLsOnWorker(workerFileURLs).catch(function(error)
