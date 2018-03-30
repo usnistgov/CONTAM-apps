@@ -950,6 +950,7 @@ Nano.changeSrcType = function()
   {
     document.getElementById('ReleaseAmountInput').disabled = true;
     document.getElementById('ReleaseAmountCombo').disabled = true;
+    document.getElementById('EndSourceInput').disabled = false;
     document.getElementById('ReleaseRateInput').disabled = false;
     document.getElementById('ReleaseRateCombo').disabled = false;
   }
@@ -957,6 +958,7 @@ Nano.changeSrcType = function()
   {
     document.getElementById('ReleaseAmountInput').disabled = false;
     document.getElementById('ReleaseAmountCombo').disabled = false;
+    document.getElementById('EndSourceInput').disabled = true;
     document.getElementById('ReleaseRateInput').disabled = true;
     document.getElementById('ReleaseRateCombo').disabled = true;
   }
