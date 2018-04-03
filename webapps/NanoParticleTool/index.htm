@@ -107,6 +107,16 @@
         <div style="border:solid thin; margin:3px;">
           <h3 style="margin-left: 1em;">Particle Data</h3>
           <div class="unit">
+            <div class="inblock col">Particle Diameter</div>
+            <input type="number" step="any" min="0" id="ParticleDiameterInput">
+            <select id="ParticleDiameterCombo"></select>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Particle Density</div>
+            <input type="number" step="any" min="0" id="ParticleDensityInput">
+            <select id="ParticleDensityCombo"></select>
+          </div>
+          <div class="unit">
             <div class="inblock col">Source Type</div>
             <input type="radio" name="sourceType" id="constSrcRadio" 
             onclick="Nano.changeSrcType();" checked="true">Constant
@@ -130,16 +140,6 @@
           <div class="unit">
             <div class="inblock col">Source End Time</div>
             <input id="EndSourceInput" onchange="" value="17:00:00">
-          </div>
-          <div class="unit">
-            <div class="inblock col">Particle Diameter</div>
-            <input type="number" step="any" min="0" id="ParticleDiameterInput">
-            <select id="ParticleDiameterCombo"></select>
-          </div>
-          <div class="unit">
-            <div class="inblock col">Particle Density</div>
-            <input type="number" step="any" min="0" id="ParticleDensityInput">
-            <select id="ParticleDensityCombo"></select>
           </div>
           <div class="unit">
             <div class="inblock col">Deposition Velocity</div>
