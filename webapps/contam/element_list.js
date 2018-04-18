@@ -7,10 +7,11 @@ CONTAM.ElementList = {};
 
 CONTAM.ElementList.CreateList = function()
 {
-  return { start:null, 
+  return { start:undefined, 
            count:0, 
            AddNode:CONTAM.ElementList.AddNode,
-           GetByNumber:CONTAM.ElementList.GetByNumber };
+           GetByNumber:CONTAM.ElementList.GetByNumber,
+           GetByName: CONTAM.ElementList.GetByName };
 }
 
 CONTAM.ElementList.AddNode = function(node)
@@ -19,10 +20,10 @@ CONTAM.ElementList.AddNode = function(node)
   if(currentNode == undefined)
   {
     this.start = node;
-    this.next = null;
+    this.next = undefined;
     this.count++;
   }
-  else if(node.name < currentNode.Name)
+  else if(node.name < currentNode.name)
   {
     this.start = node;
     node.next = currentNode;
@@ -36,15 +37,14 @@ CONTAM.ElementList.AddNode = function(node)
     {
       prevNode = currentNode;
       currentNode = prevNode.next;
-      if(currentNode == undefined ||
-         currentNode == null)
+      if(currentNode == undefined)
       {
         prevNode.next = node;
-        node.next = null;
+        node.next = undefined;
         done = true;
         this.count++;
       }
-      else if(node.name < currentNode.Name)
+      else if(node.name < currentNode.name)
       {
         prevNode.next = node;
         node.next = currentNode;
@@ -60,11 +60,27 @@ CONTAM.ElementList.GetByNumber = function(n)
   var item, i;
   if(n < 1 || n > this.count)
   {
-    alert("Can't get an element with number: " + n.toString());
-    return;
+    throw new Error('Cannot get an element with number: ' + n);
   }
   item = this.start;
   for(i=2; i<=n; ++i)
     item = item.next;
   return item;
+}
+
+CONTAM.ElementList.GetByName = function(name)
+{
+  var currentNode = this.start;
+  if(currentNode == undefined)
+    return undefined;
+  var done = false;
+  while(!done)
+  {
+    if(currentNode.name == name)
+      return currentNode;
+    currentNode = currentNode.next;
+    if(currentNode == undefined)
+      return undefined;
+  }
+  
 }

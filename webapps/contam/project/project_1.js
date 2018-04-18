@@ -8,6 +8,11 @@
 // c30toc31.js
 // c31toc32.js
 
+//TODO: replaced alert with throw new Error('') which is better
+// but not all of those should throw errors some should just send a message to console
+// so need an error function like CONTAM and use the error level to take appropriate action
+
+
 if(typeof CONTAM == "undefined")
 {
   var CONTAM = {};
@@ -189,6 +194,7 @@ CONTAM.Project.Read = function ()
   prj.nosch = prj.oschd_read();
   prj.npexp = prj.pexp_read();
   prj.nnote = prj.note_read();
+  return 0;
 }
 
 CONTAM.Project.LevelRead = function ()
@@ -212,7 +218,7 @@ CONTAM.Project.LevelRead = function ()
      
     level.nr = CONTAM.Reader.readIX(1);
     if(level.nr !== i)
-      alert('Level number mis-match');  
+      throw new Error('Level number mis-match');  
     level.refht = CONTAM.Reader.readR4(0);
     level.delht = CONTAM.Reader.readR4(0);
     nicon = CONTAM.Reader.readIX(0);
@@ -240,7 +246,7 @@ CONTAM.Project.LevelRead = function ()
   CONTAM.Project.LevH = pld;
   
   if(CONTAM.Reader.readIX(1) !== CONTAM.Project.UNK)
-    alert("PRJ read error - Levels");
+    throw new Error("PRJ read error - Levels");
   return nlev;
 }
 
@@ -480,7 +486,7 @@ CONTAM.Project.run_read = function ()
   prj.rcdat.cfd_dtcmo   = rdr.readI2( 0 );
 
   if( rdr.readI2( 1 ) != CONTAM.Project.UNK )
-    alert( "PRJ read error in run read" );
+    throw new Error( "PRJ read error in run read" );
   
 }
 
@@ -532,7 +538,7 @@ CONTAM.Project.spcs_read = function(cflag, lib)
     var pspcs = {};
     pspcs.nr = rdr.readIX( 1 );
     if( pspcs.nr != i ) 
-      alert("Species number mis-match: " + i.toString() );
+      throw new Error("Species number mis-match: " + i.toString() );
     pspcs.sflag = rdr.readI2( 0 );
     pspcs.ntflag = rdr.readI2( 0 );
     pspcs.molwt = rdr.readR4( 0 );
@@ -576,7 +582,7 @@ CONTAM.Project.spcs_read = function(cflag, lib)
   
   if (rdr.readI2(1) != CONTAM.Project.UNK)
   {
-    alert("PRJ read error in species section");
+    throw new Error("PRJ read error in species section");
     return true;
   }
   return false;
@@ -600,7 +606,7 @@ CONTAM.Project.dschd_read = function (lib)
     pds = {};
     pds.nr = rdr.readIX( 1 );
     if( pds.nr != i ) 
-      alert( "Day-schedule number mis-match: " + i.toString());
+      throw new Error( "Day-schedule number mis-match: " + i.toString());
 
     pds.npts = rdr.readI2( 0 );
     pds.shape = rdr.readI2( 0 );
@@ -623,7 +629,7 @@ CONTAM.Project.dschd_read = function (lib)
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in day schedule section" );
+    throw new Error("PRJ read error in day schedule section" );
 
   return ndsch;
 
@@ -646,7 +652,7 @@ CONTAM.Project.wschd_read = function (ndsch, lib)
     var pws = {};
     pws.nr = rdr.readIX( 1 );
     if( pws.nr != i ) 
-      alert("Week-schedule number mis-match: " + i.toString() );
+      throw new Error("Week-schedule number mis-match: " + i.toString() );
 
     pws.utyp = rdr.readI2( 0 );
     pws.ucnv = rdr.readI2( 0 );
@@ -659,7 +665,7 @@ CONTAM.Project.wschd_read = function (ndsch, lib)
     {
       k = rdr.readIX(0);
       if( k<1 || k>ndsch ) 
-        alert("Bad day-schedule: " + k.toString() );
+        throw new Error("Bad day-schedule: " + k.toString() );
       else
         pws.pds[j] = CONTAM.Project.Dsch0.GetByNumber(k);
     }
@@ -670,7 +676,7 @@ CONTAM.Project.wschd_read = function (ndsch, lib)
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in Week Schedule section" );
+    throw new Error("PRJ read error in Week Schedule section" );
 
   return nwsch;
 
@@ -693,7 +699,7 @@ CONTAM.Project.wind_read = function(lib)
     var pwp = {};
     pwp.nr = rdr.readIX( 1 );
     if( pwp.nr != i ) 
-      alert( "Wind number mis-match: " + i.toString());
+      throw new Error( "Wind number mis-match: " + i.toString());
 
     pwp.npts = rdr.readI2( 0 );
     pwp.type = rdr.readI2( 0 );
@@ -732,7 +738,7 @@ CONTAM.Project.wind_read = function(lib)
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in Wind Pressure Profile section" );
+    throw new Error("PRJ read error in Wind Pressure Profile section" );
 
   return nwpf;
 
@@ -767,13 +773,13 @@ CONTAM.Project.wp_ccspl = function (npts, x, y, a )
   nm3 = nm2 - 1;
   if( nm3 < 0 )
   {
-    alert("too few data points for spline");
+    throw new Error("too few data points for spline");
     return 0;
   }
 
   if( y[nm1] != y[0] )
   {
-    alert(" Wind pressure profile data is not periodic");
+    throw new Error(" Wind pressure profile data is not periodic");
     return 0;
   }
 
@@ -881,11 +887,11 @@ CONTAM.Project.gauss1 = function( a, b, neq )
     if( Math.abs( a[n][n] ) < Number.EPSILON) //FLT_EPSILON )
       if( a[n][n] == 0.0 )
       {
-        alert("Zero on the diagonal, row " + n.toString());
+        throw new Error("Zero on the diagonal, row " + n.toString());
         return 1;
       }
       else
-        alert("Near zero on the diagonal, row " + n.toString());
+        throw new Error("Near zero on the diagonal, row " + n.toString());
     a[n][n] = 1.0 / a[n][n];
     for( d=0.0, j=1; j<n; j++ )
       d += a[n][j] * b[j];
@@ -964,7 +970,7 @@ CONTAM.Project.kinetic_read = function(lib)
     var pkr = {};
     pkr.nr = rdr.readIX( 1 );
     if( pkr.nr != i ) 
-      alert("Reaction number mis-match: " + i.toString());
+      throw new Error("Reaction number mis-match: " + i.toString());
     nkrd = rdr.readIX( 0 );
     pkr.name = rdr.nextword(0);
     pkr.desc = rdr.nextword(3);
@@ -990,7 +996,7 @@ CONTAM.Project.kinetic_read = function(lib)
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in Kinetic Reaction section" );
+    throw new Error("PRJ read error in Kinetic Reaction section" );
 
   return nkinr;
 
@@ -1021,7 +1027,7 @@ CONTAM.Project.flte_read = function(lib)
     var pfe = {};
     pfe.nr = rdr.readIX( 1 );
     if( pfe.nr != j ) 
-      alert("Filter element number mis-match: " + j.toString());
+      throw new Error("Filter element number mis-match: " + j.toString());
     buffer = rdr.nextword(0);
     pfe.ftype = CONTAM.Utils.lin_search( buffer, CONTAM.Globals.flte_names );
     pfe.area = rdr.readR4( 0 );
@@ -1149,14 +1155,14 @@ CONTAM.Project.flte_read = function(lib)
         break;
       } 
       default:
-        alert("Invalid filter element type " + pfe.ftype.toString());
+        throw new Error("Invalid filter element type " + pfe.ftype.toString());
     }  /* end element type switch */
 
     prj.Flte0.AddNode(pfe);
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in the Filter Element section" );
+    throw new Error("PRJ read error in the Filter Element section" );
 
   for( j=1; j<=nflte; j++ )  // set super filter sub-filter pointers
   {
@@ -1205,11 +1211,11 @@ CONTAM.Project.filter_read = function()
     prj.FiltList[j] = pf;
     pf.nr = rdr.readIX( 1 );
     if( pf.nr != j ) 
-      alert("Filter number mis-match: " + j.toString());
+      throw new Error("Filter number mis-match: " + j.toString());
     i = rdr.readIX( 0 );  // filter element number
     nsfe = rdr.readI2(0); // number of sub-filters
     if( i<1 || i>prj.nflte ) 
-      alert("Invalid filter element number: " + i.toString());
+      throw new Error("Invalid filter element number: " + i.toString());
     else
       pf.pe = prj.Flte0.GetByNumber(i);
     pf.nsfe = nsfe;
@@ -1254,7 +1260,7 @@ CONTAM.Project.filter_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in the Filter section" );
+    throw new Error("PRJ read error in the Filter section" );
 
   return nfilt;
 
@@ -1286,7 +1292,7 @@ CONTAM.Project.cselmt_read = function(lib)
     var pe = {};
     pe.nr = rdr.readIX( 1 );
     if( pe.nr != j ) 
-      alert("S/S element number mis-match: " + j.toString());
+      throw new Error("S/S element number mis-match: " + j.toString());
     name = rdr.nextword(0);      /* species name */
     buffer = rdr.nextword(0);      /* element type */
     pe.ctype = CONTAM.Utils.lin_search( buffer, CONTAM.Globals.csse_names );
@@ -1442,7 +1448,7 @@ CONTAM.Project.cselmt_read = function(lib)
       }
 
       default:
-        alert("Invalid S/S element type " + pe.ctype.toString());
+        throw new Error("Invalid S/S element type " + pe.ctype.toString());
     }  /* end element type switch */
 
     if(lib)
@@ -1452,7 +1458,7 @@ CONTAM.Project.cselmt_read = function(lib)
   }  /* end element loop */
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in S/S element section" );
+    throw new Error("PRJ read error in S/S element section" );
 
   var pse, pe0;
   if(lib)
@@ -1514,7 +1520,7 @@ CONTAM.Project.afelmt_read = function(lib, duct)
 
     pe.nr = rdr.readIX( 1 );
     if( pe.nr != i ) 
-      alert("Element number mis-match: " + i.toString());
+      throw new Error("Element number mis-match: " + i.toString());
     pe.icon = rdr.readI2( 0 );
     buffer = rdr.nextword(0);
     pe.dtype = CONTAM.Utils.lin_search( buffer, CONTAM.Globals.afe_dnames );
@@ -2035,7 +2041,7 @@ CONTAM.Project.afelmt_read = function(lib, duct)
         break;
       } 
       default:
-        alert("Invalid element type " + pe.dtype.toString() );
+        throw new Error("Invalid element type " + pe.dtype.toString() );
     }  /* end element type switch */
 
     if(lib)
@@ -2063,7 +2069,7 @@ CONTAM.Project.afelmt_read = function(lib, duct)
   }  /* end element loop */
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in the airflow element section" );
+    throw new Error("PRJ read error in the airflow element section" );
 
   if( !duct )
   {
@@ -2117,7 +2123,7 @@ CONTAM.Project.setLamCoef = function( Ct, x, A, D, Re, type, name )
       dP = Math.pow( F / Ct, 1.0 / x );
       break;
     default:
-      alert("Invalid equation type: " + type.toString() + " element: " + name );
+      throw new Error("Invalid equation type: " + type.toString() + " element: " + name );
   }
   if( dP < CONTAM.Units.DPTMIN ) dP = CONTAM.Units.DPTMIN;   // 1998/07/17 - dPt > 0 
     // F = Cl * (rho / mu) * dP
@@ -2198,7 +2204,7 @@ CONTAM.Project.ctrlse_read = function (lib)
 
     pe.nr = rdr.readIX( 1 );
     if( pe.nr != i ) 
-      alert("Element number mis-match: " + i.toString());
+      throw new Error("Element number mis-match: " + i.toString());
     pe.flags = rdr.readI2( 0 );
     in_node  = rdr.readIX( 0 );
     out_node = rdr.readIX( 0 );
@@ -2253,7 +2259,7 @@ CONTAM.Project.ctrlse_read = function (lib)
   } /* super element loop */
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in control super element section" );
+    throw new Error("PRJ read error in control super element section" );
 
   return nse;
 
@@ -2295,7 +2301,7 @@ CONTAM.Project.ctrl_read = function(mode, SE)
     var pc = {};
     pc.nr = rdr.readIX( 1 );
     if( pc.nr != i ) 
-      alert("Control number mis-match: " + i.toString());
+      throw new Error("Control number mis-match: " + i.toString());
     pList[i] = pc;
     pc.nphref = 0;
     
@@ -2306,12 +2312,12 @@ CONTAM.Project.ctrl_read = function(mode, SE)
     pc.inreq = rdr.readI2( 0 );
     j = rdr.readIX( 0 );
     if( j<0 || j>nctrl ) 
-      alert("Invalid control node number, node " + i.toString() );
+      throw new Error("Invalid control node number, node " + i.toString() );
     else
       pc.n1 = j;
     j = rdr.readIX( 0 );
     if( j<0 || j>nctrl ) 
-      alert("Invalid control node number, node " + i.toString() );
+      throw new Error("Invalid control node number, node " + i.toString() );
     else
       pc.n2 = j;
     pc.name = rdr.nextword(0);              /* 2004 bridge */
@@ -2530,14 +2536,14 @@ CONTAM.Project.ctrl_read = function(mode, SE)
       case CONTAM.Globals.CT_FLR:
         break;
       default:
-        alert("Invalid control type " + pc.type.toString() );
+        throw new Error("Invalid control type " + pc.type.toString() );
         break;
     }  /* end control type switch */
   }  /* end control element loop */
 
   if( mode == 0 )
     if( rdr.readI2( 1 ) != prj.UNK )
-      alert("PRJ read error in control section" );
+      throw new Error("PRJ read error in control section" );
 
   return nctrl;
 
@@ -2600,7 +2606,7 @@ CONTAM.Project.system_read = function()
     pa = {};
     pa.nr = rdr.readIX( 1 );
     if( pa.nr != i ) 
-      alert("System number mis-match: " + i.toString());
+      throw new Error("System number mis-match: " + i.toString());
     pa.zone_r = rdr.readIX( 0 );
     pa.zone_s = rdr.readIX( 0 );
     pa.path_r = rdr.readIX( 0 );
@@ -2613,7 +2619,7 @@ CONTAM.Project.system_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in AHS section" );
+    throw new Error("PRJ read error in AHS section" );
 
   return nahs;
 
@@ -2637,7 +2643,7 @@ CONTAM.Project.zone_read = function()
     prj.ZoneList[i] = pzn;
     pzn.nr = rdr.readIX( 1 );
     if( pzn.nr != i ) 
-      alert("Zone number mis-match: " + i.toString());
+      throw new Error("Zone number mis-match: " + i.toString());
 
     pzn.flags = rdr.readI2( 0 );
     pzn.flags &= CONTAM.Globals.FLAG_N;
@@ -2646,7 +2652,7 @@ CONTAM.Project.zone_read = function()
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nwsch )
-      alert("Invalid schedule number, zone " + i.toString());
+      throw new Error("Invalid schedule number, zone " + i.toString());
     else if( j > 0 )
     {
       pzn.ps = prj.Wsch0.GetByNumber(j);
@@ -2655,19 +2661,19 @@ CONTAM.Project.zone_read = function()
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nctrl )
-      alert("Invalid control node number, zone " + i.toString());
+      throw new Error("Invalid control node number, zone " + i.toString());
     else if( j > 0 )
       pzn.pc = prj.CtrlList[j];
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nkinr )
-      alert("Invalid reaction number, zone " + i.toString());
+      throw new Error("Invalid reaction number, zone " + i.toString());
     else if( j > 0 )
       pzn.pk = prj.Kinr0.GetByNumber(j);
 
     j = rdr.readIX( 0 );
     if( j<1 || j>prj.nlev )
-      alert("Invalid level number, zone " + i.toString());
+      throw new Error("Invalid level number, zone " + i.toString());
     else
       pzn.pld = prj.LevList[j];
 
@@ -2712,18 +2718,18 @@ CONTAM.Project.zone_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in Zones section" );
+    throw new Error("PRJ read error in Zones section" );
 
   nn = rdr.readIX( 1 );   /* nzone * nctm */
   if( nn != nzone * prj.nctm ) 
-    alert("Zones*contaminant count mis-match: " + nn.toString());
+    throw new Error("Zones*contaminant count mis-match: " + nn.toString());
   if( nn > 0 )
   {
     for( i=1; i<=nzone; i++ )
     {
       j = rdr.readIX( 1 );
       if( j != i ) 
-        alert("Zone number mis-match: " + i.toString());
+        throw new Error("Zone number mis-match: " + i.toString());
       pzn = prj.ZoneList[i];
       pzn.CC0 = [];
       for( k=0; k<prj.nctm; k++ )
@@ -2732,7 +2738,7 @@ CONTAM.Project.zone_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in zone initial concentration section" );
+    throw new Error("PRJ read error in zone initial concentration section" );
 
   return nzone;
 
@@ -2755,7 +2761,7 @@ CONTAM.Project.path_read = function()
 
     ppd.nr = rdr.readIX( 1 );
     if( ppd.nr != i ) 
-      alert("Path number mis-match: " + i.toString());
+      throw new Error("Path number mis-match: " + i.toString());
     ppd.flags = rdr.readI2( 0 );
     ppd.flags &= CONTAM.Globals.FLAG_P;
 
@@ -2775,7 +2781,7 @@ CONTAM.Project.path_read = function()
     else if( j==0 )
       ppd.pzm = null;
     else if( j<1 || j>prj.nzone ) 
-      alert("Invalid zone number, path " + i.toString());
+      throw new Error("Invalid zone number, path " + i.toString());
     else
       ppd.pzm = prj.ZoneList[j];
 
@@ -2783,36 +2789,36 @@ CONTAM.Project.path_read = function()
     if( !(ppd.flags & CONTAM.Globals.AHS_P) )
     {
       if( j<1 || j>prj.nafe )
-        alert("Invalid flow element number, path " + i.toString());
+        throw new Error("Invalid flow element number, path " + i.toString());
       else if( j>0 )
         ppd.pe = prj.Afe0.GetByNumber(j);
     }
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nfilt ) 
-      alert("Invalid filter number, path " + i.toString());
+      throw new Error("Invalid filter number, path " + i.toString());
     else if( j>0 )
       ppd.pf = prj.FiltList[j];
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nwpf ) 
-      alert("Invalid wind profile number, path " + i.toString());
+      throw new Error("Invalid wind profile number, path " + i.toString());
     else if( j>0 )
       ppd.pw = prj.Wpf0.GetByNumber(j);
 
     j = rdr.readIX( 0 );
     if( ppd.flags & CONTAM.Globals.AHS_S )
       if( j<1 || j>prj.nahs ) 
-        alert("Invalid AHS number, path " +i.toString());
+        throw new Error("Invalid AHS number, path " +i.toString());
       else
         ppd.pa = prj.Ahs0.GetByNumber(j);
     else
       if( j!=0 ) 
-        alert("Invalid AHS number, path " + i.toString());
+        throw new Error("Invalid AHS number, path " + i.toString());
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nwsch ) 
-      alert("Invalid week-schedule number, path " + i.toString());
+      throw new Error("Invalid week-schedule number, path " + i.toString());
     else if( j>0 )
     {
       ppd.ps = prj.Wsch0.GetByNumber(j);
@@ -2821,13 +2827,13 @@ CONTAM.Project.path_read = function()
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nctrl ) 
-      alert("Invalid control node number, path " + i.toString());
+      throw new Error("Invalid control node number, path " + i.toString());
     else if( j>0 )
       ppd.pc = prj.CtrlList[j];
 
     j = rdr.readIX( 0 );
     if( j<1 || j>prj.nlev ) 
-      alert("Invalid level number, path " + i.toString());
+      throw new Error("Invalid level number, path " + i.toString());
     else
       ppd.pld = prj.LevList[j];
 
@@ -2872,7 +2878,7 @@ CONTAM.Project.path_read = function()
   }
   prj.UpdateAllPathIcons();
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in path sections" );
+    throw new Error("PRJ read error in path sections" );
 
   return npath;
 
@@ -2924,7 +2930,7 @@ CONTAM.Project.jct_read = function()
     prj.JctList[i] = pj;
     pj.nr = rdr.readIX( 1 );
     if( pj.nr != i ) 
-      alert("Junction number mis-match: " + i.toString());
+      throw new Error("Junction number mis-match: " + i.toString());
 
     pj.flags = rdr.readI2( 0 );
     pj.jtype = rdr.readI2( 0 );
@@ -2935,7 +2941,7 @@ CONTAM.Project.jct_read = function()
     else if( j==0 )
       pj.pzn = null;
     else if( j<1 || j>prj.nzone ) 
-      alert("Invalid zone number, junction " + i.toString());
+      throw new Error("Invalid zone number, junction " + i.toString());
     else
       pj.pzn = prj.ZoneList[j];
 
@@ -2943,13 +2949,13 @@ CONTAM.Project.jct_read = function()
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nkinr ) 
-      alert("Invalid reaction number, junction " + i.toString());
+      throw new Error("Invalid reaction number, junction " + i.toString());
     else if( j>0 )
       pj.pk = rdr.KinrList[j];
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nwsch ) 
-      alert("Invalid schedule number, junction " + i.toString());
+      throw new Error("Invalid schedule number, junction " + i.toString());
     else if( j>0 )
     {
       pj.ps = prj.Wsch0.GetByNumber(j);
@@ -2958,13 +2964,13 @@ CONTAM.Project.jct_read = function()
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nctrl ) 
-      alert("Invalid control node number, junction " + i.toString());
+      throw new Error("Invalid control node number, junction " + i.toString());
     else if( j>0 )
       pj.pc = prj.CtrlList[j];
 
     j = rdr.readIX( 0 );
     if( j<1 || j>prj.nlev ) 
-      alert("Invalid level number, junction " + i.toString());
+      throw new Error("Invalid level number, junction " + i.toString());
     else
       pj.pld = prj.LevList[j];
 
@@ -2991,12 +2997,12 @@ CONTAM.Project.jct_read = function()
       buffer = rdr.nextword(0);  // "T:"
       j = rdr.readIX( 0 );
       if( j<0 || j>rdr.nfilt ) 
-        alert("Invalid filter number, junction " + i.toString());
+        throw new Error("Invalid filter number, junction " + i.toString());
       else if( j>0 )
         pj.pf = prj.FiltList[j];
       j = rdr.readIX( 0 );
       if( j<0 || j>prj.nwpf ) 
-        alert("Invalid wind profile number, junction " + i.toString());
+        throw new Error("Invalid wind profile number, junction " + i.toString());
       else if( j>0 )
         pj.pw = prj.Wpf0.GetByNumber(j);
       pj.wPset = rdr.readR4( 0 );
@@ -3017,18 +3023,18 @@ CONTAM.Project.jct_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in junction section" );
+    throw new Error("PRJ read error in junction section" );
 
   nn = rdr.readIX( 1 );   /* njct * nctm */
   if( nn != njct * prj.nctm ) 
-    alert("Junctions*contaminant count mis-match: " + nn.toString());
+    throw new Error("Junctions*contaminant count mis-match: " + nn.toString());
   if( nn > 0 )
   {
     for( i=1; i<=njct; i++ )
     {
       j = rdr.readIX( 1 );
       if( j != i ) 
-        alert("Junction number mis-match: " + i.toString());
+        throw new Error("Junction number mis-match: " + i.toString());
       pj = prj.JctList[i];
       pj.CC0 = [];
       for( k=0; k<prj.nctm; k++ )
@@ -3037,7 +3043,7 @@ CONTAM.Project.jct_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in junction initial concentration section" );
+    throw new Error("PRJ read error in junction initial concentration section" );
 
   return njct;
 
@@ -3059,36 +3065,36 @@ CONTAM.Project.duct_read = function()
     prj.DctList[i] = pd;
     pd.nr = rdr.readIX( 1 );
     if( pd.nr != i ) 
-      alert("Duct number mis-match: " + i.toString());
+      throw new Error("Duct number mis-match: " + i.toString());
     pd.flags = rdr.readI2( 0 );
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.njct ) 
-      alert("Invalid junction number, duct " + i.toString());
+      throw new Error("Invalid junction number, duct " + i.toString());
     else if( j>0 )
       pd.pjn = prj.JctList[j];
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.njct ) 
-      alert("Invalid junction number, duct " + i.toString());
+      throw new Error("Invalid junction number, duct " + i.toString());
     else if( j>0 )
       pd.pjm = prj.JctList[j];
 
     j = rdr.readIX( 0 );
     if( j<1 || j>prj.ndfe ) 
-      alert("Invalid duct element number, duct " + i.toString());
+      throw new Error("Invalid duct element number, duct " + i.toString());
     else if( j>0 )
       pd.pe = prj.Dfe0.GetByNumber(j);
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nfilt ) 
-      alert("Invalid filter number, duct " + i.toString());
+      throw new Error("Invalid filter number, duct " + i.toString());
     else if( j>0 )
       pd.pf = prj.FiltList[j];
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nwsch ) 
-      alert("Invalid week-schedule number, duct " + i.toString());
+      throw new Error("Invalid week-schedule number, duct " + i.toString());
     else if( j>0 )
     {
       pd.ps = prj.Wsch0.GetByNumber(j);
@@ -3097,7 +3103,7 @@ CONTAM.Project.duct_read = function()
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nctrl ) 
-      alert("Invalid control node number, duct " + i.toString());
+      throw new Error("Invalid control node number, duct " + i.toString());
     else if( j>0 )
       pd.pc = prj.CtrlList[j];
 
@@ -3117,12 +3123,12 @@ CONTAM.Project.duct_read = function()
     }
     if( pd.pe.dtype == CONTAM.Icons.DD_DWC && 
         pd.length <= 0 && pd.sllc <= 0 )  // 2004/11/18
-      alert("Duct " + pd.nr.toString() + 
+      throw new Error("Duct " + pd.nr.toString() + 
         " with DWC element has neither length nor loss coefficient");
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in duct section" );
+    throw new Error("PRJ read error in duct section" );
 
   return ndct;
 
@@ -3144,11 +3150,11 @@ CONTAM.Project.css_read = function()
     prj.CssList[i] = pss;   // not used by ContamX
     pss.nr = rdr.readIX( 1 );
     if( pss.nr != i ) 
-      alert("S/S number mis-match" + i.toString());
+      throw new Error("S/S number mis-match" + i.toString());
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nzone ) 
-      alert("Invalid zone number, source " + i.toString());
+      throw new Error("Invalid zone number, source " + i.toString());
     else if( j==0 )
       pss.pz = null;
     else
@@ -3156,19 +3162,19 @@ CONTAM.Project.css_read = function()
 
     j = rdr.readIX( 0 );
     if( j<1 || j>prj.ncse ) 
-      alert("Invalid element number, source " + i.toString());
+      throw new Error("Invalid element number, source " + i.toString());
     else
       pss.pe = prj.Cse0.GetByNumber(j);
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nwsch ) 
-      alert("Invalid week-schedule number, source " + i.toString());
+      throw new Error("Invalid week-schedule number, source " + i.toString());
     else if( j>0 )
       pss.ps = prj.Wsch0.GetByNumber(j);
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nctrl ) 
-      alert("Invalid control node number, source " + i.toString());
+      throw new Error("Invalid control node number, source " + i.toString());
     else if( j>0 )
     {
       pss.pc = prj.CtrlList[j];
@@ -3197,7 +3203,7 @@ CONTAM.Project.css_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in the Source/Sink section" );
+    throw new Error("PRJ read error in the Source/Sink section" );
 
   return ncss;
 
@@ -3217,7 +3223,7 @@ CONTAM.Project.oschd_read = function()
     var pos = {};
     pos.nr = rdr.readIX( 1 );
     if( pos.nr != i ) 
-      alert("Occpancy-schedule number mis-match: " + i.toString());
+      throw new Error("Occpancy-schedule number mis-match: " + i.toString());
     pos.npts = rdr.readI2( 0 );
     pos.nmax = pos.npts;
     pos.u_XYZ = rdr.readI2( 0 );  // CW 2.3
@@ -3240,7 +3246,7 @@ CONTAM.Project.oschd_read = function()
       else if( jz==-1 )
         pos.zone[j] = prj.ambt;
       else if( jz<0 || jz>prj.nzone ) 
-        alert("Invalid zone number, Occ " + i.toString());
+        throw new Error("Invalid zone number, Occ " + i.toString());
       else
         pos.zone[j] = prj.ZoneList[jz];
       pos.X[j] = rdr.readR4( 0 );  // CW 2.3
@@ -3252,7 +3258,7 @@ CONTAM.Project.oschd_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in occupant schedule section" );
+    throw new Error("PRJ read error in occupant schedule section" );
 
   return nosch;
 
@@ -3274,7 +3280,7 @@ CONTAM.Project.pexp_read = function()
     prj.PexpList[i] = px;
     px.nr = rdr.readIX( 1 );
     if( px.nr != i ) 
-      alert("Exposure number mis-match: " + i.toString());
+      throw new Error("Exposure number mis-match: " + i.toString());
     px.gen = rdr.readI2( 0 );
     ncg = rdr.readIX( 0 );
     px.cgmlt = rdr.readR4( 0 );
@@ -3285,7 +3291,7 @@ CONTAM.Project.pexp_read = function()
     {
       j = rdr.readIX( j );
       if( j<0 || j>prj.nosch ) 
-        alert("Invalid occupancy-schedule number, exposure " + i.toString());
+        throw new Error("Invalid occupancy-schedule number, exposure " + i.toString());
       else if( j>0 )
         px.odsch[k] = prj.Osch0.GetByNumber(j);
     }
@@ -3308,10 +3314,10 @@ CONTAM.Project.pexp_read = function()
       if( spcs )
         pocg.spcs = spcs;
       else
-        throw("Species not found: " + buffer);
+        throw new Error('Species not found: ' + buffer);
       j = rdr.readIX( 0 );
       if( j<0 || j>prj.nwsch ) 
-        throw("Invalid week-schedule number, exposure " + i.toString());
+        throw new Error('Invalid week-schedule number, exposure ' + i.toString());
       else if( j>0 )
       {
         pocg.ps = prj.Wsch0.GetByNumber(j);
@@ -3328,7 +3334,7 @@ CONTAM.Project.pexp_read = function()
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    throw("PRJ read error opccupant exposure section" );
+    throw new Error('PRJ read error occupant exposure section');
 
   return npexp;
 
@@ -3349,13 +3355,13 @@ CONTAM.Project.note_read = function()
     prj.NoteList[j] = pn;
     n = rdr.readIX( 1 );
     if( n != j ) 
-      alert("Note number mis-match: " + j.toString());
+      throw new Error("Note number mis-match: " + j.toString());
     pn.nr = n;
     pn.note = rdr.nextword(2);
   }
 
   if( rdr.readI2( 1 ) != prj.UNK )
-    alert("PRJ read error in notes section" );
+    throw new Error("PRJ read error in notes section" );
 
   return nnote;
 
@@ -3409,7 +3415,7 @@ CONTAM.Project.ctrl_ptrs = function()
           pcd.src = CONTAM.Project.PexpList[pcd.source];
           break;
         default:
-          alert( 2, " Unidentified sensor type" );
+          throw new Error( 2, " Unidentified sensor type" );
           break;
         }
       }

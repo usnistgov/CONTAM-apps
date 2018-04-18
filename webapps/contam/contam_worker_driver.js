@@ -10,18 +10,20 @@ CWD.Init = function(worker)
 
 CWD.SetOnMessageFunction = function(func)
 {
+  console.log("CWD.SetOnMessageFunction");
   CWD.onMessageFunc = func;
 }
 
 CWD.onMessage = function(oEvent)
 {
+  console.log("CWD.onMessage");
   if(CWD.onMessageFunc)
     CWD.onMessageFunc(oEvent);
 }
 
 CWD.CallContamFunction = function(funcName, funcParams)
 {
-  console.log("Driver: Call CONTAM Function: " + funcName);
+  console.log("CONTAM Driver (start): CallFunction: " + funcName);
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -34,16 +36,23 @@ CWD.CallContamFunction = function(funcName, funcParams)
     function onWorkerMessage(oEvent)
     {
       if(oEvent.data.cmd == "progressUpdate")
+      {
+        console.log("progressUpdate");
         CWD.onMessage(oEvent);
+      }
       else if(oEvent.data.cmd == "functionReturn")
+      {
+        console.log("CONTAM Driver (end): CallFunction Resolve (" + funcName + "): " + oEvent.data.fresult);
         resolve(oEvent.data.fresult);
+      }
       else if(oEvent.data.cmd)
       {
-        throw("Driver: Unknown command: " + oEvent.data.cmd);
+        throw("CONTAM Driver: Unknown command: " + oEvent.data.cmd);
       }
     }
     function onWorkerError(e)
     {
+      console.log("CONTAM Driver (end): CallFunction Reject: " + e.message);
       reject(e);
     }
   });
@@ -52,7 +61,7 @@ CWD.CallContamFunction = function(funcName, funcParams)
 
 CWD.SetContamVariable = function(variableName, variableValue)
 {
-  console.log("Driver: Set Contam Variable: " + variableName);
+  console.log("CONTAM Driver (start): SetValue: " + variableName);
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -64,10 +73,12 @@ CWD.SetContamVariable = function(variableName, variableValue)
     CWD.worker.postMessage(data);
     function onWorkerMessage(oEvent)
     {
+      console.log("CONTAM Driver (end): SetValue Resolve (" + variableName + "): " + oEvent.data);
       resolve(oEvent.data);
     }
     function onWorkerError(e)
     {
+      console.log("CONTAM Driver (end): SetValue Reject: " + e.message);
       reject(e.message);
     }
   });
@@ -76,7 +87,7 @@ CWD.SetContamVariable = function(variableName, variableValue)
 
 CWD.GetContamVariable = function(variableName)
 {
-  console.log("Driver: Get Contam Variable: " + variableName);
+  console.log("CONTAM Driver (start): GetValue: " + variableName);
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -87,12 +98,12 @@ CWD.GetContamVariable = function(variableName)
     CWD.worker.postMessage(data);
     function onWorkerMessage(oEvent)
     {
-      console.log("Driver: Resolve (" + variableName + "): " + oEvent.data);
+      console.log("CONTAM Driver (end): GetValue Resolve (" + variableName + "): " + oEvent.data);
       resolve(oEvent.data);
     }
     function onWorkerError(e)
     {
-      console.log("Driver: Reject: " + e.message);
+      console.log("CONTAM Driver (end): GetValue Reject: " + e.message);
       reject(e);
     }
   });
@@ -103,7 +114,7 @@ CWD.GetContamVariable = function(variableName)
 //return an object which has those variables as members
 CWD.GetArrayOfContamVariables = function(variableNameArray)
 {
-  console.log("Driver: Get Contam Variable Array: " + variableNameArray);
+  console.log("CONTAM Driver (start): GetValueArray: " + variableNameArray);
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -114,12 +125,12 @@ CWD.GetArrayOfContamVariables = function(variableNameArray)
     CWD.worker.postMessage(data);
     function onWorkerMessage(oEvent)
     {
-      console.log("Driver: Resolve (" + variableNameArray + "): " + oEvent.data);
+      console.log("CONTAM Driver (end): GetValueArray Resolve (" + variableNameArray + "): " + oEvent.data);
       resolve(oEvent.data);
     }
     function onWorkerError(e)
     {
-      console.log("Driver: Reject: " + e.message);
+      console.log("CONTAM Driver (end): GetValueArray Reject: " + e.message);
       reject(e);
     }
   });
@@ -129,7 +140,7 @@ CWD.GetArrayOfContamVariables = function(variableNameArray)
 //Pass an array of variable names and values to set from CONTAM
 CWD.SetArrayOfContamVariables = function(variableList)
 {
-  console.log("Driver: Set Contam Variable Array: " + variableList);
+  console.log("CONTAM Driver (start): SetValueArray");
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -140,12 +151,12 @@ CWD.SetArrayOfContamVariables = function(variableList)
     CWD.worker.postMessage(data);
     function onWorkerMessage(oEvent)
     {
-      console.log("Driver: Resolve (" + variableList + "): " + oEvent.data);
+      console.log("CONTAM Driver (end): SetValueArray Resolve: " + oEvent.data);
       resolve(oEvent.data);
     }
     function onWorkerError(e)
     {
-      console.log("Driver: Reject: " + e.message);
+      console.log("CONTAM Driver (end): SetValueArray Reject: " + e.message);
       reject(e);
     }
   });
@@ -154,7 +165,7 @@ CWD.SetArrayOfContamVariables = function(variableList)
 
 CWD.SetContamVariableToVariable = function(setVariableName, toVariableName)
 {
-  console.log("Driver: Set Contam Variable to Variable: " + setVariableName + ", " + toVariableName);
+  console.log("CONTAM Driver (start): SetVariableToVariable: " + setVariableName + ", " + toVariableName);
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -166,10 +177,12 @@ CWD.SetContamVariableToVariable = function(setVariableName, toVariableName)
     CWD.worker.postMessage(data);
     function onWorkerMessage(oEvent)
     {
+      console.log("CONTAM Driver (end): SetVariableToVariable Resolve (" + setVariableName + ", " + toVariableName + "): " + oEvent.data);
       resolve(oEvent.data);
     }
     function onWorkerError(e)
     {
+      console.log("CONTAM Driver (end): SetVariableToVariable Reject: " + e.message);
       reject(e.message);
     }
   });
@@ -180,7 +193,7 @@ CWD.SetContamVariableToVariable = function(setVariableName, toVariableName)
 // this is useful to add app specific code to run with the contam backend
 CWD.LoadURLOnWorker = function(codeURL)
 {
-  console.log("Driver: Load js file on contam worker: " + codeURL);
+  console.log("CONTAM Driver (start): LoadJSFile: " + codeURL);
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -191,12 +204,12 @@ CWD.LoadURLOnWorker = function(codeURL)
     CWD.worker.postMessage(data);
     function onWorkerMessage(oEvent)
     {
-      console.log("Driver: Resolve (" + codeURL + "): " + oEvent.data);
+      console.log("CONTAM Driver (end): LoadJSFile Resolve (" + codeURL + "): " + oEvent.data);
       resolve(oEvent.data);
     }
     function onWorkerError(e)
     {
-      console.log("Driver: Reject: " + e.message);
+      console.log("CONTAM Driver (end): LoadJSFile Reject: " + e.message);
       reject(e);
     }
   });
@@ -209,7 +222,7 @@ CWD.LoadURLOnWorker = function(codeURL)
 // the URLs need to be absolute or relative to the location of contamworker.js
 CWD.LoadURLsOnWorker = function(codeURLs)
 {
-  console.log("Driver: Load js files on contam worker: " + codeURLs);
+  console.log("CONTAM Driver (start): LoadJSFiles: " + codeURLs);
   var promise = new Promise(function(resolve, reject) 
   {
     CWD.worker.onmessage = onWorkerMessage;
@@ -220,12 +233,12 @@ CWD.LoadURLsOnWorker = function(codeURLs)
     CWD.worker.postMessage(data);
     function onWorkerMessage(oEvent)
     {
-      console.log("Driver: Resolve (" + codeURLs + "): " + oEvent.data);
+      console.log("CONTAM Driver (end): LoadJSFiles Resolve (" + codeURLs + "): " + oEvent.data);
       resolve(oEvent.data);
     }
     function onWorkerError(e)
     {
-      console.log("Driver: Reject: " + e.message);
+      console.log("CONTAM Driver (end): LoadJSFiles Reject: " + e.message);
       reject(e);
     }
   });

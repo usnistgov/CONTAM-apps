@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html><!-- InstanceBegin template="/Templates/IAQanalysis.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
@@ -19,7 +19,9 @@
   <link rel="Home" href="../../index.htm">
   <link rel="Up" href="../../software/index.htm">
   <script type="text/javascript" src="../contam/contam_worker_driver.js"></script>
-  <script type="text/javascript" src="../contam/units_2.js"></script>
+  <script type="text/javascript" src="../contam/unitsConversions.js"></script>
+  <script type="text/javascript" src="../contam/unitsSetup.js"></script>
+  <script type="text/javascript" src="../contam/unitsStrings.js"></script>
   <script type="text/javascript" src="../contam/utils/sprintf_1.js"></script>
   <script type="text/javascript" src="../contam/utils/time_utilities.js"></script>
   <script type="text/javascript" src="nano_3.js"></script>
@@ -50,15 +52,8 @@
       </div>
     </div>
     <div id="list">
-      <div><a href="../../index.htm" id="home" title="Multizone Modeling Homepage">Home</a></div>
       <div><a href="../../software/index.htm" id="software" title="support and download of computer software used for modeling multizone buildings">Software</a></div>
-      <div><a href="../../case%20studies/index.htm" id="cases" title="presentations of case studies of the application of CONTAM">Case Studies</a></div>
-      <div><a href="../../publications/index.htm" id="pubs" title="NIST publications that are related to multizone modeling">Publications</a></div>
-      <div><a href="../../applications/index.htm" id="apps" title="discussion of how multizone software can be used for a variety of applications">Applications</a></div>
-      <div><a href="../../links.htm" id="links" title="Links to other IAQ analysis related material.">Links</a></div>
 	  <div id="listspacer">&nbsp;</div>
-      <div><a href="../../feedback.htm" class="head" id="feedback">Feedback</a></div>
-      <div><a href="../../sitemap.htm" class="head" id="sitemap">Site Map</a></div>
     </div>
   </div>
   <div id="flexcontainer">
@@ -73,142 +68,326 @@
       </div>
   <div style="display:flex; flex-flow:row;">
     <div style="display:flex; flex-flow:column;">
-      <p style="color:red"><strong>(BETA - do not cite or distribute)</strong></p>
+      <p><strong>Set Inputs then click the RUN SIMULATION button.</strong></p>
+      <!---INPUTS -->
       <h2>Inputs</h2>
       <div class="section">
+
+        <!---Zone Geometry -->
         <div style="border:solid thin; margin:3px;">
-          <h3 style="margin-left: 1em;">Building</h3>
+          <h3 style="margin-left: 1em;">Zone Geometry</h3>
           <div class="unit">
-            <div class="inblock col">
-              Building Volume
-              <input type="button" value="Compute" onclick="Nano.ComputeVol();">
-            </div>
-            <input type="number" step="any" min="0" id="BuildingVolumeInput">
+            <div class="inblock col">Volume</div>
+            <input type="number" step="any" min="0.01" id="BuildingVolumeInput">
             <select id="BuildingVolumeCombo"></select>
           </div>
-
           <div class="unit">
             <div class="inblock col">Floor Area</div>
-            <input type="number" step="any" min="0" id="SurfaceAreaInput">
-            <select id="SurfaceAreaCombo"></select>
+            <input type="number" step="any" min="0" id="SurfaceAreaFloorInput">
+            <select id="SurfaceAreaFloorCombo"></select>
           </div>
-
           <div class="unit">
-            <div class="inblock col">
-              Air Change Rate
-              <input type="button" value="Compute" onclick="Nano.ComputeACH();">
-            </div>
-            <input type="number" step="any" min="0"
-            id="AirChangeRateInput" value="0.25">
-            h<sup>-1</sup>
+            <div class="inblock col">Wall Area</div>
+            <input type="number" step="any" min="0" id="SurfaceAreaWallInput"> 
+            <span id="SurfaceAreaWallUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Ceiling Area</div>
+            <input type="number" step="any" min="0" id="SurfaceAreaCeilingInput"> 
+            <span id="SurfaceAreaCeilingUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Envelope Penetration Factor</div>
+            <input type="number" step="any" min="0" max="1.0 "id="PenetrationFactorInput">
           </div>
         </div>
 
+        <!--- Ventilation System -->
         <div style="border:solid thin; margin:3px;">
-          <h3 style="margin-left: 1em;">Particle Data</h3>
+          <h3 style="margin-left: 1em;">Ventilation System</h3>
+            <div class="unit">
+              <div class="inblock col">Supply Airflow Rate</div>
+              <!-- 9.0 sm3/h * 1.2041 kg/m3 * 1 h/3600 s = -->
+              <input type="number" step="any" min="0" id="SupplyRateInput">
+              <select id="SupplyRateCombo"></select>
+            </div>
+            <div class="unit">
+              <div class="inblock col">Return Airflow Rate</div>
+              <input type="number" step="any" min="0" id="ReturnRateInput">
+              <span id="ReturnRateUnits"></span>
+            </div>
+            <div class="unit">
+              <div class="inblock col">Percent Outdoor Air</div>
+              <input type="number" step="any" min="0" max="100" id="POAInput"> %
+            </div>
           <div class="unit">
-            <div class="inblock col">Particle Diameter</div>
+            <div class="inblock col">Air Change Rate</div>
+            <input type="number" step="any" min="0" disabled id="AchCalc">
+            <select id="AchCombo"></select>
+          </div>
+
+          <div class="unit">
+            <div class="inblock col">Outdoor Airflow Rate</div>
+            <input type="number" step="any" min="0" disabled id="QoaCalc">
+            <span id="QoaCalcUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Recirculation Airflow Rate</div>
+            <input type="number" step="any" min="0" disabled id="QrecCalc">
+            <span id="QrecCalcUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Exhaust Airflow Rate</div>
+            <input type="number" step="any" min="0" disabled id="QexhCalc">
+            <span id="QexhCalcUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Airflow Imbalance</div>
+            <input type="number" step="any" disabled id="QimbalCalc">
+            <span id="QimbalCalcUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Zone Air Balance</div>
+            <input type="text" disabled id="ZoneBalance">
+          </div>
+
+          <!-- Filters -->
+          <div class="unit">
+            <div class="inblock col">Supply Air Filter</div>
+            <select id="SupplyFilterSelect">
+              <option>None</option>
+              <option>MERV 4</option>
+              <option>MERV 5</option>
+              <option>MERV 6</option>
+              <option>MERV 7</option>
+              <option>MERV 8</option>
+              <option>MERV 9</option>
+              <option>MERV 10</option>
+              <option>MERV 11</option>
+              <option>MERV 12</option>
+              <option>MERV 13</option>
+              <option>MERV 14</option>
+              <option>MERV 15</option>
+              <option>MERV 16</option>
+            </select>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Recirculation Air Filter</div>
+            <select id="RecircFilterSelect">
+              <option>None</option>
+              <option>MERV 4</option>
+              <option>MERV 5</option>
+              <option>MERV 6</option>
+              <option>MERV 7</option>
+              <option>MERV 8</option>
+              <option>MERV 9</option>
+              <option>MERV 10</option>
+              <option>MERV 11</option>
+              <option>MERV 12</option>
+              <option>MERV 13</option>
+              <option>MERV 14</option>
+              <option>MERV 15</option>
+              <option>MERV 16</option>
+            </select>
+          </div>
+        </div>
+
+        <!---Particle Data -->
+        <div style="border:solid thin; margin:3px;">
+          <h3 style="margin-left: 1em;">Particle Properties</h3>
+          <div class="unit">
+            <div class="inblock col">Diameter</div>
             <input type="number" step="any" min="0" id="ParticleDiameterInput">
             <select id="ParticleDiameterCombo"></select>
           </div>
           <div class="unit">
-            <div class="inblock col">Particle Density</div>
+            <div class="inblock col">Density</div>
             <input type="number" step="any" min="0" id="ParticleDensityInput">
             <select id="ParticleDensityCombo"></select>
           </div>
-          <div class="unit">
-            <div class="inblock col">Source Type</div>
-            <input type="radio" name="sourceType" id="constSrcRadio" 
-            onclick="Nano.changeSrcType();" checked="true">Constant
-            <input type="radio" name="sourceType" id="burstSrcRadio" 
-            onclick="Nano.changeSrcType();" style="margin-left: 15px;">Burst
-          </div>
-          <div class="unit">
-            <div class="inblock col">Release Amount</div>
-            <input type="number" step="any" min="0" disabled id="ReleaseAmountInput">
-            <select id="ReleaseAmountCombo" disabled></select>
-          </div>
-          <div class="unit">
-            <div class="inblock col">Release Rate</div>
-            <input type="number" step="any" min="0" id="ReleaseRateInput">
-            <select id="ReleaseRateCombo"></select>
-          </div>
-          <div class="unit">
-            <div class="inblock col">Source Start Time</div>
-            <input id="StartSourceInput" onchange="" value="08:00:00">
-          </div>
-          <div class="unit">
-            <div class="inblock col">Source End Time</div>
-            <input id="EndSourceInput" onchange="" value="17:00:00">
-          </div>
-          <div class="unit">
-            <div class="inblock col">Deposition Velocity</div>
-            <input type="number" step="any" min="0" id="DepositionVelocityInput">
-            <select id="DepositionVelocityCombo"></select>
+        </div>
+
+        <!---Particle Emissions -->
+        <div style="border:solid thin; margin:3px;">
+          <h3 style="margin-left: 1em;">Particle Source</h3>
+            <div class="unit">
+              <div class="inblock col">Source Type</div>
+              <input type="radio" name="sourceType" id="constSrcRadio"> Constant
+              <input type="radio" name="sourceType" id="burstSrcRadio"
+                     style="margin-left: 15px;"> Burst
+            </div>
+            <div class="unit">
+              <div class="inblock col">Release Amount</div>
+              <input type="number" step="any" min="0" disabled id="ReleaseAmountInput">
+              <select id="ReleaseAmountCombo" disabled></select>
+            </div>
+            <div class="unit">
+              <div class="inblock col">Release Rate</div>
+              <input type="number" step="any" min="0" id="ReleaseRateInput">
+              <select id="ReleaseRateCombo"></select>
+            </div>
+            <div class="unit">
+              <div class="inblock col">Source Start Time</div>
+              <input id="StartSourceInput">
+            </div>
+            <div class="unit">
+              <div class="inblock col">Source End Time</div>
+              <input id="EndSourceInput">
+            </div>
           </div>
 
+        <!---Particle Deposition -->
+        <div style="border:solid thin; margin:3px;">
+          <h3 style="margin-left: 1em;">Particle Deposition Velocities</h3>
           <div class="unit">
-            <div class="inblock col">Resuspension Area</div>
-            <input type="number" step="any" min="0" id="ResuspensionAreaInput">
-            <select id="ResuspensionAreaCombo"></select>
+            <div class="inblock col">Floor</div>
+            <input type="number" step="any" min="0" id="DepositionVelocityFloorInput">
+            <select id="DepositionVelocityFloorCombo"></select>
           </div>
-
           <div class="unit">
-            <div class="inblock col">Resuspension Rate</div>
-            <input type="number" step="any" min="0" id="ResuspensionRateInput">
-            <select id="ResuspensionRateCombo"></select>
+            <div class="inblock col">Walls</div>
+            <input type="number" step="any" min="0" id="DepositionVelocityWallInput">
+            <span id="DepositionVelocityWallUnits"></span>
           </div>
-
           <div class="unit">
-            <div class="inblock col">Initial Loading</div>
-            <input type="number" step="any" min="0" id="InitialLoadingInput">
-            <select id="InitialLoadingCombo"></select>
+            <div class="inblock col">Ceiling</div>
+            <input type="number" step="any" min="0" id="DepositionVelocityCeilingInput">
+            <span id="DepositionVelocityCeilingUnits"></span>
           </div>
         </div>
-        <div style="border:solid thin; margin:3px;"><h3 style="margin-left: 1em;">Occupant Exposure</h3>
+
+        <!---Particle Resuspension -->
+        <div style="border:solid thin; margin:3px;">
+          <h3 style="margin-left: 1em;">Particle Resuspension</h3>
           <div class="unit">
-            <div class="inblock col">Exposure Start Time</div><input id="StartExposureInput" onchange="" value="00:00:00">
+            <div class="inblock col">Floor Resuspension Area</div>
+            <input type="number" step="any" min="0" id="ResuspensionAreaFloorInput">
+            <select id="ResuspensionAreaFloorCombo"></select>
           </div>
           <div class="unit">
-            <div class="inblock col">Exposure End Time</div><input id="EndExposureInput" onchange="" value="24:00:00">
+            <div class="inblock col">Floor Resuspension Rate</div>
+            <input type="number" step="any" min="0" id="ResuspensionRateFloorInput">
+            <select id="ResuspensionRateFloorCombo"></select>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Wall Resuspension Area</div>
+            <input type="number" step="any" min="0" id="ResuspensionAreaWallInput">
+            <span id="ResuspensionAreaWallUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Wall Resuspension Rate</div>
+            <input type="number" step="any" min="0" id="ResuspensionRateWallInput">
+            <span id="ResuspensionRateWallUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Ceiling Resuspension Area</div>
+            <input type="number" step="any" min="0" id="ResuspensionAreaCeilingInput">
+            <span id="ResuspensionAreaCeilingUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Ceiling Resuspension Rate</div>
+            <input type="number" step="any" min="0" id="ResuspensionRateCeilingInput">
+            <span id="ResuspensionRateCeilingUnits"></span>
+          </div>
+        </div>
+
+        <!---Initial Concentration and Surface Loadings -->
+        <div style="border:solid thin; margin:3px;">
+          <h3 style="margin-left: 1em;">Initial Concentration and Surface Loadings</h3>
+          <div class="unit">
+            <div class="inblock col">Outdoor Concentration</div>
+            <input type="number" step="any" min="0" id="InitialConcentrationOutdoorInput">
+            <select id="InitialConcentrationOutdoorCombo"></select>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Initial Zone Concentration</div>
+            <input type="number" step="any" min="0" id="InitialConcentrationInput">
+            <span id="InitialConcentrationUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Initial Floor Loading</div>
+            <input type="number" step="any" min="0" id="InitialLoadingFloorInput">
+            <select id="InitialLoadingFloorCombo"></select>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Initial Wall Loading</div>
+            <input type="number" step="any" min="0" id="InitialLoadingWallInput">
+            <span id="InitialLoadingWallUnits"></span>
+          </div>
+          <div class="unit">
+            <div class="inblock col">Initial Ceiling Loading</div>
+            <input type="number" step="any" min="0" id="InitialLoadingCeilingInput">
+            <span id="InitialLoadingCeilingUnits"></span>
+          </div>
+        </div>
+
+        <!-- Occupant Exposure -->
+        <div style="border:solid thin; margin:3px;"><h3 style="margin-left: 1em;">Occupant Exposure</h3>
+          <div class="unit">
+            <div class="inblock col">Exposure Start Time</div><input id="StartExposureInput">
+          </div>
+          <div class="unit">
+            <div class="inblock col">Exposure End Time</div><input id="EndExposureInput">
           </div>
         </div>
       </div>
+
+      <!-- RUN SIMULATION -->
       <div>
-        <input type="button" value="Simulate" style="margin: 10px;"
+        <input type="button" value="RUN SIMULATION" style="margin: 10px;"
                onclick="Nano.GetInputs();">
         <span id="simStatusSpan"></span>
         <div style="display:inline-block;" id="downloadLinksDiv"></div>
       </div>
-      <h2>Resultant Exposure</h2>
-      <div class="section">
 
+      <!-- RESULTS -->
+      <h2>Results</h2>
+      <div class="section">
         <div class="unit">
           <div class="inblock col">Integrated Exposure</div>
-          <input type="number" step="any" min="0" disabled
-          id="IntegratedExposureInput">
+          <input type="number" step="any" min="0" disabled id="IntegratedExposureInput">
           <select id="IntegratedExposureCombo"></select>
         </div>
-
         <div class="unit">
           <div class="inblock col" id="averageExposureDiv">Average Concentration</div>
-          <div id="resultantexposure2" class="inblock" style="background:WhiteSmoke;border:solid thin gray;min-width:155px;">&nbsp;</div> 
+          <input type="number" step="any" min="0" disabled id="resultantexposure2">
           <div id="resultantexposure2units" class="inblock"></div>
         </div>
         <div class="unit">
           <div class="inblock col">Average Concentration (24 h)</div> 
-          <div id="resultantexposure3" class="inblock" style="background:WhiteSmoke;border:solid thin gray;min-width:155px;">&nbsp;</div>
+          <input type="number" step="any" min="0" disabled id="resultantexposure3">
           <div id="resultantexposure3units" class="inblock"></div>
         </div>
         <div class="unit">
-          <div class="inblock col" id="maxExposureDiv">Maximum Concentration</div> 
-          <div id="maximumConcExpos" class="inblock" style="background:WhiteSmoke;border:solid thin gray;min-width:155px;">&nbsp;</div>
+          <div class="inblock col" id="maxExposureDiv">Peak Concentration</div> 
+          <input type="number" step="any" min="0" disabled id="maximumConcExpos">
           <div id="maximumConcExposunits" class="inblock"></div>
         </div>
         <div class="unit">
-          <div class="inblock col">Maximum Concentration (24 h)</div> 
-          <div id="maximumConc" class="inblock" style="background:WhiteSmoke;border:solid thin gray;min-width:155px;">&nbsp;</div>
+          <div class="inblock col">Peak Concentration (24 h)</div> 
+          <input type="number" step="any" min="0" disabled id="maximumConc">
           <div id="maximumConcunits" class="inblock"></div>
+        </div>
+
+        <div class="unit">
+          <div class="inblock col">Final Total Loading</div>
+          <input type="number" step="any" min="0" disabled id="totalLoadingResultInput">
+          <select id="totalLoadingResultCombo"></select>
+        </div>
+        <div class="unit">
+          <div class="inblock col">Final Floor Loading</div>
+          <input type="number" step="any" min="0" disabled id="floorLoadingResult">
+          <div id="floorLoadingResultUnits" class="inblock"></div>
+        </div>
+        <div class="unit">
+          <div class="inblock col">Final Wall Loading</div> 
+          <input type="number" step="any" min="0" disabled id="wallLoadingResult">
+          <div id="wallLoadingResultUnits" class="inblock"></div>
+        </div>
+        <div class="unit">
+          <div class="inblock col">Final Ceiling Loading</div> 
+          <input type="number" step="any" min="0" disabled id="ceilingLoadingResult">
+          <div id="ceilingLoadingResultUnits" class="inblock"></div>
         </div>
       </div>
       <h2>Transient Air and Surface Concentrations</h2>
@@ -218,36 +397,14 @@
         <div id="expos_chart" style="width: 600px; height: 400px" class="inblock"></div>
         <div id="surf_concen_chart" style="width: 600px; height: 400px" class="inblock"></div>
       </div>
-      <div class="section">Version 1.0 Beta</div>
-    </div>
-  </div>
-  <!-- dialog -->
-  <div id="dialogcontainer">
-    <div style="height: 10%;"></div>
-    <div id="dialogwindow">
-      <div id="dialogtitlecontainer">
-        <div id="dialogtitlebar">
-          <div id="dialogtitlebox">
-            <span id="dialogtitle">title</span>
-          </div>
-          <div id="dialogclosebutton">
-            <svg height="20" width="20" onclick="Nano.CloseDialog(false);" style="cursor: pointer;">
-              <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2"  id="dialogclosebuttoncircle" />
-              <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
-              <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
-            </svg> 
-          </div>
-        </div>
-      </div>
-      <div id="dialogframecontainer">
-        <iframe id="dialogframe"></iframe>
-      </div>
+      <div class="section">Version 1.0</div>
     </div>
   </div>
 
+
            <!-- InstanceEndEditable --> </div>
 	<div id="flexcontainer2">
-		<div id="leftnav"> <!-- InstanceBeginEditable name="Nav" -->      <div class="header">CONTAM</div>
+		<div id="leftnav"> <!-- InstanceBeginEditable name="Nav" -->      <div class="header">Nano Tool</div>
 			<ul>
 				<li><a href="doc.htm">Documentation</a></li>
 				<li><a href="index.htm">Home</a></li>
@@ -259,7 +416,7 @@
             <!-- #BeginDate format:Am3 -->2/15/2017<!-- #EndDate -->
             <br>
 				Page Created : 02/2016<br><!-- InstanceEndEditable --> </div>
-					  <img src="../../images/cpsc.jpg" width="80" height="80">
+					  <img src="../../images/cpsc.jpg" width="160" height="160">
 
 	</div>
   </div>

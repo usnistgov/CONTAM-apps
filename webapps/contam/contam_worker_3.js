@@ -1,5 +1,6 @@
 importScripts("element_list.js", "globals.js", "read_epw.js", "reader.js",
-  "read_tmy2.js", "read_tmy3.js", "simread.js", "units_2.js",
+  "read_tmy2.js", "read_tmy3.js", "simread.js", 
+  "unitsConversions.js","unitsSetup.js","unitsStrings.js",
   "project/icons.js", "project/project_1.js", "project/upgraders.js", 
   "project/c24toc30.js", "project/c30toc31.js", "project/c31toc32.js", 
   "project/prjsave.js", "utils/date_utilities.js", "utils/sprintf_1.js", 
@@ -26,7 +27,7 @@ Worker.SetValue = function(variableName, variableValue)
       var index = tokens[i].substring(tokens[i].indexOf("[") + 1, tokens[i].indexOf("]"));
       if(!e.hasOwnProperty(subtoken))
       {
-        return {result: true, msg: "worker: Variable not found: " + subtoken};
+        return {result: true, msg: "Variable not found: " + variableName + ", subtoken: " + subtoken};
       }
       e = e[subtoken];
       //TODO: check this property too?
@@ -65,7 +66,7 @@ Worker.SetValue = function(variableName, variableValue)
     {
       if(!e.hasOwnProperty(tokens[i]))
       {
-        return {result: true, msg: "worker: Variable not found: " + tokens[i]};
+        return {result: true, msg: "Variable not found: " + variableName + ", token: " + tokens[i]};
       }
       e = e[tokens[i]];
     }
@@ -78,21 +79,19 @@ Worker.SetValue = function(variableName, variableValue)
     var index = tokens[i].substring(tokens[i].indexOf("[") + 1, tokens[i].indexOf("]"));
     if(!e.hasOwnProperty(subtoken))
     {
-      return {result: true, msg: "worker: Variable not found: " + subtoken};
+      return {result: true, msg: "Variable not found: " + variableName + ", subtoken: " + subtoken};
     }
     e = e[subtoken];
     e[index] = variableValue;
-    console.log("worker: variable set: " + variableName);
     return {result: false, msg: "ok"};
   }
   else
   {
     if(!e.hasOwnProperty(tokens[i]))
     {
-      return {result: true, msg: "worker: Variable not found"};
+      return {result: true, msg: "Variable not found: " + variableName + ", token: " + tokens[i]};
     }
     e[tokens[i]] = variableValue;
-    console.log("worker: variable set: " + variableName);
     return {result: false, msg: "ok"};
   }
 
@@ -110,11 +109,11 @@ Worker.SetListOfValues = function(ListOfValues)
     if(ret.result)
     {
       console.log(ret.msg);
-      postMessage(ret.msg);
+      //postMessage(ret.msg);
+      return true;
     }
   });
-  console.log("worker: variable list set");
-  postMessage("ok");
+  return false;
 }
 
 //returns an object that is the variable name given
@@ -140,7 +139,7 @@ Worker.getVariableFromName = function(variableName, set)
       var index = tokens[i].substring(tokens[i].indexOf("[") + 1, tokens[i].indexOf("]"));
       if(!e.hasOwnProperty(subtoken))
       {
-        return {result: true, msg: "worker: Variable not found: " + subtoken};
+        return {result: true, msg: "CONTAM worker: Variable not found: " + subtoken};
       }
       e = e[subtoken];
       //TODO: check this property too?
@@ -179,7 +178,7 @@ Worker.getVariableFromName = function(variableName, set)
     {
       if(!e.hasOwnProperty(tokens[i]))
       {
-        return {result: true, msg: "worker: Variable not found: " + tokens[i]};
+        return {result: true, msg: "CONTAM worker: Variable not found: " + tokens[i]};
       }
       e = e[tokens[i]];
     }
@@ -190,7 +189,7 @@ Worker.getVariableFromName = function(variableName, set)
     var index = tokens[i].substring(tokens[i].indexOf("[") + 1, tokens[i].indexOf("]"));
     if(!e.hasOwnProperty(subtoken))
     {
-      return {result: true, msg: "worker: Variable not found: " + subtoken};
+      return {result: true, msg: "CONTAM worker: Variable not found: " + subtoken};
     }
     e = e[subtoken];
     //e[index] = variableValue;
@@ -240,7 +239,7 @@ Worker.getVariableFromName = function(variableName, set)
   {
     if(!e.hasOwnProperty(tokens[i]))
     {
-      return {result: true, msg: "worker: Variable not found"};
+      return {result: true, msg: "CONTAM worker: Variable not found"};
     }
     if(set)
     {
@@ -309,7 +308,6 @@ Worker.SetVariableToVariable = function(setVariableName, toVariableName)
 
 onmessage = function (oEvent) 
 {
-  console.log("worker: onmessage handler begin");
   var data = oEvent.data;
   //Calls a function in this contamWorker
   //requires an object with these members
@@ -318,28 +316,28 @@ onmessage = function (oEvent)
   //              if passing just an array to a function you must pass array inside of an array
   if(data.cmd == "CallFunction")
   {
+    console.log("CONTAM worker (start): CallFunction: " + data.funcName);
     var e=self, i;
     var tokens = data.funcName.split(".");
-    console.log("worker: function tokens: " + tokens);
     for(i=0; i<tokens.length-1;++i)
     {
       if(!e.hasOwnProperty(tokens[i]))
       {
-        console.log("worker: Variable not found: " + tokens[i]);
-        postMessage("worker: Variable not found: " + tokens[i]);
+        console.log("CONTAM worker: Variable not found: " + tokens[i]);
+        //postMessage("CONTAM worker: Variable not found: " + tokens[i]);
         return;
       }
       e = e[tokens[i]];
     }
     if(!e.hasOwnProperty(tokens[i]))
     {
-      console.log("worker: Variable not found: " + tokens[i]);
-      postMessage("worker: Variable not found: " + tokens[i]);
+      console.log("CONTAM worker: Variable not found: " + tokens[i]);
+      //postMessage("CONTAM worker: Variable not found: " + tokens[i]);
       return;
     }
     var result = e[tokens[i]].apply(self, data.funcParams)
-    console.log("worker: function return: " + result);
-    postMessage({cmd:"functionReturn",fresult:result});
+    console.log("CONTAM worker (end): CallFunction: " + data.funcName + " returns " + result);
+    postMessage({cmd:"functionReturn",fresult:result, fname: data.funcName});
   }
   //sets a variable in this contamWorker
   //requires an object with these members
@@ -348,9 +346,11 @@ onmessage = function (oEvent)
   // variableValue - the value to set the variable
   else if(data.cmd == "SetValue")
   {
+    console.log("CONTAM worker (start): SetValue: " + data.variableName);
     var ret = Worker.SetValue(data.variableName, data.variableValue);
     if(ret.result)
       console.log(ret.msg);
+    console.log("CONTAM worker (end): SetValue return: " + ret.msg);
     postMessage(ret.msg);
   }
   //sets a list of variables in this contamWorker
@@ -360,7 +360,17 @@ onmessage = function (oEvent)
   // variableValue - the value to set the variable
   else if(data.cmd == "SetValueArray")
   {
-    Worker.SetListOfValues(data.variableList);
+    console.log("CONTAM worker (start): SetValueArray");
+    if(Worker.SetListOfValues(data.variableList))
+    {
+      console.log("CONTAM worker (end): SetValueArray failed: " + ret.msg);
+      postMessage(ret.msg);
+    }
+    else
+    {
+      console.log("CONTAM worker (end): SetValueArray Succeeded");
+      postMessage("ok");
+    }
   }
   //gets a variable in this contamWorker
   //requires an object with these members
@@ -369,18 +379,19 @@ onmessage = function (oEvent)
   // returns the value of the variable
   else if(data.cmd == "GetValue")
   {
+    console.log("CONTAM worker (start): GetValue:" + data.variableName);
     var e = self;
     var tokens = data.variableName.split(".");
     for(var i=0; i<tokens.length;++i)
     {
       if(!e.hasOwnProperty(tokens[i]))
       {
-        postMessage("worker: Variable not found: " + tokens[i]);
+        postMessage("CONTAM worker (end): Variable not found: " + tokens[i]);
         return;
       }
       e = e[tokens[i]];
     }
-    console.log("worker: variable get returning: " + data.variableName);
+    console.log("CONTAM worker (end): GetValue: " + e);
     postMessage(e);
   }
   //gets an array of variables in this contamWorker
@@ -390,38 +401,42 @@ onmessage = function (oEvent)
   else if(data.cmd == "GetValueArray")
   {
     var returnObject = {};
+    console.log("CONTAM worker (start): GetValueArray");
         
     data.variableNameArray.forEach(addVariable, self);    
     
+    console.log("CONTAM worker (end): GetValueArray");
     postMessage(returnObject);
   }
   //the file js from the given URL on this contam worker
   else if(data.cmd == "LoadJSFile")
   {
-    console.log("worker: Load JS file on contam worker thread: " + data.jsFileURL);
+    console.log("CONTAM worker (start): LoadJSFile: " + data.jsFileURL);
     var retVal = importScripts(data.jsFileURL);
-    //console.log("Returning: " + retVal);
+    console.log("CONTAM worker (end): LoadJSFile: " + retVal);
     postMessage(retVal);
   }
   //the js files from the given URL on this contam worker
   //jsFileURLs is an array of URLs
   else if(data.cmd == "LoadJSFiles")
   {
-    console.log("worker: Load JS files on contam worker thread: " + data.jsFileURLs);
+    console.log("CONTAM worker (start): LoadJSFiles: " + data.jsFileURLs);
     var retVal = self["importScripts"].apply(self, data.jsFileURLs);
-    //console.log("Returning: " + retVal);
+    console.log("CONTAM worker (end): LoadJSFiles: " + retVal);
     postMessage(retVal);
   }
   else if(data.cmd == "SetVariableToVariable")
   {
+    console.log("CONTAM worker (start): SetVariableToVariable: " + data.setVariableName);
     var ret = Worker.SetVariableToVariable(data.setVariableName, data.toVariableName);
     if(ret.result)
       console.log(ret.msg);
+    console.log("CONTAM worker (end): SetVariableToVariable: " + data.setVariableName);
     postMessage(ret.msg);
   }
   else
   {
-    console.log("unknown command: " + data.cmd);
+    console.log("CONTAM worker: unknown command: " + data.cmd);
   }
   
   function addVariable(element, index, array)
@@ -432,7 +447,7 @@ onmessage = function (oEvent)
     {
       if(!e.hasOwnProperty(tokens[i]))
       {
-        postMessage("worker: Variable not found: " + tokens[i]);
+        postMessage("CONTAM worker: Variable not found: " + tokens[i]);
         return;
       }
       e = e[tokens[i]];

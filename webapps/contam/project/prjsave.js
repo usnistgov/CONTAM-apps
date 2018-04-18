@@ -50,6 +50,7 @@ CONTAM.Project.prjsave = function ()
   prj.pexp_save();
   prj.note_save();
   prj.pst += sprintf("* end project file.%s", prj.EOL);
+  return {projectText: prj.pst};
 }
 
 CONTAM.Project.run_save = function()

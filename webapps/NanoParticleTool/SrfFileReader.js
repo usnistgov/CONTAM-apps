@@ -38,9 +38,11 @@ CONTAM.SrfFileReader.ReadSurfaceFile = function(SrfFileText)
     var dvr5 = rdr.readR4(0);
     var timeTokens = time.split(":");
     
+    // add a record with time, dvr3, dvr4, dvr5 and the total of the three
     values.push([[parseInt(timeTokens[0]), parseInt(timeTokens[1]), 
-      parseInt(timeTokens[2])], parseFloat(dvr3) + parseFloat(dvr4) + parseFloat(dvr5)]);
+      parseInt(timeTokens[2])], parseFloat(dvr3) + parseFloat(dvr4) + parseFloat(dvr5),
+      parseFloat(dvr3), parseFloat(dvr4), parseFloat(dvr5)]);
   }
-  return values;
+  return {records: values};
   
 }
