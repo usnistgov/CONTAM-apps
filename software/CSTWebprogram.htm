@@ -1,225 +1,230 @@
 <!DOCTYPE HTML>
-<html><!-- InstanceBegin template="/Templates/IAQanalysis.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
-<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-<!-- InstanceBeginEditable name="doctitle" -->
-		<title>Climate Suitability Tool (Web)</title>
-		<!-- InstanceEndEditable -->
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<link rel="shortcut icon" href="http://www.bfrl.nist.gov/IAQanalysis/favicon.ico" type="image/x-icon">
-<style type="text/css">
-			<!-- @import url("../index.css"); -->
-		</style>
-<link rel="stylesheet" type="text/css" href="../print.css" media="print">
-<!-- DAP Analytics -->
-<script type="text/javascript" id="_fed_an_ua_tag"
-        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&subagency=NIST&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c"></script>
-<!-- InstanceBeginEditable name="head" -->
-   <meta name="description" content="CONTAM Weather Conversion Software. It creates weather file templates for CONTAM and convert Energy Plus weather files to CONTAM's format.">
-		<meta name="keywords" content="CONTAM, CONTAMW, multizone, multizone modeling, contaminant, indoor air quality, IAQ, ventilation, airflow, modeling, weather">
-   <link rel="Index" href="../sitemap.htm">
-   <link rel="Contents" href="index.htm">
-   <link rel="Home" href="../index.htm">
-   <link rel="Up" href="index.htm">
-   <style type="text/css">
-     <!-- @import url(../software.css);  -->
-   </style>
-  <script type="text/javascript" src="../webapps/contam/reader.js"></script>
-  <script type="text/javascript" src="../webapps/contam/utils/date_utilities.js"></script>
-  <script type="text/javascript" src="../webapps/contam/utils/time_utilities.js"></script>
-  <script type="text/javascript" src="../webapps/contam/utils/sprintf.js"></script>
-  <script type="text/javascript" src="../webapps/contam/units_1.js"></script>
-  <script type="text/javascript" src="cst.js"></script>
-  <script type="text/javascript" src="../webapps/contam/read_epw.js"></script>
-  <script type="text/javascript" src="../webapps/contam/read_tmy3.js"></script>
-  <script type="text/javascript" src="../webapps/contam/read_tmy2.js"></script>
-<style>
-.unit 
-{ 
-  min-width: 460px; 
-  padding:5px; 
-  border: solid 2px #679595;
-  border-radius:10px;
-  margin:5px;
-  background:#F4F5F9;
-  max-width:530px;
-}
-.leftcol
-{
-  min-width: 250px;
-  display:inline-block;
-}
-</style>
+<html>
+  <head>
+    <title>Climate Suitability Tool (Web)</title>
+    <link href="../site.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="description" content="CONTAM Weather Conversion Software. It creates weather file templates for CONTAM and convert Energy Plus weather files to CONTAM's format.">
+    <meta name="keywords" content="CONTAM, CONTAMW, multizone, multizone modeling, contaminant, indoor air quality, IAQ, ventilation, airflow, modeling, weather">
+    <script type="text/javascript" src="../webapps/contam/reader.js"></script>
+    <script type="text/javascript" src="../webapps/contam/utils/date_utilities.js"></script>
+    <script type="text/javascript" src="../webapps/contam/utils/time_utilities.js"></script>
+    <script type="text/javascript" src="../webapps/contam/utils/sprintf_1.js"></script>
+    <script type="text/javascript" src="../webapps/contam/units_2.js"></script>
+    <script type="text/javascript" src="cst.js"></script>
+    <script type="text/javascript" src="../webapps/contam/read_epw.js"></script>
+    <script type="text/javascript" src="../webapps/contam/read_tmy3.js"></script>
+    <script type="text/javascript" src="../webapps/contam/read_tmy2.js"></script>
+    <script type="text/javascript" src="../menu.js"></script>
+    <style>
 
-   <!-- InstanceEndEditable -->
-</head>
-<body>
-<div id="container">
-  <div id="top">
-    <div class="templhead">
-      <div class="nomargin">
-        <div class="templtitle"> 
-			<img src="../images/iaqalogo.png" alt="Contam Logo" name="templogo" width="49" height="51" id="templogo"> 
-			<acronym title="National Institute of Standards and Technology">NIST</acronym> Multizone Modeling Website 
-		</div>
-      </div>
-    </div>
-    <div id="list">
-      <div><a href="../index.htm" id="home" title="Multizone Modeling Homepage">Home</a></div>
-      <div><a href="index.htm" id="software" title="support and download of computer software used for modeling multizone buildings">Software</a></div>
-      <div><a href="../case%20studies/index.htm" id="cases" title="presentations of case studies of the application of CONTAM">Case Studies</a></div>
-      <div><a href="../publications/index.htm" id="pubs" title="NIST publications that are related to multizone modeling">Publications</a></div>
-      <div><a href="../applications/index.htm" id="apps" title="discussion of how multizone software can be used for a variety of applications">Applications</a></div>
-      <div><a href="../links.htm" id="links" title="Links to other IAQ analysis related material.">Links</a></div>
-	  <div id="listspacer">&nbsp;</div>
-      <div><a href="../feedback.htm" class="head" id="feedback">Feedback</a></div>
-      <div><a href="../sitemap.htm" class="head" id="sitemap">Site Map</a></div>
-    </div>
-  </div>
-  <div id="flexcontainer">
-	<div id="content"> <!-- InstanceBeginEditable name="Content" -->
-  <div id="title">
-    <div style="transform: perspective( 600px )rotateY(40deg);display:inline-block;">
-      <img src="../images/utils.png" style="vertical-align:middle;">
-    </div>
-    <div style="display:inline-block; padding-left:1ex;">
-      Climate Suitability Tool
-    </div>
-  </div>
-  <div class="unit">
-    <div>Internal Heat Gains / Area</div>
-    <div style="display:flex; flex-flow: row;">
-      <select size="5" style="margin: 5px; min-width:75px;" id="gainsSelect">
-      </select>
-      <div style="display:flex; flex-flow:column;">
-        <div>
-        <input type="number" step="any" min="0" value="10"
-               id="internalGainInput" style="margin: 5px;" 
-               onchange="CST.ChangeUnitValue(this);">
-        <select onChange="CST.ChangeUnits(this);" id="internalGainCombo">
-          <option>W/m<sup>2</sup></option>
-          <option>Btu/h&middot;ft<sup>2</sup></option>
-          <option>W/ft<sup>2</sup></option>
-          <option>kJ/h&middot;m<sup>2</sup></option>
-        </select>
-        </div>
-        <div>
-          <input type="button" style="margin:5px;" 
-                 value="Add Gain"
-                 onclick="CST.AddInternalGain();">
-          <input type="button" style="margin:5px;" value="Remove Gain"
-                 onclick="CST.RemoveInternalGain();">
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="unit">
-    <div class="leftcol">Minimum Ventilation Rate</div>
-    <input type="number" step="any" min="0"
-    id="mdot_A_minInput" onChange="CST.ChangeUnitValue(this);">
-    <select id="mdot_A_minCombo" onChange="CST.ChangeUnits(this);">
-      <option>kg/s&middot;m<sup>2</sup></option>
-      <option>scfm/ft<sup>2</sup></option>
-      <option>sL/s&middot;m<sup>2</sup></option>
-      <option>sm<sup>3</sup>/s&middot;m<sup>2</sup></option>
-      <option>sm<sup>3</sup>/h&middot;m<sup>2</sup></option>
-      <option>lb/s&middot;ft<sup>2</sup></option>
-      <option>sft<sup>3</sup>/h&middot;ft<sup>2</sup></option>
-      <option>sL/min&middot;m<sup>2</sup></option>
-      <option>kg/h&middot;m<sup>2</sup></option>
-     </select>
-  </div>
-  <div class="unit">
-    <div class="leftcol">Limiting Outdoor Dew Point</div>
-    <input type="number" step="any" min="0"
-    id="dewPointTempInput" onChange="CST.ChangeUnitValue(this);">
-    <select id="dewPointTempCombo" onChange="CST.ChangeUnits(this);">
-      <option>K</option>
-      <option>R</option>
-      <option>&deg;C</option>
-      <option>&deg;F</option>
-     </select>
-  </div>
-  <div class="unit">
-    <div class="leftcol">Ceiling Height</div>
-    <input type="number" step="any" min="0"
-    id="heightInput" onChange="CST.ChangeUnitValue(this);">
-    <select id="heightCombo" onChange="CST.ChangeUnits(this);">
-      <option>m</option>
-      <option>ft</option>
-      <option>cm</option>
-      <option>in</option>
-      <option>mm</option>
-      <option>dm</option>
-      <option>&micro;m</option>
-     </select>
-  </div>
-  <div class="unit">
-    <div class="leftcol">Cooling Setpoint</div>
-    <input type="number" step="any" min="0"
-    id="manualCoolingSetpointInput" onChange="CST.ChangeUnitValue(this);">
-    <select id="manualCoolingSetpointCombo" onChange="CST.ChangeUnits(this);">
-      <option>K</option>
-      <option>R</option>
-      <option>&deg;C</option>
-      <option>&deg;F</option>
-     </select>
-  </div>
-  <div class="unit">
-    <div class="leftcol">Heating Setpoint</div>
-    <input type="number" step="any" min="0"
-    id="manualHeatingSetpointInput" onChange="CST.ChangeUnitValue(this);">
-    <select id="manualHeatingSetpointCombo" onChange="CST.ChangeUnits(this);">
-      <option>K</option>
-      <option>R</option>
-      <option>&deg;C</option>
-      <option>&deg;F</option>
-     </select>
-  </div>
-  <div class="unit">
-    <div class="leftcol">Night Start</div>
-    <input type="number" step="any" min="0" value="18"
-    id="NightStartInput"> h
-  </div>
-  <div class="unit">
-    <div class="leftcol">Night End</div>
-    <input type="number" step="any" min="0" value="5"
-    id="NightEndInput"> h
-  </div>
-  <div class="unit">
-    <div style="margin: 5px;font-size:larger;">Select Weather Files:</div>
-    <input type="file" id="wthinput" onChange="CST.OpenWeatherFile(this.files)" 
-           style="margin: 10px;" multiple>
-    <p>The Climate Suitability Tool supports EnergyPlus Weather files (.epw) and Typical Meteorlogical Year 2 (.tm2) and 3 (.csv) files.</p>
-    <p>EPW files can be found <a href="https://energyplus.net/weather" target="_blank">here</a>. 
-        TMY3 files can be found <a href="http://rredc.nrel.gov/solar/old_data/nsrdb/1991-2005/tmy3/" target="_blank">here</a>. 
-        TMY2 files can be found <a href="http://rredc.nrel.gov/solar/old_data/nsrdb/1961-1990/tmy2/" target="_blank">here</a>.
-    </p>
-  </div>
-  <div class="unit">
-    <input type="button" style="margin:5px;" value="Run"
-           onclick="CST.UserRun();">
-    <!--<input type="button" style="margin:5px;" value="Help">-->
-  </div>
-  <div id="ResultContents"></div>
+    .grid1
+    {
+      display: grid; 
+      grid-gap: 2px; 
+      background-color: #e4f2fc; 
+      grid-template-columns: repeat(auto-fill, minmax(150px, 250px));
+      justify-content: space-around;
+      margin: 5px 0px;
+      padding:5px;
+      color: black;
+      border: solid #12659c thin; 
+    }
 
-		   <!-- InstanceEndEditable --> </div>
-	<div id="flexcontainer2">
-		<div id="leftnav"> <!-- InstanceBeginEditable name="Nav" -->     <div class="header">Climate Suitability Tool</div>
-			<ul>
-				<li><a href="CSTdesc.htm">Introduction</a></li>
-				<li><a href="CSTprogram.htm">Application (Silverlight)</a></li>
-				<li>Application (Web)</li>
-				<li><a href="CSThelp.htm">Application Help</a></li>
-			</ul>
-		   <!-- InstanceEndEditable --> </div>
-		<div id="footer"> <!-- InstanceBeginEditable name="footer" -->				Page Updated : 
-            <!-- #BeginDate format:Am3 -->1/12/2017<!-- #EndDate -->
-            <br>
-				Page Created : 11/2014<!-- InstanceEndEditable --> </div>
-	</div>
-  </div>
-</div>
-</body>
-<!-- InstanceEnd --></html>
+    .grid2
+    {
+      display: grid; 
+      grid-gap: 2px; 
+      background-color: #e4f2fc; 
+      grid-template-columns: repeat(auto-fill, minmax(150px, 370px));
+      justify-content: space-around;
+      margin: 5px 0px;
+      padding:5px;
+      color: black;
+      border: solid #12659c thin; 
+    }
+    
+    .section 
+    { 
+      background-color:  #e4f2fc;
+      border: solid #12659c thin; 
+      padding:0px 5px; 
+      color: black;
+    }
+
+    caption 
+    {
+      font-size: 2em;
+      line-height: 1.3em;
+      padding: 2ex;
+    }
+
+    th 
+    {
+      padding: 1ex;
+      background:#12659c;
+      color: white;
+    }
+    td 
+    {
+      border: 1px solid #12659c;
+      padding: 1ex;
+      background-color: white;
+    }
+
+    table 
+    {
+      border: 1px solid #12659c;
+      background-color: #e4f2fc;
+    }    
+    </style>
+  </head>
+  <body>
+    <div class="title"  style="display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling" class="blacklink">
+          <img src="../images/NIST_logo.svg" width="151" height="40">
+        </a>
+        <h1 class="inblock">Multizone Modeling</h1>
+      </div>
+      <nav>
+        <input id="menuImage" type="image" alt="Menu Icon"
+          src="../images/menuIcon.svg" width="40" height="40">
+      </nav>
+    </div>
+    <article>
+      <h2>Climate Suitability Tool</h2>
+      <p>
+        <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software-tools/climate-suitability" class="blacklink">Documentation</a>
+      </p>
+      <h3>Inputs</h3>
+      <div class="section">
+        <div class="grid1">
+          <div class="unit">
+            <div>Minimum Ventilation Rate</div>
+            <input type="number" step="any" min="0"
+            id="mdot_A_minInput" onChange="CST.ChangeUnitValue(this);">
+            <select id="mdot_A_minCombo" onChange="CST.ChangeUnits(this);">
+              <option>kg/s&middot;m<sup>2</sup></option>
+              <option>scfm/ft<sup>2</sup></option>
+              <option>sL/s&middot;m<sup>2</sup></option>
+              <option>sm<sup>3</sup>/s&middot;m<sup>2</sup></option>
+              <option>sm<sup>3</sup>/h&middot;m<sup>2</sup></option>
+              <option>lb/s&middot;ft<sup>2</sup></option>
+              <option>sft<sup>3</sup>/h&middot;ft<sup>2</sup></option>
+              <option>sL/min&middot;m<sup>2</sup></option>
+              <option>kg/h&middot;m<sup>2</sup></option>
+             </select>
+          </div>
+          <div class="unit">
+            <div>Limiting Outdoor Dew Point</div>
+            <input type="number" step="any" min="0"
+            id="dewPointTempInput" onChange="CST.ChangeUnitValue(this);">
+            <select id="dewPointTempCombo" onChange="CST.ChangeUnits(this);">
+              <option>K</option>
+              <option>R</option>
+              <option>&deg;C</option>
+              <option>&deg;F</option>
+             </select>
+          </div>
+          <div class="unit">
+            <div>Ceiling Height</div>
+            <input type="number" step="any" min="0"
+            id="heightInput" onChange="CST.ChangeUnitValue(this);">
+            <select id="heightCombo" onChange="CST.ChangeUnits(this);">
+              <option>m</option>
+              <option>ft</option>
+              <option>cm</option>
+              <option>in</option>
+              <option>mm</option>
+              <option>dm</option>
+              <option>&micro;m</option>
+             </select>
+          </div>
+          <div class="unit">
+            <div>Cooling Setpoint</div>
+            <input type="number" step="any" min="0"
+            id="manualCoolingSetpointInput" onChange="CST.ChangeUnitValue(this);">
+            <select id="manualCoolingSetpointCombo" onChange="CST.ChangeUnits(this);">
+              <option>K</option>
+              <option>R</option>
+              <option>&deg;C</option>
+              <option>&deg;F</option>
+             </select>
+          </div>
+          <div class="unit">
+            <div>Heating Setpoint</div>
+            <input type="number" step="any" min="0"
+            id="manualHeatingSetpointInput" onChange="CST.ChangeUnitValue(this);">
+            <select id="manualHeatingSetpointCombo" onChange="CST.ChangeUnits(this);">
+              <option>K</option>
+              <option>R</option>
+              <option>&deg;C</option>
+              <option>&deg;F</option>
+             </select>
+          </div>
+          <div class="unit">
+            <div>Night Start</div>
+            <input type="number" step="any" min="0" value="18"
+            id="NightStartInput"> h
+          </div>
+          <div class="unit">
+            <div>Night End</div>
+            <input type="number" step="any" min="0" value="5"
+            id="NightEndInput"> h
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="unit">
+            <div>Internal Heat Gains / Area</div>
+            <div style="display:flex; flex-flow: row;">
+              <select size="5" style="margin: 5px; min-width:75px;" id="gainsSelect">
+              </select>
+              <div style="display:flex; flex-flow:column;">
+                <div>
+                <input type="number" step="any" min="0" value="10"
+                       id="internalGainInput" style="margin: 5px;" 
+                       onchange="CST.ChangeUnitValue(this);">
+                <select onChange="CST.ChangeUnits(this);" id="internalGainCombo">
+                  <option>W/m<sup>2</sup></option>
+                  <option>Btu/h&middot;ft<sup>2</sup></option>
+                  <option>W/ft<sup>2</sup></option>
+                  <option>kJ/h&middot;m<sup>2</sup></option>
+                </select>
+                </div>
+                <div>
+                  <input type="button" style="margin:5px;" 
+                         value="Add Gain"
+                         onclick="CST.AddInternalGain();">
+                  <input type="button" style="margin:5px;" value="Remove Gain"
+                         onclick="CST.RemoveInternalGain();">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="unit">
+            <div style="margin: 5px;font-size:larger;">Select Weather Files:</div>
+            <input type="file" id="wthinput" onChange="CST.OpenWeatherFile(this.files)" 
+                   style="margin: 10px;" multiple>
+            <p>The Climate Suitability Tool supports EnergyPlus Weather files (.epw) and Typical Meteorlogical Year 2 (.tm2) and 3 (.csv) files.</p>
+            <p>EPW files can be found <a href="https://energyplus.net/weather" target="_blank">here</a>. 
+                TMY3 files can be found <a href="http://rredc.nrel.gov/solar/old_data/nsrdb/1991-2005/tmy3/" target="_blank">here</a>. 
+                TMY2 files can be found <a href="http://rredc.nrel.gov/solar/old_data/nsrdb/1961-1990/tmy2/" target="_blank">here</a>.
+            </p>
+          </div>
+        </div>
+        <div class="sectiongrid">
+          <div class="unit">
+            <input type="button" style="margin:5px;" value="Calculate Results"
+                   onclick="CST.UserRun();">
+            <!--<input type="button" style="margin:5px;" value="Help">-->
+          </div>
+        </div>
+      </div>
+      <div id="ResultContents"></div>
+    </article>
+    <footer>
+      Page Updated : 1/12/2017 - Page Created : 11/2014
+    </footer>
+  </body>
+</html>

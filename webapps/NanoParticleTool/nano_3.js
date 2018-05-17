@@ -22,7 +22,7 @@ window.onload = function()
   Nano.SurfChart = document.getElementById("surf_concen_chart");
   Nano.ExposChart = document.getElementById("expos_chart");
   Nano.simStatusSpan = document.getElementById("simStatusSpan");
-  Nano.downloadLinksDiv = document.getElementById("downloadLinksDiv");
+  Nano.downloadLinksSpan = document.getElementById("downloadLinksSpan");
   Nano.Init();
   Nano.GetPrj().then(
     function(result)
@@ -967,11 +967,11 @@ Nano.RunSim = function()
 
 Nano.createPRJSaveLink = function(prjText)
 {
-  while (Nano.downloadLinksDiv.firstChild) {
-      Nano.downloadLinksDiv.removeChild(Nano.downloadLinksDiv.firstChild);
+  while (Nano.downloadLinksSpan.firstChild) {
+      Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
   }
 
-  var saveDiv = document.createElement("div");
+  var saveSpan = document.createElement("span");
   var savelink = document.createElement("a");
   var filename = "cpsc-nano-tool-v1.prj"
   var prjBlob = new Blob([prjText], {type:'text/plain'})
@@ -993,10 +993,9 @@ Nano.createPRJSaveLink = function(prjText)
     savelink.href = window.URL.createObjectURL(prjBlob);
   }
   savelink.textContent = "Download CONTAM Project";
-  //saveDiv.className = "redback";
-  //savelink.className = "whitelink";
-  saveDiv.appendChild(savelink);
-  Nano.downloadLinksDiv.appendChild(saveDiv);
+  savelink.className = "blacklink";
+  saveSpan.appendChild(savelink);
+  Nano.downloadLinksSpan.appendChild(saveSpan);
 }
 
 //this will convert time from google chart format to # of seconds
@@ -1048,7 +1047,7 @@ Nano.DisplayExposureResults = function()
   
   // set the display of the period of the average
   document.getElementById("averageExposureDiv").textContent = 
-    "Average Concentration (" + (Nano.ExposureDuration / 3600).toString() + " h)";
+    "Average (" + (Nano.ExposureDuration / 3600).toString() + " h)";
   //average exposure over 24 period (in kg/kg)
   var averageExposure24Base = Nano.averageConcen;
   //average exposure over 24 period (in user picked units)
@@ -1166,7 +1165,7 @@ Nano.DisplayExposureResults = function()
 
   // put exposure results in the UI
   document.getElementById("maxExposureDiv").textContent = 
-    "Maximum Concentration (" + (Nano.ExposureDuration / 3600).toString() + " h)";
+    "Maximum (" + (Nano.ExposureDuration / 3600).toString() + " h)";
   document.getElementById("maximumConcExpos").value = 
     parseFloat(sprintf("%4.5g", maxExpos));
   // use innerHTML to get entities converted to characters

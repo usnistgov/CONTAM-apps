@@ -1,85 +1,84 @@
 <!doctype html>
 <html>
-<head>
-<title>CONTAM Results Exporter - Select Sections</title>
-<link rel="stylesheet" href="../../index.css">
-<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<script>
-  function do_onload()
-  {
-    var CWD = window.parent.CWD;
-    var varArray = ["CONTAM.Simread.zcres", "CONTAM.Simread.zfres", "CONTAM.Simread.pfres"];
-    CWD.GetArrayOfContamVariables(varArray).then(function(result)
-    {
-      if(result.zcres == 1)
+  <head>
+    <title>CONTAM Results Exporter - Select Sections</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="app.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script>
+      function do_onload()
       {
-        document.getElementById("contamsAvailable").textContent = 
-          "Contaminant results are in .sim file.";
-        document.getElementById("contamsPresent").style.display = "inline";
-        document.getElementById("contamsNotPresent").style.display = "none";
+        var CWD = window.parent.CWD;
+        var varArray = ["CONTAM.Simread.zcres", "CONTAM.Simread.zfres", "CONTAM.Simread.pfres"];
+        CWD.GetArrayOfContamVariables(varArray).then(function(result)
+        {
+          if(result.zcres == 1)
+          {
+            document.getElementById("contamsAvailable").textContent = 
+              "Contaminant results are in .sim file.";
+            document.getElementById("contamsPresent").style.display = "inline";
+            document.getElementById("contamsNotPresent").style.display = "none";
+          }
+          else
+          {
+            document.getElementById("contamsAvailable").textContent = 
+              "Contaminant results are not in .sim file.";
+            document.getElementById("ctmCheckBox").disabled = true;
+            document.getElementById("contamsPresent").style.display = "none";
+            document.getElementById("contamsNotPresent").style.display = "inline";
+          }
+          if(result.zfres == 1)
+          {
+            document.getElementById("evnAvailable").textContent = 
+              "Environmental results are in .sim file.";
+            document.getElementById("envPresent").style.display = "inline";
+            document.getElementById("envNotPresent").style.display = "none";
+          }
+          else
+          {
+            document.getElementById("evnAvailable").textContent = 
+              "Environmental results are not in .sim file.";
+            document.getElementById("evnCheckBox").disabled = true;
+            document.getElementById("envPresent").style.display = "none";
+            document.getElementById("envNotPresent").style.display = "inline";
+          }
+          if(result.pfres == 1)
+          {
+            document.getElementById("airflowAvailable").textContent = 
+              "Airflow results are in .sim file.";
+            document.getElementById("linksPresent").style.display = "inline";
+            document.getElementById("linksNotPresent").style.display = "none";
+          }
+          else
+          {
+            document.getElementById("airflowAvailable").textContent = 
+              "Airflow results are not in .sim file.";
+            document.getElementById("linkCheckBox").disabled = true;
+            document.getElementById("linksPresent").style.display = "none";
+            document.getElementById("linksNotPresent").style.display = "inline";
+          }
+        });
       }
-      else
+      
+      function on_ok()
       {
-        document.getElementById("contamsAvailable").textContent = 
-          "Contaminant results are not in .sim file.";
-        document.getElementById("ctmCheckBox").disabled = true;
-        document.getElementById("contamsPresent").style.display = "none";
-        document.getElementById("contamsNotPresent").style.display = "inline";
+        var CREUI = window.parent.CREUI;
+        CREUI.options.normalExport.exportCtms = document.getElementById("ctmCheckBox").checked;
+        CREUI.options.normalExport.exportEnv = document.getElementById("evnCheckBox").checked;
+        CREUI.options.normalExport.exportAF = document.getElementById("linkCheckBox").checked;
+        if(CREUI.options.normalExport.exportCtms == false &&
+          CREUI.options.normalExport.exportEnv == false &&
+          CREUI.options.normalExport.exportAF == false)
+        {
+          alert("At least one section must be selected or click the Cancel button.");
+          return;
+        }
+        CREUI.CloseDialog(true)
       }
-      if(result.zfres == 1)
-      {
-        document.getElementById("evnAvailable").textContent = 
-          "Environmental results are in .sim file.";
-        document.getElementById("envPresent").style.display = "inline";
-        document.getElementById("envNotPresent").style.display = "none";
-      }
-      else
-      {
-        document.getElementById("evnAvailable").textContent = 
-          "Environmental results are not in .sim file.";
-        document.getElementById("evnCheckBox").disabled = true;
-        document.getElementById("envPresent").style.display = "none";
-        document.getElementById("envNotPresent").style.display = "inline";
-      }
-      if(result.pfres == 1)
-      {
-        document.getElementById("airflowAvailable").textContent = 
-          "Airflow results are in .sim file.";
-        document.getElementById("linksPresent").style.display = "inline";
-        document.getElementById("linksNotPresent").style.display = "none";
-      }
-      else
-      {
-        document.getElementById("airflowAvailable").textContent = 
-          "Airflow results are not in .sim file.";
-        document.getElementById("linkCheckBox").disabled = true;
-        document.getElementById("linksPresent").style.display = "none";
-        document.getElementById("linksNotPresent").style.display = "inline";
-      }
-    });
-  }
-  
-  function on_ok()
-  {
-    var CREUI = window.parent.CREUI;
-    CREUI.options.normalExport.exportCtms = document.getElementById("ctmCheckBox").checked;
-    CREUI.options.normalExport.exportEnv = document.getElementById("evnCheckBox").checked;
-    CREUI.options.normalExport.exportAF = document.getElementById("linkCheckBox").checked;
-    if(CREUI.options.normalExport.exportCtms == false &&
-      CREUI.options.normalExport.exportEnv == false &&
-      CREUI.options.normalExport.exportAF == false)
-    {
-      alert("At least one section must be selected or click the Cancel button.");
-      return;
-    }
-    CREUI.CloseDialog(true)
-  }
-</script>
-</head>
-<body onload="do_onload();" class="notemplate">
-  <div style="display:flex; flex-flow:row;">
-    <div style="display:flex; flex-flow:column;">
+    </script>
+  </head>
+  <body onload="do_onload();">
+    <article>
       <h3>Select which type of results to output.</h3>
       <div class="section">
         <input type="checkbox" id="ctmCheckBox"> Output Contaminant Concentration Results<br>
@@ -129,12 +128,10 @@
           <span id="airflowAvailable"></span>
         </div>
       </div>
-    </div>
-  </div>
-  <input type="button" value="Cancel" style="margin: 10px;"
-         onclick="window.parent.CREUI.CloseDialog(false)">
-  <input type="button" value="Next" style="margin: 10px;"
-         onclick="on_ok();">
-
-</body>
+      <input type="button" value="Cancel" style="margin: 10px;"
+             onclick="window.parent.CREUI.CloseDialog(false)">
+      <input type="button" value="Next" style="margin: 10px;"
+             onclick="on_ok();">
+    </article>
+  </body>
 </html>

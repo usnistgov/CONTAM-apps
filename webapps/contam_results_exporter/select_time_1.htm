@@ -1,246 +1,262 @@
 <!doctype html>
 <html>
-<head>
-<title>CONTAM Results Exporter - Output Time Limits</title>
-<link rel="stylesheet" href="../../index.css">
-<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="../contam/utils/date_utilities.js"></script>
-<script type="text/javascript" src="../contam/utils/time_utilities.js"></script>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<script>
-  function do_onload()
-  {
-    var CWD = window.parent.CWD;
-    var CREUI = window.parent.CREUI;
-    var date0 = document.getElementById("date0");
-    var date1 = document.getElementById("date1");
-    var time0 = document.getElementById("time0");
-    var time1 = document.getElementById("time1");
-    var startDate = document.getElementById("startDate");
-    var endDate = document.getElementById("endDate");
-    var startTime = document.getElementById("startTime");
-    var endTime = document.getElementById("endTime");
-    var averageOptions = document.getElementById("averageOptions");
-    var timeStep = document.getElementById("timeStep");
-    
-    var varArray = ["CONTAM.Simread.dtres0", "CONTAM.Simread.dtres1",
-      "CONTAM.Simread.tsres", "CONTAM.Simread.tmres0", "CONTAM.Simread.tmres1"];
-    CWD.GetArrayOfContamVariables(varArray).then(function(result)
-    {
-      this.result = result;//store this to use in on_ok function
-      //populate the date lists
-      if(result.dtres0 > result.dtres1)
+  <head>
+    <title>CONTAM Results Exporter - Output Time Limits</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="app.css">
+    <script type="text/javascript" src="../contam/utils/date_utilities.js"></script>
+    <script type="text/javascript" src="../contam/utils/time_utilities.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script>
+      function do_onload()
       {
-        for(var i= result.dtres0; i<=365; ++i)
+        var CWD = window.parent.CWD;
+        var CREUI = window.parent.CREUI;
+        var date0 = document.getElementById("date0");
+        var date1 = document.getElementById("date1");
+        var time0 = document.getElementById("time0");
+        var time1 = document.getElementById("time1");
+        var startDate = document.getElementById("startDate");
+        var endDate = document.getElementById("endDate");
+        var startTime = document.getElementById("startTime");
+        var endTime = document.getElementById("endTime");
+        var averageOptions = document.getElementById("averageOptions");
+        var timeStep = document.getElementById("timeStep");
+        
+        var varArray = ["CONTAM.Simread.dtres0", "CONTAM.Simread.dtres1",
+          "CONTAM.Simread.tsres", "CONTAM.Simread.tmres0", "CONTAM.Simread.tmres1"];
+        CWD.GetArrayOfContamVariables(varArray).then(function(result)
         {
-          var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
-          var option = document.createElement("option");
-          option.text = date;
-          option.value = i;
-          var option2 = option.cloneNode(true);
-          date0.add(option);
-          date1.add(option2);
-        }
-        for(var i=1; i<=result.dtres1; ++i)
+          this.result = result;//store this to use in on_ok function
+          //populate the date lists
+          if(result.dtres0 > result.dtres1)
+          {
+            for(var i= result.dtres0; i<=365; ++i)
+            {
+              var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
+              var option = document.createElement("option");
+              option.text = date;
+              option.value = i;
+              var option2 = option.cloneNode(true);
+              date0.add(option);
+              date1.add(option2);
+            }
+            for(var i=1; i<=result.dtres1; ++i)
+            {
+              var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
+              var option = document.createElement("option");
+              option.text = date;
+              option.value = i;
+              var option2 = option.cloneNode(true);
+              date0.add(option);
+              date1.add(option2);
+            }
+          }
+          else
+          {
+            for(var i=result.dtres0; i<= result.dtres1; ++i)
+            {
+              var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
+              var option = document.createElement("option");
+              option.text = date;
+              option.value = i;
+              var option2 = option.cloneNode(true);
+              date0.add(option);
+              date1.add(option2);
+            }
+          }
+          //default to including all sim days
+          date0.selectedIndex = 0;
+          date1.selectedIndex = date1.options.length - 1;
+          
+          //populate the time lists
+          for(i=0; i<=86400; i+=result.tsres)
+          {
+              var time = CONTAM.TimeUtilities.IntTimeToStringTime(i);
+              var option = document.createElement("option");
+              option.text = time;
+              option.value = i;
+              var option2 = option.cloneNode(true);
+              time0.add(option);
+              time1.add(option2);
+          }
+          // default to the start and end times of the simulation
+          time0.selectedIndex = result.tmres0 / result.tsres;
+          time1.selectedIndex = result.tmres1 / result.tsres;
+          
+          //fill in the simulation parameters
+          startDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(result.dtres0);
+          endDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(result.dtres1);
+          startTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(result.tmres0);
+          endTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(result.tmres1);
+          
+          if(CREUI.options.averageExport.doTimeAverage &&
+            CREUI.options.doAverageExport)
+          {
+            averageOptions.style.display = "block";
+            timeStep.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(result.tsres);
+          }
+          else
+            averageOptions.style.display = "none";
+          
+        });
+      }
+      
+      function on_ok()
+      {
+        var CREUI = window.parent.CREUI;
+        var CWD = window.parent.CWD;
+        var date0 = document.getElementById("date0");
+        var date1 = document.getElementById("date1");
+        var time0 = document.getElementById("time0");
+        var time1 = document.getElementById("time1");
+        var timeStepsToAvg = document.getElementById("timeStepsToAvg");
+        //get the date values from the date select lists
+        date0 = parseInt(date0.options[date0.selectedIndex].value);
+        date1 = parseInt(date1.options[date1.selectedIndex].value);
+        //get the time values from the time select lists
+        time0 = parseInt(time0.options[time0.selectedIndex].value);
+        time1 = parseInt(time1.options[time1.selectedIndex].value);
+        
+        //verify that the end date is after the start date
+        if(this.result.dtres0 > this.result.dtres1)
         {
-          var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
-          var option = document.createElement("option");
-          option.text = date;
-          option.value = i;
-          var option2 = option.cloneNode(true);
-          date0.add(option);
-          date1.add(option2);
+          var date0_relative = date0 - this.result.dtres0 + 1;
+          if(date0_relative < 1)
+            date0_relative += 365;
+          var date1_relative = date1 - this.result.dtres0 + 1;
+          if(date1_relative < 1)
+            date1_relative += 365;
+          if(date0_relative > date1_relative)
+          {
+            alert("The start date cannot be after the end date.");
+            return;
+          }
+          
         }
-      }
-      else
-      {
-        for(var i=result.dtres0; i<= result.dtres1; ++i)
+        else
         {
-          var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
-          var option = document.createElement("option");
-          option.text = date;
-          option.value = i;
-          var option2 = option.cloneNode(true);
-          date0.add(option);
-          date1.add(option2);
+          if(date0 > date1)
+          {
+            alert("The start date cannot be after the end date.");
+            return;
+          }
         }
+        
+        //verify that that start time is not before the start of the sim
+        if(date0 == this.result.dtres0 &&
+           time0 < this.result.tmres0)
+        {
+          alert("The start time cannot be before the start of the simulation.");
+          return;
+        }
+        
+        //verify that the end time is after the end of the sim
+        if(date1 == this.result.dtres1 &&
+           time1 > this.result.tmres1)
+        {
+          alert("The end time cannot be after the end of the simulation.");
+          return;
+        }
+           
+        //verify that the start time is not after the end time when on the same day
+        if(date1 == date0 &&
+           time1 < time0)
+        {
+          alert("The end time cannot be before the start time.");
+          return;
+        }
+        
+        if(CREUI.options.averageExport.doTimeAverage)
+        {
+          timeStepsToAvg = parseInt(timeStepsToAvg.value);
+          if(isNaN(timeStepsToAvg) || timeStepsToAvg < 2) 
+          {
+            alert("The number of time steps to average must be an integer greater than or equal to 2.");
+            return;
+          }
+          CREUI.options.averageExport.timeStepsToAvg = timeStepsToAvg;
+        }
+        
+        CREUI.options.time0 = time0;
+        CREUI.options.time1 = time1;
+        CREUI.options.date0 = date0;
+        CREUI.options.date1 = date1;
+        CREUI.CloseDialog(true)
       }
-      //default to including all sim days
-      date0.selectedIndex = 0;
-      date1.selectedIndex = date1.options.length - 1;
-      
-      //populate the time lists
-      for(i=0; i<=86400; i+=result.tsres)
+    </script>
+    <style>
+      .maingrid
       {
-          var time = CONTAM.TimeUtilities.IntTimeToStringTime(i);
-          var option = document.createElement("option");
-          option.text = time;
-          option.value = i;
-          var option2 = option.cloneNode(true);
-          time0.add(option);
-          time1.add(option2);
-      }
-      // default to the start and end times of the simulation
-      time0.selectedIndex = result.tmres0 / result.tsres;
-      time1.selectedIndex = result.tmres1 / result.tsres;
-      
-      //fill in the simulation parameters
-      startDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(result.dtres0);
-      endDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(result.dtres1);
-      startTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(result.tmres0);
-      endTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(result.tmres1);
-      
-      if(CREUI.options.averageExport.doTimeAverage &&
-        CREUI.options.doAverageExport)
-      {
-        averageOptions.style.display = "block";
-        timeStep.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(result.tsres);
-      }
-      else
-        averageOptions.style.display = "none";
-      
-    });
-  }
-  
-  function on_ok()
-  {
-    var CREUI = window.parent.CREUI;
-    var CWD = window.parent.CWD;
-    var date0 = document.getElementById("date0");
-    var date1 = document.getElementById("date1");
-    var time0 = document.getElementById("time0");
-    var time1 = document.getElementById("time1");
-    var timeStepsToAvg = document.getElementById("timeStepsToAvg");
-    //get the date values from the date select lists
-    date0 = parseInt(date0.options[date0.selectedIndex].value);
-    date1 = parseInt(date1.options[date1.selectedIndex].value);
-    //get the time values from the time select lists
-    time0 = parseInt(time0.options[time0.selectedIndex].value);
-    time1 = parseInt(time1.options[time1.selectedIndex].value);
-    
-    //verify that the end date is after the start date
-    if(this.result.dtres0 > this.result.dtres1)
-    {
-      var date0_relative = date0 - this.result.dtres0 + 1;
-      if(date0_relative < 1)
-        date0_relative += 365;
-      var date1_relative = date1 - this.result.dtres0 + 1;
-      if(date1_relative < 1)
-        date1_relative += 365;
-      if(date0_relative > date1_relative)
-      {
-        alert("The start date cannot be after the end date.");
-        return;
-      }
-      
-    }
-    else
-    {
-      if(date0 > date1)
-      {
-        alert("The start date cannot be after the end date.");
-        return;
-      }
-    }
-    
-    //verify that that start time is not before the start of the sim
-    if(date0 == this.result.dtres0 &&
-       time0 < this.result.tmres0)
-    {
-      alert("The start time cannot be before the start of the simulation.");
-      return;
-    }
-    
-    //verify that the end time is after the end of the sim
-    if(date1 == this.result.dtres1 &&
-       time1 > this.result.tmres1)
-    {
-      alert("The end time cannot be after the end of the simulation.");
-      return;
-    }
-       
-    //verify that the start time is not after the end time when on the same day
-    if(date1 == date0 &&
-       time1 < time0)
-    {
-      alert("The end time cannot be before the start time.");
-      return;
-    }
-    
-    if(CREUI.options.averageExport.doTimeAverage)
-    {
-      timeStepsToAvg = parseInt(timeStepsToAvg.value);
-      if(isNaN(timeStepsToAvg) || timeStepsToAvg < 2) 
-      {
-        alert("The number of time steps to average must be an integer greater than or equal to 2.");
-        return;
-      }
-      CREUI.options.averageExport.timeStepsToAvg = timeStepsToAvg;
-    }
-    
-    CREUI.options.time0 = time0;
-    CREUI.options.time1 = time1;
-    CREUI.options.date0 = date0;
-    CREUI.options.date1 = date1;
-    CREUI.CloseDialog(true)
-  }
-</script>
-</head>
-<body onload="do_onload();" class="notemplate">
-  <div style="display:flex; flex-flow:row;">
-    <div class="section">
-      <div>Simulation parameters</div><br>
-      <div style="padding:2px;">
-        <div style="display:inline-block; min-width:5em;">Start Date:</div>
-        <span id="startDate"><span>
-      </div>
-      <div style="padding:2px;">
-        <div style="display:inline-block; min-width:5em;">End Date:</div>
-        <span id="endDate"><span>
-      </div>
-      <div style="padding:2px;">
-        <div style="display:inline-block; min-width:5em;">Start Time:</div>
-        <span id="startTime"><span>
-      </div>
-      <div style="padding:2px;">
-        <div style="display:inline-block; min-width:5em;">End Time:</div>
-        <span id="endTime"><span>
-      </div>
-    </div>
-    <div class="section">
-      <div>Select the time frame for which <br>results are to be output.</div><br>
-      <div style="display:flex; flex-flow:column;">
-        <div class="section">
-          <div style="display:inline-block; min-width: 6em;">Start Date:</div>
-          <select id="date0"></select>
-        </div>
-        <div class="section">
-          <div style="display:inline-block; min-width: 6em;">Start Time:</div>
-          <select id="time0"></select>       
-        </div>
-        <div class="section">
-          <div style="display:inline-block; min-width: 6em;">End Date:</div>
-          <select id="date1"></select>       
-        </div>
-        <div class="section">
-          <div style="display:inline-block; min-width: 6em;">End Time:</div>
-          <select id="time1"></select>       
+        display: grid; 
+        grid-gap: 2px; 
+        background-color: #e4f2fc; 
+        grid-template-columns: repeat(auto-fill, minmax(150px, 240px));
+        justify-content: space-around;
+        padding:5px;
+        color: black;
+      }    
+    </style>  
+  </head>
+  <body onload="do_onload();">
+    <article>
+      <div class="sectiongridcontainer">
+        <div class="maingrid">
+          <div class="section">
+            <div>Simulation parameters</div><br>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">Start Date:</div>
+              <span id="startDate"><span>
+            </div>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">End Date:</div>
+              <span id="endDate"><span>
+            </div>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">Start Time:</div>
+              <span id="startTime"><span>
+            </div>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">End Time:</div>
+              <span id="endTime"><span>
+            </div>
+          </div>
+          <div class="section">
+            <div>Select the time frame for which <br>results are to be output.</div><br>
+            <div style="display:flex; flex-flow:column;">
+              <div class="section">
+                <div style="display:inline-block; min-width: 6em;">Start Date:</div>
+                <select id="date0"></select>
+              </div>
+              <div class="section">
+                <div style="display:inline-block; min-width: 6em;">Start Time:</div>
+                <select id="time0"></select>       
+              </div>
+              <div class="section">
+                <div style="display:inline-block; min-width: 6em;">End Date:</div>
+                <select id="date1"></select>       
+              </div>
+              <div class="section">
+                <div style="display:inline-block; min-width: 6em;">End Time:</div>
+                <select id="time1"></select>       
+              </div>
+            </div>
+          </div>
+          <div id="averageOptions" class="section" style="display:none;">
+            <div>Select how many time steps to <br>average for the temporal average.</div><br>
+            <div style="padding:2px;">Time Step:</div>
+            <div id="timeStep" style="padding:5px;"></div>
+            <div style="padding:2px;">Time Steps to Average:</div>
+            <div style="padding:2px;"><input type="number" id="timeStepsToAvg" value="2"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="averageOptions" class="section" style="display:none;">
-      <div>Select how many time steps to <br>average for the temporal average.</div><br>
-      <div style="padding:2px;">Time Step:</div>
-      <div id="timeStep" style="padding:5px;"></div>
-      <div style="padding:2px;">Time Steps to Average:</div>
-      <div style="padding:2px;"><input type="number" id="timeStepsToAvg" value="2"></div>
-    </div>
-  </div>
-  <div style="clear:both;">
-    <input type="button" value="Cancel" style="margin: 10px;"
-           onclick="window.parent.CREUI.CloseDialog(false)">
-    <input type="button" value="Finish" style="margin: 10px;"
-           onclick="on_ok();">
-  </div>
-</body>
+      <div style="clear:both;">
+        <input type="button" value="Cancel" style="margin: 10px;"
+               onclick="window.parent.CREUI.CloseDialog(false)">
+        <input type="button" value="Finish" style="margin: 10px;"
+               onclick="on_ok();">
+      </div>
+    </article>
+  </body>
 </html>

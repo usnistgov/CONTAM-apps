@@ -138,6 +138,7 @@ pd.ShowResults = function ()
   document.getElementById('ctmfile').style.display = 'block';
   document.getElementById('plots').style.display = 'block';  
   document.getElementById('resultsheader').style.display = 'block';  
+  document.getElementById('resultstables').style.display = 'grid';  
   document.getElementById('mode1plot').style.display = 'block';    
   document.getElementById('mode1calcs').style.display = 'block';    
   
@@ -1848,13 +1849,13 @@ pd.ModesChange = function ()
     }
     else if (document.getElementById('mode2').checked)
     {
-      document.getElementById('mode2inputs').style.display = 'block';
+      document.getElementById('mode2inputs').style.display = 'grid';
       document.getElementById('mode3inputs').style.display = 'none';
     }
     else if (document.getElementById('mode3').checked)
     {
-      document.getElementById('mode2inputs').style.display = 'block';
-      document.getElementById('mode3inputs').style.display = 'block';
+      document.getElementById('mode2inputs').style.display = 'grid';
+      document.getElementById('mode3inputs').style.display = 'grid';
     }
   }
 }

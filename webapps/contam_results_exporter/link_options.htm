@@ -1,96 +1,108 @@
 <!doctype html>
 <html>
-<head>
-<title>CONTAM Results Exporter - Airflow Options</title>
-<link rel="stylesheet" href="../../index.css">
-<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<script>
-  function do_onload()
-  {
-    //var CONTAM = window.parent.CONTAM;
-  }
-  
-  function on_ok()
-  {
-    var CREUI = window.parent.CREUI;
-    var deltaP = document.getElementById("deltaP");
-    var Flow1 = document.getElementById("Flow1");
-    var Flow2 = document.getElementById("Flow2");
+  <head>
+    <title>CONTAM Results Exporter - Airflow Options</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="app.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script>
+      function do_onload()
+      {
+        //var CONTAM = window.parent.CONTAM;
+      }
+      
+      function on_ok()
+      {
+        var CREUI = window.parent.CREUI;
+        var deltaP = document.getElementById("deltaP");
+        var Flow1 = document.getElementById("Flow1");
+        var Flow2 = document.getElementById("Flow2");
 
-    var PressUnits = document.getElementById("PressUnits");
-    var FlowUnits = document.getElementById("FlowUnits");
+        var PressUnits = document.getElementById("PressUnits");
+        var FlowUnits = document.getElementById("FlowUnits");
 
-    var lnkPropByRow = document.getElementById("lnkPropByRow");
-    
-    CREUI.options.normalExport.deltaP = deltaP.checked;
-    CREUI.options.normalExport.Flow1 = Flow1.checked;
-    CREUI.options.normalExport.Flow2 = Flow2.checked;
-    
-    CREUI.options.normalExport.PressDiffUnits = PressUnits.selectedIndex;
-    CREUI.options.normalExport.FlowUnits = FlowUnits.selectedIndex;
-    
-    CREUI.options.normalExport.lnkOutputType = lnkPropByRow.checked;
-    CREUI.CloseDialog(true)
-  }
-</script>
-</head>
-<body onload="do_onload();" class="notemplate">
-  <div style="display:flex; flex-flow:row;">
-    <div style="display:flex; flex-flow:column;">
-      <div style="display:flex; flex-flow:row;">
-        <div class="section">
-          <div>Select the airflow properties <br>to be reported in the output</div><br>
-          <div>
-            <input type="checkbox" id="deltaP">Pressure Difference<br>
-            <input type="checkbox" id="Flow1">Flow 1<br>
-            <input type="checkbox" id="Flow2">Flow 2
+        var lnkPropByRow = document.getElementById("lnkPropByRow");
+        
+        CREUI.options.normalExport.deltaP = deltaP.checked;
+        CREUI.options.normalExport.Flow1 = Flow1.checked;
+        CREUI.options.normalExport.Flow2 = Flow2.checked;
+        
+        CREUI.options.normalExport.PressDiffUnits = PressUnits.selectedIndex;
+        CREUI.options.normalExport.FlowUnits = FlowUnits.selectedIndex;
+        
+        CREUI.options.normalExport.lnkOutputType = lnkPropByRow.checked;
+        CREUI.CloseDialog(true)
+      }
+    </script>
+    <style>
+      .maingrid
+      {
+        display: grid; 
+        grid-gap: 2px; 
+        background-color: #e4f2fc; 
+        grid-template-columns: repeat(auto-fill, minmax(150px, 220px));
+        justify-content: space-around;
+        padding:5px;
+        color: black;
+      }    
+    </style>  
+  </head>
+  <body onload="do_onload();">
+    <article>
+      <div class="sectiongridcontainer">
+        <div class="maingrid">
+          <div class="section">
+            <div>Select the airflow properties <br>to be reported in the output</div><br>
+            <div>
+              <input type="checkbox" id="deltaP">Pressure Difference<br>
+              <input type="checkbox" id="Flow1">Flow 1<br>
+              <input type="checkbox" id="Flow2">Flow 2
+            </div>
           </div>
-        </div>
-        <div class="section">
-          <div>Select which units to use.</div><br>
-          <div style="display:flex; flex-flow:column;">
-            <div class="section">
-              <div style="min-width:8em; display:inline-block;">Pressure Units:</div>
-              <select id="PressUnits">
-                <option value="0">Pa</option>
-                <option value="1">in_H20</option>
-                <option value="2">kPa</option>
-                <option value="3">in_Hg</option>
-                <option value="4">atm</option>
-                <option value="5">psi</option>
-                <option value="6">mm_Hg</option>
-              </select><br>
+          <div class="section">
+            <div>Select which units to use.</div><br>
+            <div style="display:flex; flex-flow:column;">
+              <div class="section">
+                <div style="min-width:8em; display:inline-block;">Pressure Units:</div>
+                <select id="PressUnits">
+                  <option value="0">Pa</option>
+                  <option value="1">in_H20</option>
+                  <option value="2">kPa</option>
+                  <option value="3">in_Hg</option>
+                  <option value="4">atm</option>
+                  <option value="5">psi</option>
+                  <option value="6">mm_Hg</option>
+                </select><br>
+              </div>
+              <div class="section">
+                <div style="min-width:8em; display:inline-block;">Flow Units:</div>
+                <select id="FlowUnits">
+                  <option value="0">kg/s</option>
+                  <option value="1">scfm</option>
+                  <option value="2">sL/s</option>
+                  <option value="3">sm&sup3;/s</option>
+                  <option value="4">sm&sup3;/h</option>
+                  <option value="5">lb/s</option>
+                  <option value="6">sft&sup3;/h</option>
+                  <option value="7">sL/min</option>
+                  <option value="8">kg/h</option>
+                </select>
+              </div>
             </div>
-            <div class="section">
-              <div style="min-width:8em; display:inline-block;">Flow Units:</div>
-              <select id="FlowUnits">
-                <option value="0">kg/s</option>
-                <option value="1">scfm</option>
-                <option value="2">sL/s</option>
-                <option value="3">sm&sup3;/s</option>
-                <option value="4">sm&sup3;/h</option>
-                <option value="5">lb/s</option>
-                <option value="6">sft&sup3;/h</option>
-                <option value="7">sL/min</option>
-                <option value="8">kg/h</option>
-              </select>
-            </div>
+          </div>
+          <div class="section">
+            <div>Select how to organize the output.</div><br>
+            <input type="radio" name="outputType" id="lnkPropByRow" checked> Airflow Properties by Row / Airflows Paths by Column<br>
+            <input type="radio" name="outputType" id="lnkByRow"> Airflow Paths by Row / Airflow Properties by Column
           </div>
         </div>
       </div>
-      <div class="section">
-        <div>Select how to organize the output.</div><br>
-        <input type="radio" name="outputType" id="lnkPropByRow" checked> Airflow Properties by Row / Airflows Paths by Column<br>
-        <input type="radio" name="outputType" id="lnkByRow"> Airflow Paths by Row / Airflow Properties by Column
+      <div>
+        <input type="button" value="Cancel" style="margin: 10px;"
+               onclick="window.parent.CREUI.CloseDialog(false)">
+        <input type="button" value="Next" style="margin: 10px;"
+               onclick="on_ok();">
       </div>
-    </div>
-  </div>
-  <div>
-    <input type="button" value="Cancel" style="margin: 10px;"
-           onclick="window.parent.CREUI.CloseDialog(false)">
-    <input type="button" value="Next" style="margin: 10px;"
-           onclick="on_ok();">
-  </div>
-</body>
+    </article>
+  </body>
 </html>

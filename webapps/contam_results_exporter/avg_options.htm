@@ -1,40 +1,37 @@
 <!doctype html>
 <html>
-<head>
-<title>CONTAM Results Exporter - Averaging Options</title>
-<link rel="stylesheet" href="../../index.css">
-<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<script>
-  function do_onload()
-  {
-  }
-  
-  function on_ok()
-  {
-    var CREUI = window.parent.CREUI;
-    CREUI.options.averageExport.doTimeAverage = document.getElementById("tavgCheckBox").checked;
-    CREUI.options.averageExport.doSpatialAverage = document.getElementById("savgCheckBox").checked;
-    CREUI.CloseDialog(true)
-  }
-</script>
-</head>
-<body onload="do_onload();" class="notemplate">
-  <div style="display:flex; flex-flow:row;">
-    <div style="display:flex; flex-flow:column;">
+  <head>
+    <title>CONTAM Results Exporter - Averaging Options</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="app.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script>
+      function do_onload()
+      {
+      }
+      
+      function on_ok()
+      {
+        var CREUI = window.parent.CREUI;
+        CREUI.options.averageExport.doTimeAverage = document.getElementById("tavgCheckBox").checked;
+        CREUI.options.averageExport.doSpatialAverage = document.getElementById("savgCheckBox").checked;
+        CREUI.CloseDialog(true)
+      }
+    </script>
+  </head>
+  <body onload="do_onload();">
+    <article>
       <h3>Select which averaging options to do.</h3>
-      <div class="section">
+      <div class="section" style="width:200px;">
         <input type="checkbox" id="tavgCheckBox"> Temporal Averages
       </div>
-      <div class="section">
+      <div class="section" style="width:200px;">
         <input type="checkbox" id="savgCheckBox"> Spatial Averages
       </div>
-    </div>
-  </div>
-  <input type="button" value="Cancel" style="margin: 10px;"
-         onclick="window.parent.CREUI.CloseDialog(false)">
-  <input type="button" value="Next" style="margin: 10px;"
-         onclick="on_ok();">
-
-</body>
+      <input type="button" value="Cancel" style="margin: 10px;"
+             onclick="window.parent.CREUI.CloseDialog(false)">
+      <input type="button" value="Next" style="margin: 10px;"
+             onclick="on_ok();">
+    </article>
+  </body>
 </html>

@@ -1,265 +1,277 @@
 <!doctype html>
 <html>
-<head>
-<title>CONTAM Results Exporter - Exposure Options</title>
-<link rel="stylesheet" href="../../index.css">
-<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<script type="text/javascript" src="../contam/utils/date_utilities.js"></script>
-<script type="text/javascript" src="../contam/utils/time_utilities.js"></script>
-<script>
-  function do_onload()
-  {
-    var CWD = window.parent.CWD;
-    var CREUI = window.parent.CREUI;
-    var ee = CREUI.options.exposureExport;
-    var date0 = document.getElementById("date0");
-    var date1 = document.getElementById("date1");
-    var time0 = document.getElementById("time0");
-    var time1 = document.getElementById("time1");
+  <head>
+    <title>CONTAM Results Exporter - Exposure Options</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="app.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script type="text/javascript" src="../contam/utils/date_utilities.js"></script>
+    <script type="text/javascript" src="../contam/utils/time_utilities.js"></script>
+    <script>
+      function do_onload()
+      {
+        var CWD = window.parent.CWD;
+        var CREUI = window.parent.CREUI;
+        var ee = CREUI.options.exposureExport;
+        var date0 = document.getElementById("date0");
+        var date1 = document.getElementById("date1");
+        var time0 = document.getElementById("time0");
+        var time1 = document.getElementById("time1");
 
-    //populate the date lists
-    if(ee.dtres0 > ee.dtres1)
-    {
-      for(var i= ee.dtres0; i<=365; ++i)
-      {
-        var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
-        var option = document.createElement("option");
-        option.text = date;
-        option.value = i;
-        var option2 = option.cloneNode(true);
-        date0.add(option);
-        date1.add(option2);
+        //populate the date lists
+        if(ee.dtres0 > ee.dtres1)
+        {
+          for(var i= ee.dtres0; i<=365; ++i)
+          {
+            var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
+            var option = document.createElement("option");
+            option.text = date;
+            option.value = i;
+            var option2 = option.cloneNode(true);
+            date0.add(option);
+            date1.add(option2);
+          }
+          for(var i=1; i<=ee.dtres1; ++i)
+          {
+            var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
+            var option = document.createElement("option");
+            option.text = date;
+            option.value = i;
+            var option2 = option.cloneNode(true);
+            date0.add(option);
+            date1.add(option2);
+          }
+        }
+        else
+        {
+          for(var i=ee.dtres0; i<= ee.dtres1; ++i)
+          {
+            var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
+            var option = document.createElement("option");
+            option.text = date;
+            option.value = i;
+            var option2 = option.cloneNode(true);
+            date0.add(option);
+            date1.add(option2);
+          }
+        }
+        //default to including all exp days
+        date0.selectedIndex = 0;
+        date1.selectedIndex = date1.options.length - 1;
+        
+        //populate the time lists
+        for(i=0; i<=86400; i+=ee.TimeStep)
+        {
+            var time = CONTAM.TimeUtilities.IntTimeToStringTime(i);
+            var option = document.createElement("option");
+            option.text = time;
+            option.value = i;
+            var option2 = option.cloneNode(true);
+            time0.add(option);
+            time1.add(option2);
+        }
+        // default to the start and end times of the simulation
+        time0.selectedIndex = ee.tmres0 / ee.TimeStep;
+        time1.selectedIndex = ee.tmres1 / ee.TimeStep;
+        
+        //fill in the simulation parameters
+        var startDate = document.getElementById("startDate");
+        var endDate = document.getElementById("endDate");
+        var startTime = document.getElementById("startTime");
+        var endTime = document.getElementById("endTime");
+        startDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(ee.dtres0);
+        endDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(ee.dtres1);
+        startTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(ee.tmres0);
+        endTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(ee.tmres1);
+        
+        //fill in units
+        var gasUnits = document.getElementById("gasUnits");
+        var partUnits = document.getElementById("partUnits");
+        var varArray = ["CONTAM.Units.Strings.Concentration_P", 
+          "CONTAM.Units.Strings.Concentration_N"];
+        CWD.GetArrayOfContamVariables(varArray).then(function(result)
+        {
+          result.Concentration_P.forEach(doPartUnits);
+          result.Concentration_N.forEach(doGasUnits);
+        });
+        
+        function doPartUnits(unitString, index)
+        {
+          var option = document.createElement("option");
+          option.innerHTML = unitString;
+          option.value = index;
+          partUnits.add(option);
+        }
+        function doGasUnits(unitString, index)
+        {
+          var option = document.createElement("option");
+          option.innerHTML = unitString;
+          option.value = index;
+          gasUnits.add(option);
+        }
       }
-      for(var i=1; i<=ee.dtres1; ++i)
-      {
-        var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
-        var option = document.createElement("option");
-        option.text = date;
-        option.value = i;
-        var option2 = option.cloneNode(true);
-        date0.add(option);
-        date1.add(option2);
-      }
-    }
-    else
-    {
-      for(var i=ee.dtres0; i<= ee.dtres1; ++i)
-      {
-        var date = CONTAM.DateUtilities.IntDateXToStringDateX(i);
-        var option = document.createElement("option");
-        option.text = date;
-        option.value = i;
-        var option2 = option.cloneNode(true);
-        date0.add(option);
-        date1.add(option2);
-      }
-    }
-    //default to including all exp days
-    date0.selectedIndex = 0;
-    date1.selectedIndex = date1.options.length - 1;
-    
-    //populate the time lists
-    for(i=0; i<=86400; i+=ee.TimeStep)
-    {
-        var time = CONTAM.TimeUtilities.IntTimeToStringTime(i);
-        var option = document.createElement("option");
-        option.text = time;
-        option.value = i;
-        var option2 = option.cloneNode(true);
-        time0.add(option);
-        time1.add(option2);
-    }
-    // default to the start and end times of the simulation
-    time0.selectedIndex = ee.tmres0 / ee.TimeStep;
-    time1.selectedIndex = ee.tmres1 / ee.TimeStep;
-    
-    //fill in the simulation parameters
-    var startDate = document.getElementById("startDate");
-    var endDate = document.getElementById("endDate");
-    var startTime = document.getElementById("startTime");
-    var endTime = document.getElementById("endTime");
-    startDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(ee.dtres0);
-    endDate.textContent = CONTAM.DateUtilities.IntDateXToStringDateX(ee.dtres1);
-    startTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(ee.tmres0);
-    endTime.textContent = CONTAM.TimeUtilities.IntTimeToStringTime(ee.tmres1);
-    
-    //fill in units
-    var gasUnits = document.getElementById("gasUnits");
-    var partUnits = document.getElementById("partUnits");
-    var varArray = ["CONTAM.Units.Strings.Concentration_P", 
-      "CONTAM.Units.Strings.Concentration_N"];
-    CWD.GetArrayOfContamVariables(varArray).then(function(result)
-    {
-      result.Concentration_P.forEach(doPartUnits);
-      result.Concentration_N.forEach(doGasUnits);
-    });
-    
-    function doPartUnits(unitString, index)
-    {
-      var option = document.createElement("option");
-      option.innerHTML = unitString;
-      option.value = index;
-      partUnits.add(option);
-    }
-    function doGasUnits(unitString, index)
-    {
-      var option = document.createElement("option");
-      option.innerHTML = unitString;
-      option.value = index;
-      gasUnits.add(option);
-    }
-  }
 
-  function on_ok()
-  {
-    var CREUI = window.parent.CREUI;
-    var ee = CREUI.options.exposureExport;
-    //var CONTAM = window.parent.CONTAM;
-    var date0 = document.getElementById("date0");
-    var date1 = document.getElementById("date1");
-    var time0 = document.getElementById("time0");
-    var time1 = document.getElementById("time1");
-    //get the date values from the date select lists
-    date0 = parseInt(date0.options[date0.selectedIndex].value);
-    date1 = parseInt(date1.options[date1.selectedIndex].value);
-    //get the time values from the time select lists
-    time0 = parseInt(time0.options[time0.selectedIndex].value);
-    time1 = parseInt(time1.options[time1.selectedIndex].value);
-    
-    //verify that the end date is after the start date
-    if(ee.dtres0 > ee.dtres1)
-    {
-      var date0_relative = date0 - ee.dtres0 + 1;
-      if(date0_relative < 1)
-        date0_relative += 365;
-      var date1_relative = date1 - ee.dtres0 + 1;
-      if(date1_relative < 1)
-        date1_relative += 365;
-      if(date0_relative > date1_relative)
+      function on_ok()
       {
-        alert("The start date cannot be after the end date.");
-        return;
-      }
-      
-    }
-    else
-    {
-      if(date0 > date1)
-      {
-        alert("The start date cannot be after the end date.");
-        return;
-      }
-    }
-    
-    //verify that that start time is not before the start of the sim
-    if(date0 == ee.dtres0 && time0 < ee.tmres0)
-    {
-      alert("The start time cannot be before the start of the simulation.");
-      return;
-    }
-    
-    //verify that the end time is after the end of the sim
-    if(date1 == ee.dtres1 &&
-       time1 > ee.tmres1)
-    {
-      alert("The end time cannot be after the end of the simulation.");
-      return;
-    }
-       
-    //verify that the start time is not after the end time when on the same day
-    if(date1 == date0 &&
-       time1 < time0)
-    {
-      alert("The end time cannot be before the start time.");
-      return;
-    }
-    
-    ee.time0 = time0;
-    ee.time1 = time1;
-    ee.date0 = date0;
-    ee.date1 = date1;
-    
-    var unitType = document.getElementById("unitType");
-    var gasUnits = document.getElementById("gasUnits");
-    var partUnits = document.getElementById("partUnits");
-    var outputType = document.getElementById("outputType");
-    
-    ee.filePerOcc = outputType.checked;
-    ee.useContamUnits = unitType.checked;
-    ee.gasUnits = gasUnits.selectedIndex;
-    ee.particleUnits = partUnits.selectedIndex;
+        var CREUI = window.parent.CREUI;
+        var ee = CREUI.options.exposureExport;
+        //var CONTAM = window.parent.CONTAM;
+        var date0 = document.getElementById("date0");
+        var date1 = document.getElementById("date1");
+        var time0 = document.getElementById("time0");
+        var time1 = document.getElementById("time1");
+        //get the date values from the date select lists
+        date0 = parseInt(date0.options[date0.selectedIndex].value);
+        date1 = parseInt(date1.options[date1.selectedIndex].value);
+        //get the time values from the time select lists
+        time0 = parseInt(time0.options[time0.selectedIndex].value);
+        time1 = parseInt(time1.options[time1.selectedIndex].value);
+        
+        //verify that the end date is after the start date
+        if(ee.dtres0 > ee.dtres1)
+        {
+          var date0_relative = date0 - ee.dtres0 + 1;
+          if(date0_relative < 1)
+            date0_relative += 365;
+          var date1_relative = date1 - ee.dtres0 + 1;
+          if(date1_relative < 1)
+            date1_relative += 365;
+          if(date0_relative > date1_relative)
+          {
+            alert("The start date cannot be after the end date.");
+            return;
+          }
+          
+        }
+        else
+        {
+          if(date0 > date1)
+          {
+            alert("The start date cannot be after the end date.");
+            return;
+          }
+        }
+        
+        //verify that that start time is not before the start of the sim
+        if(date0 == ee.dtres0 && time0 < ee.tmres0)
+        {
+          alert("The start time cannot be before the start of the simulation.");
+          return;
+        }
+        
+        //verify that the end time is after the end of the sim
+        if(date1 == ee.dtres1 &&
+           time1 > ee.tmres1)
+        {
+          alert("The end time cannot be after the end of the simulation.");
+          return;
+        }
+           
+        //verify that the start time is not after the end time when on the same day
+        if(date1 == date0 &&
+           time1 < time0)
+        {
+          alert("The end time cannot be before the start time.");
+          return;
+        }
+        
+        ee.time0 = time0;
+        ee.time1 = time1;
+        ee.date0 = date0;
+        ee.date1 = date1;
+        
+        var unitType = document.getElementById("unitType");
+        var gasUnits = document.getElementById("gasUnits");
+        var partUnits = document.getElementById("partUnits");
+        var outputType = document.getElementById("outputType");
+        
+        ee.filePerOcc = outputType.checked;
+        ee.useContamUnits = unitType.checked;
+        ee.gasUnits = gasUnits.selectedIndex;
+        ee.particleUnits = partUnits.selectedIndex;
 
-    CREUI.CloseDialog(true)
-  }
-</script>
-</head>
-<body onload="do_onload();" class="notemplate">
-  <div style="display:flex; flex-flow:row;">
-    <div style="display:flex; flex-flow:column;">
-      <div class="section">
-        <div>Select the output format.</div><br>
-        <input type="radio" name="outputType" id="outputType" checked> A single occupant's exposure to all contaminants.  One file per occupant.<br>
-        <input type="radio" name="outputType"> Exposure of all occupants to a single contaminant.  One file per contaminant.
-      </div>
-      <div class="section">
-        <div>Select the concentration units in which the exposures are to be printed.</div><br>
-        <input type="radio" name="unitType" id="unitType" checked> Use the units specified in CONTAM project.<br>
-        <input type="radio" name="unitType"> Use these contaminant units:
-        <div style="display: inline-block; margin-left:2ex;margin-right:1ex;">Gaseous:</div>
-        <select id="gasUnits"></select> 
-        <div style="display: inline-block; margin-left:2ex;margin-right:1ex;">Particle:</div>
-        <select id="partUnits"><select>
-      </div>
-      <div style="display:flex; flex-flow:row;">
-        <div class="section">
-          <div>Time period from exposure file.</div><br>
-          <div style="padding:2px;">
-            <div style="display:inline-block; min-width:5em;">Start Date:</div>
-            <span id="startDate"><span>
+        CREUI.CloseDialog(true)
+      }
+    </script>
+    <style>
+      .maingrid
+      {
+        display: grid; 
+        grid-gap: 2px; 
+        background-color: #e4f2fc; 
+        grid-template-columns: repeat(auto-fill, minmax(150px, 250px));
+        justify-content: space-around;
+        padding:5px;
+        color: black;
+      }    
+    </style>  
+  </head>
+  <body onload="do_onload();">
+    <article>
+      <div class="sectiongridcontainer">
+        <div class="maingrid">
+          <div class="section">
+            <div>Select the output format.</div><br>
+            <input type="radio" name="outputType" id="outputType" checked> A single occupant's exposure to all contaminants.  One file per occupant.<br>
+            <input type="radio" name="outputType"> Exposure of all occupants to a single contaminant.  One file per contaminant.
           </div>
-          <div style="padding:2px;">
-            <div style="display:inline-block; min-width:5em;">End Date:</div>
-            <span id="endDate"><span>
+          <div class="section">
+            <div>Select the concentration units in which the exposures are to be printed.</div><br>
+            <input type="radio" name="unitType" id="unitType" checked> Use the units specified in CONTAM project.<br>
+            <input type="radio" name="unitType"> Use these contaminant units:
+            <div style="display: inline-block; margin-left:2ex;margin-right:1ex;">Gaseous:</div>
+            <select id="gasUnits"></select> 
+            <div style="display: inline-block; margin-left:2ex;margin-right:1ex;">Particle:</div>
+            <select id="partUnits"><select>
           </div>
-          <div style="padding:2px;">
-            <div style="display:inline-block; min-width:5em;">Start Time:</div>
-            <span id="startTime"><span>
+          <div class="section">
+            <div>Time period from exposure file.</div><br>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">Start Date:</div>
+              <span id="startDate"><span>
+            </div>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">End Date:</div>
+              <span id="endDate"><span>
+            </div>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">Start Time:</div>
+              <span id="startTime"><span>
+            </div>
+            <div style="padding:2px;">
+              <div style="display:inline-block; min-width:5em;">End Time:</div>
+              <span id="endTime"><span>
+            </div>
           </div>
-          <div style="padding:2px;">
-            <div style="display:inline-block; min-width:5em;">End Time:</div>
-            <span id="endTime"><span>
+          <div class="section">
+            <div>Select the time frame for which results are to <br>be output.</div><br>
+            <div style="display:flex; flex-flow:column;">
+              <div class="section">
+                <div style="display:inline-block; min-width: 5em;">Start Date:</div>
+                <select id="date0"></select>
+              </div>
+              <div class="section">
+                <div style="display:inline-block; min-width: 5em;">Start Time:</div>
+                <select id="time0"></select>
+              </div>
+              <div class="section">
+                <div style="display:inline-block; min-width: 5em;">End Date:</div>
+                <select id="date1"></select>
+              </div>
+              <div class="section">
+                <div style="display:inline-block; min-width: 5em;">End Time:</div>
+                <select id="time1"></select>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="section">
-          <div>Select the time frame for which results are to <br>be output.</div><br>
-          <div style="display:flex; flex-flow:column;">
-            <div class="section">
-              <div style="display:inline-block; min-width: 5em;">Start Date:</div>
-              <select id="date0"></select>
-            </div>
-            <div class="section">
-              <div style="display:inline-block; min-width: 5em;">Start Time:</div>
-              <select id="time0"></select>
-            </div>
-            <div class="section">
-              <div style="display:inline-block; min-width: 5em;">End Date:</div>
-              <select id="date1"></select>
-            </div>
-            <div class="section">
-              <div style="display:inline-block; min-width: 5em;">End Time:</div>
-              <select id="time1"></select>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-  </div>
-  <div>
-    <input type="button" value="Cancel" style="margin: 10px;"
-           onclick="window.parent.CREUI.CloseDialog(false)">
-    <input type="button" value="Finish" style="margin: 10px;"
-           onclick="on_ok();">
-  </div>
-</body>
+      <div>
+        <input type="button" value="Cancel" style="margin: 10px;"
+               onclick="window.parent.CREUI.CloseDialog(false)">
+        <input type="button" value="Finish" style="margin: 10px;"
+               onclick="on_ok();">
+      </div>
+    </article>
+  </body>
 </html>

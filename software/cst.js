@@ -302,16 +302,19 @@ CST.PresentResult = function ()
     var SResult = CST.ResultsCalc[i];
     //alert('Presenting: ' + SResult.WeatherFileName);
     
-    var floatDiv = document.createElement('div');
-    floatDiv.style.cssFloat = 'left';
-    floatDiv.style.border = 'solid thin';
-    floatDiv.style.padding = "5px";
-    floatDiv.style.margin = "5px";
-    CST.resultsContentsDiv.appendChild(floatDiv);
+    var resultsDiv = document.createElement('div');
+    resultsDiv.className = "section";
+    resultsDiv.style.border = 'solid thin';
+    resultsDiv.style.padding = "5px";
+    CST.resultsContentsDiv.appendChild(resultsDiv);
 
     var H3 = document.createElement('h3');
     H3.innerHTML = SResult.WeatherFileName;
-    floatDiv.appendChild(H3);
+    resultsDiv.appendChild(H3);
+    
+    var gridDiv = document.createElement('div');
+    gridDiv.className = "sectiongrid";
+    resultsDiv.appendChild(gridDiv);
     
     for(var ig=0; ig<SResult.InternalGainsResultList.length; ++ig)
     {
@@ -325,7 +328,7 @@ CST.PresentResult = function ()
       heatvalue = sprintf("%7.3f", heatvalue);
       directCaption.innerHTML = "Direct Cooling " + heatvalue + " " + heatunits;
       directTable.appendChild(directCaption);
-      floatDiv.appendChild(directTable);
+      gridDiv.appendChild(directTable);
 
       //row1
       var tr = document.createElement('tr');
@@ -507,7 +510,7 @@ CST.PresentResult = function ()
     var nightCaption = document.createElement('caption');
     nightCaption.innerHTML = "Night Cooling";
     nightTable.appendChild(nightCaption);
-    floatDiv.appendChild(nightTable);
+    gridDiv.appendChild(nightTable);
 
     //row1
     var tr = document.createElement('tr');

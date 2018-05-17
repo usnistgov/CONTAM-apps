@@ -1,103 +1,118 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-<title>CONTAM Results Exporter - Select Files</title>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<link rel="stylesheet" href="../../index.css">
-<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-<script>
-  function do_onload()
-  {
-    var CREUI = window.parent.CREUI;
-    var simSection = document.getElementById("simSection");
-    var expSection = document.getElementById("expSection");
-    var achSection = document.getElementById("achSection");
-    var prjSection = document.getElementById("prjSection");
+  <head>
+    <title>CONTAM Results Exporter - Select Files</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="app.css">
+    <script>
+      function do_onload()
+      {
+        var CREUI = window.parent.CREUI;
+        var simSection = document.getElementById("simSection");
+        var expSection = document.getElementById("expSection");
+        var achSection = document.getElementById("achSection");
+        var prjSection = document.getElementById("prjSection");
 
-    if(CREUI.options.doNormalExport || CREUI.options.doAverageExport ||
-      CREUI.options.doEnergyPlusInfilExport)
-    {
-      expSection.style.display = "none";
-      achSection.style.display = "none";
-    }
-    if(CREUI.options.doExposureExport)
-    {
-      simSection.style.display = "none";
-      achSection.style.display = "none";
-    }
-    if(CREUI.options.doACHExport)
-    {
-      prjSection.style.display = "none";
-      simSection.style.display = "none";
-      expSection.style.display = "none";
-    }
-  }
-  
-  function on_ok()
-  {
-    var CREUI = window.parent.CREUI;
-    var PrjFileInput = document.getElementById("prj-input");
-    var SimFileInput = document.getElementById("sim-input");
-    var ExpFileInput = document.getElementById("exp-input");
-    var AchFileInput = document.getElementById("ach-input");
-    
-    if(!CREUI.options.doACHExport && (!PrjFileInput.files || PrjFileInput.files.length == 0))
-    {
-      alert("Select a project file.");
-      return;
-    }
-    
-    CREUI.options.prjfile = PrjFileInput.files[0];
-    if(CREUI.options.doNormalExport || CREUI.options.doAverageExport ||
-      CREUI.options.doEnergyPlusInfilExport)
-    {
-      if(!SimFileInput.files || SimFileInput.files.length == 0)
-      {
-        alert("Select a sim file.");
-        return;
+        if(CREUI.options.doNormalExport || CREUI.options.doAverageExport ||
+          CREUI.options.doEnergyPlusInfilExport)
+        {
+          expSection.style.display = "none";
+          achSection.style.display = "none";
+        }
+        if(CREUI.options.doExposureExport)
+        {
+          simSection.style.display = "none";
+          achSection.style.display = "none";
+        }
+        if(CREUI.options.doACHExport)
+        {
+          prjSection.style.display = "none";
+          simSection.style.display = "none";
+          expSection.style.display = "none";
+        }
       }
-      CREUI.options.simfile = SimFileInput.files[0];
-    }
-    if(CREUI.options.doExposureExport)
-    {
-      if(!ExpFileInput.files || ExpFileInput.files.length == 0)
+      
+      function on_ok()
       {
-        alert("Select an exposure file.");
-        return;
+        var CREUI = window.parent.CREUI;
+        var PrjFileInput = document.getElementById("prj-input");
+        var SimFileInput = document.getElementById("sim-input");
+        var ExpFileInput = document.getElementById("exp-input");
+        var AchFileInput = document.getElementById("ach-input");
+        
+        if(!CREUI.options.doACHExport && (!PrjFileInput.files || PrjFileInput.files.length == 0))
+        {
+          alert("Select a project file.");
+          return;
+        }
+        
+        CREUI.options.prjfile = PrjFileInput.files[0];
+        if(CREUI.options.doNormalExport || CREUI.options.doAverageExport ||
+          CREUI.options.doEnergyPlusInfilExport)
+        {
+          if(!SimFileInput.files || SimFileInput.files.length == 0)
+          {
+            alert("Select a sim file.");
+            return;
+          }
+          CREUI.options.simfile = SimFileInput.files[0];
+        }
+        if(CREUI.options.doExposureExport)
+        {
+          if(!ExpFileInput.files || ExpFileInput.files.length == 0)
+          {
+            alert("Select an exposure file.");
+            return;
+          }
+          CREUI.options.expfile = ExpFileInput.files[0];
+        }
+        if(CREUI.options.doACHExport)
+        {
+          if(!AchFileInput.files || AchFileInput.files.length == 0)
+          {
+            alert("Select an air change file.");
+            return;
+          }
+          CREUI.options.achfile = AchFileInput.files[0];
+        }
+        CREUI.CloseDialog(true)
       }
-      CREUI.options.expfile = ExpFileInput.files[0];
-    }
-    if(CREUI.options.doACHExport)
-    {
-      if(!AchFileInput.files || AchFileInput.files.length == 0)
+    </script>
+    <style>
+      .maingrid
       {
-        alert("Select an air change file.");
-        return;
-      }
-      CREUI.options.achfile = AchFileInput.files[0];
-    }
-    CREUI.CloseDialog(true)
-  }
-</script>
-</head>
-<body onload="do_onload();" class="notemplate">
-  <div style="display:flex; flex-flow:row;">
-    <div style="display:flex; flex-flow:column;">
-      <div class="section" id="prjSection">
-        <div style="margin-bottom:1ex;">Select CONTAM Project File (*.prj):</div>
-        <input type="file" id="prj-input" accept=".prj">
-      </div>
-      <div class="section" id="simSection">
-        <div style="margin-bottom:1ex;">Select CONTAM Sim File (*.sim):</div>
-        <input type="file" id="sim-input" accept=".sim">
-      </div>
-      <div class="section" id="expSection">
-        <div style="margin-bottom:1ex;">Select CONTAM Exposure File (*.ebw):</div>
-        <input type="file" id="exp-input" accept=".ebw">
-      </div>
-      <div class="section" id="achSection">
-        <div style="margin-bottom:1ex;">Select CONTAM Air Change File (*.ach):</div>
-        <input type="file" id="ach-input"  accept=".ach">
+        display: grid; 
+        grid-gap: 2px; 
+        background-color: #e4f2fc; 
+        grid-template-columns: repeat(auto-fill, minmax(150px, 500px));
+        justify-content: space-around;
+        padding:5px;
+        color: black;
+      }    
+    </style>
+  </head>
+  <body onload="do_onload();">
+    <article>
+      <div class="sectiongridcontainer">
+        <div class="maingrid">
+          <div id="prjSection">
+            <div style="margin-bottom:1ex;">Select CONTAM Project File (*.prj):</div>
+            <input type="file" id="prj-input" accept=".prj">
+          </div>
+          <div id="simSection">
+            <div style="margin-bottom:1ex;">Select CONTAM Sim File (*.sim):</div>
+            <input type="file" id="sim-input" accept=".sim">
+          </div>
+          <div id="expSection">
+            <div style="margin-bottom:1ex;">Select CONTAM Exposure File (*.ebw):</div>
+            <input type="file" id="exp-input" accept=".ebw">
+          </div>
+          <div id="achSection">
+            <div style="margin-bottom:1ex;">Select CONTAM Air Change File (*.ach):</div>
+            <input type="file" id="ach-input"  accept=".ach">
+          </div>
+        </div>
       </div>
       <div>
         <input type="button" value="Cancel" style="margin: 10px;"
@@ -105,7 +120,6 @@
         <input type="button" value="OK" style="margin: 10px;"
                onclick="on_ok();">
       </div>
-    </div>
-  </div>
-</body>
+    </article>
+  </body>
 </html>

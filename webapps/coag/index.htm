@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Coag</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="coag.js"></script>
+    <script type="text/javascript" src="../../menu.js"></script>
+    <link href="../../site.css" rel="stylesheet">
+    <style>
+      section 
+      { 
+        background-color:  #e4f2fc;
+        border: solid #12659c thin; 
+        padding:5px; 
+        color: black;
+        margin: 5px 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title"  style="display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling" class="blacklink">
+          <img src="../../images/NIST_logo.svg" width="151" height="40">
+        </a>
+        <h1 class="inblock">Multizone Modeling</h1>
+      </div>
+      <nav>
+        <input id="menuImage" type="image" alt="Menu Icon"
+          src="../../images/menuIcon.svg" width="40" height="40">
+      </nav>
+    </div>
+    <article>
+      <h1>Nanoparticle Coag</h1>
+      <section>
+        <div>Select a Project File (*.cprj):</div>
+        <input type="file" id="prj-input">
+        <div style="display:inline-block; vertical-align:middle;">
+          <svg height="20" width="20" onclick="COAG.replaceFileInput('prj-input');" style="cursor: pointer;" title="Remove this file">
+            <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#353839" />
+            <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+            <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+          </svg> 
+        </div>
+        <input type="button" id="gobutton" value="start simulation" 
+          onclick="COAG.RunSim();" style="margin-left: 1em;">
+      </section>
+      <h2>Result Chart</h2>
+      <section id="Bin_Chart" style="min-height: 500px;"></section>
+      <h2>Download</h2>
+      <section>
+        <p>
+          Download example project files and 
+          the windows command-line version of the tool:
+          <a href="coag-demo.zip">coag-demo.zip</a>
+        </p>
+      </section>
+    </article>
+    <footer>
+      Page Updated : 5/17/2018 - Page Created : 05/2018<br>
+    </footer>
+  </body>
+</html>
