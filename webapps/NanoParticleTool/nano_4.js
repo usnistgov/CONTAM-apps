@@ -209,11 +209,9 @@ Nano.Init = function()
 
   Nano.Inputs.ZBal = document.getElementById("ZoneBalance");
   
-  Nano.Inputs.SupplyFilter = document.getElementById("SupplyFilterSelect");
-  Nano.Inputs.SupplyFilter.selectedIndex = 0;
+  Nano.Inputs.OAFilter = document.getElementById("OAFilterSelect");
   
   Nano.Inputs.RecirFilter = document.getElementById("RecircFilterSelect");
-  Nano.Inputs.RecirFilter.seletedIndex = 0;
   
   Nano.Inputs.PDiam =
   { 
@@ -728,8 +726,8 @@ Nano.GetInputs2 = function()
   }
 
   var OAScheduleValue = percentOA / 100;
-  var supplyFilterIndex = Nano.Inputs.SupplyFilter.selectedIndex;
-  var recircFilterIndex = Nano.Inputs.RecirFilter.seletedIndex;
+  var OAFilterIndex = Nano.Inputs.OAFilter.selectedIndex;
+  var recircFilterIndex = Nano.Inputs.RecirFilter.selectedIndex;
   var filterElementNames = ["zero", "MERV-04","MERV-05", "MERV-06",
     "MERV-07", "MERV-08", "MERV-09", "MERV-10", "MERV-11",
     "MERV-12", "MERV-13", "MERV-14", "MERV-15", "MERV-16"];
@@ -903,8 +901,8 @@ Nano.GetInputs2 = function()
   {
     throw new Error(error.message);
   }
-  // set the filter element for the supply path
-  CWD.CallContamFunction("CONTAM.setPathFilterElement", [2, filterElementNames[supplyFilterIndex]])
+  // set the filter element for the OA path
+  CWD.CallContamFunction("CONTAM.setPathFilterElement", [5, filterElementNames[OAFilterIndex]])
   // set the filter element for the recirculation path
   .then((result) => CWD.CallContamFunction("CONTAM.setPathFilterElement", [4, filterElementNames[recircFilterIndex]]))
   // set the occupant day schedule to use the start/end time that the use specified

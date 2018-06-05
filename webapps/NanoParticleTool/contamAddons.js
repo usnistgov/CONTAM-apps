@@ -16,6 +16,8 @@ CONTAM.setPathFilterElement = function(pathNumber, filterElementName)
     return "filter element not found, name: " + filterElementName;
     
   path.pf.pe = filterElement;
+  console.log("Path " + path.nr + ": filter element changed to: " + 
+    path.pf.pe.name);
   return "ok";
 }
 
