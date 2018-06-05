@@ -10,15 +10,24 @@ window.onload = function()
   google.charts.setOnLoadCallback(COAG.drawChart);
 }
 
+COAG.decodeHtml = function(html) 
+{
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+
 COAG.drawChart = function()
 {
   if(COAG.simResultData != undefined)
   {
+    var vaxisTitle = "Particle Concentration [#/cm" + COAG.decodeHtml("&sup3;") + "]";
     var options = {
       title: 'Particle Bin Chart',
       curveType: 'function',
       hAxis: {logScale: true},
-      legend: { position: 'bottom' }
+      legend: { position: 'bottom' },
+      vAxis: { title: vaxisTitle }
     };
     var data = google.visualization.arrayToDataTable(COAG.simResultData);
     var view = new google.visualization.DataView(data);
