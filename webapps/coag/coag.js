@@ -22,10 +22,11 @@ COAG.drawChart = function()
   if(COAG.simResultData != undefined)
   {
     var vaxisTitle = "Particle Concentration [#/cm" + COAG.decodeHtml("&sup3;") + "]";
+    var haxisTitle = "Particle Diameter ["+ COAG.decodeHtml("&micro;") +"m]";
     var options = {
       title: 'Particle Bin Chart',
       curveType: 'function',
-      hAxis: {logScale: true},
+      hAxis: {logScale: true, title: haxisTitle},
       legend: { position: 'bottom' },
       vAxis: { title: vaxisTitle }
     };
