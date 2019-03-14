@@ -30,61 +30,82 @@ menuModule.menuClick = function(ev)
   menu.style.border = "solid thin #12659c";
   menu.style.backgroundColor = "#e4f2fc";
   menu.style.marginRight = "2px";
-  menu.style.width = "400px";
-  menu.style.padding = "2px";
+  menu.style.width = "300px";
   menu.style.right = "0px";
   menu.style.top = (rect.top + rect.height) + "px";
+  
+  var topdiv = document.createElement("DIV");
   
   var link1 = document.createElement("A");
   link1.textContent = "Multizone Modeling";
   link1.href = "https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling";
   link1.className = "blacklink";
-  menu.appendChild(link1);
+  topdiv.appendChild(link1);
   
-  menu.appendChild(document.createTextNode(" "));
+  topdiv.appendChild(document.createTextNode(" "));
   var span = document.createElement("SPAN");
   // add a Double Right-Pointing Angle Quotation Mark (&raquo;)
   span.textContent = String.fromCharCode(187);
-  menu.appendChild(span);
-  menu.appendChild(document.createTextNode(" "));
+  topdiv.appendChild(span);
+  topdiv.appendChild(document.createTextNode(" "));
   
   var link2 = document.createElement("A");
   link2.textContent = "Software Page";
   link2.href = "https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling/software-tools";
   link2.className = "blacklink";
-  menu.appendChild(link2);
+  topdiv.appendChild(link2);
   
-  menu.appendChild(document.createElement("BR"));
+  topdiv.style.borderBottom = "solid thin #12659c";
+  topdiv.style.padding = "1ex";
+  menu.appendChild(topdiv);
   
   var link3 = document.createElement("A");
   link3.textContent = "Climate Suitability Tool";
   link3.href = "https://pages.nist.gov/CONTAM-apps/software/CSTWebprogram.htm";
   link3.className = "blacklink";
+  link3.style.display = "block";
+  link3.style.padding = "1ex";
   menu.appendChild(link3);
-  
-  menu.appendChild(document.createElement("BR"));
-  
+    
   var link4 = document.createElement("A");
   link4.textContent = "CONTAM Results Export Tool";
   link4.href = "https://pages.nist.gov/CONTAM-apps/webapps/contam_results_exporter/index.htm";
   link4.className = "blacklink";
+  link4.style.display = "block";
+  link4.style.padding = "1ex";
   menu.appendChild(link4);
-  
-  menu.appendChild(document.createElement("BR"));
   
   var link5 = document.createElement("A");
   link5.textContent = "CONTAM Particle Distribution Calculator";
   link5.href = "https://pages.nist.gov/CONTAM-apps/software/CPDC/index.htm";
   link5.className = "blacklink";
+  link5.style.display = "block";
+  link5.style.padding = "1ex";
   menu.appendChild(link5);
   
-  menu.appendChild(document.createElement("BR"));
+  //var link6 = document.createElement("A");
+  //link6.textContent = "CONTAM Weather Tool";
+  //link6.href = "https://pages.nist.gov/CONTAM-apps/webapps/WeatherTool/index.htm";
+  //link6.className = "blacklink";
+  //link6.style.display = "block";
+  //link6.style.padding = "1ex";
+  //menu.appendChild(link6);
   
-  var link6 = document.createElement("A");
-  link6.textContent = "Engineered Nanoparticle Airborne Exposure Tool";
-  link6.href = "https://pages.nist.gov/CONTAM-apps/webapps/NanoParticleTool/index.htm";
-  link6.className = "blacklink";
-  menu.appendChild(link6);
+  var link7 = document.createElement("A");
+  link7.textContent = "Engineered Nanoparticle Airborne Exposure Tool";
+  link7.href = "https://pages.nist.gov/CONTAM-apps/webapps/NanoParticleTool/index.htm";
+  link7.className = "blacklink";
+  link7.style.display = "block";
+  link7.style.padding = "1ex";
+  menu.appendChild(link7);
+  
+  var link8 = document.createElement("A");
+  link8.textContent = "Nanoparticle Coagulation Tool";
+  link8.href = "https://pages.nist.gov/CONTAM-apps/webapps/coag/index.htm";
+  link8.className = "blacklink";
+  link8.style.display = "block";
+  link8.style.padding = "1ex";
+  menu.appendChild(link8);
 
   document.body.appendChild(menu);
   
