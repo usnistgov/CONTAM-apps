@@ -142,7 +142,7 @@ function ResultsController($stateParams) {
 	createPlotData(resultsCtrl);
 	
 	function drawChart(){
-		var vaxisTitle = "Concentration [mg/m^3]";
+		var vaxisTitle = "Concentration [mg/m\xB3]";
 		var haxisTitle = "Time [h]";
 		var options = {
 		  title: 'CO2 Chart',
@@ -159,33 +159,56 @@ function ResultsController($stateParams) {
 		chart.draw(view, options);
 	}
 	
+	// entries is an array of data
+	//put commas bewteen the entries and an end of line at the end
+	resultsCtrl.addCommas = function(entries) {
+		let result = "";
+		entries.forEach(function(entry) {
+			result += entry + ",";
+		});
+		return result;
+	};
+	
+	// entries is an array of arrays of data
+	// use the addCommas function on each of the sub arrays
+	resultsCtrl.AddLinesAndCommas = function(entries) {
+		let result = "";
+		entries.forEach(function(entry){
+			result += resultsCtrl.addCommas(entry);
+			result += "\n";
+		});
+		return result;
+	};
+	
 	resultsCtrl.createReport = function () {
+		let report = [];
 				
 		//	create output file
-		let resultFileContents = "";
 		let type;
 		if(resultsCtrl.inputs.SpaceTypeType == "pre"){
 			type = "Predefined ";
 		} else {
 			type = "User-Defined ";
 		}
+		let bname;
 		if(resultsCtrl.inputs.SpaceCategory =='com'){
-			resultFileContents += type + "Commcercial Building\n";
+			report.push([type + "Commcercial Building"]);
+			bname = resultsCtrl.inputs.commercial.buildingName;
 		} else {
-			resultFileContents += type + "Residential Building\n";
+			report.push([type + "Residential Building"]);
+			bname = resultsCtrl.inputs.residential.buildingName;
 		}		
-		resultFileContents += "Inputs + Space Description\n";
-		resultFileContents += "Outdoor CO2 Concentration (mg/m^3)\tInitial Indoor CO2 Concentration (mg/m^3)\t" +
-			"Ceiling Height (m)\tTime to Metric (h)\tPrimary Ventilation Rate (L/s person)\tAlternate Ventilation Rate(L/s person)";
+		report.push(["Inputs + Space Description"]);
+		let line = ["", "Co (mg/m\xB3)", "Ci (mg/m\xB3)", "HCeil (m)", "tmetric (h)", "Q (L/s person)", "Qalt (L/s person)"];
 		if(resultsCtrl.inputs.SpaceCategory =='res'){
-			resultFileContents += "\tBuilding Floor Area (m^2)";
+			line.push("Bfl (m\xB2)");
 		}
 		if(resultsCtrl.inputs.SpaceCategory =='com'){
-			resultFileContents += "\tOccupant Density (#/100 m^2)";
+			line.push("OccDens (#/100 m\xB2)");
 		}
-		resultFileContents += "\n";
+		report.push(line);
 		
-		// convert CO2 to mg/m^3
+		// convert CO2 to mg/m\xB3
 		let CO2Outdoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(resultsCtrl.CO2Outdoor.baseValue, 
 			11, 0, resultsCtrl.CO2Outdoor.species);
 		let CO2Indoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(resultsCtrl.initialCO2Indoor.baseValue, 
@@ -194,71 +217,71 @@ function ResultsController($stateParams) {
 		// convert to L/s
 		let altVentilationRate = CONTAM.Units.FlowConvert(resultsCtrl.altVentilationRate.baseValue, 2, 0);
 		let ventilationRate = CONTAM.Units.FlowConvert(resultsCtrl.ventilationRate.baseValue, 2, 0);
+		let reducedVentRate = CONTAM.Units.FlowConvert(resultsCtrl.reduceVentilationRate.baseValue, 2, 0);
 		
 		// convert to h
-		let timeToMetric = CONTAM.Units.TimeConvert(resultsCtrl.timeToMetric.baseValue, 2, 0);			
-		resultFileContents += CO2Outdoor_mg_per_m3.toFixed(0) + "\t" + CO2Indoor_mg_per_m3.toFixed(0) + "\t" +
-			resultsCtrl.ceilingHeight.baseValue.toFixed(1) + "\t" + timeToMetric.toFixed(1) + "\t" + 
-			ventilationRate.toFixed(1) + "\t" + altVentilationRate.toFixed(1);
+		let timeToMetric = CONTAM.Units.TimeConvert(resultsCtrl.timeToMetric.baseValue, 2, 0);		
+		line = ["", CO2Outdoor_mg_per_m3.toFixed(0), CO2Indoor_mg_per_m3.toFixed(0), 
+			resultsCtrl.ceilingHeight.baseValue.toFixed(1), timeToMetric.toFixed(1),
+			ventilationRate.toFixed(1), altVentilationRate.toFixed(1)];
 		if(resultsCtrl.inputs.SpaceCategory =='com'){
-			resultFileContents += "\t" + resultsCtrl.occupantDensity.toFixed(0)
+			line.push(resultsCtrl.occupantDensity.toFixed(0));
 		}
 		if(resultsCtrl.inputs.SpaceCategory =='res'){
-			resultFileContents += "\t" + resultsCtrl.floorArea.baseValue.toFixed(0)
+			line.push(resultsCtrl.floorArea.baseValue.toFixed(0));
 		}
-		resultFileContents += "\n\n";
+		report.push(line);
+		report.push([]);
 		
 		if(resultsCtrl.inputs.SpaceCategory =='res'){
-			resultFileContents += "Scenario\tMethod\tNumber of Occupants in House\tNumber of Bedrooms";
+			line = ["Scenario", "Method", "NOccH", "Nbr"];
 			if(resultsCtrl.scenario != 'whole') {
-				resultFileContents += "\tBedroom Floor Area (m^2)\tNumber of Occupants in Bedroom\tReduced Ventilation to Bedroom (L/s)\n";
-			} else {
-				resultFileContents += "\n";
+				line.push("Abr (m\xB2)", "Noccbr");
+				if(resultsCtrl.inputs.SpaceTypeType == "user") {
+					line.push("ReducedQbr (L/s)");
+				}
 			}			
-			resultFileContents += resultsCtrl.scenario + "\t" + resultsCtrl.method + "\t" +	resultsCtrl.houseNumPeople.toFixed(0) + "\t" +
-				resultsCtrl.numBedrooms.toFixed(0);
+			report.push(line);
+			line = [resultsCtrl.scenario, resultsCtrl.method,	resultsCtrl.houseNumPeople.toFixed(0), resultsCtrl.numBedrooms.toFixed(0)];
 			if(resultsCtrl.scenario != 'whole') {
-				resultFileContents +=  "\t" + resultsCtrl.roomFloorArea.baseValue.toFixed(1) + "\t" +
-					resultsCtrl.bedroomNumPeople.toFixed(0) + "\t" + resultsCtrl.reduceVentilationRate.baseValue.toFixed(1) + "\n\n";
-			} else {
-				resultFileContents += "\n\n";
-			}	
+				line.push(resultsCtrl.roomFloorArea.baseValue.toFixed(1),
+					resultsCtrl.bedroomNumPeople.toFixed(0));
+				if(resultsCtrl.inputs.SpaceTypeType == "user") {
+					line.push(reducedVentRate.toFixed(1));
+				}
+			}
+			report.push(line);	
+			report.push([]);			
 		}		
 			
-		resultFileContents += "Occupants\n";
-		resultFileContents += "Number of Occupants\tSex\tMass (kg)\tAge Group\tActivity Level (met)\n";
+		report.push(["Occupants"]);
+		report.push(["", "Nocc", "Sex", "Mass (kg)", "Age Group", "Activity Level (met)"]);
+		let ageGroups = ["< 3", "3 to 9", "10 to 17", "18 to 29", "30 to 59", ">= 60"];
 		for(let i=0; i<resultsCtrl.occupants.length; ++i) {
-			resultFileContents += resultsCtrl.occupants[i].numPeople.toFixed(0) + "\t" + 
-				resultsCtrl.occupants[i].sex + "\t" + 
-				resultsCtrl.occupants[i].mass.toFixed(1) + "\t";
-			var ageGroups = ["< 3\t", "3 to 9\t", "10 to 17\t", "18 to 29\t", "30 to 59\t", ">= 60\t"];
-			resultFileContents += ageGroups[resultsCtrl.occupants[i].ageGroup];
-			resultFileContents += resultsCtrl.occupants[i].met + "\n";
+			report.push(["", resultsCtrl.occupants[i].numPeople.toFixed(0), resultsCtrl.occupants[i].sex, resultsCtrl.occupants[i].mass.toFixed(1),
+				ageGroups[resultsCtrl.occupants[i].ageGroup], resultsCtrl.occupants[i].met]);
 		}
-		resultFileContents += "\nPrimary Results\n";
-		resultFileContents += "Time to Steady State (h)\tCO2 concentration at Steady State (mg/m^3)\tCO2 Concentration at Time to Metric (mg/m^3)\t" +
-			"CO2 Concentration at 1 hour (mg/m^3)\n";
-		resultFileContents += resultsCtrl.results.base.timeToCSS.toFixed(1) + "\t" + resultsCtrl.results.base.Css.toFixed(0) + "\t" +
-			resultsCtrl.results.base.c_at_metric.toFixed(0) + "\t" + resultsCtrl.results.base.c_at_h.toFixed(0) + "\n\n";
+		report.push([]);			
+		
+		report.push(["", "tss (h)", "Css (mg/m\xB3)", "Cm (mg/m\xB3)", "C1h (mg/m\xB3)"]);
+		report.push(["Primary Results", resultsCtrl.results.base.timeToCSS.toFixed(1), resultsCtrl.results.base.Css.toFixed(0), 
+			resultsCtrl.results.base.c_at_metric.toFixed(0), resultsCtrl.results.base.c_at_h.toFixed(0)]);
+		report.push(["Alternate  Results", resultsCtrl.results.alt.timeToCSS.toFixed(1), resultsCtrl.results.alt.Css.toFixed(0),
+			resultsCtrl.results.alt.c_at_metric.toFixed(0), resultsCtrl.results.alt.c_at_h.toFixed(0)]);
+		report.push([]);			
 
-		resultFileContents += "Alternate  Results\n";
-		resultFileContents += "Time to Steady State (h)\tCO2 concentration at Steady State (mg/m^3)\tCO2 Concentration at Time to Metric (mg/m^3)\t" +
-			"CO2 Concentration at 1 hour (mg/m^3)\n";
-		resultFileContents += resultsCtrl.results.alt.timeToCSS.toFixed(1) + "\t" + resultsCtrl.results.alt.Css.toFixed(0) + "\t" +
-			resultsCtrl.results.alt.c_at_metric.toFixed(0) + "\t" + resultsCtrl.results.alt.c_at_h.toFixed(0) + "\n\n";
-
-		resultFileContents += "Plot Data\n";
-		resultFileContents += "Time (h)\tPrimary Concentration (mg/m^3)\tAlternate Concentration (mg/m^3)\n";
+		report.push(["Plot Data"]);
+		report.push(["", "Time (h)", "C (mg/m\xB3)", "Calt (mg/m\xB3)"]);
 		for(var i=1; i<resultsCtrl.chartData.length; ++i) {
-			resultFileContents +=  resultsCtrl.chartData[i][0].toFixed(2) + "\t" +
-				resultsCtrl.chartData[i][1].toFixed(0) + "\t" +
-				resultsCtrl.chartData[i][2].toFixed(0) + "\n";
+			report.push(["", resultsCtrl.chartData[i][0].toFixed(2), 
+				resultsCtrl.chartData[i][1].toFixed(0), resultsCtrl.chartData[i][2].toFixed(0)]);
 		}
+		let reportText = resultsCtrl.AddLinesAndCommas(report);
 		
 		// create link to and click it to prompt saving results file
-		var textFileAsBlob = new Blob([resultFileContents], {type:'text/plain'});
+		var textFileAsBlob = new Blob(["\ufeff", reportText], {type:'text/plain'});
 		var savelink = document.createElement("a");
-		savelink.download = resultsCtrl.inputs.buildingName + "_Results.txt";
+		savelink.download = bname + "_Results.txt";
 		savelink.href = window.URL.createObjectURL(textFileAsBlob);
 		document.getElementById("saveLinkInsert").appendChild(savelink);		
 		savelink.click();
