@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CO2 Tool</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="CO2cals.js"></script>
+    <script type="text/javascript" src="../../menu.js"></script>
+    <link href="../../site.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<script>
+		function getResults(){
+			var inputs = {
+				ceilingHeight: 3, //m
+				occupantDensity: 25, //#/100 m2
+				spaceTypeFloorAreaValue: 0.6,
+				spaceTypePerPersonValue: 5,
+				ventilationRate: 3.7, //L/s * person
+				timeToMetric: 2,
+				initialCO2Concentration: 0,
+				CO2Outdoor: 0,
+				groupsOfPeople: []
+			}
+			
+			var group1 = {
+				sex: "M",
+				ageGroup: 1,
+				mass: 23,
+				met: 2,
+				numPeople: 12
+			};
+			inputs.groupsOfPeople.push(group1);
+			var group2 = {
+				sex: "F",
+				ageGroup: 1,
+				mass: 23,
+				met: 2,
+				numPeople: 12
+			};
+			inputs.groupsOfPeople.push(group2);
+			var group3 = {
+				sex: "M",
+				ageGroup: 4,
+				mass: 85,
+				met: 3,
+				numPeople: 1
+			};
+			inputs.groupsOfPeople.push(group3);
+			
+		    var result = CO2Tool.calculateResult(inputs)
+			
+		}
+	</script>
+  </head>
+  <body>
+    <div class="title"  style="display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling" class="blacklink">
+          <img src="../../images/NIST_logo.svg" width="151" height="40">
+        </a>
+        <h1 class="inblock">Multizone Modeling</h1>
+      </div>
+      <nav>
+        <input id="menuImage" type="image" alt="Menu Icon"
+          src="../../images/menuIcon.svg" width="40" height="40">
+      </nav>
+    </div>
+    <article>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+			<h1>CO2 Tool</h1>
+			<p>
+				link to documentation of this tool.
+			</p>
+        </div>
+      </div>
+      <section>
+	        <input type="button" id="gobutton" value="Get Results" 
+          onclick="getResults()" style="margin-left: 1em;">	
+      </section>
+    </article>
+    <footer>
+      Page Updated : 6/14/2019 - Page Created : 06/2019<br>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CO2 Tool</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="CO2Calcs.js"></script>
+    <script type="text/javascript" src="../../menu.js"></script>
+    <link href="../../site.css" rel="stylesheet">
+    <link rel="stylesheet" href="../libs/bootstrap3/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="bootstrap.min.js"></script>-->
+	<!-- agular code -->
+    <script src="../libs/angularjs/angular.min.js"></script>
+    <script src="../libs/angularjs/angular-ui-router.min.js"></script>
+	<!-- Main CO2 Module -->
+    <script src="CO2.module.js"></script>
+    <script src="CO2.routes.js"></script>
+    <script src="inputs.controller.js"></script>
+    <script src="results.controller.js"></script>
+    <script src="grouplist.component.js"></script>
+    <script src="inputs.service.js"></script>
+    <script src="../components/unitconverter.component.js"></script>
+    <script src="../contam/unitsConversions.js"></script>
+    <script src="../contam/unitsStrings.js"></script>
+	<style>
+		.section 
+		{ 
+		  background-color:  #e4f2fc;
+		  border: solid #12659c thin; 
+		  color: black;
+		}
+		.underline {
+			text-decoration: underline;
+		}
+	</style>
+  </head>
+  <body ng-app="CO2">
+    <div class="title"  style="display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling" class="blacklink">
+          <img src="../../images/NIST_logo.svg" width="151" height="40">
+        </a>
+        <h1 class="inblock">Multizone Modeling</h1>
+      </div>
+      <nav>
+        <input id="menuImage" type="image" alt="Menu Icon"
+          src="../../images/menuIcon.svg" width="40" height="40">
+      </nav>
+    </div>
+    <article>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+			<h1>CO2 Metric Analysis Tool</h1>
+			<p>
+				link to documentation of this tool.
+			</p>
+        </div>
+      </div>
+      <section>
+		<ui-view></ui-view>
+      </section>
+    </article>
+    <footer>
+      Page Updated : 8/15/2019 - Page Created : 06/2019<br>
+    </footer>
+  </body>
+</html>

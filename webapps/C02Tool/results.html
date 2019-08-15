@@ -1,0 +1,173 @@
+	<h2>Inputs & Space Description</h2>
+	<div class="container section" style="padding: 1ex;">
+		<div class="row">
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.ventilationRate.unitStrings" 
+				unit-function="resultsCtrl.ventilationRate.unitFunction"
+				unit-conversion="resultsCtrl.ventilationRate.conversion"
+				base-value="resultsCtrl.ventilationRate.baseValue"
+				field-label="resultsCtrl.ventilationRate.label"
+				min="resultsCtrl.ventilationRate.min"
+				disable-number="true"
+				disable-units="true"></unitconverter>					
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.altVentilationRate.unitStrings" 
+				unit-function="resultsCtrl.altVentilationRate.unitFunction"
+				unit-conversion="resultsCtrl.altVentilationRate.conversion"
+				base-value="resultsCtrl.altVentilationRate.baseValue"
+				field-label="resultsCtrl.altVentilationRate.label"
+				min="resultsCtrl.altVentilationRate.min"
+				disable-number="true"
+				disable-units="true"></unitconverter>					
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.initialCO2Indoor.unitStrings" 
+				unit-function="resultsCtrl.initialCO2Indoor.unitFunction"
+				unit-conversion="resultsCtrl.initialCO2Indoor.conversion"
+				base-value="resultsCtrl.initialCO2Indoor.baseValue"
+				field-label="resultsCtrl.initialCO2Indoor.label"
+				min="resultsCtrl.initialCO2Indoor.min"
+				species="resultsCtrl.initialCO2Indoor.species"
+				disable-number="true"
+				disable-units="true"></unitconverter>					
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.CO2Outdoor.unitStrings" 
+				unit-function="resultsCtrl.CO2Outdoor.unitFunction"
+				unit-conversion="resultsCtrl.CO2Outdoor.conversion"
+				base-value="resultsCtrl.CO2Outdoor.baseValue"
+				field-label="resultsCtrl.CO2Outdoor.label"
+				min="resultsCtrl.CO2Outdoor.min"
+				species="resultsCtrl.CO2Outdoor.species"
+				disable-number="true"
+				disable-units="true"></unitconverter>					
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.ceilingHeight.unitStrings" 
+				unit-function="resultsCtrl.ceilingHeight.unitFunction"
+				unit-conversion="resultsCtrl.ceilingHeight.conversion"
+				base-value="resultsCtrl.ceilingHeight.baseValue"
+				field-label="resultsCtrl.ceilingHeight.label"
+				min="resultsCtrl.ceilingHeight.min"
+				disable-number="true"
+				disable-units="true"></unitconverter>					
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.floorArea.unitStrings" 
+				unit-function="resultsCtrl.floorArea.unitFunction"
+				unit-conversion="resultsCtrl.floorArea.conversion"
+				base-value="resultsCtrl.floorArea.baseValue"
+				field-label="resultsCtrl.floorArea.label"
+				min="resultsCtrl.floorArea.min"
+				disable-number="true"
+				disable-units="true"
+				ng-if="resultsCtrl.inputs.SpaceCategory !=='com'"></unitconverter>					
+			<div class="col-md-3 col-sm-4 col-xs-12" ng-if="resultsCtrl.inputs.SpaceCategory =='com'">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Occupant Density:</div>
+					<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="resultsCtrl.occupantDensity" min="0" class="form-control" disabled></div>
+					<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">#/100 m&sup2;</div>
+				</div>
+			</div>
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.timeToMetric.unitStrings" 
+				unit-function="resultsCtrl.timeToMetric.unitFunction"
+				unit-conversion="resultsCtrl.timeToMetric.conversion"
+				base-value="resultsCtrl.timeToMetric.baseValue"
+				field-label="resultsCtrl.timeToMetric.label"
+				min="resultsCtrl.timeToMetric.min"
+				disable-number="true"
+				disable-units="true"></unitconverter>					
+			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="resultsCtrl.inputs.SpaceCategory =='res'">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants in House:</div>
+					<div class="col-xs-12"><input type="number" step="1" ng-model="resultsCtrl.houseNumPeople" min="1" class="form-control" disabled></div>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="resultsCtrl.inputs.SpaceCategory =='res'">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Bedrooms:</div>
+					<div class="col-xs-12"><input type="number" step="1" ng-model="resultsCtrl.numBedrooms" min="1" class="form-control" disabled></div>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="resultsCtrl.inputs.SpaceCategory =='res'">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Scenario:</div>
+					<div class="col-xs-12"><input type="text" ng-model="resultsCtrl.scenario" class="form-control" disabled></div>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="resultsCtrl.inputs.SpaceCategory =='res'">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Method:</div>
+					<div class="col-xs-12"><input type="text" ng-model="resultsCtrl.method" class="form-control" disabled></div>
+				</div>
+			</div>
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.inputs.residential.roomFloorArea.unitStrings" 
+				unit-function="resultsCtrl.inputs.residential.roomFloorArea.unitFunction"
+				unit-conversion="resultsCtrl.inputs.residential.roomFloorArea.conversion"
+				base-value="resultsCtrl.inputs.residential.roomFloorArea.baseValue"
+				field-label="resultsCtrl.inputs.residential.roomFloorArea.label"
+				min="resultsCtrl.inputs.residential.roomFloorArea.min"
+				disable-number="true"
+				disable-units="true"
+				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'bedroom')"></unitconverter>				
+			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'bedroom')">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants in Room:</div>
+					<div class="col-xs-12"><input type="number" step="1" ng-model="resultsCtrl.bedroomNumPeople" min="1" class="form-control" disabled></div>
+				</div>
+			</div>
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.reduceVentilationRate.unitStrings" 
+				unit-function="resultsCtrl.reduceVentilationRate.unitFunction"
+				unit-conversion="resultsCtrl.reduceVentilationRate.conversion"
+				base-value="resultsCtrl.reduceVentilationRate.baseValue"
+				field-label="resultsCtrl.reduceVentilationRate.label"
+				min="resultsCtrl.reduceVentilationRate.min"
+				disable-number="true"
+				disable-units="true"
+				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'bedroom' && resultsCtrl.inputs.SpaceTypeType == 'user')"></unitconverter>					
+		</div>
+		<h4 class="col-xs-12" style="padding-top: 1ex; padding-bottom: 1ex;">Occupants</h4>		
+		<div class="col-xs-12">
+			<grouplist grouplist="resultsCtrl.occupants"></grouplist>
+		</div>
+	</div>
+	<h2>Results</h2>
+	<div class="container section" style="padding: 1ex;">
+		<div class="col-xs-12 table-responsive">
+			<table class="table table-striped table-bordered" style="background-color: white;">
+				<tr>
+					<th></th>
+					<th>Primary</th>
+					<th>Alternate</th>
+				</tr>
+				<tr>
+					<td>Time to steady state (h):</td>
+					<td>{{resultsCtrl.results.base.timeToCSS | number:1}}</td>
+					<td>{{resultsCtrl.results.alt.timeToCSS | number:1}}</td>
+				</tr>
+				<tr>
+					<td>CO2 concentration at steady state (mg/m&sup3;):</td>
+					<td>{{resultsCtrl.results.base.Css | number:0}}</td>
+					<td>{{resultsCtrl.results.alt.Css | number:0}}</td>
+				</tr>
+				<tr>
+					<td>CO2 concentration at time to metric (mg/m&sup3;):</td>
+					<td>{{resultsCtrl.results.base.c_at_metric | number:0}}</td>
+					<td>{{resultsCtrl.results.alt.c_at_metric | number:0}}</td>
+				</tr>
+				<tr>
+					<td>CO2 concentration at 1 hour (mg/m&sup3;):</td>
+					<td>{{resultsCtrl.results.base.c_at_h | number:0}}</td>
+					<td>{{resultsCtrl.results.alt.c_at_h | number:0}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-xs-12 table-responsive">
+			<div id="CO2_Chart" style="margin-left: auto; margin-right: auto; min-width:250px; max-width:500px; min-height: 300px;padding-top: 1ex; padding-bottom: 1ex;"></div>
+		</div>
+		<div class="col-xs-12">
+			<span id="saveLinkInsert"></span>
+			<input type="button" value="Save Report" ng-click="resultsCtrl.createReport();" class="btn btn-primary btn-lg">
+			<input type="button" value="Back to Inputs" ui-sref="inputs" class="btn btn-primary btn-lg">
+		</div>
+	</div>
+	

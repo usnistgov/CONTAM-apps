@@ -1,0 +1,685 @@
+		<div class="container section" style="padding: 1ex;">
+			<div class="col-md-6 col-xs-12">
+				<div class="row">
+					<h4 class="col-xs-12">Building Type</h4>
+					<div class="col-sm-6 col-xs-12"><input type="radio" value="com" ng-model="inputsCtrl.inputs.SpaceCategory" style="margin-right: 1ex"> Commercial/Institution</div>
+					<div class="col-sm-6 col-xs-12"><input type="radio" value="res" ng-model="inputsCtrl.inputs.SpaceCategory" style="margin-right: 1ex"> Residential</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-12">
+				<div class="row">
+					<h4 class="col-xs-12">Model Type</h4>
+					<div class="col-sm-6 col-xs-12"><input type="radio" value="pre" ng-model="inputsCtrl.inputs.SpaceTypeType" style="margin-right: 1ex"> Predefined</div>
+					<div class="col-sm-6 col-xs-12"><input type="radio" value="user" ng-model="inputsCtrl.inputs.SpaceTypeType" style="margin-right: 1ex"> User-Defined</div>
+				</div>
+			</div>
+		</div>
+		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'pre' && inputsCtrl.inputs.SpaceCategory == 'com'">
+			<h3>Predefined Commercial Buildings (from ASHRAE Standard 62.1-2016)</h3>
+			<div class="container section" style="padding-top: 1ex; padding-bottom: 1ex;">
+				<select ng-model="inputsCtrl.inputs.preDefinedSpaceTypeSelection" ng-Change="inputsCtrl.changeSpaceType()" class="form-control">
+					<option value="0">Classroom (5-8 y)</option>
+					<option value="1">Classroom (9 y+)</option>
+					<option value="2">Lecture Classroom</option>
+					<option value="3">Restaurant Dining Room</option>
+					<option value="4">Conference Meeting</option>
+					<option value="5">Hotel/Motel Bedroom</option>
+					<option value="6">Office Space</option>
+					<option value="7">Public Assembly / Auditorium Seating</option>
+					<option value="8">Public Assembly / Lobby</option>
+					<option value="9">Retail / Sales</option>
+				</select>
+				<div class="row">
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.commercial.predefined.CO2Outdoor}} mg/m&sup3;
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Initial Indoor CO2 Concentration</span><br>{{inputsCtrl.inputs.commercial.predefined.initialCO2Indoor}} mg/m&sup3;
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.commercial.predefined.ceilingHeight}} m
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">62.1 Ventilation per Person</span><br>{{inputsCtrl.inputs.commercial.predefined.ventPerPerson}} L/s
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">62.1 Ventilation per Floor Area</span><br>{{inputsCtrl.inputs.commercial.predefined.CO2Outdoor}} L/s&dot;m&sup2;
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Occupant Density</span><br>{{inputsCtrl.inputs.commercial.predefined.occupantDensity}} #/100 m&sup2;
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.commercial.predefined.ventilationRate}} L/s
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Time to Metric</span><br>{{inputsCtrl.inputs.commercial.predefined.timeToMetric}} h
+					</div>
+				</div>
+				<div class="row">
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.commercial.predefined.altVentilationRate.unitStrings" 
+						unit-function="inputsCtrl.inputs.commercial.predefined.altVentilationRate.unitFunction"
+						unit-conversion="inputsCtrl.inputs.commercial.predefined.altVentilationRate.conversion"
+						base-value="inputsCtrl.inputs.commercial.predefined.altVentilationRate.baseValue"
+						field-label="inputsCtrl.inputs.commercial.predefined.altVentilationRate.label"
+						min="inputsCtrl.inputs.commercial.predefined.altVentilationRate.min"></unitconverter>					
+					<h4 class="col-xs-12">Predefined Occupants</h4>		
+					<div class="col-xs-12">
+						<grouplist grouplist="inputsCtrl.inputs.commercial.predefined.occupants"></grouplist>
+					</div>
+					<div class="col-xs-12" style="padding-bottom: 1ex;">
+						<input type="button" value="Copy to User-Defined Model" ng-click="inputsCtrl.copyPredefinedToUser()" class="btn btn-primary btn-sm">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'user' && inputsCtrl.inputs.SpaceCategory == 'com'">
+			<h3>User-Defined Commercial Building</h3>
+			<div class="container section">
+				<h3>Building Description</h3>
+				<div class="row">
+					<div class="col-md-3 col-sm-4 col-xs-12">
+						<div class="row" style="padding-top: 1ex; padding-bottom: 1ex;">						
+							<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Building Name:</div>
+							<div class="col-xs-12"><input type="text" ng-model="inputsCtrl.inputs.commercial.buildingName" class="form-control" required></div>
+						</div>
+					</div>
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.commercial.CO2Outdoor.unitStrings" 
+						unit-function="inputsCtrl.inputs.commercial.CO2Outdoor.unitFunction"
+						unit-conversion="inputsCtrl.inputs.commercial.CO2Outdoor.conversion"
+						base-value="inputsCtrl.inputs.commercial.CO2Outdoor.baseValue"
+						field-label="inputsCtrl.inputs.commercial.CO2Outdoor.label"
+						min="inputsCtrl.inputs.commercial.CO2Outdoor.min"
+						species="inputsCtrl.inputs.commercial.CO2Outdoor.species"></unitconverter>
+
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.commercial.initialCO2Indoor.unitStrings" 
+						unit-function="inputsCtrl.inputs.commercial.initialCO2Indoor.unitFunction"
+						unit-conversion="inputsCtrl.inputs.commercial.initialCO2Indoor.conversion"
+						base-value="inputsCtrl.inputs.commercial.initialCO2Indoor.baseValue"
+						field-label="inputsCtrl.inputs.commercial.initialCO2Indoor.label"
+						min="inputsCtrl.inputs.commercial.initialCO2Indoor.min"
+						species="inputsCtrl.inputs.commercial.initialCO2Indoor.species"></unitconverter>
+
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.commercial.ceilingHeight.unitStrings" 
+						unit-function="inputsCtrl.inputs.commercial.ceilingHeight.unitFunction"
+						unit-conversion="inputsCtrl.inputs.commercial.ceilingHeight.conversion"
+						base-value="inputsCtrl.inputs.commercial.ceilingHeight.baseValue"
+						field-label="inputsCtrl.inputs.commercial.ceilingHeight.label"
+						min="inputsCtrl.inputs.commercial.ceilingHeight.min"></unitconverter>				
+					<!--
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.commercial.floorArea.unitStrings" 
+						unit-function="inputsCtrl.inputs.commercial.floorArea.unitFunction"
+						unit-conversion="inputsCtrl.inputs.commercial.floorArea.conversion"
+						base-value="inputsCtrl.inputs.commercial.floorArea.baseValue"
+						field-label="inputsCtrl.inputs.commercial.floorArea.label"
+						min="inputsCtrl.inputs.commercial.floorArea.min"></unitconverter>				
+					-->
+				</div>
+			</div>
+		</div>
+		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'user' && inputsCtrl.inputs.SpaceCategory == 'res'">
+			<h3>User-Defined Residential Building</h3>
+			<div class="container section">
+				<h3>Building Description</h3>
+				<div class="row">
+					<div class="col-md-3 col-sm-4 col-xs-12">
+						<div class="row" style="padding-top: 1ex; padding-bottom: 1ex;">						
+							<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Building Name:</div>
+							<div class="col-xs-12"><input type="text" ng-model="inputsCtrl.inputs.residential.buildingName" class="form-control" required></div>
+						</div>
+					</div>
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.residential.CO2Outdoor.unitStrings" 
+						unit-function="inputsCtrl.inputs.residential.CO2Outdoor.unitFunction"
+						unit-conversion="inputsCtrl.inputs.residential.CO2Outdoor.conversion"
+						base-value="inputsCtrl.inputs.residential.CO2Outdoor.baseValue"
+						field-label="inputsCtrl.inputs.residential.CO2Outdoor.label"
+						min="inputsCtrl.inputs.residential.CO2Outdoor.min"
+						species="inputsCtrl.inputs.residential.CO2Outdoor.species"></unitconverter>
+
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.residential.initialCO2Indoor.unitStrings" 
+						unit-function="inputsCtrl.inputs.residential.initialCO2Indoor.unitFunction"
+						unit-conversion="inputsCtrl.inputs.residential.initialCO2Indoor.conversion"
+						base-value="inputsCtrl.inputs.residential.initialCO2Indoor.baseValue"
+						field-label="inputsCtrl.inputs.residential.initialCO2Indoor.label"
+						min="inputsCtrl.inputs.residential.initialCO2Indoor.min"
+						species="inputsCtrl.inputs.residential.initialCO2Indoor.species"></unitconverter>
+
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.residential.ceilingHeight.unitStrings" 
+						unit-function="inputsCtrl.inputs.residential.ceilingHeight.unitFunction"
+						unit-conversion="inputsCtrl.inputs.residential.ceilingHeight.conversion"
+						base-value="inputsCtrl.inputs.residential.ceilingHeight.baseValue"
+						field-label="inputsCtrl.inputs.residential.ceilingHeight.label"
+						min="inputsCtrl.inputs.residential.ceilingHeight.min"
+						value-change-callback="inputsCtrl.updateACHPerPerson"></unitconverter>				
+
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.residential.floorArea.unitStrings" 
+						unit-function="inputsCtrl.inputs.residential.floorArea.unitFunction"
+						unit-conversion="inputsCtrl.inputs.residential.floorArea.conversion"
+						base-value="inputsCtrl.inputs.residential.floorArea.baseValue"
+						field-label="inputsCtrl.inputs.residential.floorArea.label"
+						min="inputsCtrl.inputs.residential.floorArea.min"
+						value-change-callback="inputsCtrl.updateBothValues"></unitconverter>				
+				</div>
+			</div>
+		</div>
+		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'user' && inputsCtrl.inputs.SpaceCategory == 'com'" class="container section" style="margin-top:1ex;padding-bottom:1ex;">
+			<h3>Space Description</h3>
+			<div class="row">
+				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+					unit-strings="inputsCtrl.inputs.commercial.ventilationRate.unitStrings" 
+					unit-function="inputsCtrl.inputs.commercial.ventilationRate.unitFunction"
+					unit-conversion="inputsCtrl.inputs.commercial.ventilationRate.conversion"
+					base-value="inputsCtrl.inputs.commercial.ventilationRate.baseValue"
+					field-label="inputsCtrl.inputs.commercial.ventilationRate.label"
+					min="inputsCtrl.inputs.commercial.ventilationRate.min"></unitconverter>					
+
+				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+					unit-strings="inputsCtrl.inputs.commercial.altVentilationRate.unitStrings" 
+					unit-function="inputsCtrl.inputs.commercial.altVentilationRate.unitFunction"
+					unit-conversion="inputsCtrl.inputs.commercial.altVentilationRate.conversion"
+					base-value="inputsCtrl.inputs.commercial.altVentilationRate.baseValue"
+					field-label="inputsCtrl.inputs.commercial.altVentilationRate.label"
+					min="inputsCtrl.inputs.commercial.altVentilationRate.min"></unitconverter>					
+
+				<div class="col-md-3 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Occupant Density:</div>
+						<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.commercial.userOccupantDensity" min="0" class="form-control"></div>
+						<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">#/100 m&sup2;</div>
+					</div>
+				</div>
+				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+					unit-strings="inputsCtrl.inputs.commercial.timeToMetric.unitStrings" 
+					unit-function="inputsCtrl.inputs.commercial.timeToMetric.unitFunction"
+					unit-conversion="inputsCtrl.inputs.commercial.timeToMetric.conversion"
+					base-value="inputsCtrl.inputs.commercial.timeToMetric.baseValue"
+					field-label="inputsCtrl.inputs.commercial.timeToMetric.label"
+					min="inputsCtrl.inputs.commercial.timeToMetric.min"></unitconverter>					
+				<h4 class="col-xs-12">Define Occupants</h4>
+				<div class="col-md-3 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Sex:</div>
+						<div class="col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+							<div>
+								<input type="radio" ng-model="inputsCtrl.inputs.commercial.new_occupants.sex" value="M" style="margin-right: 1ex; margin-left: 1ex;"> Male
+								<input type="radio" ng-model="inputsCtrl.inputs.commercial.new_occupants.sex" value="F" style="margin-right: 1ex; margin-left:1em;"> Female
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Age Group:</div>
+						<div class="col-xs-12">
+							<select ng-model="inputsCtrl.inputs.commercial.new_occupants.ageGroup" class="form-control">
+								<option value="0">< 3</option>
+								<option value="1">3 to 9</option>
+								<option value="2">10 to 17</option>
+								<option value="3">18 to 29</option>
+								<option value="4">30 to 59</option>
+								<option value="5">>= 60</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
+						<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.commercial.new_occupants.numPeople" min="1" class="form-control"></div>
+					</div>
+				</div>
+				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+					unit-strings="inputsCtrl.inputs.commercial.new_occupants.mass.unitStrings" 
+					unit-function="inputsCtrl.inputs.commercial.new_occupants.mass.unitFunction"
+					unit-conversion="inputsCtrl.inputs.commercial.new_occupants.mass.conversion"
+					base-value="inputsCtrl.inputs.commercial.new_occupants.mass.baseValue"
+					field-label="inputsCtrl.inputs.commercial.new_occupants.mass.label"
+					min="inputsCtrl.inputs.commercial.new_occupants.mass.min"></unitconverter>				
+					
+				<div class="col-md-3 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Activity Level:</div>
+						<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.commercial.new_occupants.met" min="0" class="form-control"></div>
+						<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">met</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-4 col-xs-12" style="text-align:right; height: 90px; display:flex; flex-direction: column; justify-content: center;padding: 1ex 0px; align-items: center;">
+					<div><input type="button" value="Add Occupants" ng-click="inputsCtrl.addGroup()" class="btn btn-primary btn-sm"></div>
+				</div>
+				<h4 class="col-xs-12">User-Defined Occupants</h4>		
+				<div class="col-xs-12">
+					<grouplist grouplist="inputsCtrl.inputs.commercial.occupants"  on-remove="inputsCtrl.removeItem(itemIndex)"></grouplist>
+				</div>
+			</div>
+		</div>
+		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'pre' && inputsCtrl.inputs.SpaceCategory == 'res'">
+			<h3>Predefined Residential Buildings</h3>
+			<div class="container section" style="padding-top: 1ex; padding-bottom: 1ex;">
+				<select ng-model="inputsCtrl.inputs.preDefinedResSpaceTypeSelection" ng-Change="inputsCtrl.changeResSpaceType()" class="form-control col-xs-12">
+					<option value="0">Large House, Baseline Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="1">Large House, Baseline Family, Whole House, 0.5 Air Changes per Hour</option>
+					<option value="2">Large House, Large Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="3">Large House, Large Family, Whole House, 0.5 Air Changes per Hour</option>
+					<option value="4">Small House, Baseline Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="5">Small House, Baseline Family, Whole House, 0.5 Air Changes per Hour</option>
+					<option value="6">Small House, Small Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="7">Small House, Small Family, Whole House, 0.5 Air Changes per Hour</option>
+					<option value="8">Large House, Baseline Family, Master Bedroom, Perfect Distribution</option>
+					<option value="9">Large House, Baseline Family, Child Bedroom, Perfect Distribution</option>
+					<option value="10">Large House, Baseline Family, Master Bedroom, Uniform Distribution</option>
+					<option value="11">Large House, Baseline Family, Child Bedroom, Uniform Distribution</option>
+					<option value="12">Large House, Baseline Family, Master Bedroom, 10 L/s per Person</option>
+					<option value="13">Large House, Baseline Family, Child Bedroom, 10 L/s per Person</option>
+					<option value="14">Large House, Large Family, Master Bedroom, Perfect Distribution</option>
+					<option value="15">Large House, Large Family, Child Bedroom, Perfect Distribution</option>
+					<option value="16">Large House, Large Family, Master Bedroom, Uniform Distribution</option>
+					<option value="17">Large House, Large Family, Child Bedroom, Uniform Distribution</option>
+					<option value="18">Large House, Large Family, Master Bedroom, 10 L/s per Person</option>
+					<option value="19">Large House, Large Family, Child Bedroom, 10 L/s per Person</option>
+					<option value="20">Small House, Baseline Family, Master Bedroom, Perfect Distribution</option>
+					<option value="21">Small House, Baseline Family, Child Bedroom, Perfect Distribution</option>
+					<option value="22">Small House, Baseline Family, Master Bedroom, Uniform Distribution</option>
+					<option value="23">Small House, Baseline Family, Child Bedroom, Uniform Distribution</option>
+					<option value="24">Small House, Baseline Family, Master Bedroom, 10 L/s per Person</option>
+					<option value="25">Small House, Baseline Family, Child Bedroom, 10 L/s per Person</option>
+					<option value="26">Small House, Small Family, Master Bedroom, Perfect Distribution</option>
+					<option value="27">Small House, Small Family, Master Bedroom, Uniform Distribution</option>
+					<option value="28">Small House, Small Family, Master Bedroom, 10 L/s per Person</option>
+				</select>
+				<div class="row">
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.CO2Outdoor}} mg/m&sup3;
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Initial Indoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.initialCO2Indoor}} mg/m&sup3;
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Building Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.floorArea}} m&sup2;
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.residential.predefined.ceilingHeight}} m
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Time To Metric</span><br>{{inputsCtrl.inputs.residential.predefined.timeToMetric}} h
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Number of Bedrooms</span><br>{{inputsCtrl.inputs.residential.predefined.numBedrooms}}
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Scenario</span><br>{{inputsCtrl.inputs.residential.predefined.scenario}}
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Method</span><br>{{inputsCtrl.inputs.residential.predefined.method}}
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
+						<span class="underline">Number of Occupants in House</span><br>{{inputsCtrl.inputs.residential.predefined.numWholeOccupants}}
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
+						<span class="underline">Number of Air Changes</span><br>{{inputsCtrl.inputs.residential.predefined.ach}}
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
+						<span class="underline">Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.achpp}}
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.scenario == 'bedroom'">
+						<span class="underline">Bedroom Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.bedFloorArea}} m&sup2;
+					</div>					
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.show622Values()">
+						<span class="underline">62.2 Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.calc622}} L/s
+					</div>					
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.show622Values()">
+						<span class="underline">62.2 Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.calc622pp}} L/s
+					</div>					
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'perfect'">
+						<span class="underline">62.2 Perfect Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.perfect}} L/s
+					</div>					
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'uniform'">
+						<span class="underline">62.2 Uniform Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.uniform}} L/s
+					</div>					
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'uniform'">
+						<span class="underline">62.2 Uniform Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.uniformpp}} L/s
+					</div>					
+				</div>
+				<div class="row">
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.residential.predefined.altVentilationRate.unitStrings" 
+						unit-function="inputsCtrl.inputs.residential.predefined.altVentilationRate.unitFunction"
+						unit-conversion="inputsCtrl.inputs.residential.predefined.altVentilationRate.conversion"
+						base-value="inputsCtrl.inputs.residential.predefined.altVentilationRate.baseValue"
+						field-label="inputsCtrl.inputs.residential.predefined.altVentilationRate.label"
+						min="inputsCtrl.inputs.residential.predefined.altVentilationRate.min"></unitconverter>					
+					<h4 class="col-xs-12">Predefined Occupants</h4>		
+					<div class="col-xs-12">
+						<grouplist grouplist="inputsCtrl.inputs.residential.predefined.occupants"></grouplist>
+					</div>
+					<div class="col-xs-12" style="padding-bottom: 1ex;">
+						<input type="button" value="Copy to User-Defined Model" ng-click="inputsCtrl.copyPredefinedResToUser()" class="btn btn-primary btn-sm">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'user' && inputsCtrl.inputs.SpaceCategory == 'res'" class="container section" style="margin-top:1ex;">
+			<h3>Space Description</h3>
+			<div class="row">
+				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+					unit-strings="inputsCtrl.inputs.residential.timeToMetric.unitStrings" 
+					unit-function="inputsCtrl.inputs.residential.timeToMetric.unitFunction"
+					unit-conversion="inputsCtrl.inputs.residential.timeToMetric.conversion"
+					base-value="inputsCtrl.inputs.residential.timeToMetric.baseValue"
+					field-label="inputsCtrl.inputs.residential.timeToMetric.label"
+					min="inputsCtrl.inputs.residential.timeToMetric.min"></unitconverter>					
+				<div class="col-md-2 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants in House:</div>
+						<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.houseNumPeople" min="1" class="form-control" ng-Change="inputsCtrl.updateBothValues();"></div>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Bedrooms:</div>
+						<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.numBedrooms" min="1" class="form-control" ng-Change="inputsCtrl.update622Values();"></div>
+					</div>
+				</div>
+				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+					unit-strings="inputsCtrl.inputs.residential.altVentilationRate.unitStrings" 
+					unit-function="inputsCtrl.inputs.residential.altVentilationRate.unitFunction"
+					unit-conversion="inputsCtrl.inputs.residential.altVentilationRate.conversion"
+					base-value="inputsCtrl.inputs.residential.altVentilationRate.baseValue"
+					field-label="inputsCtrl.inputs.residential.altVentilationRate.label"
+					min="inputsCtrl.inputs.residential.altVentilationRate.min"></unitconverter>					
+			</div>
+			<div class="row">
+				<h4 class="col-md-3 col-sm-4 col-xs-12">Scenario Type:</h4>
+				<div class="col-md-3 col-xs-12" style="height: 44px; display:flex; flex-direction: column; justify-content: center;">
+					<div><input type="radio" value="whole" ng-model="inputsCtrl.inputs.residential.resType" style="margin-right: 1ex"> Whole House</div>
+				</div>
+				<div class="col-md-3 col-xs-12" style="height: 44px; display:flex; flex-direction: column; justify-content: center;">
+					<div><input type="radio" value="bedroom" ng-model="inputsCtrl.inputs.residential.resType" style="margin-right: 1ex"> Bedroom</div>
+				</div>
+			</div>
+			<div ng-show="inputsCtrl.inputs.residential.resType == 'whole'" class="row">
+				<h4 class="col-xs-12">Whole House Scenario</h4>
+				<div class="col-xs-12">
+					<div class="row">
+						<h5 class="col-xs-12">Primary Ventilation per Person</h5>
+						<div class="col-xs-12" style="padding-bottom: 1ex;">
+							<div class="row">
+								<div class="col-md-3 col-sm-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+									<div><input type="radio" value="62.2" ng-model="inputsCtrl.inputs.residential.wholeVentType" style="margin-right: 1ex">ASHRAE 62.2-2016</div>
+								</div>
+								<div class="col-md-3 col-sm-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+									<div><input type="radio" value="ACH" ng-model="inputsCtrl.inputs.residential.wholeVentType" style="margin-right: 1ex">Air Change rate:</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.wholeVentType == '62.2'">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Whole House Ventilation:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622value" class="form-control" ng-disabled="true"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.wholeVentType == '62.2'">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622PerPersonValue" class="form-control" ng-disabled="true"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.wholeVentType == 'ACH'">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Air Change rate:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.residential.wholeACH" min="0.0001" class="form-control" ng-Change="inputsCtrl.updateACHPerPerson();"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">ACH</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.wholeVentType == 'ACH'">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" ng-model="inputsCtrl.inputs.residential.wholeACHPerPerson" class="form-control" ng-disabled="true"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="row">
+						<h4 class="col-xs-12">Define Whole House Occupants</h4>
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-md-3 col-sm-4 col-xs-12">
+									<div class="row" style="padding: 1ex 0px;">
+										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Sex:</div>
+										<div class="col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+											<div>
+												<input type="radio" ng-model="inputsCtrl.inputs.residential.new_house_occupants.sex" value="M" style="margin-right: 1ex; margin-left:1ex;"> Male
+												<input type="radio" ng-model="inputsCtrl.inputs.residential.new_house_occupants.sex" value="F" style="margin-right: 1ex; margin-left:1em;"> Female
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2 col-sm-4 col-xs-12">
+									<div class="row" style="padding: 1ex 0px;">
+										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Age Group:</div>
+										<div class="col-xs-12">
+											<select ng-model="inputsCtrl.inputs.residential.new_house_occupants.ageGroup" class="form-control">
+												<option value="0">< 3</option>
+												<option value="1">3 to 9</option>
+												<option value="2">10 to 17</option>
+												<option value="3">18 to 29</option>
+												<option value="4">30 to 59</option>
+												<option value="5">>= 60</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2 col-sm-4 col-xs-12">
+									<div class="row" style="padding: 1ex 0px;">
+										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
+										<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.new_house_occupants.numPeople" min="1" class="form-control"></div>
+									</div>
+								</div>
+								<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+									unit-strings="inputsCtrl.inputs.residential.new_house_occupants.mass.unitStrings" 
+									unit-function="inputsCtrl.inputs.residential.new_house_occupants.mass.unitFunction"
+									unit-conversion="inputsCtrl.inputs.residential.new_house_occupants.mass.conversion"
+									base-value="inputsCtrl.inputs.residential.new_house_occupants.mass.baseValue"
+									field-label="inputsCtrl.inputs.residential.new_house_occupants.mass.label"
+									min="inputsCtrl.inputs.residential.new_house_occupants.mass.min"></unitconverter>				
+								
+								<div class="col-md-3 col-sm-4 col-xs-12">
+									<div class="row" style="padding: 1ex 0px;">
+										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Activity Level:</div>
+										<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.residential.new_house_occupants.met" min="0" class="form-control"></div>
+										<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">met</div>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-4 col-xs-12" style="height: 90px; display:flex; flex-direction: column; justify-content: center;padding: 1ex 0px; align-items: center;">
+								<div><input type="button" value="Add Occupants" ng-click="inputsCtrl.addResWholeGroup()" class="btn btn-primary btn-sm"></div></div>
+							</div>
+						</div>
+						<h4 class="col-xs-12">User-Defined Whole House Occupants</h4>		
+						<div class="col-xs-12">
+							<grouplist grouplist="inputsCtrl.inputs.residential.house_occupants"  on-remove="inputsCtrl.removeResWholeGroup(itemIndex)"></grouplist>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-show="inputsCtrl.inputs.residential.resType == 'bedroom'" class="row">
+				<h4 class="col-xs-12">Single Bedroom Scenario</h4>
+				<div class="col-xs-12">
+					<div class="row">
+						<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+							unit-strings="inputsCtrl.inputs.residential.roomFloorArea.unitStrings" 
+							unit-function="inputsCtrl.inputs.residential.roomFloorArea.unitFunction"
+							unit-conversion="inputsCtrl.inputs.residential.roomFloorArea.conversion"
+							base-value="inputsCtrl.inputs.residential.roomFloorArea.baseValue"
+							field-label="inputsCtrl.inputs.residential.roomFloorArea.label"
+							min="inputsCtrl.inputs.residential.roomFloorArea.min"
+							value-change-callback="inputsCtrl.update622Values"></unitconverter>				
+						<div class="col-md-2 col-sm-4 col-xs-12">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants in Room:</div>
+								<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.bedroomNumPeople" min="1" class="form-control" ng-Change="inputsCtrl.update622Values();"></div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">62.2 Whole House Ventilation:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622value" class="form-control" ng-disabled="true"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
+							</div>
+						</div>
+						<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+							unit-strings="inputsCtrl.inputs.residential.reduceVentilationRate.unitStrings" 
+							unit-function="inputsCtrl.inputs.residential.reduceVentilationRate.unitFunction"
+							unit-conversion="inputsCtrl.inputs.residential.reduceVentilationRate.conversion"
+							base-value="inputsCtrl.inputs.residential.reduceVentilationRate.baseValue"
+							field-label="inputsCtrl.inputs.residential.reduceVentilationRate.label"
+							min="inputsCtrl.inputs.residential.reduceVentilationRate.min"
+							value-change-callback="inputsCtrl.update622Values"></unitconverter>					
+						<h5 class="col-xs-12">Primary Ventilation per Person</h5>
+						<div class="col-xs-12">
+							<div class="row" style="padding-bottom: 1ex;">
+								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+									<div><input type="radio" value="perfect" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 perfect</div>
+								</div>
+								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+									<div><input type="radio" value="uniform" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 uniform</div>
+								</div>
+								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+									<div><input type="radio" value="CEN" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">User-Defined</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'perfect'">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622PerfectValue" class="form-control" ng-disabled="true"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'uniform'">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Room Ventilation:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622UniformValue" class="form-control" ng-disabled="true"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'uniform'">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622UniformPerPersonValue" class="form-control" ng-disabled="true"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'CEN'">
+							<unitconverter
+								unit-strings="inputsCtrl.inputs.residential.roomVentilationRate.unitStrings" 
+								unit-function="inputsCtrl.inputs.residential.roomVentilationRate.unitFunction"
+								unit-conversion="inputsCtrl.inputs.residential.roomVentilationRate.conversion"
+								base-value="inputsCtrl.inputs.residential.roomVentilationRate.baseValue"
+								field-label="inputsCtrl.inputs.residential.roomVentilationRate.label"
+								min="inputsCtrl.inputs.residential.roomVentilationRate.min"></unitconverter>		
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="row">
+						<h4 class="col-xs-12">Define Bedroom Occupants</h4>
+						<div class="col-md-3 col-sm-4 col-xs-12">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Sex:</div>
+								<div class="col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
+									<div>
+										<input type="radio" ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.sex" value="M" style="margin-right: 1ex"> Male
+										<input type="radio" ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.sex" value="F" style="margin-right: 1ex; margin-left:1em;"> Female
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-4 col-xs-12">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Age Group:</div>
+								<div class="col-xs-12">
+									<select ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.ageGroup" class="form-control">
+										<option value="0">< 3</option>
+										<option value="1">3 to 9</option>
+										<option value="2">10 to 17</option>
+										<option value="3">18 to 29</option>
+										<option value="4">30 to 59</option>
+										<option value="5">>= 60</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-4 col-xs-12">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
+								<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.numPeople" min="1" class="form-control"></div>
+							</div>
+						</div>
+						<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+							unit-strings="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.unitStrings" 
+							unit-function="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.unitFunction"
+							unit-conversion="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.conversion"
+							base-value="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.baseValue"
+							field-label="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.label"
+							min="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.min"></unitconverter>				
+						
+						<div class="col-md-3 col-sm-4 col-xs-12">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Activity Level:</div>
+								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.met" min="0" class="form-control"></div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">met</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-12" style="height: 90px; display:flex; flex-direction: column; justify-content: center;padding: 1ex 0px; align-items: center;">
+						<div><input type="button" value="Add Occupants" ng-click="inputsCtrl.addResBedGroup()" class="btn btn-primary btn-sm"></div></div>
+						<h4 class="col-xs-12">User-Defined Bedroom Occupants</h4>		
+						<div class="col-xs-12">
+							<grouplist grouplist="inputsCtrl.inputs.residential.bedroom_occupants"  on-remove="inputsCtrl.removeResBedGroup(itemIndex)"></grouplist>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		
+		<div class="container section" style="margin-top:1ex;padding-top: 1ex; padding-bottom: 1ex;">
+			<input type="button" value="Get Results" ng-click="inputsCtrl.getResults()" class="btn btn-primary btn-lg">
+			<!--<input type="button" value="Save Inputs" ng-click="inputsCtrl.saveInputs()" class="btn btn-primary btn-lg">
+			<a data-toggle="modal" data-target="#categoryModal">
+				<span class="glyphicon glyphicon-info-sign infoLink"></span>
+			</a>
+			
+			<button type="button" data-toggle="modal" data-target="#categoryModal">Launch modal</button>
+			-->
+		</div>
+		
+    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title">test modal</h5>
+                </div>
+                <div class="modal-body">
+					test
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-bees" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+

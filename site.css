@@ -50,12 +50,6 @@ footer
   color: black;
 }
 
-input[type=button]
-{
-  min-width: 50px;
-  min-height: 50px;
-}
-
 input[type="radio"] 
 {
   transform: scale(1.5);
@@ -65,4 +59,5 @@ input[type="radio"]
 {
   display:inline-block;
 }
+
 

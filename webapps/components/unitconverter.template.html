@@ -1,0 +1,10 @@
+<div class="row" style="padding: 1ex 0px;">
+	<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">{{UCCtrl.fieldLabel}}:</div>
+	<div class="col-sm-6 col-xs-12">
+		<input type="number" class="form-control" step="any" ng-model="UCCtrl.convertedValue" ng-change="UCCtrl.valueChange()" style="width:100%" ng-disabled="UCCtrl.disableNumber">
+	</div>
+	<div class="col-sm-6 col-xs-12">
+		<select class="form-control" ng-model="UCCtrl.selectedUnit" ng-change="UCCtrl.unitsChange()" ng-options="x for x in UCCtrl.unitStrings" style="width:100%;" ng-disabled="UCCtrl.disableUnits">
+		</select>
+	</div>
+</div>

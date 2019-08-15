@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>test unit conversion component</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../C02Tool/bootstrap.min.css">
+	<!-- agular code -->
+    <script src="../C02Tool/angular.min.js"></script>
+    <script src="unitconverter.component.js"></script>
+    <script src="unitsConversions.js"></script>
+    <script src="unitsStrings.js"></script>
+    <script src="unittest.module.js"></script>
+	<script>
+	</script>
+  </head>
+  <body ng-app="unittest">
+		<div  ng-controller='unittestController as unittestctrl' class="container">
+			<div class="col-md-12 col-xs-12">
+			<unitconverter
+				unit-strings="unittestctrl.lengthUnitStrings" 
+				unit-function="unittestctrl.lengthUnitFunction"
+				unit-conversion="unittestctrl.testUnitConversion"
+				base-value="unittestctrl.baseValue"
+				field-label="unittestctrl.fieldLabel"
+				min="unittestctrl.min" 
+				max="unittestctrl.max"></unitconverter>
+				
+			</div>
+			<div class="col-md-12 col-xs-12">
+			<unitconverter
+				unit-strings="unittestctrl.lengthUnitStrings2" 
+				unit-function="unittestctrl.lengthUnitFunction2"
+				unit-conversion="unittestctrl.testUnitConversion2"
+				base-value="unittestctrl.baseValue2"
+				field-label="unittestctrl.fieldLabel2"
+				min="unittestctrl.min2" 
+				max="unittestctrl.max2"></unitconverter>
+				
+			</div>
+			<div class="col-md-12 col-xs-12">basevalue: <input type="number" ng-model="unittestctrl.baseValue" step="any"></div>
+			<div class="col-md-12 col-xs-12">conversion: <input type="number" ng-model="unittestctrl.testUnitConversion" step="any"></div>
+		</div>
+  </body>
+</html>
