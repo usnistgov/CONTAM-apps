@@ -39,8 +39,6 @@ function ResultsController($stateParams) {
 			resultsCtrl.occupants = resultsCtrl.inputs.commercial.predefined.occupants.slice();
 			// this will make the grouplist not show the remove occupants button
 			resultsCtrl.occupants.showRemove = false;
-			
-			resultsCtrl.inputs.buildingName = "Predefined_Commercial_Building_" + resultsCtrl.inputs.preDefinedSpaceTypeSelection;
 		} else {
 			resultsCtrl.ventilationRate = resultsCtrl.inputs.commercial.ventilationRate;
 			resultsCtrl.altVentilationRate = resultsCtrl.inputs.commercial.altVentilationRate;
@@ -89,7 +87,6 @@ function ResultsController($stateParams) {
 				unitStrings: CONTAM.Units.Strings2.Area, unitFunction: CONTAM.Units.AreaConvert, min: 1};
 			resultsCtrl.houseNumPeople = resultsCtrl.inputs.residential.predefined.numWholeOccupants;
 			resultsCtrl.numBedrooms = resultsCtrl.inputs.residential.predefined.numBedrooms;
-			resultsCtrl.inputs.buildingName = "Predefined_Residential_Building_" + resultsCtrl.inputs.preDefinedResSpaceTypeSelection;
 		} else {
 			resultsCtrl.altVentilationRate = resultsCtrl.inputs.residential.altVentilationRate;
 			resultsCtrl.initialCO2Indoor = resultsCtrl.inputs.residential.initialCO2Indoor;
@@ -100,7 +97,7 @@ function ResultsController($stateParams) {
 			resultsCtrl.scenario = resultsCtrl.inputs.residential.resType;
 			resultsCtrl.houseNumPeople = resultsCtrl.inputs.residential.houseNumPeople;
 			resultsCtrl.numBedrooms = resultsCtrl.inputs.residential.numBedrooms;
-			if(resultsCtrl.inputs.residential.resType == 'whole') {
+			if(resultsCtrl.inputs.residential.resType == 'Whole House') {
 				if(resultsCtrl.inputs.residential.wholeVentType == '62.2'){
 					let ventilationRate = CONTAM.Units.FlowConvert(resultsCtrl.inputs.calc622value / resultsCtrl.inputs.residential.houseNumPeople, 2, 1);
 					resultsCtrl.ventilationRate = {baseValue: ventilationRate, conversion: 2, label: "Primary Ventilation per Person",
@@ -113,11 +110,11 @@ function ResultsController($stateParams) {
 				resultsCtrl.occupants =	resultsCtrl.inputs.residential.house_occupants.slice();
 				resultsCtrl.method = resultsCtrl.inputs.residential.wholeVentType;
 			} else {
-				if(resultsCtrl.inputs.residential.roomVentType == 'perfect') {
+				if(resultsCtrl.inputs.residential.roomVentType == 'Perfect') {
 					let ventilationRate = CONTAM.Units.FlowConvert(resultsCtrl.inputs.calc622PerfectValue, 2, 1);
 					resultsCtrl.ventilationRate = {baseValue: ventilationRate, conversion: 2, label: "Primary Ventilation per Person",
 						unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
-				} else if(resultsCtrl.inputs.roomVentType == 'uniform') {
+				} else if(resultsCtrl.inputs.roomVentType == 'Uniform') {
 					let ventilationRate = CONTAM.Units.FlowConvert(resultsCtrl.inputs.calc622UniformValue / resultsCtrl.inputs.residential.bedroomNumPeople, 2, 1);
 					resultsCtrl.ventilationRate = {baseValue: ventilationRate, conversion: 2, label: "Primary Ventilation per Person",
 						unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
@@ -191,12 +188,24 @@ function ResultsController($stateParams) {
 			type = "User-Defined ";
 		}
 		let bname;
+		if(resultsCtrl.inputs.SpaceTypeType == "pre"){
+			if(resultsCtrl.inputs.SpaceCategory =='com'){
+				bname = "Predefined_Commercial_Building_" + resultsCtrl.inputs.preDefinedSpaceTypeSelection;
+			} else {
+				bname = "Predefined_Residential_Building_" + resultsCtrl.inputs.preDefinedResSpaceTypeSelection;
+			}
+		} else {
+			if(resultsCtrl.inputs.SpaceCategory =='com'){
+				bname = resultsCtrl.inputs.commercial.buildingName;
+			} else {
+				bname = resultsCtrl.inputs.residential.buildingName;
+			}		
+		}
+	
 		if(resultsCtrl.inputs.SpaceCategory =='com'){
 			report.push([type + "Commcercial Building"]);
-			bname = resultsCtrl.inputs.commercial.buildingName;
 		} else {
 			report.push([type + "Residential Building"]);
-			bname = resultsCtrl.inputs.residential.buildingName;
 		}		
 		report.push(["Inputs + Space Description"]);
 		let line = ["", "Co (mg/m\xB3)", "Ci (mg/m\xB3)", "HCeil (m)", "tmetric (h)", "Q (L/s person)", "Qalt (L/s person)"];
@@ -217,7 +226,6 @@ function ResultsController($stateParams) {
 		// convert to L/s
 		let altVentilationRate = CONTAM.Units.FlowConvert(resultsCtrl.altVentilationRate.baseValue, 2, 0);
 		let ventilationRate = CONTAM.Units.FlowConvert(resultsCtrl.ventilationRate.baseValue, 2, 0);
-		let reducedVentRate = CONTAM.Units.FlowConvert(resultsCtrl.reduceVentilationRate.baseValue, 2, 0);
 		
 		// convert to h
 		let timeToMetric = CONTAM.Units.TimeConvert(resultsCtrl.timeToMetric.baseValue, 2, 0);		
@@ -235,7 +243,7 @@ function ResultsController($stateParams) {
 		
 		if(resultsCtrl.inputs.SpaceCategory =='res'){
 			line = ["Scenario", "Method", "NOccH", "Nbr"];
-			if(resultsCtrl.scenario != 'whole') {
+			if(resultsCtrl.scenario != 'Whole House') {
 				line.push("Abr (m\xB2)", "Noccbr");
 				if(resultsCtrl.inputs.SpaceTypeType == "user") {
 					line.push("ReducedQbr (L/s)");
@@ -243,10 +251,11 @@ function ResultsController($stateParams) {
 			}			
 			report.push(line);
 			line = [resultsCtrl.scenario, resultsCtrl.method,	resultsCtrl.houseNumPeople.toFixed(0), resultsCtrl.numBedrooms.toFixed(0)];
-			if(resultsCtrl.scenario != 'whole') {
+			if(resultsCtrl.scenario != 'Whole House') {
 				line.push(resultsCtrl.roomFloorArea.baseValue.toFixed(1),
 					resultsCtrl.bedroomNumPeople.toFixed(0));
 				if(resultsCtrl.inputs.SpaceTypeType == "user") {
+					let reducedVentRate = CONTAM.Units.FlowConvert(resultsCtrl.reduceVentilationRate.baseValue, 2, 0);
 					line.push(reducedVentRate.toFixed(1));
 				}
 			}

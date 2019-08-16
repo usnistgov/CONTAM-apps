@@ -1,4 +1,8 @@
-	<h2>Inputs & Space Description</h2>
+	<h2>Inputs & Space Description - 
+		<span ng-if="resultsCtrl.inputs.SpaceTypeType == 'pre'">Predefined</span> 
+		<span ng-if="resultsCtrl.inputs.SpaceTypeType == 'user'">User-defined</span> 
+		<span ng-if="resultsCtrl.inputs.SpaceCategory =='com'">Commercial</span> 
+		<span ng-if="resultsCtrl.inputs.SpaceCategory =='res'">Residential</span> Building</h2>
 	<div class="container section" style="padding: 1ex;">
 		<div class="row">
 			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
@@ -107,8 +111,8 @@
 				min="resultsCtrl.inputs.residential.roomFloorArea.min"
 				disable-number="true"
 				disable-units="true"
-				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'bedroom')"></unitconverter>				
-			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'bedroom')">
+				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'Bedroom')"></unitconverter>				
+			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'Bedroom')">
 				<div class="row" style="padding: 1ex 0px;">
 					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants in Room:</div>
 					<div class="col-xs-12"><input type="number" step="1" ng-model="resultsCtrl.bedroomNumPeople" min="1" class="form-control" disabled></div>
@@ -123,7 +127,7 @@
 				min="resultsCtrl.reduceVentilationRate.min"
 				disable-number="true"
 				disable-units="true"
-				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'bedroom' && resultsCtrl.inputs.SpaceTypeType == 'user')"></unitconverter>					
+				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'Bedroom' && resultsCtrl.inputs.SpaceTypeType == 'user')"></unitconverter>					
 		</div>
 		<h4 class="col-xs-12" style="padding-top: 1ex; padding-bottom: 1ex;">Occupants</h4>		
 		<div class="col-xs-12">

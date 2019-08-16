@@ -43,7 +43,7 @@
 						<span class="underline">62.1 Ventilation per Person</span><br>{{inputsCtrl.inputs.commercial.predefined.ventPerPerson}} L/s
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">62.1 Ventilation per Floor Area</span><br>{{inputsCtrl.inputs.commercial.predefined.CO2Outdoor}} L/s&dot;m&sup2;
+						<span class="underline">62.1 Ventilation per Floor Area</span><br>{{inputsCtrl.inputs.commercial.predefined.ventPerFloorArea}} L/s&dot;m&sup2;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Occupant Density</span><br>{{inputsCtrl.inputs.commercial.predefined.occupantDensity}} #/100 m&sup2;
@@ -296,22 +296,22 @@
 				</select>
 				<div class="row">
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.CO2Outdoor}} mg/m&sup3;
+						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.CO2Outdoor | number:1}} mg/m&sup3;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Initial Indoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.initialCO2Indoor}} mg/m&sup3;
+						<span class="underline">Initial Indoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.initialCO2Indoor | number:1}} mg/m&sup3;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Building Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.floorArea}} m&sup2;
+						<span class="underline">Building Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.floorArea | number:1}} m&sup2;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.residential.predefined.ceilingHeight}} m
+						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.residential.predefined.ceilingHeight | number:1}} m
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Time To Metric</span><br>{{inputsCtrl.inputs.residential.predefined.timeToMetric}} h
+						<span class="underline">Time To Metric</span><br>{{inputsCtrl.inputs.residential.predefined.timeToMetric | number:1}} h
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Number of Bedrooms</span><br>{{inputsCtrl.inputs.residential.predefined.numBedrooms}}
+						<span class="underline">Number of Bedrooms</span><br>{{inputsCtrl.inputs.residential.predefined.numBedrooms | number:0}}
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Scenario</span><br>{{inputsCtrl.inputs.residential.predefined.scenario}}
@@ -320,31 +320,31 @@
 						<span class="underline">Method</span><br>{{inputsCtrl.inputs.residential.predefined.method}}
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Number of Occupants in House</span><br>{{inputsCtrl.inputs.residential.predefined.numWholeOccupants}}
+						<span class="underline">Number of Occupants in House</span><br>{{inputsCtrl.inputs.residential.predefined.numWholeOccupants | number:0}}
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
-						<span class="underline">Number of Air Changes</span><br>{{inputsCtrl.inputs.residential.predefined.ach}}
+						<span class="underline">Number of Air Changes</span><br>{{inputsCtrl.inputs.residential.predefined.ach | number:1}}
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
-						<span class="underline">Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.achpp}}
+						<span class="underline">Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.achpp | number:1}} L/s
 					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.scenario == 'bedroom'">
-						<span class="underline">Bedroom Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.bedFloorArea}} m&sup2;
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.scenario == 'Bedroom'">
+						<span class="underline">Bedroom Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.bedFloorArea | number:1}} m&sup2;
 					</div>					
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.show622Values()">
-						<span class="underline">62.2 Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.calc622}} L/s
+						<span class="underline">62.2 Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.calc622 | number:1}} L/s
 					</div>					
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.show622Values()">
-						<span class="underline">62.2 Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.calc622pp}} L/s
+						<span class="underline">62.2 Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.calc622pp | number:1}} L/s
 					</div>					
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'perfect'">
-						<span class="underline">62.2 Perfect Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.perfect}} L/s
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'Perfect'">
+						<span class="underline">62.2 Perfect Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.perfect | number:1}} L/s
 					</div>					
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'uniform'">
-						<span class="underline">62.2 Uniform Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.uniform}} L/s
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'Uniform'">
+						<span class="underline">62.2 Uniform Ventilation Rate</span><br>{{inputsCtrl.inputs.residential.predefined.uniform | number:1}} L/s
 					</div>					
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'uniform'">
-						<span class="underline">62.2 Uniform Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.uniformpp}} L/s
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'Uniform'">
+						<span class="underline">62.2 Uniform Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.uniformpp | number:1}} L/s
 					</div>					
 				</div>
 				<div class="row">
@@ -398,13 +398,13 @@
 			<div class="row">
 				<h4 class="col-md-3 col-sm-4 col-xs-12">Scenario Type:</h4>
 				<div class="col-md-3 col-xs-12" style="height: 44px; display:flex; flex-direction: column; justify-content: center;">
-					<div><input type="radio" value="whole" ng-model="inputsCtrl.inputs.residential.resType" style="margin-right: 1ex"> Whole House</div>
+					<div><input type="radio" value="Whole House" ng-model="inputsCtrl.inputs.residential.resType" style="margin-right: 1ex"> Whole House</div>
 				</div>
 				<div class="col-md-3 col-xs-12" style="height: 44px; display:flex; flex-direction: column; justify-content: center;">
-					<div><input type="radio" value="bedroom" ng-model="inputsCtrl.inputs.residential.resType" style="margin-right: 1ex"> Bedroom</div>
+					<div><input type="radio" value="Bedroom" ng-model="inputsCtrl.inputs.residential.resType" style="margin-right: 1ex"> Bedroom</div>
 				</div>
 			</div>
-			<div ng-show="inputsCtrl.inputs.residential.resType == 'whole'" class="row">
+			<div ng-show="inputsCtrl.inputs.residential.resType == 'Whole House'" class="row">
 				<h4 class="col-xs-12">Whole House Scenario</h4>
 				<div class="col-xs-12">
 					<div class="row">
@@ -512,7 +512,7 @@
 					</div>
 				</div>
 			</div>
-			<div ng-show="inputsCtrl.inputs.residential.resType == 'bedroom'" class="row">
+			<div ng-show="inputsCtrl.inputs.residential.resType == 'Bedroom'" class="row">
 				<h4 class="col-xs-12">Single Bedroom Scenario</h4>
 				<div class="col-xs-12">
 					<div class="row">
@@ -549,31 +549,31 @@
 						<div class="col-xs-12">
 							<div class="row" style="padding-bottom: 1ex;">
 								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
-									<div><input type="radio" value="perfect" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 perfect</div>
+									<div><input type="radio" value="Perfect" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 perfect</div>
 								</div>
 								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
-									<div><input type="radio" value="uniform" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 uniform</div>
+									<div><input type="radio" value="Uniform" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 uniform</div>
 								</div>
 								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
 									<div><input type="radio" value="CEN" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">User-Defined</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'perfect'">
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'Perfect'">
 							<div class="row" style="padding: 1ex 0px;">
 								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622PerfectValue" class="form-control" ng-disabled="true"></div>
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
 						</div>
-						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'uniform'">
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'Uniform'">
 							<div class="row" style="padding: 1ex 0px;">
 								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Room Ventilation:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622UniformValue" class="form-control" ng-disabled="true"></div>
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
 						</div>
-						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'uniform'">
+						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'Uniform'">
 							<div class="row" style="padding: 1ex 0px;">
 								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622UniformPerPersonValue" class="form-control" ng-disabled="true"></div>
