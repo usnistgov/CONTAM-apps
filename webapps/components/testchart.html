@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>test googl chart component</title>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="../libs/angularjs/angular.min.js"></script>
+		<script src="googlechart.component.js"></script>
+	</head>
+	<body ng-app="chart">
+		<div style="height: 700px;">
+		<googlechart charttype="linechart" 
+			options="{title: 'Company Performance',curveType: 'function',legend: { position: 'bottom' }};"
+			chartdata="[['Year', 'Sales', 'Expenses'],['2004',  1000,      400],['2005',  1170,      460],['2006',  660,       1120],['2007',  1030,      540]]"></googlechart>
+		</div>
+	</body>
+</html>
