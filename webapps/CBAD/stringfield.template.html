@@ -1,0 +1,10 @@
+<details class="section"  style="padding:1ex; margin:5px;">
+	<summary>{{$ctrl.label}}</summary>
+	<div style="margin-left: 2em;">
+		<input type="checkbox" ng-model="$ctrl.ischecked" ng-change="$ctrl.updateCheck({ischecked: $ctrl.ischecked})"> 
+		Contains: <input type="text" ng-model="$ctrl.searchstring" ng-change="$ctrl.updateSearchString({searchstring: $ctrl.searchstring})"
+			ng-disabled="$ctrl.ischecked == false">
+	</div>
+</details> 
+
+

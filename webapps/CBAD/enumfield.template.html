@@ -1,0 +1,11 @@
+<details class="section"  style="padding:1ex; margin:5px;">
+	<summary>{{$ctrl.label}}</summary>
+	<div style="max-height: 200px; overflow-y:auto;">
+		<div ng-repeat="item in $ctrl.listofenums">
+			<div style="margin-left: 2em;">
+				<label><input type="checkbox" ng-model="item.ischecked" ng-change="item.updateCheck(item.ischecked)"> {{item.label}}</label>
+			</div>
+		</div>
+	</div>
+</details> 
+

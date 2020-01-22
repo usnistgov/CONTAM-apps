@@ -1,0 +1,15 @@
+<details class="section" style="padding:1ex; margin:5px;">
+	<summary>{{$ctrl.label}}</summary>
+	<div style="margin-left: 2em;">
+		<input type="checkbox" ng-model="$ctrl.isminchecked" ng-change="$ctrl.updateMinCheck({ischecked: $ctrl.isminchecked})"> 
+		Minimum: <input type="number" min="{{$ctrl.min}}" max="{{$ctrl.max}}" step="{{$ctrl.step}}" ng-model="$ctrl.minvalue" 
+		ng-change="$ctrl.updateMinValue({minvalue: $ctrl.minvalue})" class="form-control" ng-disabled="$ctrl.isminchecked == false">
+	</div>
+	<div style="margin-left: 2em;">
+		<input type="checkbox" ng-model="$ctrl.ismaxchecked" ng-change="$ctrl.updateMaxCheck({ischecked: $ctrl.ismaxchecked})"> 
+		Maximum: <input type="number" min="{{$ctrl.min}}" max="{{$ctrl.max}}" step="{{$ctrl.step}}" ng-model="$ctrl.maxvalue" 
+		ng-change="$ctrl.updateMaxValue({maxvalue: $ctrl.maxvalue})" class="form-control" ng-disabled="$ctrl.ismaxchecked == false">
+	</div>
+</details> 
+
+

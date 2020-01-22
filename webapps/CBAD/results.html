@@ -1,0 +1,102 @@
+<h3>Search Parameters</h3>
+<div class="container-fluid section">
+	<div class="row">
+		<div ng-repeat="item in resultsCtrl.ColumnData" ng-if="item.isColumnChecked()" class="col-lg-3 col-md-3 col-xs-12">
+			<div ng-switch="item.Type">
+				<div ng-switch-when="enum">
+					<div>{{item.ColumnDisplayName}} equal to: </div>
+					<ul>
+						<li ng-repeat="evalue in item.enumValues" ng-if="evalue.ischecked == true">{{evalue[item.ForeignColumnName]}}</li>
+					</ul>
+				</div>
+				<div ng-switch-when="double">
+					<div>{{item.ColumnDisplayName}}</div>
+					<div ng-if="item.isminchecked == true">greater than or equal to {{item.minvalue}}</div>
+					<div ng-if="item.ismaxchecked == true">less than or equal to {{item.maxvalue}}</div>
+				</div>
+				<div ng-switch-when="year">
+					<div>{{item.ColumnDisplayName}}</div>
+					<div ng-if="item.isminchecked == true">greater than or equal to {{item.minvalue}}</div>
+					<div ng-if="item.ismaxchecked == true">less than or equal to {{item.maxvalue}}</div>
+				</div>
+				<div ng-switch-when="int">
+					<div>{{item.ColumnDisplayName}}</div>
+					<div ng-if="item.isminchecked == true">greater than or equal to {{item.minvalue}}</div>
+					<div ng-if="item.ismaxchecked == true">less than or equal to {{item.maxvalue}}</div>
+				</div>
+				<div ng-switch-when="string">
+					<div>{{item.ColumnDisplayName}} contains: {{item.searchstring}}</div>
+				</div>
+				<div ng-switch-default>
+					<p>{{item.ColumnDisplayName}}</p>
+					<p>Unknown</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3>Search Results</h3>
+
+<h4>Result Statistics</h4>
+<div class="container-fluid section">
+	<div class="row">
+		<div class="col-lg-2 col-md-3 col-xs-12 section" style="margin: 5px;">Number of Buildings: {{resultsCtrl.stats.countQ}}</div>
+		<div class="col-lg-2 col-md-3 col-xs-12 section" style="margin: 5px;">Maximum Q: {{resultsCtrl.stats.maxQ | number:2}}</div>
+		<div class="col-lg-2 col-md-3 col-xs-12 section" style="margin: 5px;">Minimum Q: {{resultsCtrl.stats.minQ | number:2}}</div>
+		<div class="col-lg-2 col-md-3 col-xs-12 section" style="margin: 5px;">Average Q: {{resultsCtrl.stats.avgQ | number:2}}</div>
+		<div class="col-lg-2 col-md-3 col-xs-12 section" style="margin: 5px;">Standard Deviation of Q: {{resultsCtrl.stats.stdQ | number:2}}</div>
+	</div>
+</div>
+<h4>Result Chart</h4>
+<div style="height: 700px; padding:1em;" class="section">
+<googlechart charttype="columnchart" options="resultsCtrl.chartoptions" chartdata="resultsCtrl.chartdata"></googlechart>
+</div>
+
+<h4>Results Table</h4>
+<p>Select Columns to display:</p>
+<div class="container-fluid section">
+	<div class="row">
+		<div ng-repeat="column in resultsCtrl.ColumnData" class="col-lg-3 col-md-3 col-xs-12">
+			<label><input type="checkbox" ng-model="column.displayColumnInResults"> {{column.ColumnDisplayName}}</label>
+		</div>
+	</div>
+</div>
+<br>
+<div>
+	<table>
+		<tr>
+			<th ng-repeat="column in resultsCtrl.ColumnData" ng-if="column.displayColumnInResults == true">{{column.ColumnDisplayName}}</th>
+		</tr>
+		<tr ng-repeat="row in resultsCtrl.searchResults">
+			<td ng-repeat="column in resultsCtrl.ColumnData" ng-if="column.displayColumnInResults == true">
+				<div ng-switch="column.Type">
+					<div ng-switch-when="enum">
+						{{resultsCtrl.foreignTableLookup(row, column);}}
+					</div>
+					<div ng-switch-when="string">
+						{{row[column.ColumnName]}}
+					</div>
+					<div ng-switch-when="year">
+						{{row[column.ColumnName] == 9999 ? 'unknown' : row[column.ColumnName]}}
+					</div>
+					<div ng-switch-when="int">
+						{{row[column.ColumnName] == 9999 ? 'unknown' : row[column.ColumnName]}}
+					</div>
+					<div ng-switch-when="double">
+						{{row[column.ColumnName] == -1 ? 'unknown' : row[column.ColumnName]}}
+					</div>
+					<div ng-switch-default>
+						unknown column type
+					</div>				
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<br>
+<div class="section" style="padding:1ex;">
+	<input type="button" value="Save Report" ng-click="resultsCtrl.createReport();" class="btn btn-primary btn-lg">
+	<input type="button" value="Back to Search" ui-sref="inputs" class="btn btn-primary btn-lg">
+</div>
+	

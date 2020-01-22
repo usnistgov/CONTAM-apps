@@ -1,0 +1,264 @@
+{
+    "ColumnData": [{
+        "Display": true,
+        "ID": 3,
+        "ColumnName": "BuildingType",
+        "ForeignTableName": "BuildingTypes",
+        "Type": "enum",
+        "ForeignColumnName": "BuildingType",
+        "ColumnDisplayName": "Building Type",
+        "ColumnMinimum": -1,
+        "Category": 3
+    }, {
+        "Display": true,
+        "ID": 4,
+        "ColumnName": "OccupancyClassification",
+        "ForeignTableName": "OccupancyClassifications",
+        "Type": "enum",
+        "ForeignColumnName": "Classification",
+        "ColumnDisplayName": "Occupancy Classification",
+        "ColumnMinimum": -1,
+        "Category": 3
+    }, {
+        "Display": true,
+        "ID": 5,
+        "ColumnName": "GeneralDescription",
+        "ForeignTableName": "none",
+        "Type": "string",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "General Description",
+        "ColumnMinimum": -1,
+        "Category": 3
+    }, {
+        "Display": true,
+        "ID": 6,
+        "ColumnName": "City",
+        "ForeignTableName": "Cities",
+        "Type": "enum",
+        "ForeignColumnName": "CityName",
+        "ColumnDisplayName": "City",
+        "ColumnMinimum": -1,
+        "Category": 1
+    }, {
+        "Display": true,
+        "ID": 7,
+        "ColumnName": "ProvinceState",
+        "ForeignTableName": "StateProvinces",
+        "Type": "enum",
+        "ForeignColumnName": "StateProvinceName",
+        "ColumnDisplayName": "Province/State",
+        "ColumnMinimum": -1,
+        "Category": 1
+    }, {
+        "Display": true,
+        "ID": 8,
+        "ColumnName": "Country",
+        "ForeignTableName": "Countries",
+        "Type": "enum",
+        "ForeignColumnName": "CountryName",
+        "ColumnDisplayName": "Country",
+        "ColumnMinimum": -1,
+        "Category": 1
+    }, {
+        "Display": true,
+        "ID": 9,
+        "ColumnName": "YearOfConstruction",
+        "ForeignTableName": "none",
+        "Type": "year",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Year of Construction",
+        "ColumnMinimum": -1,
+        "Category": 3
+    }, {
+        "Display": true,
+        "ID": 10,
+        "ColumnName": "YearOfRetrofit",
+        "ForeignTableName": "none",
+        "Type": "year",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Year of Retrofit",
+        "ColumnMinimum": -1,
+        "Category": 3
+    }, {
+        "Display": true,
+        "ID": 11,
+        "ColumnName": "NumberOfStoreys",
+        "ForeignTableName": "none",
+        "Type": "int",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Number of Storeys",
+        "ColumnMinimum": 1,
+        "Category": 4
+    }, {
+        "Display": true,
+        "ID": 12,
+        "ColumnName": "FloorArea",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Floor Area (m²)",
+        "ColumnMinimum": 0.01,
+        "Category": 4,
+		"units": "Area"
+    }, {
+        "Display": true,
+        "ID": 14,
+        "ColumnName": "SixSidedEnclosureArea",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "6-sided Enclosure Area (m²)",
+        "ColumnMinimum": 0.01,
+        "Category": 4,
+		"units": "Area"
+    }, {
+        "Display": true,
+        "ID": 15,
+        "ColumnName": "BuildingVolume",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Building Volume (m³)",
+        "ColumnMinimum": 0.01,
+        "Category": 4,
+		"units": "Volume"
+    }, {
+        "Display": true,
+        "ID": 16,
+        "ColumnName": "WallConstructionType",
+        "ForeignTableName": "WallConstructionTypes",
+        "Type": "enum",
+        "ForeignColumnName": "TypeName",
+        "ColumnDisplayName": "Wall Construction Type",
+        "ColumnMinimum": -1,
+        "Category": 3
+    }, {
+        "Display": true,
+        "ID": 17,
+        "ColumnName": "AirBarrierType",
+        "ForeignTableName": "AirBarrierTypes",
+        "Type": "enum",
+        "ForeignColumnName": "TypeName",
+        "ColumnDisplayName": "Air Barrier Type",
+        "ColumnMinimum": -1,
+        "Category": 3
+    }, {
+        "Display": true,
+        "ID": 19,
+        "ColumnName": "YearTested",
+        "ForeignTableName": "none",
+        "Type": "year",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Year Tested",
+        "ColumnMinimum": -1,
+        "Category": 2
+    }, {
+        "Display": true,
+        "ID": 20,
+        "ColumnName": "ReasonForTest",
+        "ForeignTableName": "TestReasons",
+        "Type": "enum",
+        "ForeignColumnName": "Reason",
+        "ColumnDisplayName": "Reason for Test",
+        "ColumnMinimum": -1,
+        "Category": 2
+    }, {
+        "Display": true,
+        "ID": 21,
+        "ColumnName": "RequirementForTesting",
+        "ForeignTableName": "TestRequirements",
+        "Type": "enum",
+        "ForeignColumnName": "RequiementName",
+        "ColumnDisplayName": "Requirement for Testing",
+        "ColumnMinimum": -1,
+        "Category": 2
+    }, {
+        "Display": true,
+        "ID": 22,
+        "ColumnName": "PerformanceTargetOrRequirement",
+        "ForeignTableName": "PerformanceOrTarget",
+        "Type": "enum",
+        "ForeignColumnName": "StateName",
+        "ColumnDisplayName": "Performance Target or Requirement",
+        "ColumnMinimum": -1,
+        "Category": 2
+    }, {
+        "Display": true,
+        "ID": 23,
+        "ColumnName": "MaximumRequirement",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Maximum Requirement in L/(s · m²) at 75 Pa",
+        "ColumnMinimum": 0,
+        "Category": 2,
+		"units": "VolArea"
+    }, {
+        "Display": false,
+        "ID": 25,
+        "ColumnName": "FlowExponent",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Flow Exponent (n)",
+        "ColumnMinimum": 0,
+        "Category": 4,
+		"units": "none"
+    }, {
+        "Display": false,
+        "ID": 27,
+        "ColumnName": "PreRetrofitQ",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "Pre-retrofit q (L/s · m²) at 75 Pa",
+        "ColumnMinimum": 0,
+        "Category": 4,
+		"units": "VolArea"
+    }, {
+        "Display": false,
+        "ID": 28,
+        "ColumnName": "Q",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "q (L/s · m²) at 75 Pa",
+        "ColumnMinimum": 0,
+        "Category": 4,
+		"units": "VolArea"
+    }, {
+        "Display": false,
+        "ID": 29,
+        "ColumnName": "SLA",
+        "ForeignTableName": "none",
+        "Type": "double",
+        "ForeignColumnName": "none",
+        "ColumnDisplayName": "SLA(ef) (Cd = 1, deltaPref = 4 Pa) (cm²/100 m²)",
+        "ColumnMinimum": 0,
+        "Category": 4,
+		"units": "none"
+    }, {
+        "Display": true,
+        "ID": 30,
+        "ColumnName": "DOEClimateZone",
+        "ForeignTableName": "ClimateZones",
+        "Type": "enum",
+        "ForeignColumnName": "ZoneName",
+        "ColumnDisplayName": "DOE Climate Zone",
+        "ColumnMinimum": -1,
+        "Category": 1
+    }],
+    "ColumnCategorys": [{
+        "ID": 4,
+        "CategoryName": "Building Characteristics"
+    }, {
+        "ID": 3,
+        "CategoryName": "Building Information"
+    }, {
+        "ID": 1,
+        "CategoryName": "Location"
+    }, {
+        "ID": 2,
+        "CategoryName": "Test Information"
+    }]
+}

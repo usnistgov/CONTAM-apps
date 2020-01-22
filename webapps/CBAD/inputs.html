@@ -1,0 +1,56 @@
+<h3>Search Parameters</h3>
+<div class="container-fluid section">
+	<div class="row">
+		<div ng-repeat="item in inputsCtrl.columnsDatabase.ColumnData" ng-if="item.Display == true" class="col-lg-3 col-md-6 col-xs-12">
+			
+			<div ng-switch="item.Type">
+				<div ng-switch-when="enum">
+					<enumfield label="item.ColumnDisplayName" listofenums="item.enumValues" update-check="item.updateCheck(ischecked)"></enumfield>
+				</div>
+				<div ng-switch-when="double">
+					<!--<div ng-switch="item.units">
+						<div ng-switch-when="none">-->
+							<numberminmaxfield label="item.ColumnDisplayName" minvalue="item.minvalue" maxvalue="item.maxvalue" isminchecked="item.isminchecked" 
+								ismaxchecked="item.ismaxchecked" update-min-check="item.updateMinCheck(ischecked)" 
+								update-max-check="item.updateMaxCheck(ischecked)" update-min-value="item.updateMinValue(minvalue)" 
+								update-max-value="item.updateMaxValue(maxvalue)" step="item.step"></numberminmaxfield>
+						<!--</div>
+						<div ng-switch-default>
+							<unitsminmaxfield label="item.ColumnDisplayName" minvalue="item.minvalue" maxvalue="item.maxvalue" isminchecked="item.isminchecked" 
+								ismaxchecked="item.ismaxchecked" update-min-check="item.updateMinCheck(ischecked)" 
+								update-max-check="item.updateMaxCheck(ischecked)" update-min-value="item.updateMinValue(minvalue)" 
+								update-max-value="item.updateMaxValue(maxvalue)" step="item.step"
+								maxlabel="item.maxlabel" minlabel="item.minlabel" conversion="item.conversion"
+								unit-strings="item.unitStrings" unit-function="item.unitFunction"></unitsminmaxfield>
+						</div>
+					</div>-->
+				</div>
+				<div ng-switch-when="year">
+					<numberminmaxfield label="item.ColumnDisplayName" minvalue="item.minvalue" maxvalue="item.maxvalue" isminchecked="item.isminchecked" 
+						ismaxchecked="item.ismaxchecked" update-min-check="item.updateMinCheck(ischecked)" 
+						update-max-check="item.updateMaxCheck(ischecked)" update-min-value="item.updateMinValue(minvalue)" 
+						update-max-value="item.updateMaxValue(maxvalue)" step="item.step"></numberminmaxfield>
+				</div>
+				<div ng-switch-when="int">
+					<numberminmaxfield label="item.ColumnDisplayName" minvalue="item.minvalue" maxvalue="item.maxvalue" isminchecked="item.isminchecked" 
+						ismaxchecked="item.ismaxchecked" update-min-check="item.updateMinCheck(ischecked)" 
+						update-max-check="item.updateMaxCheck(ischecked)" update-min-value="item.updateMinValue(minvalue)" 
+						update-max-value="item.updateMaxValue(maxvalue)" step="item.step"></numberminmaxfield>
+				</div>
+				<div ng-switch-when="string">
+					<stringfield label="item.ColumnDisplayName" searchstring="item.searchstring" ischecked="item.ischecked" 
+						update-check="item.updateCheck(ischecked)" update-search-string="item.updateSearchString(searchstring)"></stringfield>
+				</div>
+				<div ng-switch-default>
+					<p>{{item.ColumnDisplayName}}</p>
+					<p>Unknown</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-xs-12" style="margin:5px;">
+			<input type="button" value="Search" ng-click="inputsCtrl.search()" class="btn btn-primary btn-lg">
+		</div>
+	</div>
+</div>
