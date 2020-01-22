@@ -1,0 +1,483 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CONTAM Weather File Creator</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="wthTool.js"></script>
+    <script type="text/javascript" src="../../menu.js"></script>
+    <link href="../../site.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      section 
+      { 
+        background-color:  #e4f2fc;
+        border: solid #12659c thin; 
+        padding:5px; 
+        color: black;
+        margin: 5px 0px;
+      }
+      
+      .epwgrid
+      {
+        display:grid;
+        grid-gap: 5px; 
+        grid-template-columns: repeat(auto-fill, minmax(260px, 400px));
+        justify-content: space-around;
+        margin-bottom: 1em;
+        
+      }
+      
+      .maingrid
+      {
+        display:grid;
+        grid-gap: 5px; 
+        grid-template-columns: repeat(auto-fill, minmax(260px, 400px));
+        justify-content: space-around;
+        margin-bottom: 1em;
+        
+      }
+      
+      .gridcell
+      {
+        background-color:  #e4f2fc;
+        border: solid #12659c thin; 
+        padding:5px; 
+        color: black;
+        margin: 5px 0px;
+      }
+      
+      .specialgrid
+      {
+        display: grid;  
+        grid-template-columns: repeat(auto-fill, minmax(40px, 80px));
+        justify-content: space-around;
+        margin-bottom: 1em;
+      }
+      
+      fieldset
+      {
+        border: solid #12659c thin; 
+      }
+      
+      fieldset.gridcell
+      {
+        align-self: start;
+      }
+      
+      .flexcell
+      {
+        display:flex;
+        justify-content: space-evenly;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="title"  style="display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling" class="blacklink">
+          <img src="../../images/NIST_logo.svg" width="151" height="40">
+        </a>
+        <h1 class="inblock">Multizone Modeling</h1>
+      </div>
+      <nav>
+        <input id="menuImage" type="image" alt="Menu Icon"
+          src="../../images/menuIcon.svg" width="40" height="40">
+      </nav>
+    </div>
+    <article>
+      <h1>CONTAM Weather File Creator</h1>
+      <section>
+        <fieldset>
+          <legend>EPW File</legend>
+          <div class="maingrid">
+            <fieldset class="gridcell" style="overflow-x:scroll;min-width: 0">
+              <legend>Select an EPW File (*.epw):</legend>
+              <input type="file" id="epw-input" accept=".epw">
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>EPW Dates:</legend>
+              <div class="flexcell">
+                <div>Start: <span id="epwStartDateSpan">N/A</span></div>
+                <div>End: <span id="epwEndDateSpan">N/A</span></div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>CONTAM Weather File Options</legend>
+          <div class="maingrid">
+            <fieldset class="gridcell">
+              <legend>Start Date:</legend>
+              <div class="flexcell">
+                <div>Month:
+                  <select id="startMonth">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div>Day:
+                  <select id="startDay">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>End Date:</legend>
+              <div class="flexcell">
+                <div>
+                   Month:
+                  <select id="endMonth">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div>
+                  Day:
+                  <select id="endDay">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>Daylight Savings Time (DST):</legend>
+              Use: <input type="checkbox" id="configUseDST">
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>Start DST Date: </legend>
+              <div class="flexcell">
+                <div>
+                  Month:
+                  <select id="startMonthDST">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div>
+                  Day:
+                  <select id="startDayDST">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>End DST Date: </legend>
+              <div class="flexcell">
+                <div>
+                  Month:
+                  <select id="endMonthDST">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div>
+                  Day:
+                  <select id="endDayDST">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>First Day of the Year:</legend>
+              <select id="configFDOY">
+                <option value="1" selected>Sunday</option>
+                <option value="2">Monday</option>
+                <option value="3">Tuesday</option>
+                <option value="4">Wednesday</option>
+                <option value="5">Thursday</option>
+                <option value="6">Friday</option>
+                <option value="7">Saturday</option>
+              </select>
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>CONTAM Weather Description:</legend>
+              <div style="display:flex;align-items: stretch;">
+                <textarea id="configDescription" maxlength="256" style="flex:2;"></textarea>
+              </div>
+            </fieldset>
+            <fieldset class="gridcell">
+              <legend>CONTAM Weather File Name:</legend>
+              <div style="display:flex;align-items: stretch;">
+                <input id="wthFilename" maxlength="256" style="flex:2;"></input>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>CONTAM Special Days</legend>
+              <div class="specialgrid">
+                <div style="display:flex;align-items: center;">
+                  <select size="8" style="margin: 5px; min-width:75px;" id="specialDaysSelect"></select>
+                </div>
+                <div style="display:flex;align-items: center;flex-direction: column;justify-content: center;">
+                  <input type="button" style="margin:5px;" 
+                         value="+"
+                         onclick="WthTool.AddSpecialDay();"
+                         title="Add a special day">
+                  <input type="button" style="margin:5px;" value="-"
+                         onclick="WthTool.RemoveSpecialDay();"
+                         title="Remove selected special day">
+                </div>
+                <div style="text-align:center;">
+                  <div>month:</div>
+                  <select id="specialDayMonth" style="margin-bottom: 1ex;">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  <div>Day:</div>
+                  <select id="specialDayDay" style="margin-bottom: 1ex;">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
+                  <div>Type:</div>
+                  <select id="dtypeSelect" style="margin-bottom: 1ex;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset> <!-- end grid -->
+
+      </section>
+      <section>
+        <input type="button" id="gobutton" value="Convert EPW File" 
+          onclick="WthTool.ConvertEPW();" style="margin-left: 1em;">
+        <input type="button" id="jsonbutton" value="Create JSON Input File" 
+          onclick="WthTool.createInputFile();" style="margin-left: 1em;">
+      </section>
+      <h2>Download Result File</h2>
+      <section>
+        <p id="saveInsertDiv">
+          A download link will appear here when a conversion is completed.
+        </p>
+      </section>
+      <h2>Download Executable Version of the Tool</h2>
+      <section>
+        <a href="../../docs/ContamWeatherTool.zip">Save the Zip file with the tool.</a> 
+        This includes:
+        <ul>
+          <li>the Windows command-line version of the tool</li>
+          <li>a sample config file</li>
+          <li>the documentation file</li>
+          <li>the C++ runtime</li>
+        </ul>
+      </section>
+    </article>
+    <footer>
+      Page Updated : 7/19/2018 - Page Created : 05/2018<br>
+    </footer>
+  </body>
+</html>
