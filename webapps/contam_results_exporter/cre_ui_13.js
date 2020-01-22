@@ -30,11 +30,16 @@ window.onload = function()
     "../contam_results_exporter/ep_infil_export_1.js",
     "../contam_results_exporter/ach_export.js",
     "../jszip/jszip.js"];
-  CWD.Init(new Worker("../contam/contam_worker_3.js"));
+  var worker = new Worker("../contam/contam_worker_3.js");
+  if(worker == undefined)
+  {
+    console.log("contam worker is undefined");
+  }
+  CWD.Init(worker);
   CWD.SetOnMessageFunction(CREUI.onWorkerMessage);
   CWD.LoadURLsOnWorker(workerFileURLs).catch(function(error)
   {
-    alert(error.message);
+    console.log("Unable to load the result exporter js files on the worker thread.");
   });
 }
 
