@@ -238,7 +238,7 @@ CWD.LoadURLsOnWorker = function(codeURLs)
     }
     function onWorkerError(e)
     {
-      console.log("CONTAM Driver (end): LoadJSFiles Reject: " + e.message);
+      console.log("CONTAM Driver (end): LoadJSFiles Rejected");
       reject(e);
     }
   });
