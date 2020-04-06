@@ -78,6 +78,7 @@ Nano.Init = function()
     select: document.getElementById("BuildingVolumeCombo")
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.Volume);
+  Nano.Inputs.Volume.input.addEventListener("change", Nano.computeSystem); 
   
   Nano.Inputs.FloorArea = 
   { 
