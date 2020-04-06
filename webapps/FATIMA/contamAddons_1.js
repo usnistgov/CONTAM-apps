@@ -84,7 +84,7 @@ CONTAM.SetOccDaySchedule = function(startTime, endTime)
 
 //edit the source day schedule named generation based on the times given
 //the times are assumed to be already checked for correctness
-CONTAM.SetDaySchedule = function(startTime, endTime, useInterval, interval)
+CONTAM.SetDaySchedule = function(startTime, endTime, useInterval, interval, timestep)
 {
   var time = [];
   var ctrl = [];
@@ -107,7 +107,7 @@ CONTAM.SetDaySchedule = function(startTime, endTime, useInterval, interval)
     var currentTime = startTime
     do
     {
-      time.push(currentTime+1);
+      time.push(currentTime+timestep);
       ctrl.push(0);
       currentTime += interval;
       time.push(currentTime);
