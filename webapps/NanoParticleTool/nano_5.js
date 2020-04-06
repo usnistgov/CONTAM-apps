@@ -29,10 +29,10 @@ window.onload = function()
     {
       //initialize contam worker
       //these paths are relative to the worker's path
-      var workerFileURLs = ["../FATIMA/SrfFileReader.js",
-        "../FATIMA/CtrlLogFileReader_2.js",
-        "../FATIMA/contamAddons_1.js"];
-      CWD.Init(new Worker("../contam/contam_worker_3.js"));
+      var workerFileURLs = ["../NanoParticleTool/SrfFileReader.js",
+        "../NanoParticleTool/CtrlLogFileReader_2.js",
+        "../NanoParticleTool/contamAddons.js"];
+      CWD.Init(new Worker("../contam/contam_worker_4.js"));
       CWD.SetOnMessageFunction(Nano.onWorkerMessage);
       CWD.LoadURLsOnWorker(workerFileURLs).then(
         function(result)
@@ -243,9 +243,6 @@ Nano.Init = function()
   
   Nano.Inputs.burstSourceType = document.getElementById("burstSrcRadio");
   Nano.Inputs.burstSourceType.addEventListener("click", Nano.changeSrcType);
-
-  Nano.Inputs.repeatSourceType = document.getElementById("repeatBurstSrcRadio");
-  Nano.Inputs.repeatSourceType.addEventListener("click", Nano.changeSrcType);
   
   Nano.Inputs.ReleaseAmount =
   { 
@@ -275,8 +272,6 @@ Nano.Init = function()
   Nano.Inputs.SourceStartTime.value = "08:00:00";
   Nano.Inputs.SourceEndTime = document.getElementById("EndSourceInput"); 
   Nano.Inputs.SourceEndTime.value = "17:00:00";
-  Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
-  Nano.Inputs.RepeatInterval.value = "00:05:00";
   
   Nano.Inputs.FloorDV =
   { 
@@ -596,7 +591,7 @@ Nano.GetPrj = function()
     // Do the usual XHR stuff
     var req = new XMLHttpRequest();
     req.open('GET', "cpsc-nano-tool-v1.prj");
-	req.overrideMimeType("text/plain");
+
     req.onload = function() {
       // This is called even on 404 etc
       // so check the status
@@ -765,13 +760,6 @@ Nano.GetInputs2 = function()
     alert("The end source time is not a valid time.");
     return;
   }
-  var RepeatInterval = Nano.Inputs.RepeatInterval.value;
-  var RepeatIntervalTime = CONTAM.TimeUtilities.StringTimeToIntTime(RepeatInterval);//
-  if(RepeatIntervalTime < 0)
-  {
-    alert("The repeat interval is not a valid time.");
-    return;
-  }
   
   var depositionVelocityFloor = parseFloat(Nano.Inputs.FloorDV.input.baseValue);//
   if(isNaN(depositionVelocityFloor))
@@ -920,7 +908,7 @@ Nano.GetInputs2 = function()
   // set the occupant day schedule to use the start/end time that the use specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime]))
   // set the day schedule for the source to use the start/end time that the use specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [StartSourceTime, EndSourceTime, Nano.Inputs.repeatSourceType.checked, RepeatIntervalTime]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [StartSourceTime, EndSourceTime]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())
@@ -1366,8 +1354,6 @@ Nano.changeSrcType = function()
 {
   var constSrcRadio = document.getElementById("constSrcRadio");
   var burstSrcRadio = document.getElementById("burstSrcRadio");
-  var repeatBurstSrcRadio = document.getElementById("repeatBurstSrcRadio");
-  
   if(constSrcRadio.checked)
   {
     document.getElementById('ReleaseAmountInput').disabled = true;
@@ -1375,16 +1361,6 @@ Nano.changeSrcType = function()
     document.getElementById('ReleaseRateInput').disabled = false;
     document.getElementById('ReleaseRateCombo').disabled = false;
     document.getElementById('EndSourceInput').disabled = false;
-    document.getElementById('RepeatSourceInput').disabled = true;
-  }
-  else if (burstSrcRadio.checked)
-  {
-    document.getElementById('ReleaseAmountInput').disabled = false;
-    document.getElementById('ReleaseAmountCombo').disabled = false;
-    document.getElementById('ReleaseRateInput').disabled = true;
-    document.getElementById('ReleaseRateCombo').disabled = true;
-    document.getElementById('EndSourceInput').disabled = true;
-    document.getElementById('RepeatSourceInput').disabled = true;
   }
   else
   {
@@ -1393,6 +1369,5 @@ Nano.changeSrcType = function()
     document.getElementById('ReleaseRateInput').disabled = true;
     document.getElementById('ReleaseRateCombo').disabled = true;
     document.getElementById('EndSourceInput').disabled = true;
-    document.getElementById('RepeatSourceInput').disabled = false;
   }
 }
