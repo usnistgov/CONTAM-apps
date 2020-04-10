@@ -90,7 +90,7 @@ CONTAM.SetDaySchedule = function(startTime, endTime, useInterval, interval, time
   var ctrl = [];
   
   console.log("SetDaySchedule: " + startTime + ", " + endTime + ", " + useInterval + ", " +  interval );
-  if(startTime != 0)
+  if(startTime == 0)
   {
     time.push(0);
     ctrl.push(1);
@@ -107,7 +107,7 @@ CONTAM.SetDaySchedule = function(startTime, endTime, useInterval, interval, time
     var currentTime = startTime
     do
     {
-      time.push(currentTime+timestep);
+      time.push(currentTime + timestep);
       ctrl.push(0);
       currentTime += interval;
       time.push(currentTime);

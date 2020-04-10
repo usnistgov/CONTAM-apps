@@ -31,7 +31,7 @@ window.onload = function()
       //these paths are relative to the worker's path
       var workerFileURLs = ["../FATIMA/SrfFileReader.js",
         "../FATIMA/CtrlLogFileReader_2.js",
-        "../FATIMA/contamAddons_1.js"];
+        "../FATIMA/contamAddons_2.js"];
       CWD.Init(new Worker("../contam/contam_worker_4.js"));
       CWD.SetOnMessageFunction(Nano.onWorkerMessage);
       CWD.LoadURLsOnWorker(workerFileURLs).then(
@@ -768,9 +768,9 @@ Nano.GetInputs2 = function()
   }
   var RepeatInterval = Nano.Inputs.RepeatInterval.value;
   var RepeatIntervalTime = CONTAM.TimeUtilities.StringTimeToIntTime(RepeatInterval);//
-  if(RepeatIntervalTime < 0)
+  if(RepeatIntervalTime < 120)
   {
-    alert("The repeat interval is not a valid time.");
+    alert("The burst repeat interval must be at least 2 minutes (00:02:00).");
     return;
   }
   
