@@ -591,12 +591,12 @@ Nano.onWorkerMessage = function(oEvent)
 
 Nano.GetPrj = function()
 {
-  console.log("NanoTool GetPrj (start)");
+  console.log("FaTIMA GetPrj (start)");
   return promise = new Promise(function(resolve, reject) 
   {
     // Do the usual XHR stuff
     var req = new XMLHttpRequest();
-    req.open('GET', "cpsc-nano-tool-v1.prj");
+    req.open('GET', "fatima.prj");
 	req.overrideMimeType("text/plain");
     req.onload = function() {
       // This is called even on 404 etc
@@ -604,13 +604,13 @@ Nano.GetPrj = function()
       if (req.status == 200) {
         // Resolve the promise with the response text
         Nano.CtmPrj = req.responseText;
-        console.log("NanoTool GetPrj Resolve (end)");
+        console.log("FaTIMA GetPrj Resolve (end)");
         resolve(req.response);
       }
       else {
         // Otherwise reject with the status text
         // which will hopefully be a meaningful error
-        console.log("NanoTool GetPrj Reject (end)");
+        console.log("FaTIMA GetPrj Reject (end)");
         reject(Error(req.statusText));
       }
     };
