@@ -238,15 +238,18 @@ Nano.Init = function()
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDensity);
   Nano.Inputs.PDensity.input.addEventListener("change", Nano.UpdateEdens); 
   
-  Nano.Inputs.constSourceType = document.getElementById("constSrcRadio");
+  Nano.Inputs.constSourceType = document.getElementById("constSrcCheck");
   Nano.Inputs.constSourceType.checked = true;
   Nano.Inputs.constSourceType.addEventListener("click", Nano.changeSrcType);
   
-  Nano.Inputs.burstSourceType = document.getElementById("burstSrcRadio");
+  Nano.Inputs.burstSourceType = document.getElementById("burstSrcCheck");
   Nano.Inputs.burstSourceType.addEventListener("click", Nano.changeSrcType);
 
-  Nano.Inputs.repeatSourceType = document.getElementById("repeatBurstSrcRadio");
-  Nano.Inputs.repeatSourceType.addEventListener("click", Nano.changeSrcType);
+  Nano.Inputs.singleBurst = document.getElementById("singleBurstRadio");
+  Nano.Inputs.singleBurst.addEventListener("click", Nano.changeBurstType);
+
+  Nano.Inputs.repeatBurst = document.getElementById("repeatBurstRadio");
+  Nano.Inputs.repeatBurst.addEventListener("click", Nano.changeBurstType);
   
   Nano.Inputs.ReleaseAmount =
   { 
@@ -648,32 +651,77 @@ Nano.GetInputs = function()
       alert("The release rate is not a number.");
       return;
     }
-    //set the burst source to Off schedule 
-    CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(4)")
-    //set the constant source to generation schedule
-    .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
-    //set constant source release rate
-    .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(5).ped.G", releaseRate))
-    .then((result) => Nano.GetInputs2())
-    .catch(errorHandler);
+    if(Nano.Inputs.burstSourceType.checked)
+    {
+      releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
+      if(isNaN(releaseAmount))
+      {
+        alert("The release amount is not a number.");
+        return;
+      }
+      //set the constant source to generation schedule
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(3)")
+      //set constant source release rate
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(5).ped.G", releaseRate))
+      //set the burst source to generation schedule
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
+      //set burst source release amount
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.M", releaseAmount))
+      .then((result) => Nano.GetInputs2())
+      .catch(errorHandler);
+    }
+    else
+    {
+      //set the constant source to generation schedule
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(3)")
+      //set constant source release rate
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(5).ped.G", releaseRate))
+      //set the burst source to Off schedule 
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(4)"))
+      //set burst source release amount to zero
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.M", 0))
+      .then((result) => Nano.GetInputs2())
+      .catch(errorHandler);
+
+    }
   }
   else
   {
-    releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
-    if(isNaN(releaseAmount))
+    if(Nano.Inputs.burstSourceType.checked)
     {
-      alert("The release amount is not a number.");
-      return;
+      releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
+      if(isNaN(releaseAmount))
+      {
+        alert("The release amount is not a number.");
+        return;
+      }
+      //set the const source to Off schedule 
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(4)")
+      //set constant source release rate to zero
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(5).ped.G", 0))
+      //set the burst source to generation schedule
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
+      //set burst source release amount
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.M", releaseAmount))
+      .then((result) => Nano.GetInputs2())
+      .catch(errorHandler);
     }
-    //set the burst source to generation schedule
-    CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)")
-    //set the constant source to Off schedule
-    .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(4)"))
-    //set burst source release amount
-    .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.M", releaseAmount))
-    .then((result) => Nano.GetInputs2())
-    .catch(errorHandler);
+    else
+    {
+      //set the const source to Off schedule 
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(4)")
+      //set constant source release rate to zero
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(5).ped.G", 0))
+      //set the burst source to Off schedule 
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(4)"))
+      //set burst source release amount to zero
+      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.M", 0))
+      .then((result) => Nano.GetInputs2())
+      .catch(errorHandler);
+
+    }
   }
+  
 }
 
 Nano.GetInputs2 = function()
@@ -921,7 +969,7 @@ Nano.GetInputs2 = function()
   // set the occupant day schedule to use the start/end time that the use specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime]))
   // set the day schedule for the source to use the start/end time that the use specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [StartSourceTime, EndSourceTime, Nano.Inputs.repeatSourceType.checked, RepeatIntervalTime, 60]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [StartSourceTime, EndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatIntervalTime, 60]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())
@@ -1365,35 +1413,42 @@ Nano.drawChart = function()
 
 Nano.changeSrcType = function()
 {
-  var constSrcRadio = document.getElementById("constSrcRadio");
-  var burstSrcRadio = document.getElementById("burstSrcRadio");
-  var repeatBurstSrcRadio = document.getElementById("repeatBurstSrcRadio");
+  var constSrcCheck = document.getElementById("constSrcCheck");
+  var burstSrcCheck = document.getElementById("burstSrcCheck");
   
-  if(constSrcRadio.checked)
+  if(constSrcCheck.checked)
   {
-    document.getElementById('ReleaseAmountInput').disabled = true;
-    document.getElementById('ReleaseAmountCombo').disabled = true;
     document.getElementById('ReleaseRateInput').disabled = false;
     document.getElementById('ReleaseRateCombo').disabled = false;
-    document.getElementById('EndSourceInput').disabled = false;
-    document.getElementById('RepeatSourceInput').disabled = true;
   }
-  else if (burstSrcRadio.checked)
+  else
+  {
+    document.getElementById('ReleaseRateInput').disabled = true;
+    document.getElementById('ReleaseRateCombo').disabled = true;
+  }
+  if (burstSrcCheck.checked)
   {
     document.getElementById('ReleaseAmountInput').disabled = false;
     document.getElementById('ReleaseAmountCombo').disabled = false;
-    document.getElementById('ReleaseRateInput').disabled = true;
-    document.getElementById('ReleaseRateCombo').disabled = true;
-    document.getElementById('EndSourceInput').disabled = true;
+  }
+  else
+  {
+    document.getElementById('ReleaseAmountInput').disabled = true;
+    document.getElementById('ReleaseAmountCombo').disabled = true;
+  }
+}
+
+Nano.changeBurstType = function()
+{
+  var singleBurstRadio = document.getElementById("singleBurstRadio");
+  var repeatBurstRadio = document.getElementById("repeatBurstRadio");
+  
+  if(singleBurstRadio.checked)
+  {
     document.getElementById('RepeatSourceInput').disabled = true;
   }
   else
   {
-    document.getElementById('ReleaseAmountInput').disabled = false;
-    document.getElementById('ReleaseAmountCombo').disabled = false;
-    document.getElementById('ReleaseRateInput').disabled = true;
-    document.getElementById('ReleaseRateCombo').disabled = true;
-    document.getElementById('EndSourceInput').disabled = true;
     document.getElementById('RepeatSourceInput').disabled = false;
   }
 }

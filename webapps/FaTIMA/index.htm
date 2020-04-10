@@ -128,7 +128,7 @@
 
           <!-- Filters -->
           <div class="unit">
-            <div>Outdoor Air Air Filter</div>
+            <div>Outdoor Air Filter</div>
             <select id="OAFilterSelect">
               <option>None</option>
               <option>MERV 4</option>
@@ -187,19 +187,24 @@
           <div class="unithead">Particle Source</div>
           <div class="unit">
             <div>Source Type</div>
-            <input type="radio" name="sourceType" id="constSrcRadio" value="constant"> Constant
-            <input type="radio" name="sourceType" id="burstSrcRadio" value="burst"
+            <input type="checkbox" name="sourceType" id="constSrcCheck" value="constant" checked> Continuous
+            <input type="checkbox" name="sourceType" id="burstSrcCheck" value="burst" checked
                    style="margin-left: 15px;"> Burst
-            <input type="radio" name="sourceType" id="repeatBurstSrcRadio" value="repeatBurst"
-                   style="margin-left: 15px;"> Repeated Burst
           </div>
           <div class="unit">
-            <div>Release Amount</div>
-            <input type="number" step="any" min="0" disabled id="ReleaseAmountInput">
-            <select id="ReleaseAmountCombo" disabled></select>
+            <div>Burst Type</div>
+            <input type="radio" name="sourceType" id="singleBurstRadio" value="burst"
+                   style="margin-left: 15px;" checked> Single
+            <input type="radio" name="sourceType" id="repeatBurstRadio" value="repeatBurst"
+                   style="margin-left: 15px;"> Intermittent
           </div>
           <div class="unit">
-            <div>Release Rate</div>
+            <div>Burst Amount</div>
+            <input type="number" step="any" min="0" id="ReleaseAmountInput">
+            <select id="ReleaseAmountCombo"></select>
+          </div>
+          <div class="unit">
+            <div>Continuous Rate</div>
             <input type="number" step="any" min="0" id="ReleaseRateInput">
             <select id="ReleaseRateCombo"></select>
           </div>
