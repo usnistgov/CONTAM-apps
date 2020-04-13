@@ -280,7 +280,7 @@ Nano.Init = function()
   Nano.Inputs.SourceEndTime = document.getElementById("EndSourceInput"); 
   Nano.Inputs.SourceEndTime.value = "17:00:00";
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
-  Nano.Inputs.RepeatInterval.value = "00:05:00";
+  Nano.Inputs.RepeatInterval.value = "2";
   
   Nano.Inputs.FloorDV =
   { 
@@ -707,12 +707,6 @@ Nano.GetInputs2 = function()
     return;
   }
   var RepeatInterval = Nano.Inputs.RepeatInterval.value;
-  var RepeatIntervalTime = CONTAM.TimeUtilities.StringTimeToIntTime(RepeatInterval);//
-  if(RepeatIntervalTime < 120)
-  {
-    alert("The burst repeat interval must be at least 2 minutes (00:02:00).");
-    return;
-  }
   
   var depositionVelocityFloor = parseFloat(Nano.Inputs.FloorDV.input.baseValue);//
   if(isNaN(depositionVelocityFloor))
@@ -795,7 +789,7 @@ Nano.GetInputs2 = function()
   // set the occupant day schedule to use the start/end time that the use specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime]))
   // set the day schedule for the source to use the start/end time that the use specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [StartSourceTime, EndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatIntervalTime, 60]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [StartSourceTime, EndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatInterval * 60, 60]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())
