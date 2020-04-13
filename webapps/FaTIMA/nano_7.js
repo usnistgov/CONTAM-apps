@@ -706,7 +706,12 @@ Nano.GetInputs2 = function()
     alert("The end source time is not a valid time.");
     return;
   }
-  var RepeatInterval = Nano.Inputs.RepeatInterval.value;
+  var RepeatInterval = Math.floor(Nano.Inputs.RepeatInterval.value);
+  if(RepeatInterval < 2)
+  {
+    alert("The Burst Repeat Interval must be at least 2 minutes.");
+    return;
+  }
   
   var depositionVelocityFloor = parseFloat(Nano.Inputs.FloorDV.input.baseValue);//
   if(isNaN(depositionVelocityFloor))
