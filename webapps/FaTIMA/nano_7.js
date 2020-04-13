@@ -316,76 +316,6 @@ Nano.Init = function()
     unitDisplay: document.getElementById("DepositionVelocityCeilingUnits")
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.CeilingDV);
-  
-  Nano.Inputs.FloorResusArea =
-  { 
-    initialValue: 0.028, 
-    convert: 0, 
-    func: CONTAM.Units.AreaConvert, 
-    strings: CONTAM.Units.Strings.Area,
-    input: document.getElementById("ResuspensionAreaFloorInput"),
-    select: document.getElementById("ResuspensionAreaFloorCombo")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.FloorResusArea);
-
-  Nano.Inputs.FloorResusRate =
-  { 
-    initialValue: 0.0025, // was 0.00875
-    convert: 0, 
-    func: CONTAM.Units.TimeConstantConvert, 
-    strings: CONTAM.Units.Strings.TimeConstant,
-    input: document.getElementById("ResuspensionRateFloorInput"),
-    select: document.getElementById("ResuspensionRateFloorCombo")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.FloorResusRate);
-
-  Nano.Inputs.WallResusArea =
-  { 
-    initialValue: 0, 
-    convert: 0, 
-    func: CONTAM.Units.AreaConvert, 
-    strings: CONTAM.Units.Strings.Area,
-    input: document.getElementById("ResuspensionAreaWallInput"),
-    select: document.getElementById("ResuspensionAreaFloorCombo"),
-    unitDisplay: document.getElementById("ResuspensionAreaWallUnits")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.WallResusArea);
-
-  Nano.Inputs.WallResusRate =
-  { 
-    initialValue: 0, 
-    convert: 0, 
-    func: CONTAM.Units.TimeConstantConvert, 
-    strings: CONTAM.Units.Strings.TimeConstant,
-    input: document.getElementById("ResuspensionRateWallInput"),
-    select: document.getElementById("ResuspensionRateFloorCombo"),
-    unitDisplay: document.getElementById("ResuspensionRateWallUnits")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.WallResusRate);
-
-  Nano.Inputs.CeilingResusArea =
-  { 
-    initialValue: 0, 
-    convert: 0, 
-    func: CONTAM.Units.AreaConvert, 
-    strings: CONTAM.Units.Strings.Area,
-    input: document.getElementById("ResuspensionAreaCeilingInput"),
-    select: document.getElementById("ResuspensionAreaFloorCombo"),
-    unitDisplay: document.getElementById("ResuspensionAreaCeilingUnits")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.CeilingResusArea);
-
-  Nano.Inputs.CeilingResusRate =
-  { 
-    initialValue: 0, 
-    convert: 0, 
-    func: CONTAM.Units.TimeConstantConvert, 
-    strings: CONTAM.Units.Strings.TimeConstant,
-    input: document.getElementById("ResuspensionRateCeilingInput"),
-    select: document.getElementById("ResuspensionRateFloorCombo"),
-    unitDisplay: document.getElementById("ResuspensionRateCeilingUnits")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.CeilingResusRate);
 
   Nano.Inputs.OutdoorConcen =
   { 
@@ -843,44 +773,6 @@ Nano.GetInputs2 = function()
     return;
   }
  
-  var floorResuspensionArea = parseFloat(Nano.Inputs.FloorResusArea.input.baseValue);//
-  if(isNaN(floorResuspensionArea))
-  {
-    alert("The floor resuspension area is not a number.");
-    return;
-  }
-  var floorResuspensionRate = parseFloat(Nano.Inputs.FloorResusRate.input.baseValue);//
-  if(isNaN(floorResuspensionRate))
-  {
-    alert("The floor resuspension rate is not a number.");
-    return;
-  }
-  
-  var wallResuspensionArea = parseFloat(Nano.Inputs.WallResusArea.input.baseValue);//
-  if(isNaN(wallResuspensionArea))
-  {
-    alert("The wall resuspension area is not a number.");
-    return;
-  }
-  var wallResuspensionRate = parseFloat(Nano.Inputs.WallResusRate.input.baseValue);//
-  if(isNaN(wallResuspensionRate))
-  {
-    alert("The wall resuspension rate is not a number.");
-    return;
-  }
-  
-  var ceilingResuspensionArea = parseFloat(Nano.Inputs.CeilingResusArea.input.baseValue);//
-  if(isNaN(ceilingResuspensionArea))
-  {
-    alert("The ceiling resuspension area is not a number.");
-    return;
-  }
-  var ceilingResuspensionRate = parseFloat(Nano.Inputs.CeilingResusRate.input.baseValue);//
-  if(isNaN(ceilingResuspensionRate))
-  {
-    alert("The ceiling resuspension rate is not a number.");
-    return;
-  }
   var outdoorConcen = parseFloat(Nano.Inputs.OutdoorConcen.input.baseValue);//
   if(isNaN(outdoorConcen))
   {
@@ -940,9 +832,6 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.dV", variableValue: depositionVelocityCeiling});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dV", variableValue: depositionVelocityWall});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: depositionVelocityFloor});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.R", variableValue: ceilingResuspensionRate});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.R", variableValue: wallResuspensionRate});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.R", variableValue: floorResuspensionRate});
   variableList.push({variableName: "CONTAM.Project.CssList[3].CC0", variableValue: floorInitialLoading});
   variableList.push({variableName: "CONTAM.Project.CssList[4].CC0", variableValue: wallInitialLoading});
   variableList.push({variableName: "CONTAM.Project.CssList[5].CC0", variableValue: ceilingInitialLoading});
@@ -951,9 +840,6 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.dA", variableValue: surfaceAreaCeiling});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dA", variableValue: surfaceAreaWall});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: surfaceAreaFloor});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.rA", variableValue: ceilingResuspensionArea});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.rA", variableValue: wallResuspensionArea});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.rA", variableValue: floorResuspensionArea});
   variableList.push({variableName: "CONTAM.Project.PathList[1].pf.pe.ped.eff[0]", variableValue: filterEff});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(7).ctrl[0]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(7).ctrl[1]", variableValue: OAScheduleValue});
@@ -1001,7 +887,7 @@ Nano.RunSim = function()
       // which includes the project name and project file contents
       var data = {};
       data.cmd = "start";
-      data.PrjName = "cpsc-dvr-gen.prj";
+      data.PrjName = "fatima-dvr-gen.prj";
       data.PrjText = projectText;
       data.WthName = "null";
       data.WthText = "";
@@ -1032,7 +918,7 @@ Nano.createPRJSaveLink = function(prjText)
 
   var saveSpan = document.createElement("span");
   var savelink = document.createElement("a");
-  var filename = "cpsc-nano-tool-v1.prj"
+  var filename = "fatima.prj"
   var prjBlob = new Blob([prjText], {type:'text/plain'})
 
   //microsoft doing their own thing again
@@ -1079,8 +965,11 @@ Nano.DisplayExposureResults = function()
 {
   var maxExpos = 0;
 
-  if(!Nano.integralResult)
+  if(Nano.integralResult == null || Nano.integralResult == undefined)
+  {
+    console.log('no results found by DisplayExposureResults function');
     return;
+  }
   
   // load the inputs with unit selects
   // concentration
