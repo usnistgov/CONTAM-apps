@@ -342,44 +342,6 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.InitZoneConcen);
 
-  Nano.Inputs.InitFloorLoading =
-  { 
-    initialValue: 0.00011762, // 1.0e8 #/m2 = 0.00011762 kg/m2. was 5.382e-5
-    convert: 4, 
-    func: CONTAM.Units.ConcnSurfConvert, 
-    strings: CONTAM.Units.Strings.Concentration_Surf,
-    input: document.getElementById("InitialLoadingFloorInput"),
-    select: document.getElementById("InitialLoadingFloorCombo"),
-    species: Nano.Species
-  };
-  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.InitFloorLoading);
-
-  Nano.Inputs.InitWallLoading =
-  { 
-    initialValue: 0, 
-    convert: 4, 
-    func: CONTAM.Units.ConcnSurfConvert, 
-    strings: CONTAM.Units.Strings.Concentration_Surf,
-    input: document.getElementById("InitialLoadingWallInput"),
-    select: document.getElementById("InitialLoadingFloorCombo"),
-    unitDisplay: document.getElementById("InitialLoadingWallUnits"),
-    species: Nano.Species
-  };
-  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.InitWallLoading);
-
-  Nano.Inputs.InitCeilingLoading =
-  { 
-    initialValue: 0, 
-    convert: 4, 
-    func: CONTAM.Units.ConcnSurfConvert, 
-    strings: CONTAM.Units.Strings.Concentration_Surf,
-    input: document.getElementById("InitialLoadingCeilingInput"),
-    select: document.getElementById("InitialLoadingFloorCombo"),
-    unitDisplay: document.getElementById("InitialLoadingCeilingUnits"),
-    species: Nano.Species
-  };
-  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.InitCeilingLoading);
-
   Nano.Inputs.ExposStartTime = document.getElementById("StartExposureInput");
   Nano.Inputs.ExposStartTime.value = "08:00:00";
   Nano.Inputs.ExposEndTime = document.getElementById("EndExposureInput");
@@ -785,25 +747,6 @@ Nano.GetInputs2 = function()
     alert("The initial zone concentration is not a number.");
     return;
   }
-  
-  var floorInitialLoading = parseFloat(Nano.Inputs.InitFloorLoading.input.baseValue);//
-  if(isNaN(floorInitialLoading))
-  {
-    alert("The floor initial loading is not a number.");
-    return;
-  }
-  var wallInitialLoading = parseFloat(Nano.Inputs.InitWallLoading.input.baseValue);//
-  if(isNaN(wallInitialLoading))
-  {
-    alert("The wall initial loading is not a number.");
-    return;
-  }
-  var ceilingInitialLoading = parseFloat(Nano.Inputs.InitCeilingLoading.input.baseValue);//
-  if(isNaN(ceilingInitialLoading))
-  {
-    alert("The ceiling initial loading is not a number.");
-    return;
-  }
 
   var StartExposure = Nano.Inputs.ExposStartTime.value;//
   var EndExposure = Nano.Inputs.ExposEndTime.value;//
@@ -832,9 +775,6 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.dV", variableValue: depositionVelocityCeiling});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dV", variableValue: depositionVelocityWall});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: depositionVelocityFloor});
-  variableList.push({variableName: "CONTAM.Project.CssList[3].CC0", variableValue: floorInitialLoading});
-  variableList.push({variableName: "CONTAM.Project.CssList[4].CC0", variableValue: wallInitialLoading});
-  variableList.push({variableName: "CONTAM.Project.CssList[5].CC0", variableValue: ceilingInitialLoading});
   variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: supplyRate});
   variableList.push({variableName: "CONTAM.Project.PathList[3].Fahs", variableValue: returnRate});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.dA", variableValue: surfaceAreaCeiling});
