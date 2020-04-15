@@ -31,7 +31,7 @@ window.onload = function()
       //these paths are relative to the worker's path
       var workerFileURLs = ["../FaTIMA/SrfFileReader.js",
         "../FaTIMA/CtrlLogFileReader_2.js",
-        "../FaTIMA/contamAddons_2.js"];
+        "../FaTIMA/contamAddons_3.js"];
       CWD.Init(new Worker("../contam/contam_worker_4.js"));
       CWD.SetOnMessageFunction(Nano.onWorkerMessage);
       CWD.LoadURLsOnWorker(workerFileURLs).then(
