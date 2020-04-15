@@ -82,9 +82,9 @@ CONTAM.SetOccDaySchedule = function(startTime, endTime)
 }
 
 
-//edit the source day schedule named generation based on the times given
+//edit the day schedule with the given number based on the times given
 //the times are assumed to be already checked for correctness
-CONTAM.SetDaySchedule = function(startTime, endTime, useInterval, interval, timestep)
+CONTAM.SetDaySchedule = function(scheduleNumber, startTime, endTime, useInterval, interval, timestep)
 {
   var time = [];
   var ctrl = [];
@@ -128,10 +128,10 @@ CONTAM.SetDaySchedule = function(startTime, endTime, useInterval, interval, time
     ctrl.push(0);
   }
   
-  var generationDaySchedule = CONTAM.Project.Dsch0.GetByNumber(4);
+  var daySchedule = CONTAM.Project.Dsch0.GetByNumber(scheduleNumber);
   
-  generationDaySchedule.npts = time.length;
-  generationDaySchedule.time = time;
-  generationDaySchedule.ctrl = ctrl;
+  daySchedule.npts = time.length;
+  daySchedule.time = time;
+  daySchedule.ctrl = ctrl;
   return "ok";
 }
