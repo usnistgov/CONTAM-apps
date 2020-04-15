@@ -214,6 +214,9 @@ Nano.Init = function()
   
   Nano.Inputs.RecirFilter = document.getElementById("RecircFilterSelect");
   
+  Nano.Inputs.PName = document.getElementById("ParticleNameInput");
+  Nano.Inputs.PName.value = "IV1";
+  
   Nano.Inputs.PDiam =
   { 
     initialValue: Nano.Species.mdiam, 
@@ -543,6 +546,7 @@ Nano.GetInputs = function()
       alert("The release rate is not a number.");
       return;
     }
+    console.log("releaseRate: " + releaseRate + " kg/s");
     if(Nano.Inputs.burstSourceType.checked)
     {
       releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
@@ -551,6 +555,7 @@ Nano.GetInputs = function()
         alert("The release amount is not a number.");
         return;
       }
+      console.log("releaseAmount: " + releaseAmount + " kg");
       //set the constant source to breathing schedule
       CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(1)")
       //set constant source release rate
@@ -564,6 +569,7 @@ Nano.GetInputs = function()
     }
     else
     {
+      console.log("releaseAmount: not used");
       //set the constant source to breathing schedule
       CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(1)")
       //set constant source release rate
@@ -579,6 +585,7 @@ Nano.GetInputs = function()
   }
   else
   {
+    console.log("releaseRate: not used");
     if(Nano.Inputs.burstSourceType.checked)
     {
       releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
@@ -587,6 +594,7 @@ Nano.GetInputs = function()
         alert("The release amount is not a number.");
         return;
       }
+      console.log("releaseAmount: " + releaseAmount + " kg");
       //set the const source to Off schedule 
       CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(3)")
       //set constant source release rate to zero
@@ -600,6 +608,7 @@ Nano.GetInputs = function()
     }
     else
     {
+      console.log("releaseAmount: not used");
       //set the const source to Off schedule 
       CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(3)")
       //set constant source release rate to zero
@@ -677,6 +686,14 @@ Nano.GetInputs2 = function()
   var filterElementNames = ["zero", "MERV-04","MERV-05", "MERV-06",
     "MERV-07", "MERV-08", "MERV-09", "MERV-10", "MERV-11",
     "MERV-12", "MERV-13", "MERV-14", "MERV-15", "MERV-16"];
+
+
+  var partName = Nano.Inputs.PName.value;
+  if(partName.length == 0)
+  {
+    alert("There must be a particle name.");
+    return;
+  }
 
   var particlesize = parseFloat(Nano.Inputs.PDiam.input.baseValue);//
   if(isNaN(particlesize))
@@ -768,6 +785,7 @@ Nano.GetInputs2 = function()
   var variableList = [];
   variableList.push({variableName: "CONTAM.Project.ZoneList[1].Vol", variableValue: buildingVolume});
   variableList.push({variableName: "CONTAM.Project.ZoneList[1].CC0[0]", variableValue: zoneConcen});
+  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).name", variableValue: partName});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).mdiam", variableValue: particlesize});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: particledensity});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: outdoorConcen});
