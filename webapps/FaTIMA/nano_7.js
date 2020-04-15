@@ -241,6 +241,29 @@ Nano.Init = function()
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDensity);
   Nano.Inputs.PDensity.input.addEventListener("change", Nano.UpdateEdens); 
   
+  Nano.Inputs.PHalfLife =
+  { 
+    initialValue: 3960, 
+    convert: 2, 
+    func: CONTAM.Units.TimeConvert, 
+    strings: CONTAM.Units.Strings.Time,
+    input: document.getElementById("ParticleHalflifeInput"),
+    select: document.getElementById("ParticleHalflifeCombo")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.PHalfLife);
+  Nano.Inputs.PHalfLife.input.addEventListener("change", Nano.UpdateDecay); 
+  
+  Nano.Inputs.PDecayRate =
+  { 
+    initialValue: -0.000175, 
+    convert: 2, 
+    func: CONTAM.Units.TimeConstantConvert, 
+    strings: CONTAM.Units.Strings.TimeConstant,
+    input: document.getElementById("ParticleDecayRateInput"),
+    select: document.getElementById("ParticleDecayRateCombo")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDecayRate);
+  
   Nano.Inputs.constSourceType = document.getElementById("constSrcCheck");
   Nano.Inputs.constSourceType.checked = true;
   Nano.Inputs.constSourceType.addEventListener("click", Nano.changeSrcType);
@@ -709,6 +732,13 @@ Nano.GetInputs2 = function()
     return;
   }
 
+  var particleDecayRate = parseFloat(Nano.Inputs.PDecayRate.input.baseValue);//
+  if(isNaN(particleDecayRate))
+  {
+    alert("The particle decay rate is not a number.");
+    return;
+  }
+
   var StartSource = Nano.Inputs.SourceStartTime.value;
   var EndSource = Nano.Inputs.SourceEndTime.value;
   var StartSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(StartSource);//
@@ -800,6 +830,7 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.PathList[1].pf.pe.ped.eff[0]", variableValue: filterEff});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(7).ctrl[0]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(7).ctrl[1]", variableValue: OAScheduleValue});
+  variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
 
   function errorHandler(error)
   {
@@ -1299,4 +1330,19 @@ Nano.changeBurstType = function()
   {
     document.getElementById('RepeatSourceInput').disabled = false;
   }
+}
+
+Nano.UpdateDecay = function()
+{
+  var halfLife = Nano.Inputs.PHalfLife.input.baseValue; // s
+  console.log("new half life: " + halfLife);
+  var newDecayRate;
+  if(isNaN(halfLife) || halfLife <= 0)
+    newDecayRate = NaN
+  else
+    newDecayRate = -Math.abs(Math.log(0.5)/halfLife); // 1/s
+  console.log("new decay rate: " + newDecayRate);
+  Nano.Inputs.PDecayRate.input.baseValue = parseFloat(sprintf("%4.5g", newDecayRate));
+  // this will make the inputs display the new baseValues in the proper units
+  CONTAM.Units.ChangeUnits.apply(Nano.Inputs.PDecayRate.select);
 }
