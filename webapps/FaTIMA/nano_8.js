@@ -28,7 +28,7 @@ window.onload = function()
     {
       //initialize contam worker
       //these paths are relative to the worker's path
-      var workerFileURLs = ["../FaTIMA/SrfFileReader.js",
+      var workerFileURLs = ["../FaTIMA/SrfFileReader_1.js",
         "../FaTIMA/CtrlLogFileReader_2.js",
         "../FaTIMA/contamAddons_3.js"];
       CWD.Init(new Worker("../contam/contam_worker_4.js"));
@@ -579,11 +579,11 @@ Nano.GetInputs = function()
       }
       console.log("releaseAmount: " + releaseAmount + " kg");
       //set the constant source to breathing schedule
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(1)")
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(2)")
       //set constant source release rate
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", releaseRate))
       //set the burst source to coughing schedule
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(2)"))
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
       //set burst source release amount
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", releaseAmount))
       .then((result) => Nano.GetInputs2())
@@ -593,11 +593,11 @@ Nano.GetInputs = function()
     {
       console.log("releaseAmount: not used");
       //set the constant source to breathing schedule
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(1)")
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(2)")
       //set constant source release rate
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", releaseRate))
       //set the burst source to Off schedule 
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(5)"))
       //set burst source release amount to zero
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", 0))
       .then((result) => Nano.GetInputs2())
@@ -618,11 +618,11 @@ Nano.GetInputs = function()
       }
       console.log("releaseAmount: " + releaseAmount + " kg");
       //set the const source to Off schedule 
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(3)")
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(5)")
       //set constant source release rate to zero
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", 0))
       //set the burst source to coughing schedule
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(2)"))
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
       //set burst source release amount
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", releaseAmount))
       .then((result) => Nano.GetInputs2())
@@ -632,11 +632,11 @@ Nano.GetInputs = function()
     {
       console.log("releaseAmount: not used");
       //set the const source to Off schedule 
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(3)")
+      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(5)")
       //set constant source release rate to zero
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", 0))
       //set the burst source to Off schedule 
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
+      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(5)"))
       //set burst source release amount to zero
       .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", 0))
       .then((result) => Nano.GetInputs2())
@@ -819,16 +819,16 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: particledensity});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: outdoorConcen});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dV", variableValue: depositionVelocityCeiling});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: depositionVelocityWall});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: depositionVelocityFloor});
-  variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: supplyRate});
-  variableList.push({variableName: "CONTAM.Project.PathList[3].Fahs", variableValue: returnRate});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: depositionVelocityWall});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: depositionVelocityFloor});
+  variableList.push({variableName: "CONTAM.Project.PathList[1].Fahs", variableValue: supplyRate});
+  variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: returnRate});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dA", variableValue: surfaceAreaCeiling});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: surfaceAreaWall});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: surfaceAreaFloor});
-  variableList.push({variableName: "CONTAM.Project.PathList[1].pf.pe.ped.eff[0]", variableValue: filterEff});
-  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(7).ctrl[0]", variableValue: OAScheduleValue});
-  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(7).ctrl[1]", variableValue: OAScheduleValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: surfaceAreaWall});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: surfaceAreaFloor});
+  variableList.push({variableName: "CONTAM.Project.PathList[4].pf.pe.ped.eff[0]", variableValue: filterEff});
+  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[0]", variableValue: OAScheduleValue});
+  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
 
   function errorHandler(error)
@@ -836,15 +836,15 @@ Nano.GetInputs2 = function()
     throw new Error(error.message);
   }
   // set the filter element for the OA path
-  CWD.CallContamFunction("CONTAM.setPathFilterElement", [5, filterElementNames[OAFilterIndex]])
+  CWD.CallContamFunction("CONTAM.setPathFilterElement", [6, filterElementNames[OAFilterIndex]])
   // set the filter element for the recirculation path
-  .then((result) => CWD.CallContamFunction("CONTAM.setPathFilterElement", [4, filterElementNames[recircFilterIndex]]))
+  .then((result) => CWD.CallContamFunction("CONTAM.setPathFilterElement", [5, filterElementNames[recircFilterIndex]]))
   // set the occupant day schedule to use the start/end time that the use specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime]))
   // set the day schedule for the breathing source to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [1, StartSourceTime, EndSourceTime, false, 0, 0]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, StartSourceTime, EndSourceTime, false, 0, 0]))
   // set the day schedule for the coughing source to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, StartSourceTime, EndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatInterval * 60, 60]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, StartSourceTime, EndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatInterval * 60, 60]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())
@@ -1096,6 +1096,10 @@ Nano.DisplayExposureResults = function()
     // add ceiling value
     surfaceRecord.push(CONTAM.Units.ConcnSurfConvert(
     Nano.surfaceDataBaseUnits[i][4], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species));
+    
+    // add other value
+    surfaceRecord.push(CONTAM.Units.ConcnSurfConvert(
+    Nano.surfaceDataBaseUnits[i][5], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species));
     // add the record to the array of records
     Nano.surfaceDataUserUnits.push(surfaceRecord);
   }
@@ -1232,6 +1236,8 @@ Nano.drawChart = function()
     Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
   surf_data_table.addColumn('number', 'Ceiling ' + 
     Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
+  surf_data_table.addColumn('number', 'Other ' + 
+    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
   if(surf_data)
     surf_data_table.addRows(surf_data);
 
@@ -1263,7 +1269,9 @@ Nano.drawChart = function()
     series: {
       1: { lineDashStyle: [1, 2] },
       2: { lineDashStyle: [2, 2] },
-      3: { lineDashStyle: [3, 2] }
+      3: { lineDashStyle: [3, 2] },
+      4: { lineDashStyle: [3, 1] },
+      5: { lineDashStyle: [4, 1] }
     },
     legend: { position: 'bottom' }
   };

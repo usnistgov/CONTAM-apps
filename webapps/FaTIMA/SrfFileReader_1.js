@@ -18,6 +18,7 @@ CONTAM.SrfFileReader.ReadSurfaceFile = function(SrfFileText)
   var top1line = rdr.nextword(3);
   var top2line = rdr.nextword(3);
   var top3line = rdr.nextword(3);
+  var top4line = rdr.nextword(3);
   var emptyline = rdr.nextword(3);
   var header2line = rdr.nextword(3);
 
@@ -36,12 +37,13 @@ CONTAM.SrfFileReader.ReadSurfaceFile = function(SrfFileText)
     var dvr3 = rdr.readR4(0);
     var dvr4 = rdr.readR4(0);
     var dvr5 = rdr.readR4(0);
+    var dvr6 = rdr.readR4(0);
     var timeTokens = time.split(":");
     
-    // add a record with time, dvr3, dvr4, dvr5 and the total of the three
+    // add a record with time, dvr3, dvr4, dvr5, dvr6 and the total of the four
     values.push([[parseInt(timeTokens[0]), parseInt(timeTokens[1]), 
-      parseInt(timeTokens[2])], parseFloat(dvr3) + parseFloat(dvr4) + parseFloat(dvr5),
-      parseFloat(dvr3), parseFloat(dvr4), parseFloat(dvr5)]);
+      parseInt(timeTokens[2])], parseFloat(dvr3) + parseFloat(dvr4) + parseFloat(dvr5) + parseFloat(dvr6),
+      parseFloat(dvr3), parseFloat(dvr4), parseFloat(dvr5), parseFloat(dvr6)]);
   }
   return {records: values};
   

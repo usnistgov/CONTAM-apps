@@ -1233,6 +1233,7 @@ CONTAM.Project.afelmt_save = function(lib, ducts)
 CONTAM.Project.dfedat_save = function(pdd)
 {
   var pst = "";
+  var prj = CONTAM.Project;
   pst += sprintf(" %f %f %f %f %f %f %f %f", 
     pdd.hdia, pdd.perim, pdd.area, pdd.major, pdd.minor,
     pdd.As, pdd.Qr, pdd.Pr) + prj.EOL;
