@@ -2,12 +2,11 @@
 
 var Nano = {};
 
-// Default values based on Karlsson test case.
 Nano.Species = {};
-Nano.Species.edens = 1300;
-Nano.Species.mdiam = 1.2e-05;
+Nano.Species.edens = 1000;
+Nano.Species.mdiam = 1e-006;
 Nano.Species.decay = 0;
-Nano.Species.molwt = 28;  // WSD Why 28?
+Nano.Species.molwt = 0;
 
 
 // this object holds the inputs from the user
@@ -70,7 +69,7 @@ Nano.Init = function()
   //building volume
   Nano.Inputs.Volume = 
   { 
-    initialValue: 45, 
+    initialValue: 100, 
     convert: 0, 
     func: CONTAM.Units.VolumeConvert, 
     strings: CONTAM.Units.Strings.Volume,
@@ -82,7 +81,7 @@ Nano.Init = function()
   
   Nano.Inputs.FloorArea = 
   { 
-    initialValue: 20, 
+    initialValue: 40, 
     convert: 0, 
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
@@ -118,10 +117,10 @@ Nano.Init = function()
   Nano.Inputs.PFactor = document.getElementById("PenetrationFactorInput");
   Nano.Inputs.PFactor.value = 1;
   
-  // SupplyRate = 0.007525625 kg/s = 22.5 m3/h * 1.2041 kg/m3 / 3600 s/h
+  // SupplyRate = 0.24417 kg/s = 730.001 m3/h * 1.2041 kg/m3 / 3600 s/h
   Nano.Inputs.SupplyRate =
   { 
-    initialValue: 0.007525625,
+    initialValue: 0.24417,
     convert: 4,                       // m3/h
     func: CONTAM.Units.FlowConvert, 
     strings: CONTAM.Units.Strings.Flow,
@@ -133,7 +132,7 @@ Nano.Init = function()
   
   Nano.Inputs.ReturnRate =
   { 
-    initialValue: 0.007525625,
+    initialValue: 0.24417,
     convert: 3, 
     func: CONTAM.Units.FlowConvert, 
     strings: CONTAM.Units.Strings.Flow,
@@ -145,7 +144,7 @@ Nano.Init = function()
   Nano.Inputs.ReturnRate.input.addEventListener("change", Nano.computeSystem); 
   
   Nano.Inputs.PercentOA = document.getElementById("POAInput");
-  Nano.Inputs.PercentOA.value = 100;
+  Nano.Inputs.PercentOA.value = 0;
   Nano.Inputs.PercentOA.addEventListener("change", Nano.computeSystem); 
   
   // not really inputs but they are calculated values from inputs
@@ -279,8 +278,8 @@ Nano.Init = function()
   
   Nano.Inputs.ReleaseAmount =
   { 
-    initialValue: 0.0, // was 1.1762e-09 kg
-    convert: 0, 
+    initialValue: 2.3562e-014, // 45 #
+    convert: 3, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("ReleaseAmountInput"),
@@ -291,8 +290,8 @@ Nano.Init = function()
 
   Nano.Inputs.ReleaseRate =
   { 
-    initialValue: 0.0, // was 1.65e-06 kg/s
-    convert: 0, 
+    initialValue: 2.7925e-017, // 3.2 #/min
+    convert: 19, 
     func: CONTAM.Units.ConSSConvert2, 
     strings: CONTAM.Units.Strings.ConSS2,
     input: document.getElementById("ReleaseRateInput"),
@@ -302,15 +301,15 @@ Nano.Init = function()
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.ReleaseRate);
   
   Nano.Inputs.SourceStartTime = document.getElementById("StartSourceInput");
-  Nano.Inputs.SourceStartTime.value = "08:00:00";
+  Nano.Inputs.SourceStartTime.value = "00:00:00";
   Nano.Inputs.SourceEndTime = document.getElementById("EndSourceInput"); 
-  Nano.Inputs.SourceEndTime.value = "17:00:00";
+  Nano.Inputs.SourceEndTime.value = "02:00:00";
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
-  Nano.Inputs.RepeatInterval.value = "2";
+  Nano.Inputs.RepeatInterval.value = "5";
   
   Nano.Inputs.FloorDV =
   { 
-    initialValue: 0.005, 
+    initialValue: 6.944e-005, // m/s
     convert: 0, 
     func: CONTAM.Units.SpeedConvert, 
     strings: CONTAM.Units.Strings.Speed,
@@ -369,9 +368,9 @@ Nano.Init = function()
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.InitZoneConcen);
 
   Nano.Inputs.ExposStartTime = document.getElementById("StartExposureInput");
-  Nano.Inputs.ExposStartTime.value = "08:00:00";
+  Nano.Inputs.ExposStartTime.value = "00:00:00";
   Nano.Inputs.ExposEndTime = document.getElementById("EndExposureInput");
-  Nano.Inputs.ExposEndTime.value = "17:00:00";
+  Nano.Inputs.ExposEndTime.value = "03:00:00";
   
   Nano.computeSystem();
 
