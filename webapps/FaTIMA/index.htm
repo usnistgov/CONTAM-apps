@@ -301,6 +301,25 @@
             <input id="EndExposureInput" required>
           </div>
         </div>
+
+        <!-- Air Cleaner -->
+        <div class="sectiongrid">
+          <div class="unithead">Air Cleaner</div>
+          <div class="unit">
+            <div><label for="AirCleanerFlowRateInput">Airflow Rate</label></div>
+            <input type="number" step="any" min="0" id="AirCleanerFlowRateInput">
+            <select id="AirCleanerFlowRateCombo"></select>
+          </div>
+          <div class="unit">
+            <div><label for="AirCleanerEffInput">Efficiency</label></div>
+            <input type="number" step="any" min="0" max="1" id="AirCleanerEffInput" required>
+          </div>
+          <div class="unit">
+            <div><abbr title="Clean air delivery rate"><label for="AirCleanerCADRInput">CADR</label></abbr></div>
+            <input type="number" step="any" min="0" id="AirCleanerCADRInput" disabled>
+            <span id="AirCleanerCADRUnits">test</span>
+          </div>
+        </div>
       </div>
 
       <!-- RUN SIMULATION -->

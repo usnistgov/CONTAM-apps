@@ -413,6 +413,35 @@ Nano.Init = function()
   Nano.Inputs.ExposEndTime = document.getElementById("EndExposureInput");
   Nano.Inputs.ExposEndTime.value = "03:00:00";
   
+  Nano.Inputs.AirCleanerFlowRate =
+  { 
+    initialValue: 0.113655, // 200 scfm
+    convert: 1, 
+    func: CONTAM.Units.FlowConvert, 
+    strings: CONTAM.Units.Strings.Flow,
+    input: document.getElementById("AirCleanerFlowRateInput"),
+    select: document.getElementById("AirCleanerFlowRateCombo")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.AirCleanerFlowRate);
+  Nano.Inputs.AirCleanerFlowRate.input.addEventListener("change", Nano.ComputeAirCleanerCADR); 
+
+  Nano.Inputs.AirCleanerEff =  document.getElementById("AirCleanerEffInput");
+  Nano.Inputs.AirCleanerEff.value =  0.8;
+  Nano.Inputs.AirCleanerEff.addEventListener("change", Nano.ComputeAirCleanerCADR);  
+  
+  Nano.Inputs.AirCleanerCADR =
+  { 
+    initialValue: 0, 
+    convert: 1, 
+    func: CONTAM.Units.FlowConvert, 
+    strings: CONTAM.Units.Strings.Flow,
+    input: document.getElementById("AirCleanerCADRInput"),
+    select: document.getElementById("AirCleanerFlowRateCombo"),
+    unitDisplay: document.getElementById("AirCleanerCADRUnits")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.AirCleanerCADR);
+  Nano.ComputeAirCleanerCADR();
+  
   Nano.computeSystem();
 
   //results
@@ -451,6 +480,13 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalSurfaceLoading);
   Nano.Results.totalSurfaceLoading.select.addEventListener("input", Nano.DisplayExposureResults); 
+}
+
+Nano.ComputeAirCleanerCADR = function()
+{
+  Nano.Inputs.AirCleanerCADR.input.baseValue = Nano.Inputs.AirCleanerFlowRate.input.baseValue * Nano.Inputs.AirCleanerEff.valueAsNumber;
+  // this will make the inputs display the new baseValues in the proper units
+  CONTAM.Units.ChangeUnits.apply(Nano.Inputs.AirCleanerCADR.select);
 }
 
 Nano.changeDecayEnabled = function()
@@ -914,7 +950,9 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
   variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[4].mult", variableValue: envelopeLeakageMultiplier});
-
+  variableList.push({variableName: "CONTAM.Project.Dfe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.AirCleanerFlowRate.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Flte0.GetByNumber(1).ped.eff[0]", variableValue: Nano.Inputs.AirCleanerEff.valueAsNumber});
+  
   function errorHandler(error)
   {
     throw new Error(error.message);
