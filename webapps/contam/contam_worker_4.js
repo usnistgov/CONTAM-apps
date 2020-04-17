@@ -306,6 +306,20 @@ Worker.SetVariableToVariable = function(setVariableName, toVariableName)
   return {result: false, msg: "ok"};
 }
 
+//iterate over array to set a variable to another object 
+Worker.SetArrayOfVariableToVariable = function(arrayOfParameters)
+{
+  for (const param of arrayOfParameters) 
+  {
+    var retVal = Worker.SetVariableToVariable(param.setVariableName, param.toVariableName);
+    if(retVal.result)
+    {
+      return retVal;
+    }
+  }
+  return {result: false, msg: "ok"};
+}
+
 onmessage = function (oEvent) 
 {
   var data = oEvent.data;
@@ -432,6 +446,15 @@ onmessage = function (oEvent)
     if(ret.result)
       console.log(ret.msg);
     console.log("CONTAM worker (end): SetVariableToVariable: " + data.setVariableName);
+    postMessage(ret.msg);
+  }
+  else if(data.cmd == "SetArrayOfVariableToVariable")
+  {
+    console.log("CONTAM worker (start): SetArrayOfVariableToVariable: " + data.arrayOfParameters);
+    var ret = Worker.SetArrayOfVariableToVariable(data.arrayOfParameters);
+    if(ret.result)
+      console.log(ret.msg);
+    console.log("CONTAM worker (end): SetVariableToVariable: " + data.arrayOfParameters);
     postMessage(ret.msg);
   }
   else

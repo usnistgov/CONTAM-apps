@@ -189,6 +189,31 @@ CWD.SetContamVariableToVariable = function(setVariableName, toVariableName)
   return promise;
 }
 
+CWD.SetArrayOfContamVariableToVariable = function(arrayOfParameters)
+{
+  console.log("CONTAM Driver (start): SetArrayOfVariableToVariable: " + arrayOfParameters);
+  var promise = new Promise(function(resolve, reject) 
+  {
+    CWD.worker.onmessage = onWorkerMessage;
+    CWD.worker.onerror = onWorkerError;
+    var data = {};
+    data.cmd = "SetArrayOfVariableToVariable";
+    data.arrayOfParameters = arrayOfParameters;
+    CWD.worker.postMessage(data);
+    function onWorkerMessage(oEvent)
+    {
+      console.log("CONTAM Driver (end): SetVariableToVariable Resolve (" + arrayOfParameters + "): " + oEvent.data);
+      resolve(oEvent.data);
+    }
+    function onWorkerError(e)
+    {
+      console.log("CONTAM Driver (end): SetVariableToVariable Reject: " + e.message);
+      reject(e.message);
+    }
+  });
+  return promise;
+}
+
 //this function will load a javascript file on the worker thread 
 // this is useful to add app specific code to run with the contam backend
 CWD.LoadURLOnWorker = function(codeURL)
