@@ -78,6 +78,7 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.Volume);
   Nano.Inputs.Volume.input.addEventListener("change", Nano.computeSystem); 
+  Nano.Inputs.Volume.input.addEventListener("change", Nano.computeLevelHeight); 
   
   Nano.Inputs.FloorArea = 
   { 
@@ -89,6 +90,19 @@ Nano.Init = function()
     select: document.getElementById("SurfaceAreaFloorCombo")
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.FloorArea);
+  Nano.Inputs.FloorArea.input.addEventListener("change", Nano.computeLevelHeight); 
+  
+  Nano.Inputs.LevelHeight = 
+  { 
+    initialValue: 20, 
+    convert: 0, 
+    func: CONTAM.Units.LengthConvert, 
+    strings: CONTAM.Units.Strings.Length,
+    input: document.getElementById("LevelHeightInput"),
+    select: document.getElementById("LevelHeightCombo")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.LevelHeight);
+  Nano.computeLevelHeight();
 
   Nano.Inputs.WallArea =
   { 
@@ -430,6 +444,14 @@ Nano.UpdateMdiam = function()
   Nano.ReconvertReleaseRate();
   // reconvert the release amount from non-base units to base units
   Nano.ReconvertReleaseAmount();
+}
+
+Nano.computeLevelHeight = function()
+{
+  Nano.Inputs.LevelHeight.input.baseValue = Nano.Inputs.Volume.input.baseValue / Nano.Inputs.FloorArea.input.baseValue;
+  // this will make the inputs display the new baseValues in the proper units
+  CONTAM.Units.ChangeUnits.apply(Nano.Inputs.LevelHeight.select);
+   
 }
 
 // convert the value in the input box for release rate 
@@ -830,6 +852,7 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[0]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
+  variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
 
   function errorHandler(error)
   {
