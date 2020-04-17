@@ -847,6 +847,9 @@ Nano.GetInputs2 = function()
     return;
   }
   Nano.ExposureDuration = Nano.EndExposureTime - Nano.StartExposureTime;
+  
+  //compute the leakage multiplier for envelope
+  var envelopeLeakageMultiplier = 4 * buildingVolume / Math.sqrt(surfaceAreaFloor);
 
   // create an array of variables to set in the project
   // so that they can be sent to the CONTAM worker
@@ -870,6 +873,7 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
   variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.PathList[4].mult", variableValue: envelopeLeakageMultiplier});
 
   function errorHandler(error)
   {
