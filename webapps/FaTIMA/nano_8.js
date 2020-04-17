@@ -127,6 +127,18 @@ Nano.Init = function()
     unitDisplay: document.getElementById("SurfaceAreaCeilingUnits")
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.CeilingArea);
+
+  Nano.Inputs.OtherSurfaceArea =
+  { 
+    initialValue: 0, 
+    convert: 0, 
+    func: CONTAM.Units.AreaConvert, 
+    strings: CONTAM.Units.Strings.Area,
+    input: document.getElementById("SurfaceAreaOtherInput"),
+    select: document.getElementById("SurfaceAreaFloorCombo"),
+    unitDisplay: document.getElementById("SurfaceAreaOtherUnits")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.OtherSurfaceArea);
   
   Nano.Inputs.PFactor = document.getElementById("PenetrationFactorInput");
   Nano.Inputs.PFactor.value = 1;
@@ -358,6 +370,18 @@ Nano.Init = function()
     unitDisplay: document.getElementById("DepositionVelocityCeilingUnits")
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.CeilingDV);
+  
+  Nano.Inputs.OtherSurfaceDV =
+  { 
+    initialValue: 0, 
+    convert: 0, 
+    func: CONTAM.Units.SpeedConvert, 
+    strings: CONTAM.Units.Strings.Speed,
+    input: document.getElementById("DepositionVelocityOtherInput"),
+    select: document.getElementById("DepositionVelocityFloorCombo"),
+    unitDisplay: document.getElementById("DepositionVelocityOtherUnits")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.OtherSurfaceDV);
 
   Nano.Inputs.OutdoorConcen =
   { 
@@ -714,6 +738,13 @@ Nano.GetInputs2 = function()
     alert("The floor area is not a number.");
     return;
   }
+  var surfaceAreaOther = parseFloat(Nano.Inputs.OtherSurfaceArea.input.baseValue);//
+  if(isNaN(surfaceAreaOther))
+  {
+    alert("The other surface area is not a number.");
+    return;
+  }
+  
   var pFactor = parseFloat(Nano.Inputs.PFactor.value);//
   if(isNaN(pFactor))
   {
@@ -818,6 +849,13 @@ Nano.GetInputs2 = function()
     alert("The ceiling deposition velocity is not a number.");
     return;
   }
+  
+  var depositionVelocityOtherSurface = parseFloat(Nano.Inputs.OtherSurfaceDV.input.baseValue);//
+  if(isNaN(depositionVelocityOtherSurface))
+  {
+    alert("The other surface deposition velocity is not a number.");
+    return;
+  }
  
   var outdoorConcen = parseFloat(Nano.Inputs.OutdoorConcen.input.baseValue);//
   if(isNaN(outdoorConcen))
@@ -861,11 +899,13 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: particledensity});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: outdoorConcen});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dV", variableValue: depositionVelocityCeiling});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: depositionVelocityOtherSurface});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: depositionVelocityWall});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: depositionVelocityFloor});
   variableList.push({variableName: "CONTAM.Project.PathList[1].Fahs", variableValue: supplyRate});
   variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: returnRate});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dA", variableValue: surfaceAreaCeiling});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: surfaceAreaOther});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: surfaceAreaWall});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: surfaceAreaFloor});
   variableList.push({variableName: "CONTAM.Project.PathList[4].pf.pe.ped.eff[0]", variableValue: filterEff});
