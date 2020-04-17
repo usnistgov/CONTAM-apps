@@ -2658,18 +2658,24 @@ CONTAM.Project.zone_read = function()
       pzn.ps = prj.Wsch0.GetByNumber(j);
       pzn.ps.used += 1;
     }
+    else 
+      pzn.ps = null;
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nctrl )
       throw new Error("Invalid control node number, zone " + i.toString());
     else if( j > 0 )
       pzn.pc = prj.CtrlList[j];
+    else 
+      pzn.pc = null;
 
     j = rdr.readIX( 0 );
     if( j<0 || j>prj.nkinr )
       throw new Error("Invalid reaction number, zone " + i.toString());
     else if( j > 0 )
       pzn.pk = prj.Kinr0.GetByNumber(j);
+    else 
+      pzn.pk = null;
 
     j = rdr.readIX( 0 );
     if( j<1 || j>prj.nlev )
