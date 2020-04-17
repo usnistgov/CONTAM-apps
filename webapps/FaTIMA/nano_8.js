@@ -579,6 +579,9 @@ Nano.GetInputs = function()
     throw new Error(error.message);
   }
   console.log("GetInputs");
+  
+  if(!Nano.checkInputValidity())
+    return;
 
   //check if using the constant source
   // otherwise us the burst source
@@ -1375,4 +1378,19 @@ Nano.UpdateDecay = function()
   Nano.Inputs.PDecayRate.input.baseValue = parseFloat(sprintf("%4.5g", newDecayRate));
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.PDecayRate.select);
+}
+
+Nano.checkInputValidity = function()
+{
+  var inputList = document.getElementsByTagName("INPUT");
+  for (const input of inputList) 
+  {
+    if (!input.checkValidity()) 
+    {
+      alert(input.labels[0].textContent + ": " + input.validationMessage);
+      return false;
+    }
+  }
+  return true;
+  
 }
