@@ -428,7 +428,7 @@ Nano.Init = function()
 
 Nano.UpdateEdens = function()
 {
-  Nano.Species.edens = Nano.ParticleDensityInput.baseValue;
+  Nano.Species.edens = Nano.Inputs.PDensity.input.baseValue;
   // after changing the effective density 
   // reconvert the release rate from non-base units to base units
   Nano.ReconvertReleaseRate();
@@ -438,7 +438,7 @@ Nano.UpdateEdens = function()
 
 Nano.UpdateMdiam = function()
 {
-  Nano.Species.mdiam = Nano.ParticleDiameterInput.baseValue;
+  Nano.Species.mdiam = Nano.Inputs.PDiam.input.baseValue;
   // after changing the mean diameter
   // reconvert the release rate from non-base units to base units
   Nano.ReconvertReleaseRate();
