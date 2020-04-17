@@ -6,7 +6,7 @@
     <meta name="description" content="Nano-particle Exposure Tool">
     <meta name="keywords" content="CONTAM, CONTAMW, multizone, multizone modeling, contaminant, 
       indoor air quality, IAQ, ventilation, airflow, modeling">
-    <script type="text/javascript" src="../contam/contam_worker_driver.js"></script>
+    <script type="text/javascript" src="../contam/contam_worker_driver_1.js"></script>
     <script type="text/javascript" src="../contam/unitsConversions.js"></script>
     <script type="text/javascript" src="../contam/unitsSetup.js"></script>
     <script type="text/javascript" src="../contam/unitsStrings.js"></script>
@@ -187,6 +187,10 @@
             <div><label for="ParticleDensityInput">Density</label></div>
             <input type="number" step="any" min="0" id="ParticleDensityInput">
             <select id="ParticleDensityCombo"></select>
+          </div>
+          <div class="unit">
+            <div>Does Particle Decay?</div>
+            <input type="checkbox" name="particleDecay" id="particleDecayCheck" checked> <label for="particleDecayCheck">Particle Decays</label>
           </div>
           <div class="unit">
             <div><label for="ParticleHalflifeInput">Half-life</label></div>

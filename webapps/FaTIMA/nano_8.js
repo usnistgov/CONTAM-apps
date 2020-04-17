@@ -31,7 +31,7 @@ window.onload = function()
       var workerFileURLs = ["../FaTIMA/SrfFileReader_1.js",
         "../FaTIMA/CtrlLogFileReader_2.js",
         "../FaTIMA/contamAddons_3.js"];
-      CWD.Init(new Worker("../contam/contam_worker_4.js"));
+      CWD.Init(new Worker("../contam/contam_worker_5.js"));
       CWD.SetOnMessageFunction(Nano.onWorkerMessage);
       CWD.LoadURLsOnWorker(workerFileURLs).then(
         function(result)
@@ -254,6 +254,9 @@ Nano.Init = function()
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDensity);
   Nano.Inputs.PDensity.input.addEventListener("change", Nano.UpdateEdens); 
   
+  Nano.Inputs.PDecays =  document.getElementById("particleDecayCheck");
+  Nano.Inputs.PDecays.addEventListener("click", Nano.changeDecayEnabled);  
+  
   Nano.Inputs.PHalfLife =
   { 
     initialValue: 3960, 
@@ -426,6 +429,11 @@ Nano.Init = function()
   Nano.Results.totalSurfaceLoading.select.addEventListener("input", Nano.DisplayExposureResults); 
 }
 
+Nano.changeDecayEnabled = function()
+{
+  Nano.Inputs.PHalfLife.input.disabled = !Nano.Inputs.PDecays.checked;
+}
+
 Nano.UpdateEdens = function()
 {
   Nano.Species.edens = Nano.Inputs.PDensity.input.baseValue;
@@ -573,7 +581,9 @@ Nano.GetInputs = function()
 {
   var releaseRate;
   var releaseAmount;
-
+  var arrayOfParameters = [];
+  var variableList = [];
+  
   function errorHandler(error)
   {
     throw new Error(error.message);
@@ -604,30 +614,25 @@ Nano.GetInputs = function()
       }
       console.log("releaseAmount: " + releaseAmount + " kg");
       //set the constant source to breathing schedule
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(2)")
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(2)"});
       //set constant source release rate
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", releaseRate))
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(1).ped.G", variableValue: releaseRate});
       //set the burst source to coughing schedule
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(3)"});
       //set burst source release amount
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", releaseAmount))
-      .then((result) => Nano.GetInputs2())
-      .catch(errorHandler);
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.M", variableValue: releaseAmount});
     }
     else
     {
       console.log("releaseAmount: not used");
       //set the constant source to breathing schedule
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(2)")
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(2)"});
       //set constant source release rate
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", releaseRate))
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(1).ped.G", variableValue: releaseRate});
       //set the burst source to Off schedule 
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(5)"))
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
       //set burst source release amount to zero
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", 0))
-      .then((result) => Nano.GetInputs2())
-      .catch(errorHandler);
-
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.M", variableValue: 0});
     }
   }
   else
@@ -643,32 +648,41 @@ Nano.GetInputs = function()
       }
       console.log("releaseAmount: " + releaseAmount + " kg");
       //set the const source to Off schedule 
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(5)")
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
       //set constant source release rate to zero
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", 0))
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(1).ped.G", variableValue: 0});
       //set the burst source to coughing schedule
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(3)"))
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(3)"});
       //set burst source release amount
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", releaseAmount))
-      .then((result) => Nano.GetInputs2())
-      .catch(errorHandler);
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.M", variableValue: releaseAmount});
     }
     else
     {
       console.log("releaseAmount: not used");
       //set the const source to Off schedule 
-      CWD.SetContamVariableToVariable("CONTAM.Project.CssList[2].ps", "CONTAM.Project.Wsch0.GetByNumber(5)")
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
       //set constant source release rate to zero
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(1).ped.G", 0))
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(1).ped.G", variableValue: 0});
       //set the burst source to Off schedule 
-      .then((result) => CWD.SetContamVariableToVariable("CONTAM.Project.CssList[1].ps", "CONTAM.Project.Wsch0.GetByNumber(5)"))
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
       //set burst source release amount to zero
-      .then((result) => CWD.SetContamVariable("CONTAM.Project.Cse0.GetByNumber(2).ped.M", 0))
-      .then((result) => Nano.GetInputs2())
-      .catch(errorHandler);
+      variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.M", variableValue: 0});
 
     }
   }
+  
+  //set the zone's kinetic reaction
+  if(Nano.Inputs.PDecays.checked)
+    // set it to the first kinetic reaction
+    arrayOfParameters.push({setVariableName: "CONTAM.Project.ZoneList[1].pk", toVariableName: "CONTAM.Project.Kinr0.GetByNumber(1)"});
+  else
+    // set it to no kinetic reaction
+    variableList.push({variableName: "CONTAM.Project.ZoneList[1].pk", variableValue: null});
+  
+  CWD.SetArrayOfContamVariableToVariable(arrayOfParameters)
+  .then((result) => CWD.SetArrayOfContamVariables(variableList))
+  .then((result) => Nano.GetInputs2())
+  .catch(errorHandler);
   
 }
 
