@@ -83,7 +83,11 @@
           </div>
           <div class="unit">
             <div><label for="PenetrationFactorInput">Envelope Penetration Factor</label></div>
-            <input type="number" step="any" min="0" max="1.0 "id="PenetrationFactorInput">
+            <input type="number" step="any" min="0" max="1.0" id="PenetrationFactorInput">
+          </div>
+          <div class="unit">
+            <div><label for="InfiltrationInput">Infitration</label></div>
+            <input type="number" step="any" min="0" id="InfiltrationInput"> 1 / h
           </div>
         </div>
 
@@ -195,11 +199,11 @@
           </div>
           <div class="unit">
             <div>Does Particle Decay?</div>
-            <input type="checkbox" name="particleDecay" id="particleDecayCheck" checked> <label for="particleDecayCheck">Particle Decays</label>
+            <input type="checkbox" name="particleDecay" id="particleDecayCheck"> <label for="particleDecayCheck">Particle Decays</label>
           </div>
           <div class="unit">
             <div><label for="ParticleHalflifeInput">Half-life</label></div>
-            <input type="number" step="any" min="0" id="ParticleHalflifeInput">
+            <input type="number" step="any" min="0" id="ParticleHalflifeInput" disabled>
             <select id="ParticleHalflifeCombo"></select>
           </div>
           <div class="unit">
@@ -221,9 +225,9 @@
           <div class="unit">
             <div>Burst Type</div>
             <input type="radio" name="sourceType" id="singleBurstRadio" value="burst"
-                   style="margin-left: 15px;" checked> <label for="singleBurstRadio">Single</label>
+                   style="margin-left: 15px;"> <label for="singleBurstRadio">Single</label>
             <input type="radio" name="sourceType" id="repeatBurstRadio" value="repeatBurst"
-                   style="margin-left: 15px;"> <label for="repeatBurstRadio">Intermittent</label>
+                   style="margin-left: 15px;" checked> <label for="repeatBurstRadio">Intermittent</label>
           </div>
           <div class="unit">
             <div><label for="ReleaseAmountInput">Burst Amount</label></div>
@@ -245,7 +249,7 @@
           </div>
           <div class="unit">
             <div><label for="RepeatSourceInput">Burst Repeat Interval</label></div>
-            <input disabled type="number" step="1" min="2" id="RepeatSourceInput"> mins
+            <input type="number" step="1" min="2" id="RepeatSourceInput"> mins
           </div>
         </div>
 

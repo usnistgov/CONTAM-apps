@@ -143,6 +143,10 @@ Nano.Init = function()
   Nano.Inputs.PFactor = document.getElementById("PenetrationFactorInput");
   Nano.Inputs.PFactor.value = 1;
   
+  Nano.Inputs.Infiltration = document.getElementById("InfiltrationInput");
+  Nano.Inputs.Infiltration.value = 0.5;
+  Nano.Inputs.Infiltration.addEventListener("change", Nano.computeSystem); 
+  
   // SupplyRate = 0.24417 kg/s = 730.001 m3/h * 1.2041 kg/m3 / 3600 s/h
   Nano.Inputs.SupplyRate =
   { 
@@ -578,6 +582,9 @@ Nano.computeSystem = function()
   }
   var ach = (Qoa-(Math.min(0,Qim))) / (CONTAM.Units.rho20 * volume);
   
+  // add the infiltration to the air change rate
+  ach += Nano.Inputs.Infiltration.valueAsNumber / 3600;
+  
   //use sprintf to avoid long numbers and parse back to a number
   Nano.Inputs.Ach.input.baseValue = parseFloat(sprintf("%4.5g", ach));
   // this will make the inputs display the new baseValues in the proper units
@@ -924,6 +931,9 @@ Nano.GetInputs2 = function()
   
   //compute the leakage multiplier for envelope
   var envelopeLeakageMultiplier = 4 * buildingVolume / Math.sqrt(surfaceAreaFloor);
+  
+  // compute the volume flow for the infiltration fan - m^3/s
+  var infiltrationVolFlow =  Nano.Inputs.Infiltration.valueAsNumber * buildingVolume / 3600;
 
   // create an array of variables to set in the project
   // so that they can be sent to the CONTAM worker
@@ -952,6 +962,7 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.PathList[4].mult", variableValue: envelopeLeakageMultiplier});
   variableList.push({variableName: "CONTAM.Project.Dfe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.AirCleanerFlowRate.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Flte0.GetByNumber(1).ped.eff[0]", variableValue: Nano.Inputs.AirCleanerEff.valueAsNumber});
+  variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(1).ped.Flow", variableValue: infiltrationVolFlow});
   
   function errorHandler(error)
   {
