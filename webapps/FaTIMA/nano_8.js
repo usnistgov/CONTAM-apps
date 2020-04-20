@@ -429,6 +429,9 @@ Nano.Init = function()
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.AirCleanerFlowRate);
   Nano.Inputs.AirCleanerFlowRate.input.addEventListener("change", Nano.ComputeAirCleanerCADR); 
 
+  Nano.Inputs.AirCleanerFlowFrac =  document.getElementById("AirCleanerFlowFractionInput");
+  Nano.Inputs.AirCleanerFlowFrac.value =  0.0;
+
   Nano.Inputs.AirCleanerEff =  document.getElementById("AirCleanerEffInput");
   Nano.Inputs.AirCleanerEff.value =  0.8;
   Nano.Inputs.AirCleanerEff.addEventListener("change", Nano.ComputeAirCleanerCADR);  
@@ -865,6 +868,12 @@ Nano.GetInputs2 = function()
     alert("The end source time is not a valid time.");
     return;
   }
+  if(EndSourceTime < StartSourceTime)
+  {
+    alert("The end source time cannot be before the start time.");
+    return;
+  }
+    
   var RepeatInterval = Math.floor(Nano.Inputs.RepeatInterval.value);
   if(RepeatInterval < 2)
   {
@@ -927,6 +936,11 @@ Nano.GetInputs2 = function()
     alert("The end exposure time is not a valid time.");
     return;
   }
+  if(Nano.EndExposureTime < Nano.StartExposureTime)
+  {
+    alert("The end exposure time cannot be before the start time.");
+    return;
+  }
   Nano.ExposureDuration = Nano.EndExposureTime - Nano.StartExposureTime;
   
   //compute the leakage multiplier for envelope
@@ -963,6 +977,8 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Dfe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.AirCleanerFlowRate.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Flte0.GetByNumber(1).ped.eff[0]", variableValue: Nano.Inputs.AirCleanerEff.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(1).ped.Flow", variableValue: infiltrationVolFlow});
+  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(1).ctrl[0]", variableValue: Nano.Inputs.AirCleanerFlowFrac.valueAsNumber});
+  
   
   function errorHandler(error)
   {
