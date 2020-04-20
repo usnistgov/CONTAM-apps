@@ -110,7 +110,7 @@ CONTAM.SetDaySchedule = function(scheduleNumber, startTime, endTime, useInterval
       time.push(currentTime + timestep);
       ctrl.push(0);
       currentTime += interval;
-      if(currentTime != endTime)
+      if(currentTime < endTime)
       {
         time.push(currentTime);
         ctrl.push(1);
