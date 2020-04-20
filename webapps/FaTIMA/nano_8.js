@@ -583,11 +583,9 @@ Nano.computeSystem = function()
   {
     balance = "Balanced";
   }
-  var ach = (Qoa-(Math.min(0,Qim))) / (CONTAM.Units.rho20 * volume);
-  
-  // add the infiltration to the air change rate
-  ach += Nano.Inputs.Infiltration.valueAsNumber / 3600;
-  
+  var Qinf = Nano.Inputs.Infiltration.valueAsNumber / 3600;
+  var ach = (Qinf + Qoa-(Math.min(0,supplyRate + Qinf - returnRate))) / volume;
+
   //use sprintf to avoid long numbers and parse back to a number
   Nano.Inputs.Ach.input.baseValue = parseFloat(sprintf("%4.5g", ach));
   // this will make the inputs display the new baseValues in the proper units
