@@ -85,6 +85,11 @@
             <div><label for="PenetrationFactorInput">Envelope Penetration Factor</label></div>
             <input type="number" step="any" min="0" max="1.0" id="PenetrationFactorInput">
           </div>
+        </div>
+
+        <!---infiltration -->
+        <div class="sectiongrid">
+          <div class="unithead">Infiltration</div>
           <div class="unit">
             <div><label for="InfiltrationInput">Infitration</label></div>
             <input type="number" step="any" min="0" id="InfiltrationInput"> 1 / h
@@ -108,36 +113,6 @@
               <div><label for="POAInput">Percent Outdoor Air</label></div>
               <input type="number" step="any" min="0" max="100" id="POAInput"> %
             </div>
-          <div class="unit">
-            <div><label for="AchCalc">Air Change Rate</label></div>
-            <input type="number" step="any" min="0" disabled id="AchCalc">
-            <select id="AchCombo"></select>
-          </div>
-
-          <div class="unit">
-            <div><label for="QoaCalc">Outdoor Airflow Rate</label></div>
-            <input type="number" step="any" min="0" disabled id="QoaCalc">
-            <span id="QoaCalcUnits"></span>
-          </div>
-          <div class="unit">
-            <div><label for="QrecCalc">Recirculation Airflow Rate</label></div>
-            <input type="number" step="any" min="0" disabled id="QrecCalc">
-            <span id="QrecCalcUnits"></span>
-          </div>
-          <div class="unit">
-            <div><label for="QexhCalc">Exhaust Airflow Rate</label></div>
-            <input type="number" step="any" min="0" disabled id="QexhCalc">
-            <span id="QexhCalcUnits"></span>
-          </div>
-          <div class="unit">
-            <div><label for="QimbalCalc">Airflow Imbalance</label></div>
-            <input type="number" step="any" disabled id="QimbalCalc">
-            <span id="QimbalCalcUnits"></span>
-          </div>
-          <div class="unit">
-            <div><label for="ZoneBalance">Zone Air Balance</label></div>
-            <input type="text" disabled id="ZoneBalance">
-          </div>
 
           <!-- Filters -->
           <div class="unit">
@@ -177,6 +152,41 @@
               <option>MERV 15</option>
               <option>MERV 16</option>
             </select>
+          </div>
+        </div>
+
+        <!--- Calculated Flows -->
+        <div class="sectiongrid">
+          <div class="unithead">Calculated Airflows</div>
+          <div class="unit">
+            <div><label for="QimbalCalc">Airflow Imbalance</label></div>
+            <input type="number" step="any" disabled id="QimbalCalc">
+            <span id="QimbalCalcUnits"></span>
+          </div>
+          <div class="unit">
+            <div><label for="ZoneBalance">Zone Air Balance</label></div>
+            <input type="text" disabled id="ZoneBalance">
+          </div>
+          <div class="unit">
+            <div><label for="AchCalc">Air Change Rate</label></div>
+            <input type="number" step="any" min="0" disabled id="AchCalc">
+            <select id="AchCombo"></select>
+          </div>
+
+          <div class="unit">
+            <div><label for="QoaCalc">Outdoor Airflow Rate</label></div>
+            <input type="number" step="any" min="0" disabled id="QoaCalc">
+            <span id="QoaCalcUnits"></span>
+          </div>
+          <div class="unit">
+            <div><label for="QrecCalc">Recirculation Airflow Rate</label></div>
+            <input type="number" step="any" min="0" disabled id="QrecCalc">
+            <span id="QrecCalcUnits"></span>
+          </div>
+          <div class="unit">
+            <div><label for="QexhCalc">Exhaust Airflow Rate</label></div>
+            <input type="number" step="any" min="0" disabled id="QexhCalc">
+            <span id="QexhCalcUnits"></span>
           </div>
         </div>
 
