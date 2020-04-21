@@ -519,15 +519,15 @@ zero efficiency place holder
 3 p1 dvr DvrCeiling
 Set Vdep as per input and Adep to that of Aceiling.
  0 0 0 0 0 0 0 0
-4 p1 dvr DvrOther
-
- 0 0 1 0 0 0 0 0
-5 p1 dvr DvrWalls
-Set Vdep as per input and Adep to that of Awall.
- 0 0 0 0 0 0 0 0
-6 p1 dvr Dvrfloor
+4 p1 dvr DvrFloor
 
  6.944e-005 0 40 0.028 0 0 0 0
+5 p1 dvr DvrOther
+
+ 0 0 1 0 0 0 0 0
+6 p1 dvr DvrWalls
+Set Vdep as per input and Adep to that of Awall.
+ 0 0 0 0 0 0 0 0
 -999
 2 ! flow elements:
 1 28 fan_cvf FanInfiltration
@@ -615,10 +615,10 @@ Report integrated exposure [kg-s/kg]
 ! #  z#  e#  s#  c#  mult   CC0  (X, Y, H)min  (X, Y, H)max u[1] cdvf <cdvf name> cfd <cfd name>
   1   1   2   3   0     1     0  0 0 0  0 0 0  0 0 0
   2   1   1   2   0     1     0  0 0 0  0 0 0  0 0 0
-  3   1   6   7   0     1     0  0 0 0  0 0 0  0 0 0
-  4   1   5   9   0     0     0  0 0 0  0 0 0  0 0 0
+  3   1   4   7   0     1     0  0 0 0  0 0 0  0 0 0
+  4   1   6   9   0     0     0  0 0 0  0 0 0  0 0 0
   5   1   3   6   0     0     0  0 0 0  0 0 0  0 0 0
-  6   1   4   8   0     0     0  0 0 0  0 0 0  0 0 0
+  6   1   5   8   0     0     0  0 0 0  0 0 0  0 0 0
 -999
 1 ! occupancy schedules:
 1 3 0 Occupant
