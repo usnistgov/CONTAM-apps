@@ -432,6 +432,7 @@ Nano.Init = function()
 
   Nano.Inputs.AirCleanerFlowFrac =  document.getElementById("AirCleanerFlowFractionInput");
   Nano.Inputs.AirCleanerFlowFrac.value =  0.0;
+  Nano.Inputs.AirCleanerFlowFrac.addEventListener("change", Nano.ComputeAirCleanerCADR);  
 
   Nano.Inputs.AirCleanerEff =  document.getElementById("AirCleanerEffInput");
   Nano.Inputs.AirCleanerEff.value =  0.8;
@@ -701,7 +702,7 @@ Nano.Init = function()
 
 Nano.ComputeAirCleanerCADR = function()
 {
-  Nano.Inputs.AirCleanerCADR.input.baseValue = Nano.Inputs.AirCleanerFlowRate.input.baseValue * Nano.Inputs.AirCleanerEff.valueAsNumber;
+  Nano.Inputs.AirCleanerCADR.input.baseValue = Nano.Inputs.AirCleanerFlowRate.input.baseValue * Nano.Inputs.AirCleanerFlowFrac.valueAsNumber * Nano.Inputs.AirCleanerEff.valueAsNumber;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.AirCleanerCADR.select);
 }
