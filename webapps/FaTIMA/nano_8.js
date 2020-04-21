@@ -30,7 +30,8 @@ window.onload = function()
       //these paths are relative to the worker's path
       var workerFileURLs = ["../FaTIMA/SrfFileReader_1.js",
         "../FaTIMA/CtrlLogFileReader_2.js",
-        "../FaTIMA/contamAddons_3.js"];
+        "../FaTIMA/contamAddons_3.js",
+        "../FaTIMA/CsmFileReader.js"];
       CWD.Init(new Worker("../contam/contam_worker_5.js"));
       CWD.SetOnMessageFunction(Nano.onWorkerMessage);
       CWD.LoadURLsOnWorker(workerFileURLs).then(
@@ -487,6 +488,215 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalSurfaceLoading);
   Nano.Results.totalSurfaceLoading.select.addEventListener("input", Nano.DisplayExposureResults); 
+
+  Nano.Results.floorSurfaceLoading =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.ConcnSurfConvert, 
+    strings: CONTAM.Units.Strings.Concentration_Surf,
+    input: document.getElementById("floorLoadingResult"),
+    select: document.getElementById("totalLoadingResultCombo"),
+    unitDisplay: document.getElementById("floorLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.floorSurfaceLoading);
+
+  Nano.Results.wallSurfaceLoading =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.ConcnSurfConvert, 
+    strings: CONTAM.Units.Strings.Concentration_Surf,
+    input: document.getElementById("wallLoadingResult"),
+    select: document.getElementById("totalLoadingResultCombo"),
+    unitDisplay: document.getElementById("wallLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.wallSurfaceLoading);
+
+  Nano.Results.ceilingSurfaceLoading =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.ConcnSurfConvert, 
+    strings: CONTAM.Units.Strings.Concentration_Surf,
+    input: document.getElementById("ceilingLoadingResult"),
+    select: document.getElementById("totalLoadingResultCombo"),
+    unitDisplay: document.getElementById("ceilingLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.ceilingSurfaceLoading);
+
+  Nano.Results.otherSurfaceLoading =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.ConcnSurfConvert, 
+    strings: CONTAM.Units.Strings.Concentration_Surf,
+    input: document.getElementById("otherLoadingResult"),
+    select: document.getElementById("totalLoadingResultCombo"),
+    unitDisplay: document.getElementById("otherLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.otherSurfaceLoading);
+
+  // emmission results
+  Nano.Results.totalEmmission =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("totalEmmissionResult"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalEmmission);
+
+  Nano.Results.continuousEmmission =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("continuousEmmissionResult"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("continuousEmmissionResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.continuousEmmission);
+
+  Nano.Results.burstEmmission =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("burstEmmissionResult"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("burstEmmissionResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.burstEmmission);
+  
+  // filter loading results
+  Nano.Results.totalFilterLoading =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("totalFilterLoadingResult"),
+    select: document.getElementById("totalFilterLoadingResultCombo"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalFilterLoading);
+
+  Nano.Results.oaFilterLoading =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("oaFilterLoadingResult"),
+    select: document.getElementById("totalFilterLoadingResultCombo"),
+    unitDisplay: document.getElementById("oaFilterLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.oaFilterLoading);
+
+  Nano.Results.recFilterLoading =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("recFilterLoadingResult"),
+    select: document.getElementById("totalFilterLoadingResultCombo"),
+    unitDisplay: document.getElementById("recFilterLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.recFilterLoading);
+
+  Nano.Results.acFilterLoading =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("acFilterLoadingResult"),
+    select: document.getElementById("totalFilterLoadingResultCombo"),
+    unitDisplay: document.getElementById("acFilterLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.acFilterLoading);
+
+  // surface mass deposited
+  Nano.Results.totalMassDeposited =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("totalMassDepResult"),
+    select: document.getElementById("totalMassDepResultCombo"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalMassDeposited);
+
+  Nano.Results.floorMassDeposited =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("floorMassDepResult"),
+    select: document.getElementById("totalMassDepResultCombo"),
+    unitDisplay: document.getElementById("floorMassDepResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.floorMassDeposited);
+
+  Nano.Results.wallMassDeposited =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("wallMassDepResult"),
+    select: document.getElementById("totalMassDepResultCombo"),
+    unitDisplay: document.getElementById("wallMassDepResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.wallMassDeposited);
+
+  Nano.Results.ceilingMassDeposited =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("ceilingMassDepResult"),
+    select: document.getElementById("totalMassDepResultCombo"),
+    unitDisplay: document.getElementById("ceilingMassDepResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.ceilingMassDeposited);
+
+  Nano.Results.otherMassDeposited =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("otherMassDepResult"),
+    select: document.getElementById("totalMassDepResultCombo"),
+    unitDisplay: document.getElementById("otherMassDepResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.otherMassDeposited);
+
 }
 
 Nano.ComputeAirCleanerCADR = function()
@@ -1097,6 +1307,71 @@ Nano.ConvertChartTime = function(chart_time)
   
 }
 
+Nano.putResultsInGUI = function()
+{
+    
+  // surface loading
+  // floor
+  Nano.Results.floorSurfaceLoading.input.baseValue = Nano.Results.floorLoading;
+  
+  // wall
+  Nano.Results.wallSurfaceLoading.input.baseValue = Nano.Results.wallLoading;
+  
+  // ceiling
+  Nano.Results.ceilingSurfaceLoading.input.baseValue = Nano.Results.ceilingLoading;
+  
+  // other
+  Nano.Results.otherSurfaceLoading.input.baseValue = Nano.Results.otherLoading;
+  
+  //total
+  Nano.Results.totalSurfaceLoading.input.baseValue = Nano.Results.surfaceTotalLoading;
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalSurfaceLoading.select);
+    
+  // emssion results
+  // burst
+  Nano.Results.burstEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded;
+
+  // continuous
+  Nano.Results.continuousEmmission.input.baseValue = Nano.Results.csmResults.continuousMassAdded;
+
+  // total
+  Nano.Results.totalEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded;
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalEmmission.select);
+  
+  //filter loading results
+  // oa
+  Nano.Results.oaFilterLoading.input.baseValue = Nano.Results.csmResults.oaFiltMassSto;
+  
+  // rec
+  Nano.Results.recFilterLoading.input.baseValue = Nano.Results.csmResults.recFiltMassSto;
+  
+  // ac
+  Nano.Results.acFilterLoading.input.baseValue = Nano.Results.csmResults.acFiltMassSto;
+  
+  //total
+  Nano.Results.totalFilterLoading.input.baseValue = Nano.Results.csmResults.oaFiltMassSto + Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.acFiltMassSto;
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalFilterLoading.select);
+  
+  //surface mass deposited
+  // floor
+  Nano.Results.floorMassDeposited.input.baseValue = Nano.Results.csmResults.floorMassStored;
+  
+  // wall
+  Nano.Results.wallMassDeposited.input.baseValue = Nano.Results.csmResults.wallsMassStored;
+  
+  // ceiling
+  Nano.Results.ceilingMassDeposited.input.baseValue = Nano.Results.csmResults.ceilingMassStored;
+  
+  // other
+  Nano.Results.otherMassDeposited.input.baseValue = Nano.Results.csmResults.otherMassStored;
+  
+  //total
+  Nano.Results.totalMassDeposited.input.baseValue = 
+    Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
+    Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalMassDeposited.select);
+}
+
 Nano.DisplayExposureResults = function()
 {
   var maxExpos = 0;
@@ -1111,9 +1386,6 @@ Nano.DisplayExposureResults = function()
   // concentration
   Nano.Results.IntegratedExposure.input.baseValue = Nano.integralResult;
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.IntegratedExposure.select);
-  // surface loading
-  Nano.Results.totalSurfaceLoading.input.baseValue = Nano.Results.surfaceTotalLoading;
-  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalSurfaceLoading.select);
   
   // load the other concentration result display boxes
 
@@ -1151,33 +1423,7 @@ Nano.DisplayExposureResults = function()
     parseFloat(sprintf("%4.5g", maxConcenUnits));
   document.getElementById("maximumConcunits").innerHTML = 
     CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex];
-    
-  //load the other surface loading result boxes
   
-  //floor loading (in user picked units)
-  var floorLoadingUserUnits = CONTAM.Units.ConcnSurfConvert(
-    Nano.Results.floorLoading, Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
-  document.getElementById("floorLoadingResult").value = 
-    parseFloat(sprintf("%4.5g", floorLoadingUserUnits));
-  document.getElementById("floorLoadingResultUnits").innerHTML = 
-    CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex];
-
-  //wall loading (in user picked units)
-  var wallLoadingUserUnits = CONTAM.Units.ConcnSurfConvert(
-    Nano.Results.wallLoading, Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
-  document.getElementById("wallLoadingResult").value = 
-    parseFloat(sprintf("%4.5g", wallLoadingUserUnits));
-  document.getElementById("wallLoadingResultUnits").innerHTML = 
-    CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex];
-
-  //ceiling loading (in user picked units)
-  var ceilingLoadingUserUnits = CONTAM.Units.ConcnSurfConvert(
-    Nano.Results.ceilingLoading, Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
-  document.getElementById("ceilingLoadingResult").value = 
-    parseFloat(sprintf("%4.5g", ceilingLoadingUserUnits));
-  document.getElementById("ceilingLoadingResultUnits").innerHTML = 
-    CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex];
-
   //plot results
   Nano.concenDataUserUnits = [];
   Nano.exposureDataUserUnits = [];
@@ -1280,7 +1526,7 @@ Nano.onCXWorkerMessage = function(oEvent)
     
     //store result files data
     Nano.saveFilesData = data.saveFilesData;
-    var logFileIndex, srfFileIndex;
+    var logFileIndex, srfFileIndex, csmFileIndex;
     
     //find which result files are the controls log file and the surface file
     for (i = 0; i < Nano.saveFilesData.length; i++) 
@@ -1294,6 +1540,10 @@ Nano.onCXWorkerMessage = function(oEvent)
       if(ext == ".srf")
       {
         srfFileIndex = i;
+      }      
+      if(ext == ".csm")
+      {
+        csmFileIndex = i;
       }      
     }
     console.log("read log file");
@@ -1318,8 +1568,21 @@ Nano.onCXWorkerMessage = function(oEvent)
             Nano.Results.floorLoading = result.records[result.records.length - 1][2];
             Nano.Results.wallLoading = result.records[result.records.length - 1][3];
             Nano.Results.ceilingLoading = result.records[result.records.length - 1][4];
-            Nano.DisplayExposureResults();
-            //Nano.drawChart();
+            Nano.Results.otherLoading = result.records[result.records.length - 1][5];
+            
+            CWD.CallContamFunction("CONTAM.CsmFileReader.ReadCSMFile", 
+              [Nano.saveFilesData[csmFileIndex].contents]).then(
+              function(result)
+              {            
+                Nano.Results.csmResults = result;
+                Nano.putResultsInGUI();
+                Nano.DisplayExposureResults();
+              },
+              function(error)
+              {
+                alert(error.message);
+              }  
+            );
           },
           function(error)
           {
