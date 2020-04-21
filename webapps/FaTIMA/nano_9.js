@@ -767,19 +767,24 @@ Nano.computeSystem = function()
   // convert the percent OA to the fraction of OA
   var fOA = parseFloat(Nano.Inputs.PercentOA.value) / 100;
   // supply rate in kg/s
-  var supplyRate = Nano.Inputs.SupplyRate.input.baseValue;
+  var Qsup = Nano.Inputs.SupplyRate.input.baseValue;
   // return rate in kg/s
-  var returnRate = Nano.Inputs.ReturnRate.input.baseValue;
+  var Qret = Nano.Inputs.ReturnRate.input.baseValue;
   // volume in m^3
   var volume = Nano.Inputs.Volume.input.baseValue;
   // for now assume QoaMin is 0
   var QoaMin = 0;
   
-  var QoaPrim = Math.max(fOA*supplyRate, Math.min(supplyRate, QoaMin));
-  var Qrec = Math.min(returnRate, supplyRate - QoaPrim);
-  var Qoa = supplyRate - Qrec;
-  var Qexh = returnRate - Qrec;
-  var Qim = supplyRate - returnRate;
+  //convert from 1/h to 1/s
+  var ACHinf = Nano.Inputs.Infiltration.valueAsNumber / 3600; // 1/s
+  // convert from 1/s to kg/s
+  var Qinf = volume * ACHinf * CONTAM.Units.rho20; // kg/s
+  
+  var QoaPrim = Math.max(fOA*Qsup, Math.min(Qsup, QoaMin));
+  var Qrec = Math.min(Qret, Qsup - QoaPrim);
+  var Qoa = Qsup - Qrec;
+  var Qexh = Qret - Qrec;
+  var Qim = Qsup + Qinf - Qret;
   var balance = "";
   if(Qim > 0)
   {
@@ -793,13 +798,23 @@ Nano.computeSystem = function()
   {
     balance = "Balanced";
   }
-  var Qinf = Nano.Inputs.Infiltration.valueAsNumber / 3600;
-  var ach = (Qinf + Qoa-(Math.min(0,supplyRate + Qinf - returnRate))) / volume;
-
+  var ach = (Qoa-(Math.min(0,Qim))) / (CONTAM.Units.rho20 * volume);
   //use sprintf to avoid long numbers and parse back to a number
   Nano.Inputs.Ach.input.baseValue = parseFloat(sprintf("%4.5g", ach));
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.Ach.select);  
+  
+  console.log("Qsup: " + Qsup);
+  console.log("Qret: " + Qret);
+  console.log("volume: " + volume);
+  console.log("QoaMin: " + QoaMin);
+  console.log("Qinf: " + Qinf);
+  console.log("QoaPrim: " + QoaPrim);
+  console.log("Qrec: " + Qrec);
+  console.log("Qoa: " + Qoa);
+  console.log("Qexh: " + Qexh);
+  console.log("Qim: " + Qim);
+  console.log("ach: " + ach);
   
   Nano.Inputs.Qoa.input.baseValue = parseFloat(sprintf("%4.5g", Qoa));
   Nano.Inputs.Qrec.input.baseValue = parseFloat(sprintf("%4.5g", Qrec));
