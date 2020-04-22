@@ -342,7 +342,7 @@
 
       <!-- RUN SIMULATION -->
       <div class="section">
-        <input type="button" value="RUN SIMULATION" style="margin: 10px;"
+        <input type="button" value="RUN SIMULATION" style="margin: 10px;background: #008817; color:white; border:none; padding:8px; font-weight:bold;"
                onclick="Nano.GetInputs();">
         <span id="simStatusSpan"></span>
         <span id="downloadLinksSpan"></span>
@@ -483,11 +483,10 @@
 
       </div>
       <h4>Transient Air and Surface Concentrations</h4>
-      <div class="section" style="padding:1ex;">
-        <!--Div that will hold the pie chart-->
-        <div id="air_concen_chart" style="min-width: 150px; min-height: 300px; max-width: 600px; max-height: 600px" style="display:inline-block;"></div>
-        <div id="expos_chart" style="min-width: 150px; min-height: 300px; max-width: 600px; max-height: 600px" style="display:inline-block;"></div>
-        <div id="surf_concen_chart" style="min-width: 150px; min-height: 300px; max-width: 600px; max-height: 600px" style="display:inline-block;"></div>
+      <div class="section" style="padding:1ex; overflow:auto;">
+          <div id="air_concen_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
+          <div id="expos_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
+          <div id="surf_concen_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
       </div>
     </article>
     <footer>

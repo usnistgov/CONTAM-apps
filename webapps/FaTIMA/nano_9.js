@@ -1467,8 +1467,8 @@ Nano.DisplayExposureResults = function()
     var seconds = Nano.ConvertChartTime(chart_time);
     exposureRecord.push(chart_time);
     // add the concen
-    var basevalue = Nano.exposureDataLogUnits[i][1];
-    var uservalue = CONTAM.Units.Concen_P_Convert(
+    basevalue = Nano.exposureDataLogUnits[i][1];
+    uservalue = CONTAM.Units.Concen_P_Convert(
       basevalue, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
     exposureRecord.push(uservalue);
     // add the average only inside of the exposure period
@@ -1482,6 +1482,12 @@ Nano.DisplayExposureResults = function()
     {
       exposureRecord.push(0);
     }
+    //integrated expos
+    basevalue = Nano.exposureDataLogUnits[i][2];
+    uservalue = CONTAM.Units.Concen_P_Convert(
+      basevalue, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
+    exposureRecord.push(uservalue);
+    
     // add the record to the array of records
     Nano.exposureDataUserUnits.push(exposureRecord);
 
@@ -1645,42 +1651,51 @@ Nano.drawChart = function()
 
   var air_data_table = new google.visualization.DataTable();
   air_data_table.addColumn('timeofday', 'Time of Day');
-  air_data_table.addColumn('number', 'Concentration ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]));
-  air_data_table.addColumn('number', 'Average Concentration ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]));
+  air_data_table.addColumn('number', 'Zone Concentration');
+  air_data_table.addColumn('number', 'Average Zone Concentration');
   if(air_data)
     air_data_table.addRows(air_data);
+  var concenYAxisTitle = 'Air Concentration (' + 
+    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
 
   var surf_data_table = new google.visualization.DataTable();
   surf_data_table.addColumn('timeofday', 'Time of Day');
-  surf_data_table.addColumn('number', 'Total ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
-  surf_data_table.addColumn('number', 'Floor ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
-  surf_data_table.addColumn('number', 'Wall ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
-  surf_data_table.addColumn('number', 'Ceiling ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
-  surf_data_table.addColumn('number', 'Other ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]));
+  surf_data_table.addColumn('number', 'Total');
+  surf_data_table.addColumn('number', 'Floor');
+  surf_data_table.addColumn('number', 'Wall');
+  surf_data_table.addColumn('number', 'Ceiling');
+  surf_data_table.addColumn('number', 'Other');
   if(surf_data)
     surf_data_table.addRows(surf_data);
+  var surfYAxisTitle = 'Surface Loading (' + 
+    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]) + ')'; 
+  
+  // these display the units for integrated concentration 
+  var resultUnits = ["kg s/kg", "kg s/m&sup3;", "lb s/lb", "lb s/ft&sup3;", "g s/kg", 
+  "g s/m&sup3;", "g s/lb", "g s/ft&sup3;", "mg s/kg", "mg s/m&sup3;", "mg s/lb", 
+  "mg s/ft&sup3;", "&micro;g s/kg", "&micro;g s/m&sup3;", "&micro;g s/lb", 
+  "&micro;g s/ft&sup3;", "ng s/kg", "ng s/m&sup3;", "ng s/lb", "ng s/ft&sup3;", 
+  "# s/kg", "# s/m&sup3;", "# s/lb", "# s/ft&sup3;", "# s/L", "# s/cm&sup3;"];
 
   var expos_data_table = new google.visualization.DataTable();
   expos_data_table.addColumn('timeofday', 'Time of Day');
-  expos_data_table.addColumn('number', 'Exposure ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]));
-  expos_data_table.addColumn('number', 'Average Exposure ' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]));
+  expos_data_table.addColumn('number', 'Exposure');
+  expos_data_table.addColumn('number', 'Average Exposure');
+  expos_data_table.addColumn('number', 'Integrated Exposure');
   if(expos_data)
     expos_data_table.addRows(expos_data);
+  var exposureYAxisTitle1 = 'Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
+  var exposureYAxisTitle2 = 'Integrated Occupant Exposure (' + Nano.decodeHtml(resultUnits[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
 
   var air_options = {
     backgroundColor: '#F4F5F9',
     chartArea: {'width': '80%', 'height': '80%'},
     title: 'Air Concentration',
     vAxis: { format:'scientific'},
+    vAxes: {
+      // Adds titles to each axis.
+      0: {title: concenYAxisTitle},
+    },
     series: {
       1: { lineDashStyle: [2, 2] }
     },
@@ -1692,12 +1707,15 @@ Nano.drawChart = function()
     chartArea: {'width': '80%', 'height': '80%'},
     title: 'Surface Loading',
     vAxis: { format:'scientific'},
+    vAxes: {
+      // Adds titles to each axis.
+      0: {title: surfYAxisTitle},
+    },
     series: {
-      1: { lineDashStyle: [1, 2] },
-      2: { lineDashStyle: [2, 2] },
-      3: { lineDashStyle: [3, 2] },
-      4: { lineDashStyle: [3, 1] },
-      5: { lineDashStyle: [4, 1] }
+      1: { lineDashStyle: [2, 2] },
+      2: { lineDashStyle: [3, 2] },
+      3: { lineDashStyle: [3, 1] },
+      4: { lineDashStyle: [4, 3] }
     },
     legend: { position: 'bottom' }
   };
@@ -1707,8 +1725,15 @@ Nano.drawChart = function()
     chartArea: {'width': '80%', 'height': '80%'},
     title: 'Occupant Exposure',
     vAxis: { format:'scientific'},
+    vAxes: {
+      // Adds titles to each axis.
+      0: {title: exposureYAxisTitle1},
+      1: {title: exposureYAxisTitle2}
+    },
     series: {
-      1: { lineDashStyle: [2, 2] }
+      0: { lineDashStyle: [1, 0], targetAxisIndex: 0 },
+      1: { lineDashStyle: [2, 2], targetAxisIndex: 0 },
+      2: { lineDashStyle: [3, 2], targetAxisIndex: 1 }
     },
     legend: { position: 'bottom' }
   };
