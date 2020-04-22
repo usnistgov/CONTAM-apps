@@ -84,7 +84,7 @@ CONTAM.SetOccDaySchedule = function(startTime, endTime)
 
 //edit the day schedule with the given number based on the times given
 //the times are assumed to be already checked for correctness
-CONTAM.SetDaySchedule = function(scheduleNumber, startTime, endTime, useInterval, interval, timestep)
+CONTAM.SetDaySchedule = function(scheduleNumber, startTime, endTime, useInterval, interval, timestep, isBurst)
 {
   var time = [];
   var ctrl = [];
@@ -117,6 +117,14 @@ CONTAM.SetDaySchedule = function(scheduleNumber, startTime, endTime, useInterval
       }
     }
     while(currentTime < endTime)
+  }
+  else
+  {
+    if(isBurst)
+    {
+      time.push(startTime + timestep);
+      ctrl.push(0);
+    }
   }
   if(endTime == 86400)
   {
