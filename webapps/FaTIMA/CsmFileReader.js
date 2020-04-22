@@ -21,6 +21,7 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   var recFiltMassSto = 0;
   var oaFiltMassSto = 0;
   var acFiltMassSto = 0;
+  var ctm_exfil = 0;
 
   rdr.Init(CsmFileText);  
   
@@ -101,6 +102,25 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
     var filtns = rdr.nextword(0);
   }
 
+  rdr.nextword(3); // blank line
+  rdr.nextword(3); // filter breakthrough summary
+  var nfilt_bt = rdr.nextword(1); 
+  rdr.nextword(3); // header line
+  rdr.nextword(3); // header line
+  //nfilt_bt assumed to be zero
+  //for(i=0;i<nfilt_bt;++i)
+  //{
+  //}
+  rdr.nextword(3); // blank line
+  rdr.nextword(3); // interactions with ambient
+  rdr.nextword(3); // header line
+  for(i=0;i<nctm;++i)
+  {
+    var ctm_name = rdr.nextword(0);
+    var ctm_infil = rdr.readR4(0);
+    ctm_exfil = rdr.readR4(0);
+  }
+
   return {
   'burstMassAdded' : burstMassAdded,
   'continuousMassAdded' : continuousMassAdded,
@@ -110,6 +130,7 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   'otherMassStored' : otherMassStored,
   'recFiltMassSto' : recFiltMassSto,
   'oaFiltMassSto' : oaFiltMassSto,
-  'acFiltMassSto' : acFiltMassSto
+  'acFiltMassSto' : acFiltMassSto,
+  'ctm_exfil': ctm_exfil
   };
 }

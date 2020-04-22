@@ -24,6 +24,7 @@ CONTAM.CtrlLogFileReader.ReadLogFile = function(LogFileText)
   var sumConcen = 0;
   var countConcen = 0;
   var averageConcen = 0;
+  var finalConcen = 0;
   
   while(!done)
   {
@@ -48,6 +49,7 @@ CONTAM.CtrlLogFileReader.ReadLogFile = function(LogFileText)
     concdata.push([[parseInt(timeTokens[0]), parseInt(timeTokens[1]), parseInt(timeTokens[2])], concen]);
     exposdata.push([[parseInt(timeTokens[0]), parseInt(timeTokens[1]), parseInt(timeTokens[2])], parseFloat(tokensX[4]), parseFloat(tokensX[5])]);
     integralResult = parseFloat(tokensX[5]);
+    finalConcen = parseFloat(tokensX[3]);
     if(concen > maxConcen)
       maxConcen = concen;
     countConcen++;
@@ -56,5 +58,5 @@ CONTAM.CtrlLogFileReader.ReadLogFile = function(LogFileText)
   averageConcen = sumConcen / countConcen;
 
   return {concendata: concdata, exposuredata: exposdata, integral: integralResult, 
-    maxConcen: maxConcen, averageConcen: averageConcen};
+    maxConcen: maxConcen, averageConcen: averageConcen, finalConcen: finalConcen};
 }

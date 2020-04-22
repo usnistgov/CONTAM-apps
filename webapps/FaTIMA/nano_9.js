@@ -1325,7 +1325,31 @@ Nano.ConvertChartTime = function(chart_time)
 
 Nano.putResultsInGUI = function()
 {
-    
+  
+  // calulate particle fate
+  // get mass emitted
+  var Memit = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded;
+  var Mfilt = Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.oaFiltMassSto + 
+    Nano.Results.csmResults.acFiltMassSto;
+  var Mdep = Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
+    Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
+  var Mexf = Nano.Results.csmResults.ctm_exfil;
+  var Mzone = Nano.Results.ctrlLogResult.finalConcen * CONTAM.Units.rho20 * Nano.Inputs.Volume.input.baseValue;
+  
+  var Mdeact = Memit - (Mfilt + Mdep + Mexf + Mzone);
+  
+  var percentFilt = Mfilt / Memit * 100;
+  var percentExfil = Mexf / Memit * 100;
+  var percentDeac = Mdeact / Memit * 100;
+  var percentDep = Mdep / Memit * 100;
+  var percentInZone = Mzone / Memit * 100;
+  
+  document.getElementById("percentFiltResult").value = sprintf("%3.2f", percentFilt);
+  document.getElementById("percentExfilResult").value = sprintf("%3.2f", percentExfil);
+  document.getElementById("percentDeacResult").value = sprintf("%3.2f", percentDeac);
+  document.getElementById("percentDepResult").value = sprintf("%3.2f", percentDep);
+  document.getElementById("percentZoneResult").value = sprintf("%3.2f", percentInZone);
+  
   // surface loading
   // floor
   Nano.Results.floorSurfaceLoading.input.baseValue = Nano.Results.floorLoading;
@@ -1579,6 +1603,7 @@ Nano.onCXWorkerMessage = function(oEvent)
         Nano.integralResult = result.integral; // # s/m3
         Nano.maxConcen = result.maxConcen; // #/m3
         Nano.averageConcen = result.averageConcen; // #/m3
+        Nano.Results.ctrlLogResult = result;
 
         console.log("read srf file");
         CWD.CallContamFunction("CONTAM.SrfFileReader.ReadSurfaceFile", 
