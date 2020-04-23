@@ -53,32 +53,32 @@
           <div class="unithead">Zone Geometry</div>
           <div class="unit">
             <div><label for="BuildingVolumeInput">Volume</label></div>
-            <input type="number" step="any" min="0.01" id="BuildingVolumeInput">
+            <input type="number" step="0.01" min="0.01" id="BuildingVolumeInput" required>
             <select id="BuildingVolumeCombo"></select>
           </div>
           <div class="unit">
             <div><label for="LevelHeightInput">Level Height</label></div>
-            <input type="number" step="any" min="0.01" id="LevelHeightInput" disabled>
+            <input type="number" step="0.01" min="0.01" id="LevelHeightInput" disabled>
             <select id="LevelHeightCombo"></select>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaFloorInput">Floor Area</label></div>
-            <input type="number" step="any" min="0.01" id="SurfaceAreaFloorInput">
+            <input type="number" step="0.01" min="0.01" id="SurfaceAreaFloorInput" required>
             <select id="SurfaceAreaFloorCombo"></select>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaWallInput">Wall Area</label></div>
-            <input type="number" step="any" min="0" id="SurfaceAreaWallInput"> 
+            <input type="number" step="0.01" min="0" id="SurfaceAreaWallInput" required> 
             <span id="SurfaceAreaWallUnits"></span>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaCeilingInput">Ceiling Area</label></div>
-            <input type="number" step="any" min="0" id="SurfaceAreaCeilingInput"> 
+            <input type="number" step="0.01" min="0" id="SurfaceAreaCeilingInput" required> 
             <span id="SurfaceAreaCeilingUnits"></span>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaOtherInput">Other Surface Area</label></div>
-            <input type="number" step="any" min="0" id="SurfaceAreaOtherInput"> 
+            <input type="number" step="0.01" min="0" id="SurfaceAreaOtherInput" required> 
             <span id="SurfaceAreaOtherUnits"></span>
           </div>
         </div>
@@ -88,11 +88,11 @@
           <div class="unithead">Infiltration</div>
           <div class="unit">
             <div><label for="InfiltrationInput">Infitration</label></div>
-            <input type="number" step="any" min="0" id="InfiltrationInput"> 1 / h
+            <input type="number" step="0.01" min="0" id="InfiltrationInput" required> 1 / h
           </div>
           <div class="unit">
             <div><label for="PenetrationFactorInput">Particle Penetration Coefficient</label></div>
-            <input type="number" step="0.01" min="0" max="1.0" id="PenetrationFactorInput">
+            <input type="number" step="0.01" min="0" max="1.0" id="PenetrationFactorInput" required>
           </div>
         </div>
 
@@ -101,85 +101,78 @@
           <div class="unithead">Ventilation System</div>
             <div class="unit">
               <div><label for="SupplyRateInput">Supply Airflow Rate</label></div>
-              <input type="number" step="any" min="0" id="SupplyRateInput">
+              <input type="number" step="0.01" min="0" id="SupplyRateInput" required>
               <select id="SupplyRateCombo"></select>
             </div>
             <div class="unit">
+              <div><label for="OAIntakeFracInput">Outdoor Air Intake Fraction</label></div>
+              <input type="number" step="0.01" min="0" max="1" id="OAIntakeFracInput" required>
+            </div>
+            <div class="unit">
               <div><label for="ReturnRateInput">Return Airflow Rate</label></div>
-              <input type="number" step="any" min="0" id="ReturnRateInput">
+              <input type="number" step="0.01" min="0" id="ReturnRateInput" required>
               <span id="ReturnRateUnits"></span>
             </div>
             <div class="unit">
               <div><label for="SupplyRateInput">Local Exhaust Airflow Rate</label></div>
-              <input type="number" step="any" min="0" id="ExhaustRateInput">
+              <input type="number" step="0.01" min="0" id="ExhaustRateInput" required>
               <span id="ExhaustRateUnits"></span>
             </div>
-            <div class="unit">
-              <div><label for="POAInput">Percent Outdoor Air</label></div>
-              <input type="number" step="any" min="0" max="100" id="POAInput"> %
-            </div>
-
-          <!-- Filters -->
-          <div class="unit">
-            <div><label for="OAFilterSelect">Outdoor Air Filter</label></div>
-            <select id="OAFilterSelect">
-              <option>None</option>
-              <option>MERV 4</option>
-              <option>MERV 5</option>
-              <option>MERV 6</option>
-              <option>MERV 7</option>
-              <option>MERV 8</option>
-              <option>MERV 9</option>
-              <option>MERV 10</option>
-              <option>MERV 11</option>
-              <option>MERV 12</option>
-              <option>MERV 13</option>
-              <option>MERV 14</option>
-              <option>MERV 15</option>
-              <option>MERV 16</option>
-            </select>
-          </div>
-          <div class="unit">
-            <div><label for="RecircFilterSelect">Recirculation Air Filter</label></div>
-            <select id="RecircFilterSelect">
-              <option>None</option>
-              <option>MERV 4</option>
-              <option>MERV 5</option>
-              <option>MERV 6</option>
-              <option>MERV 7</option>
-              <option>MERV 8</option>
-              <option>MERV 9</option>
-              <option>MERV 10</option>
-              <option>MERV 11</option>
-              <option>MERV 12</option>
-              <option>MERV 13</option>
-              <option>MERV 14</option>
-              <option>MERV 15</option>
-              <option>MERV 16</option>
-            </select>
-          </div>
         </div>
+
+          <!--- System Filters -->
+          <div class="sectiongrid">
+            <div class="unithead">System Filters</div>
+            <div class="unit">
+              <div><label for="OAFilterSelect">Outdoor Air Filter</label></div>
+              <select id="OAFilterSelect">
+                <option>None</option>
+                <option>MERV 4</option>
+                <option>MERV 5</option>
+                <option>MERV 6</option>
+                <option>MERV 7</option>
+                <option>MERV 8</option>
+                <option>MERV 9</option>
+                <option>MERV 10</option>
+                <option>MERV 11</option>
+                <option>MERV 12</option>
+                <option>MERV 13</option>
+                <option>MERV 14</option>
+                <option>MERV 15</option>
+                <option>MERV 16</option>
+              </select>
+            </div>
+            <div class="unit">
+              <div><label for="RecircFilterSelect">Recirculation Air Filter</label></div>
+              <select id="RecircFilterSelect">
+                <option>None</option>
+                <option>MERV 4</option>
+                <option>MERV 5</option>
+                <option>MERV 6</option>
+                <option>MERV 7</option>
+                <option>MERV 8</option>
+                <option>MERV 9</option>
+                <option>MERV 10</option>
+                <option>MERV 11</option>
+                <option>MERV 12</option>
+                <option>MERV 13</option>
+                <option>MERV 14</option>
+                <option>MERV 15</option>
+                <option>MERV 16</option>
+              </select>
+            </div>
+            </div>  
 
         <!--- Calculated Flows -->
         <div class="sectiongrid">
           <div class="unithead">Calculated Airflows</div>
           <div class="unit">
-            <div><label for="QimbalCalc">Airflow Imbalance</label></div>
-            <input type="number" step="any" disabled id="QimbalCalc">
-            <span id="QimbalCalcUnits"></span>
-          </div>
-          <div class="unit">
-            <div><label for="ZoneBalance">Zone Air Balance</label></div>
-            <input type="text" disabled id="ZoneBalance">
-          </div>
-          <div class="unit">
-            <div><label for="AchCalc">Air Change Rate</label></div>
+            <div><label for="AchCalc">Total Outdoor Air Change Rate</label></div>
             <input type="number" step="any" min="0" disabled id="AchCalc">
             <select id="AchCombo"></select>
           </div>
-
           <div class="unit">
-            <div><label for="QoaCalc">Outdoor Airflow Rate</label></div>
+            <div><label for="QoaCalc">Outdoor Air Intake Rate</label></div>
             <input type="number" step="any" min="0" disabled id="QoaCalc">
             <span id="QoaCalcUnits"></span>
           </div>
@@ -188,11 +181,6 @@
             <input type="number" step="any" min="0" disabled id="QrecCalc">
             <span id="QrecCalcUnits"></span>
           </div>
-          <div class="unit">
-            <div><label for="QexhCalc">Exhaust Airflow Rate</label></div>
-            <input type="number" step="any" min="0" disabled id="QexhCalc">
-            <span id="QexhCalcUnits"></span>
-          </div>
         </div>
 
         <!-- Room Air Cleaner -->
@@ -200,7 +188,7 @@
           <div class="unithead">Room Air Cleaner</div>
           <div class="unit">
             <div><label for="AirCleanerFlowRateInput">Maximum Airflow Rate</label></div>
-            <input type="number" step="any" min="0" id="AirCleanerFlowRateInput">
+            <input type="number" step="0.01" min="0" id="AirCleanerFlowRateInput" required>
             <select id="AirCleanerFlowRateCombo"></select>
           </div>
           <div class="unit">
@@ -227,12 +215,12 @@
           </div>
           <div class="unit">
             <div><label for="ParticleDiameterInput">Diameter</label></div>
-            <input type="number" step="any" min="0" id="ParticleDiameterInput">
+            <input type="number" step="0.01" min="0" id="ParticleDiameterInput" required>
             <select id="ParticleDiameterCombo"></select>
           </div>
           <div class="unit">
             <div><label for="ParticleDensityInput">Density</label></div>
-            <input type="number" step="any" min="0" id="ParticleDensityInput">
+            <input type="number" step="0.01" min="0" id="ParticleDensityInput" required>
             <select id="ParticleDensityCombo"></select>
           </div>
           <div class="unit">
@@ -241,7 +229,7 @@
           </div>
           <div class="unit">
             <div><label for="ParticleHalflifeInput">Half-life</label></div>
-            <input type="number" step="any" min="0" id="ParticleHalflifeInput" disabled>
+            <input type="number" step="0.01" min="0" id="ParticleHalflifeInput" disabled required>
             <select id="ParticleHalflifeCombo"></select>
           </div>
           <div class="unit">
@@ -251,14 +239,32 @@
           </div>
         </div>
 
-        <!---Particle Emissions -->
+        <!---Continuous Source -->
         <div class="sectiongrid">
-          <div class="unithead">Particle Source</div>
+          <div class="unithead">Continuous Source</div>
           <div class="unit">
-            <div>Source Type</div>
+            <div>Activate Source</div>
             <input type="checkbox" name="sourceType" id="constSrcCheck" value="constant" checked> <label for="constSrcCheck">Continuous</label>
-            <input type="checkbox" name="sourceType" id="burstSrcCheck" value="burst" checked
-                   style="margin-left: 15px;"> <label for="burstSrcCheck">Burst</label>
+          </div>
+          <div class="unit">
+            <div><label for="ReleaseRateInput">Continuous Rate</label></div>
+            <input type="number" step="0.01" min="0" id="ReleaseRateInput" required>
+            <select id="ReleaseRateCombo"></select>
+          </div>
+          <div class="unit">
+            <div>Source Time</div>
+            <label for="ConstSourceStartTime">Start</label>
+            <input id="ConstSourceStartTime" required style="width:8ch;"> / 
+            <label for="ConstSourceEndTime">End</label>
+            <input id="ConstSourceEndTime" required style="width:8ch;">
+          </div>
+        </div>
+        <!---Burst Source -->
+        <div class="sectiongrid">
+          <div class="unithead">Burst Source</div>
+          <div class="unit">
+            <div>Activate Source</div>
+            <input type="checkbox" name="sourceType" id="burstSrcCheck" value="burst" checked> <label for="burstSrcCheck">Burst</label>
           </div>
           <div class="unit">
             <div>Burst Type</div>
@@ -269,21 +275,19 @@
           </div>
           <div class="unit">
             <div><label for="ReleaseAmountInput">Burst Amount</label></div>
-            <input type="number" step="any" min="0" id="ReleaseAmountInput">
+            <input type="number" step="0.01" min="0" id="ReleaseAmountInput" required>
             <select id="ReleaseAmountCombo"></select>
           </div>
           <div class="unit">
-            <div><label for="ReleaseRateInput">Continuous Rate</label></div>
-            <input type="number" step="any" min="0" id="ReleaseRateInput">
-            <select id="ReleaseRateCombo"></select>
-          </div>
-          <div class="unit">
-            <div><label for="StartSourceInput">Source Start/End Time</label></div>
-            <input id="StartSourceInput" required style="width:8ch;"> to <input id="EndSourceInput" required style="width:8ch;">
+            <div>Source Time</div>
+            <label for="BrstSourceStartTime">Start</label>
+            <input id="BrstSourceStartTime" required style="width:8ch;"> / 
+            <label for="BrstSourceEndTime">End</label>
+            <input id="BrstSourceEndTime" required style="width:8ch;">
           </div>
           <div class="unit">
             <div><label for="RepeatSourceInput">Burst Interval</label></div>
-            <input type="number" step="1" min="2" max="60" id="RepeatSourceInput"> mins
+            <input type="number" step="1" min="2" max="60" id="RepeatSourceInput" required> mins
           </div>
         </div>
 
@@ -292,22 +296,22 @@
           <div class="unithead">Particle Deposition Velocities</div>
           <div class="unit">
             <div><label for="DepositionVelocityFloorInput">Floor</label></div>
-            <input type="number" step="any" min="0" id="DepositionVelocityFloorInput">
+            <input type="number" step="any" min="0" id="DepositionVelocityFloorInput" required>
             <select id="DepositionVelocityFloorCombo"></select>
           </div>
           <div class="unit">
             <div><label for="DepositionVelocityWallInput">Walls</label></div>
-            <input type="number" step="any" min="0" id="DepositionVelocityWallInput">
+            <input type="number" step="any" min="0" id="DepositionVelocityWallInput" required>
             <span id="DepositionVelocityWallUnits"></span>
           </div>
           <div class="unit">
             <div><label for="DepositionVelocityCeilingInput">Ceiling</label></div>
-            <input type="number" step="any" min="0" id="DepositionVelocityCeilingInput">
+            <input type="number" step="any" min="0" id="DepositionVelocityCeilingInput" required>
             <span id="DepositionVelocityCeilingUnits"></span>
           </div>
           <div class="unit">
             <div><label for="DepositionVelocityOtherInput">Other Surface</label></div>
-            <input type="number" step="any" min="0" id="DepositionVelocityOtherInput">
+            <input type="number" step="any" min="0" id="DepositionVelocityOtherInput" required>
             <span id="DepositionVelocityOtherUnits"></span>
           </div>
         </div>
@@ -317,12 +321,12 @@
           <div class="unithead">Initial Concentrations</div>
           <div class="unit">
             <div><label for="InitialConcentrationOutdoorInput">Outdoor Concentration</label></div>
-            <input type="number" step="any" min="0" id="InitialConcentrationOutdoorInput">
+            <input type="number" step="any" min="0" id="InitialConcentrationOutdoorInput" required>
             <select id="InitialConcentrationOutdoorCombo"></select>
           </div>
           <div class="unit">
             <div><label for="InitialConcentrationInput">Initial Zone Concentration</label></div>
-            <input type="number" step="any" min="0" id="InitialConcentrationInput">
+            <input type="number" step="any" min="0" id="InitialConcentrationInput" required>
             <span id="InitialConcentrationUnits"></span>
           </div>
         </div>
@@ -343,11 +347,11 @@
         </div>
         <div class="unit">
           <div><label for="occIntervalInput">Occupancy Interval</label></div>
-          <input type="number" step="1" min="2" max="240" id="occIntervalInput" disabled> mins
+          <input type="number" step="1" min="3" max="240" id="occIntervalInput" disabled required> mins
         </div>
         <div class="unit">
           <div><label for="occDurationInput">Occupancy Duration</label></div>
-          <input type="number" step="1" min="2" max="60" id="occDurationInput" disabled> mins
+          <input type="number" step="1" min="2" max="60" id="occDurationInput" disabled required> mins
         </div>
     </div>
   </div>

@@ -163,7 +163,11 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.SupplyRate);
   Nano.Inputs.SupplyRate.input.addEventListener("change", Nano.computeSystem); 
-  
+    
+  Nano.Inputs.OAIntakeFrac = document.getElementById("OAIntakeFracInput");
+  Nano.Inputs.OAIntakeFrac.value = 0;
+  Nano.Inputs.OAIntakeFrac.addEventListener("change", Nano.computeSystem); 
+
   Nano.Inputs.ReturnRate =
   { 
     initialValue: 0.13379,
@@ -189,10 +193,6 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.ExhaustRate);
   Nano.Inputs.ExhaustRate.input.addEventListener("change", Nano.computeSystem); 
-  
-  Nano.Inputs.PercentOA = document.getElementById("POAInput");
-  Nano.Inputs.PercentOA.value = 0;
-  Nano.Inputs.PercentOA.addEventListener("change", Nano.computeSystem); 
   
   // Caluated Airflows
   // not really inputs but they are calculated values from inputs
@@ -231,32 +231,7 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.Qrec);
 
-  Nano.Inputs.Qexh =
-  { 
-    initialValue: 0, 
-    convert: 4, 
-    func: CONTAM.Units.FlowConvert, 
-    strings: CONTAM.Units.Strings.Flow,
-    input: document.getElementById("QexhCalc"),
-    select: document.getElementById("SupplyRateCombo"),
-    unitDisplay: document.getElementById("QexhCalcUnits")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.Qexh);
-
-  Nano.Inputs.Qim =
-  { 
-    initialValue: 0, 
-    convert: 4, 
-    func: CONTAM.Units.FlowConvert, 
-    strings: CONTAM.Units.Strings.Flow,
-    input: document.getElementById("QimbalCalc"),
-    select: document.getElementById("SupplyRateCombo"),
-    unitDisplay: document.getElementById("QimbalCalcUnits")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.Qim);
-
-  Nano.Inputs.ZBal = document.getElementById("ZoneBalance");
-  
+  // system filters
   Nano.Inputs.OAFilter = document.getElementById("OAFilterSelect");
   
   Nano.Inputs.RecirFilter = document.getElementById("RecircFilterSelect");
@@ -349,13 +324,31 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDecayRate);
   
-  // particle source
+  // constant source
   Nano.Inputs.constSourceType = document.getElementById("constSrcCheck");
   Nano.Inputs.constSourceType.checked = true;
-  Nano.Inputs.constSourceType.addEventListener("click", Nano.changeSrcType);
+  Nano.Inputs.constSourceType.addEventListener("click", Nano.changeConstSrc);
+
+  Nano.Inputs.ReleaseRate =
+  { 
+    initialValue: 2.7925e-017, // 3.2 #/min
+    convert: 19, 
+    func: CONTAM.Units.ConSSConvert2, 
+    strings: CONTAM.Units.Strings.ConSS2,
+    input: document.getElementById("ReleaseRateInput"),
+    select: document.getElementById("ReleaseRateCombo"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.ReleaseRate);
   
+  Nano.Inputs.ConstSourceStartTime = document.getElementById("ConstSourceStartTime");
+  Nano.Inputs.ConstSourceStartTime.value = "00:00:00";
+  Nano.Inputs.ConstSourceEndTime = document.getElementById("ConstSourceEndTime"); 
+  Nano.Inputs.ConstSourceEndTime.value = "02:00:00";
+  
+  // burst source
   Nano.Inputs.burstSourceType = document.getElementById("burstSrcCheck");
-  Nano.Inputs.burstSourceType.addEventListener("click", Nano.changeSrcType);
+  Nano.Inputs.burstSourceType.addEventListener("click", Nano.changeBurstSrc);
 
   Nano.Inputs.singleBurst = document.getElementById("singleBurstRadio");
   Nano.Inputs.singleBurst.addEventListener("click", Nano.changeBurstType);
@@ -375,22 +368,11 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.ReleaseAmount);
 
-  Nano.Inputs.ReleaseRate =
-  { 
-    initialValue: 2.7925e-017, // 3.2 #/min
-    convert: 19, 
-    func: CONTAM.Units.ConSSConvert2, 
-    strings: CONTAM.Units.Strings.ConSS2,
-    input: document.getElementById("ReleaseRateInput"),
-    select: document.getElementById("ReleaseRateCombo"),
-    species: Nano.Species
-  };
-  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.ReleaseRate);
-  
-  Nano.Inputs.SourceStartTime = document.getElementById("StartSourceInput");
-  Nano.Inputs.SourceStartTime.value = "00:00:00";
-  Nano.Inputs.SourceEndTime = document.getElementById("EndSourceInput"); 
-  Nano.Inputs.SourceEndTime.value = "02:00:00";
+  Nano.Inputs.BrstSourceStartTime = document.getElementById("BrstSourceStartTime");
+  Nano.Inputs.BrstSourceStartTime.value = "00:01:00";
+  Nano.Inputs.BrstSourceEndTime = document.getElementById("BrstSourceEndTime"); 
+  Nano.Inputs.BrstSourceEndTime.value = "02:00:00";
+
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
   Nano.Inputs.RepeatInterval.value = "5";
   
@@ -799,8 +781,8 @@ Nano.ReconvertReleaseAmount = function()
 // compute the system values and display them in the UI
 Nano.computeSystem = function()
 {
-  // convert the percent OA to the fraction of OA
-  var fOA = parseFloat(Nano.Inputs.PercentOA.value) / 100;
+  // fraction of OA
+  var fOA = Nano.Inputs.OAIntakeFrac.valueAsNumber;
   // supply rate in kg/s
   var Fsup = Nano.Inputs.SupplyRate.input.baseValue;
   // return rate in kg/s
@@ -822,19 +804,6 @@ Nano.computeSystem = function()
   var Foa = Fsup - Frec;
   var Fexh = Fret - Frec;
   var Fbal = Fsup + Finf - Fret - Fzexh;
-  var balance = "";
-  if(Fbal > 0)
-  {
-    balance = "Pressurized";
-  }
-  else if(Fbal < 0)
-  {
-    balance = "Depressurized";
-  }
-  else
-  {
-    balance = "Balanced";
-  }
   var ach = (Finf + Foa-(Math.min(0,Fbal))) / (CONTAM.Units.rho20 * volume);
   //use sprintf to avoid long numbers and parse back to a number
   Nano.Inputs.Ach.input.baseValue = ach;
@@ -857,12 +826,8 @@ Nano.computeSystem = function()
     
   Nano.Inputs.Qoa.input.baseValue = Foa;
   Nano.Inputs.Qrec.input.baseValue = Frec;
-  Nano.Inputs.Qexh.input.baseValue = Fexh;
-  Nano.Inputs.Qim.input.baseValue = Fbal;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.Qoa.select);
-  
-  Nano.Inputs.ZBal.value = balance;
 }
 
 Nano.onWorkerMessage = function(oEvent)
@@ -1022,18 +987,7 @@ Nano.GetInputs2 = function()
 {
   console.log("GetInputs2");
   // get inputs into local variables and make sure that they are valid numbers
-  var buildingVolume = parseFloat(Nano.Inputs.Volume.input.baseValue);//
-  if(isNaN(buildingVolume))
-  {
-    alert("The building volume is not a number.");
-    return;
-  }
-  var surfaceAreaFloor = parseFloat(Nano.Inputs.FloorArea.input.baseValue);//
-  if(isNaN(surfaceAreaFloor))
-  {
-    alert("The floor area is not a number.");
-    return;
-  }
+
   var surfaceAreaWall = parseFloat(Nano.Inputs.WallArea.input.baseValue);//
   if(isNaN(surfaceAreaWall))
   {
@@ -1061,39 +1015,18 @@ Nano.GetInputs2 = function()
   }
   // the filter efficiency = 1 - pFactor
   var filterEff = 1 - pFactor;
-  var supplyRate = parseFloat(Nano.Inputs.SupplyRate.input.baseValue);//
-  if(isNaN(supplyRate))
-  {
-    alert("The supply rate is not a number.");
-    return;
-  }
   var returnRate = parseFloat(Nano.Inputs.ReturnRate.input.baseValue);//
   if(isNaN(returnRate))
   {
     alert("The return rate is not a number.");
     return;
   }
-  var percentOA = parseFloat(Nano.Inputs.PercentOA.value);//
-  if(isNaN(percentOA))
-  {
-    alert("The percent outdoor air is not a number.");
-    return;
-  }
 
-  var OAScheduleValue = percentOA / 100;
   var OAFilterIndex = Nano.Inputs.OAFilter.selectedIndex;
   var recircFilterIndex = Nano.Inputs.RecirFilter.selectedIndex;
   var filterElementNames = ["zero", "MERV-04","MERV-05", "MERV-06",
     "MERV-07", "MERV-08", "MERV-09", "MERV-10", "MERV-11",
     "MERV-12", "MERV-13", "MERV-14", "MERV-15", "MERV-16"];
-
-
-  var partName = Nano.Inputs.PName.value;
-  if(partName.length == 0)
-  {
-    alert("There must be a particle name.");
-    return;
-  }
 
   var particlesize = parseFloat(Nano.Inputs.PDiam.input.baseValue);//
   if(isNaN(particlesize))
@@ -1116,23 +1049,50 @@ Nano.GetInputs2 = function()
     return;
   }
 
-  var StartSource = Nano.Inputs.SourceStartTime.value;
-  var EndSource = Nano.Inputs.SourceEndTime.value;
-  var StartSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(StartSource);//
-  if(StartSourceTime < 0)
+  // constant source times
+  var CnstStartSource = Nano.Inputs.ConstSourceStartTime.value;
+  var CnstEndSource = Nano.Inputs.ConstSourceEndTime.value;
+  var CnstStartSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(CnstStartSource);//
+  if(CnstStartSourceTime < 0)
   {
-    alert("The start source time is not a valid time.");
+    alert("The start constant source time is not a valid time.");
     return;
   }
-  var EndSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(EndSource);//
-  if(EndSourceTime < 0)
+  var CnstEndSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(CnstEndSource);//
+  if(CnstEndSourceTime < 0)
   {
-    alert("The end source time is not a valid time.");
+    alert("The end constant source time is not a valid time.");
     return;
   }
-  if(EndSourceTime < StartSourceTime)
+  if(CnstEndSourceTime < CnstStartSourceTime)
   {
-    alert("The end source time cannot be before the start time.");
+    alert("The end constant source time cannot be before the start constant source time.");
+    return;
+  }
+
+  //burst source times 
+  var BrstStartSource = Nano.Inputs.BrstSourceStartTime.value;
+  var BrstEndSource = Nano.Inputs.BrstSourceEndTime.value;
+  var BrstStartSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(BrstStartSource);//
+  if(BrstStartSourceTime < 0)
+  {
+    alert("The start burst source time is not a valid time.");
+    return;
+  }
+  if(BrstStartSourceTime == 0)
+  {
+    alert("The start burst source time cannot be at 00:00:00.");
+    return;
+  }
+  var BrstEndSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(BrstEndSource);//
+  if(BrstEndSourceTime < 0)
+  {
+    alert("The end burst source time is not a valid time.");
+    return;
+  }
+  if(BrstEndSourceTime < BrstStartSourceTime)
+  {
+    alert("The end burst source time cannot be before the start burst source time.");
     return;
   }
     
@@ -1206,10 +1166,10 @@ Nano.GetInputs2 = function()
   Nano.ExposureDuration = Nano.EndExposureTime - Nano.StartExposureTime;
   
   //compute the leakage multiplier for envelope
-  var envelopeLeakageMultiplier = 4 * buildingVolume / Math.sqrt(surfaceAreaFloor);
+  var envelopeLeakageMultiplier = 4 * Nano.Inputs.Volume.input.baseValue / Math.sqrt(Nano.Inputs.FloorArea.input.baseValue);
   
   // compute the volume flow for the infiltration fan - m^3/s
-  var infiltrationVolFlow =  Nano.Inputs.Infiltration.valueAsNumber * buildingVolume / 3600;
+  var infiltrationVolFlow =  Nano.Inputs.Infiltration.valueAsNumber * Nano.Inputs.Volume.input.baseValue / 3600;
   
   // compute the volume flow for the exhaust fan - m^3/s
   var exhaustVolFlow =  Nano.Inputs.ExhaustRate.input.baseValue / CONTAM.Units.rho20;
@@ -1223,9 +1183,9 @@ Nano.GetInputs2 = function()
   // create an array of variables to set in the project
   // so that they can be sent to the CONTAM worker
   var variableList = [];
-  variableList.push({variableName: "CONTAM.Project.ZoneList[1].Vol", variableValue: buildingVolume});
+  variableList.push({variableName: "CONTAM.Project.ZoneList[1].Vol", variableValue: Nano.Inputs.Volume.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.ZoneList[1].CC0[0]", variableValue: zoneConcen});
-  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).name", variableValue: partName});
+  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).name", variableValue: Nano.Inputs.PName.value});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).mdiam", variableValue: particlesize});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: particledensity});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: outdoorConcen});
@@ -1233,15 +1193,15 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: depositionVelocityFloor});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: depositionVelocityOtherSurface});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: depositionVelocityWall});
-  variableList.push({variableName: "CONTAM.Project.PathList[1].Fahs", variableValue: supplyRate});
+  variableList.push({variableName: "CONTAM.Project.PathList[1].Fahs", variableValue: Nano.Inputs.SupplyRate.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: returnRate});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dA", variableValue: surfaceAreaCeiling});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: surfaceAreaFloor});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: Nano.Inputs.FloorArea.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: surfaceAreaOther});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: surfaceAreaWall});
   variableList.push({variableName: "CONTAM.Project.PathList[5].pf.pe.ped.eff[0]", variableValue: filterEff});
-  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[0]", variableValue: OAScheduleValue});
-  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: OAScheduleValue});
+  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[0]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
+  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
   variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[5].mult", variableValue: envelopeLeakageMultiplier});
@@ -1264,9 +1224,9 @@ Nano.GetInputs2 = function()
   .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime,  Nano.Inputs.interOcc.checked, 
     Nano.Inputs.occupantInterval.valueAsNumber * 60, Nano.Inputs.occupantDuration.valueAsNumber * 60]))
   // set the day schedule for the breathing source to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, StartSourceTime, EndSourceTime, false, 0, 0, false]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, CnstStartSourceTime, CnstEndSourceTime, false, 0, 0, false]))
   // set the day schedule for the coughing source to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, StartSourceTime, EndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatInterval * 60, 60, true]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, BrstStartSourceTime, BrstEndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatInterval * 60, 60, true]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())
@@ -1850,63 +1810,35 @@ Nano.drawChart = function()
   fate_chart.draw(fate_data_table, fate_options);
 }
 
-Nano.changeSrcType = function()
+Nano.changeBurstSrc = function()
 {
-  var constSrcCheck = document.getElementById("constSrcCheck");
-  var burstSrcCheck = document.getElementById("burstSrcCheck");
-  
-  if(constSrcCheck.checked)
-  {
-    document.getElementById('ReleaseRateInput').disabled = false;
-    document.getElementById('ReleaseRateCombo').disabled = false;
-  }
-  else
-  {
-    document.getElementById('ReleaseRateInput').disabled = true;
-    document.getElementById('ReleaseRateCombo').disabled = true;
-  }
-  if (burstSrcCheck.checked)
-  {
-    document.getElementById('ReleaseAmountInput').disabled = false;
-    document.getElementById('ReleaseAmountCombo').disabled = false;
-  }
-  else
-  {
-    document.getElementById('ReleaseAmountInput').disabled = true;
-    document.getElementById('ReleaseAmountCombo').disabled = true;
-  }
+  Nano.Inputs.singleBurst.disabled = !Nano.Inputs.burstSourceType.checked;
+  Nano.Inputs.repeatBurst.disabled = !Nano.Inputs.burstSourceType.checked;
+  Nano.Inputs.ReleaseAmount.input.disabled = !Nano.Inputs.burstSourceType.checked;
+  Nano.Inputs.ReleaseAmount.select.disabled = !Nano.Inputs.burstSourceType.checked;
+  Nano.Inputs.BrstSourceStartTime.disabled = !Nano.Inputs.burstSourceType.checked;
+  Nano.Inputs.BrstSourceEndTime.disabled = !Nano.Inputs.burstSourceType.checked || Nano.Inputs.singleBurst.checked;
+  Nano.Inputs.RepeatInterval.disabled = !Nano.Inputs.burstSourceType.checked || Nano.Inputs.singleBurst.checked;
+}
+
+Nano.changeConstSrc = function()
+{
+  Nano.Inputs.ReleaseRate.input.disabled = !Nano.Inputs.constSourceType.checked;
+  Nano.Inputs.ReleaseRate.select.disabled = !Nano.Inputs.constSourceType.checked;
+  Nano.Inputs.ConstSourceStartTime.disabled = !Nano.Inputs.constSourceType.checked;
+  Nano.Inputs.ConstSourceEndTime.disabled = !Nano.Inputs.constSourceType.checked;
 }
 
 Nano.changeOccType = function()
 {
-  var constOccRadio = document.getElementById("constOccRadio");
-  var interOccRadio = document.getElementById("interOccRadio");
-  
-  if(constOccRadio.checked)
-  {
-    Nano.Inputs.occupantInterval.disabled = true;
-    Nano.Inputs.occupantDuration.disabled = true;
-  }
-  else
-  {
-    Nano.Inputs.occupantInterval.disabled = false;
-    Nano.Inputs.occupantDuration.disabled = false;
-  }
+  Nano.Inputs.occupantInterval.disabled = Nano.Inputs.constOcc.checked;
+  Nano.Inputs.occupantDuration.disabled = Nano.Inputs.constOcc.checked;
 }
 
 Nano.changeBurstType = function()
 {
-  var singleBurstRadio = document.getElementById("singleBurstRadio");
-  var repeatBurstRadio = document.getElementById("repeatBurstRadio");
-  
-  if(singleBurstRadio.checked)
-  {
-    document.getElementById('RepeatSourceInput').disabled = true;
-  }
-  else
-  {
-    document.getElementById('RepeatSourceInput').disabled = false;
-  }
+  Nano.Inputs.BrstSourceEndTime.disabled = Nano.Inputs.singleBurst.checked;
+  Nano.Inputs.RepeatInterval.disabled = Nano.Inputs.singleBurst.checked;
 }
 
 Nano.UpdateDecay = function()
@@ -1919,7 +1851,7 @@ Nano.UpdateDecay = function()
   else
     newDecayRate = -Math.abs(Math.log(0.5)/halfLife); // 1/s
   console.log("new decay rate: " + newDecayRate);
-  Nano.Inputs.PDecayRate.input.baseValue = parseFloat(sprintf("%4.5g", newDecayRate));
+  Nano.Inputs.PDecayRate.input.baseValue = newDecayRate;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.PDecayRate.select);
 }
