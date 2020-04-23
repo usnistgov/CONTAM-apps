@@ -27,6 +27,9 @@ CONTAM.SetOccDaySchedule = function(startTime, endTime, isIntemitent, interval, 
 {
   var time = [];
   var zone = [];
+  var X = [];
+  var Y = [];
+  var relHt = [];
   
   console.log("SetOccDaySchedule: ", JSON.parse(JSON.stringify(arguments)));
   if(isIntemitent)
@@ -35,38 +38,62 @@ CONTAM.SetOccDaySchedule = function(startTime, endTime, isIntemitent, interval, 
     {
       time.push(0);
       zone.push(CONTAM.Project.ZoneList[1]);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
     }
     else
     {
       time.push(0);
       zone.push(0);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
       time.push(startTime);
       zone.push(CONTAM.Project.ZoneList[1]);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
     }
     var currentTime = startTime
     do
     {
       time.push(currentTime + duration);
       zone.push(0);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
       currentTime += interval;
       if(currentTime < endTime)
       {
         time.push(currentTime);
         zone.push(CONTAM.Project.ZoneList[1]);
-      }
+        X.push(0);
+        Y.push(0);
+        relHt.push(0);
+        }
     }
     while(currentTime < endTime)
     if(endTime == 86400)
     {
       time.push(86400);
       zone.push(0);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
     }
     else
     {
       time.push(endTime);
       zone.push(0);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
       time.push(86400);
       zone.push(0);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
     }
   
   }
@@ -74,55 +101,83 @@ CONTAM.SetOccDaySchedule = function(startTime, endTime, isIntemitent, interval, 
   {
     if(startTime == 0)
     {
-      time[0] = 0;
-      zone[0] = CONTAM.Project.ZoneList[1];
+      time.push(0);
+      zone.push(CONTAM.Project.ZoneList[1]);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
     }
     else
     {
-      time[0] = 0;
-      zone[0] = 0;
-      time[1] = startTime;
-      zone[1] = CONTAM.Project.ZoneList[1];
+      time.push(0);
+      zone.push(0);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
+      time.push(startTime);
+      zone.push(CONTAM.Project.ZoneList[1]);
+      X.push(0);
+      Y.push(0);
+      relHt.push(0);
     }
     if(endTime == 86400)
     {
       if(startTime == 0)
       {
-        time[1] = 86400;
-        zone[1] = 0;
-        CONTAM.Project.PexpList[1].odsch[0].npts = 2;
+        time.push(86400);
+        zone.push(0);
+        X.push(0);
+        Y.push(0);
+        relHt.push(0);
       }
       else
       {
-        time[2] = 86400;
-        zone[2] = 0;
-        CONTAM.Project.PexpList[1].odsch[0].npts = 3;
-      }
+        time.push(86400);
+        zone.push(0);
+        X.push(0);
+        Y.push(0);
+        relHt.push(0);
+        }
     }
     else
     {
       if(startTime == 0)
       {
-        time[1] = endTime;
-        zone[1] = 0;
-        time[2] = 86400;
-        zone[2] = 0;
-        CONTAM.Project.PexpList[1].odsch[0].npts = 3;
-      }
+        time.push(endTime);
+        zone.push(0);
+        X.push(0);
+        Y.push(0);
+        relHt.push(0);
+
+        time.push(86400);
+        zone.push(0);
+        X.push(0);
+        Y.push(0);
+        relHt.push(0);
+        }
       else
       {
-        time[2] = endTime;
-        zone[2] = 0;
-        time[3] = 86400;
-        zone[3] = 0;
-        CONTAM.Project.PexpList[1].odsch[0].npts = 4;
-      }
+        time.push(endTime);
+        zone.push(0);
+        X.push(0);
+        Y.push(0);
+        relHt.push(0);
+
+        time.push(86400);
+        zone.push(0);
+        X.push(0);
+        Y.push(0);
+        relHt.push(0);
+        }
     }
   }
   
   CONTAM.Project.PexpList[1].odsch[0].npts = time.length;
   CONTAM.Project.PexpList[1].odsch[0].time = time;
   CONTAM.Project.PexpList[1].odsch[0].zone = zone;
+  CONTAM.Project.PexpList[1].odsch[0].X = X;
+  CONTAM.Project.PexpList[1].odsch[0].Y = Y;
+  CONTAM.Project.PexpList[1].odsch[0].relHt = relHt;
   return "ok";
 }
 
