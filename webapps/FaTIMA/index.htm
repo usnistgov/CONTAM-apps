@@ -334,8 +334,23 @@
             <div><label for="StartExposureInput">Exposure Start/End Time</label></div>
             <input id="StartExposureInput" required style="width:8ch;"> to <input id="EndExposureInput" required style="width:8ch;">
           </div>
+        <div class="unit">
+          <div>Occupancy Type</div>
+          <input type="radio" name="occType" id="constOccRadio" value="burst"
+                 style="margin-left: 15px;" checked> <label for="constOccRadio">Constant</label>
+          <input type="radio" name="occType" id="interOccRadio" value="repeatBurst"
+                 style="margin-left: 15px;"> <label for="interOccRadio">Intermittent</label>
         </div>
-      </div>
+        <div class="unit">
+          <div><label for="occIntervalInput">Occupancy Interval</label></div>
+          <input type="number" step="1" min="2" max="240" id="occIntervalInput" disabled> mins
+        </div>
+        <div class="unit">
+          <div><label for="occDurationInput">Occupancy Duration</label></div>
+          <input type="number" step="1" min="2" max="60" id="occDurationInput" disabled> mins
+        </div>
+    </div>
+  </div>
 
       <!-- RUN SIMULATION -->
       <div class="section">

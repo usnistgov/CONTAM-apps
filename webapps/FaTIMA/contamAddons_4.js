@@ -23,59 +23,104 @@ CONTAM.setPathFilterElement = function(pathNumber, filterElementName)
 
 //edit the occupant day schedule based on the exposure times given
 //the times are assumed to be already checked for correctness
-CONTAM.SetOccDaySchedule = function(startTime, endTime)
+CONTAM.SetOccDaySchedule = function(startTime, endTime, isIntemitent, interval, duration)
 {
   var time = [];
   var zone = [];
   
-  console.log("SetOccDaySchedule: " + startTime + ", " + endTime);
-  if(startTime == 0)
-  {
-    time[0] = 0;
-    zone[0] = CONTAM.Project.ZoneList[1];
-  }
-  else
-  {
-    time[0] = 0;
-    zone[0] = 0;
-    time[1] = startTime;
-    zone[1] = CONTAM.Project.ZoneList[1];
-  }
-  if(endTime == 86400)
+  console.log("SetOccDaySchedule: ", JSON.parse(JSON.stringify(arguments)));
+  if(isIntemitent)
   {
     if(startTime == 0)
     {
-      time[1] = 86400;
-      zone[1] = 0;
-      CONTAM.Project.PexpList[1].odsch[0].npts = 2;
+      time.push(0);
+      zone.push(CONTAM.Project.ZoneList[1]);
     }
     else
     {
-      time[2] = 86400;
-      zone[2] = 0;
-      CONTAM.Project.PexpList[1].odsch[0].npts = 3;
+      time.push(0);
+      zone.push(0);
+      time.push(startTime);
+      zone.push(CONTAM.Project.ZoneList[1]);
     }
+    var currentTime = startTime
+    do
+    {
+      time.push(currentTime + duration);
+      zone.push(0);
+      currentTime += interval;
+      if(currentTime < endTime)
+      {
+        time.push(currentTime);
+        zone.push(CONTAM.Project.ZoneList[1]);
+      }
+    }
+    while(currentTime < endTime)
+    if(endTime == 86400)
+    {
+      time.push(86400);
+      zone.push(0);
+    }
+    else
+    {
+      time.push(endTime);
+      zone.push(0);
+      time.push(86400);
+      zone.push(0);
+    }
+  
   }
   else
   {
     if(startTime == 0)
     {
-      time[1] = endTime;
-      zone[1] = 0;
-      time[2] = 86400;
-      zone[2] = 0;
-      CONTAM.Project.PexpList[1].odsch[0].npts = 3;
+      time[0] = 0;
+      zone[0] = CONTAM.Project.ZoneList[1];
     }
     else
     {
-      time[2] = endTime;
-      zone[2] = 0;
-      time[3] = 86400;
-      zone[3] = 0;
-      CONTAM.Project.PexpList[1].odsch[0].npts = 4;
+      time[0] = 0;
+      zone[0] = 0;
+      time[1] = startTime;
+      zone[1] = CONTAM.Project.ZoneList[1];
+    }
+    if(endTime == 86400)
+    {
+      if(startTime == 0)
+      {
+        time[1] = 86400;
+        zone[1] = 0;
+        CONTAM.Project.PexpList[1].odsch[0].npts = 2;
+      }
+      else
+      {
+        time[2] = 86400;
+        zone[2] = 0;
+        CONTAM.Project.PexpList[1].odsch[0].npts = 3;
+      }
+    }
+    else
+    {
+      if(startTime == 0)
+      {
+        time[1] = endTime;
+        zone[1] = 0;
+        time[2] = 86400;
+        zone[2] = 0;
+        CONTAM.Project.PexpList[1].odsch[0].npts = 3;
+      }
+      else
+      {
+        time[2] = endTime;
+        zone[2] = 0;
+        time[3] = 86400;
+        zone[3] = 0;
+        CONTAM.Project.PexpList[1].odsch[0].npts = 4;
+      }
     }
   }
   
+  CONTAM.Project.PexpList[1].odsch[0].npts = time.length;
   CONTAM.Project.PexpList[1].odsch[0].time = time;
   CONTAM.Project.PexpList[1].odsch[0].zone = zone;
   return "ok";

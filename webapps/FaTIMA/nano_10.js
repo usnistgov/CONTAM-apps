@@ -68,7 +68,7 @@ Nano.Init = function()
   // these must be done onload so the UI elements can be gotten from the document
   // these establish unit objects and set up the inputs to handle units
 
-  //building volume
+  // Zone Geometry
   Nano.Inputs.Volume = 
   { 
     initialValue: 100, 
@@ -142,13 +142,15 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.OtherSurfaceArea);
   
-  Nano.Inputs.PFactor = document.getElementById("PenetrationFactorInput");
-  Nano.Inputs.PFactor.value = 1;
-  
+  //Infiltration
   Nano.Inputs.Infiltration = document.getElementById("InfiltrationInput");
   Nano.Inputs.Infiltration.value = 0.5;
   Nano.Inputs.Infiltration.addEventListener("change", Nano.computeSystem); 
   
+  Nano.Inputs.PFactor = document.getElementById("PenetrationFactorInput");
+  Nano.Inputs.PFactor.value = 1;
+
+  // Ventilation System
   // SupplyRate = 0.13379 kg/s = 400 m3/h * 1.2041 kg/m3 / 3600 s/h
   Nano.Inputs.SupplyRate =
   { 
@@ -192,6 +194,7 @@ Nano.Init = function()
   Nano.Inputs.PercentOA.value = 0;
   Nano.Inputs.PercentOA.addEventListener("change", Nano.computeSystem); 
   
+  // Caluated Airflows
   // not really inputs but they are calculated values from inputs
   Nano.Inputs.Ach =
   { 
@@ -258,6 +261,41 @@ Nano.Init = function()
   
   Nano.Inputs.RecirFilter = document.getElementById("RecircFilterSelect");
   
+  // air cleaner
+  Nano.Inputs.AirCleanerFlowRate =
+  { 
+    initialValue: 0.113655, // 200 scfm
+    convert: 1, 
+    func: CONTAM.Units.FlowConvert, 
+    strings: CONTAM.Units.Strings.Flow,
+    input: document.getElementById("AirCleanerFlowRateInput"),
+    select: document.getElementById("AirCleanerFlowRateCombo")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.AirCleanerFlowRate);
+  Nano.Inputs.AirCleanerFlowRate.input.addEventListener("change", Nano.ComputeAirCleanerCADR); 
+
+  Nano.Inputs.AirCleanerFlowFrac =  document.getElementById("AirCleanerFlowFractionInput");
+  Nano.Inputs.AirCleanerFlowFrac.value =  0.0;
+  Nano.Inputs.AirCleanerFlowFrac.addEventListener("change", Nano.ComputeAirCleanerCADR);  
+
+  Nano.Inputs.AirCleanerEff =  document.getElementById("AirCleanerEffInput");
+  Nano.Inputs.AirCleanerEff.value =  0.8;
+  Nano.Inputs.AirCleanerEff.addEventListener("change", Nano.ComputeAirCleanerCADR);  
+  
+  Nano.Inputs.AirCleanerCADR =
+  { 
+    initialValue: 0, 
+    convert: 1, 
+    func: CONTAM.Units.FlowConvert, 
+    strings: CONTAM.Units.Strings.Flow,
+    input: document.getElementById("AirCleanerCADRInput"),
+    select: document.getElementById("AirCleanerFlowRateCombo"),
+    unitDisplay: document.getElementById("AirCleanerCADRUnits")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.AirCleanerCADR);
+  Nano.ComputeAirCleanerCADR();
+
+  // particle properties
   Nano.Inputs.PName = document.getElementById("ParticleNameInput");
   Nano.Inputs.PName.value = "IV1";
   
@@ -311,6 +349,7 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDecayRate);
   
+  // particle source
   Nano.Inputs.constSourceType = document.getElementById("constSrcCheck");
   Nano.Inputs.constSourceType.checked = true;
   Nano.Inputs.constSourceType.addEventListener("click", Nano.changeSrcType);
@@ -355,6 +394,7 @@ Nano.Init = function()
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
   Nano.Inputs.RepeatInterval.value = "5";
   
+  // particle deposition velocity
   Nano.Inputs.FloorDV =
   { 
     initialValue: 6.944e-005, // m/s
@@ -402,6 +442,7 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.OtherSurfaceDV);
 
+  //initial concentrations
   Nano.Inputs.OutdoorConcen =
   { 
     initialValue: 0, 
@@ -427,44 +468,23 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.InitZoneConcen);
 
+  // occupant exposure
   Nano.Inputs.ExposStartTime = document.getElementById("StartExposureInput");
   Nano.Inputs.ExposStartTime.value = "00:00:00";
   Nano.Inputs.ExposEndTime = document.getElementById("EndExposureInput");
   Nano.Inputs.ExposEndTime.value = "03:00:00";
   
-  Nano.Inputs.AirCleanerFlowRate =
-  { 
-    initialValue: 0.113655, // 200 scfm
-    convert: 1, 
-    func: CONTAM.Units.FlowConvert, 
-    strings: CONTAM.Units.Strings.Flow,
-    input: document.getElementById("AirCleanerFlowRateInput"),
-    select: document.getElementById("AirCleanerFlowRateCombo")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.AirCleanerFlowRate);
-  Nano.Inputs.AirCleanerFlowRate.input.addEventListener("change", Nano.ComputeAirCleanerCADR); 
+  Nano.Inputs.constOcc = document.getElementById("constOccRadio");
+  Nano.Inputs.constOcc.addEventListener("click", Nano.changeOccType);
 
-  Nano.Inputs.AirCleanerFlowFrac =  document.getElementById("AirCleanerFlowFractionInput");
-  Nano.Inputs.AirCleanerFlowFrac.value =  0.0;
-  Nano.Inputs.AirCleanerFlowFrac.addEventListener("change", Nano.ComputeAirCleanerCADR);  
+  Nano.Inputs.interOcc = document.getElementById("interOccRadio");
+  Nano.Inputs.interOcc.addEventListener("click", Nano.changeOccType);
 
-  Nano.Inputs.AirCleanerEff =  document.getElementById("AirCleanerEffInput");
-  Nano.Inputs.AirCleanerEff.value =  0.8;
-  Nano.Inputs.AirCleanerEff.addEventListener("change", Nano.ComputeAirCleanerCADR);  
-  
-  Nano.Inputs.AirCleanerCADR =
-  { 
-    initialValue: 0, 
-    convert: 1, 
-    func: CONTAM.Units.FlowConvert, 
-    strings: CONTAM.Units.Strings.Flow,
-    input: document.getElementById("AirCleanerCADRInput"),
-    select: document.getElementById("AirCleanerFlowRateCombo"),
-    unitDisplay: document.getElementById("AirCleanerCADRUnits")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.AirCleanerCADR);
-  Nano.ComputeAirCleanerCADR();
-  
+  Nano.Inputs.occupantInterval = document.getElementById("occIntervalInput");
+  Nano.Inputs.occupantInterval.value = "30";
+  Nano.Inputs.occupantDuration = document.getElementById("occDurationInput");
+  Nano.Inputs.occupantDuration.value = "5";
+
   Nano.computeSystem();
 
   //results
@@ -1234,8 +1254,9 @@ Nano.GetInputs2 = function()
   CWD.CallContamFunction("CONTAM.setPathFilterElement", [7, filterElementNames[OAFilterIndex]])
   // set the filter element for the recirculation path
   .then((result) => CWD.CallContamFunction("CONTAM.setPathFilterElement", [6, filterElementNames[recircFilterIndex]]))
-  // set the occupant day schedule to use the start/end time that the use specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime]))
+  // set the occupant day schedule to use the start/end time that the user specified
+  .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime,  Nano.Inputs.interOcc.checked, 
+    Nano.Inputs.occupantInterval.valueAsNumber * 60, Nano.Inputs.occupantDuration.valueAsNumber * 60]))
   // set the day schedule for the breathing source to use the start/end time that the user specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, StartSourceTime, EndSourceTime, false, 0, 0, false]))
   // set the day schedule for the coughing source to use the start/end time that the user specified
@@ -1847,6 +1868,23 @@ Nano.changeSrcType = function()
   {
     document.getElementById('ReleaseAmountInput').disabled = true;
     document.getElementById('ReleaseAmountCombo').disabled = true;
+  }
+}
+
+Nano.changeOccType = function()
+{
+  var constOccRadio = document.getElementById("constOccRadio");
+  var interOccRadio = document.getElementById("interOccRadio");
+  
+  if(constOccRadio.checked)
+  {
+    Nano.Inputs.occupantInterval.disabled = true;
+    Nano.Inputs.occupantDuration.disabled = true;
+  }
+  else
+  {
+    Nano.Inputs.occupantInterval.disabled = false;
+    Nano.Inputs.occupantDuration.disabled = false;
   }
 }
 
