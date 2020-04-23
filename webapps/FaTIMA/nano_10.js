@@ -1757,11 +1757,11 @@ Nano.drawChart = function()
 
   var fate_data_table = google.visualization.arrayToDataTable([
     ['Fate', 'Percent of Particles'],
-    ['Exited Zone',    Nano.Results.percentExfil],
-    ['Filtered',       Nano.Results.percentFilt],
-    ['Deposited',      Nano.Results.percentDep],
-    ['Deactivated',    Nano.Results.percentDeac],
-    ['Remain in Zone', Nano.Results.percentInZone]
+    ['Exited Zone: '    + sprintf("%4.1f", Nano.Results.percentExfil),  Nano.Results.percentExfil],
+    ['Filtered: '       + sprintf("%4.1f", Nano.Results.percentFilt),   Nano.Results.percentFilt],
+    ['Deposited: '      + sprintf("%4.1f", Nano.Results.percentDep),    Nano.Results.percentDep],
+    ['Deactivated: '    + sprintf("%4.1f", Nano.Results.percentDeac),   Nano.Results.percentDeac],
+    ['Remain in Zone: ' + sprintf("%4.1f", Nano.Results.percentInZone), Nano.Results.percentInZone]
   ]);
 
   var air_options = {
