@@ -148,10 +148,10 @@ Nano.Init = function()
   Nano.Inputs.Infiltration.value = 0.5;
   Nano.Inputs.Infiltration.addEventListener("change", Nano.computeSystem); 
   
-  // SupplyRate = 0.24417 kg/s = 730.001 m3/h * 1.2041 kg/m3 / 3600 s/h
+  // SupplyRate = 0.13379 kg/s = 400 m3/h * 1.2041 kg/m3 / 3600 s/h
   Nano.Inputs.SupplyRate =
   { 
-    initialValue: 0.24417,
+    initialValue: 0.13379,
     convert: 4,                       // m3/h
     func: CONTAM.Units.FlowConvert, 
     strings: CONTAM.Units.Strings.Flow,
@@ -163,7 +163,7 @@ Nano.Init = function()
   
   Nano.Inputs.ReturnRate =
   { 
-    initialValue: 0.24417,
+    initialValue: 0.13379,
     convert: 3, 
     func: CONTAM.Units.FlowConvert, 
     strings: CONTAM.Units.Strings.Flow,
@@ -173,6 +173,19 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.ReturnRate);
   Nano.Inputs.ReturnRate.input.addEventListener("change", Nano.computeSystem); 
+  
+  Nano.Inputs.ExhaustRate =
+  { 
+    initialValue: 0,
+    convert: 3, 
+    func: CONTAM.Units.FlowConvert, 
+    strings: CONTAM.Units.Strings.Flow,
+    input: document.getElementById("ExhaustRateInput"),
+    select: document.getElementById("SupplyRateCombo"),
+    unitDisplay: document.getElementById("ExhaustRateUnits")
+  };
+  CONTAM.Units.SetupUnitInputs(Nano.Inputs.ExhaustRate);
+  Nano.Inputs.ExhaustRate.input.addEventListener("change", Nano.computeSystem); 
   
   Nano.Inputs.PercentOA = document.getElementById("POAInput");
   Nano.Inputs.PercentOA.value = 0;
@@ -768,30 +781,32 @@ Nano.computeSystem = function()
   // convert the percent OA to the fraction of OA
   var fOA = parseFloat(Nano.Inputs.PercentOA.value) / 100;
   // supply rate in kg/s
-  var Qsup = Nano.Inputs.SupplyRate.input.baseValue;
+  var Fsup = Nano.Inputs.SupplyRate.input.baseValue;
   // return rate in kg/s
-  var Qret = Nano.Inputs.ReturnRate.input.baseValue;
+  var Fret = Nano.Inputs.ReturnRate.input.baseValue;
+  // zone exhaust fan rate in kg/s
+  var Fzexh = Nano.Inputs.ExhaustRate.input.baseValue;
   // volume in m^3
   var volume = Nano.Inputs.Volume.input.baseValue;
   // for now assume QoaMin is 0
-  var QoaMin = 0;
+  var FoaMin = 0;
   
   //convert from 1/h to 1/s
   var ACHinf = Nano.Inputs.Infiltration.valueAsNumber / 3600; // 1/s
   // convert from 1/s to kg/s
-  var Qinf = volume * ACHinf * CONTAM.Units.rho20; // kg/s
+  var Finf = volume * ACHinf * CONTAM.Units.rho20; // kg/s
   
-  var QoaPrim = Math.max(fOA*Qsup, Math.min(Qsup, QoaMin));
-  var Qrec = Math.min(Qret, Qsup - QoaPrim);
-  var Qoa = Qsup - Qrec;
-  var Qexh = Qret - Qrec;
-  var Qim = Qsup + Qinf - Qret;
+  var FoaPrim = Math.max(fOA*Fsup, Math.min(Fsup, FoaMin));
+  var Frec = Math.min(Fret, Fsup - FoaPrim);
+  var Foa = Fsup - Frec;
+  var Fexh = Fret - Frec;
+  var Fbal = Fsup + Finf - Fret - Fzexh;
   var balance = "";
-  if(Qim > 0)
+  if(Fbal > 0)
   {
     balance = "Pressurized";
   }
-  else if(Qim < 0)
+  else if(Fbal < 0)
   {
     balance = "Depressurized";
   }
@@ -799,28 +814,30 @@ Nano.computeSystem = function()
   {
     balance = "Balanced";
   }
-  var ach = (Qoa-(Math.min(0,Qim))) / (CONTAM.Units.rho20 * volume);
+  var ach = (Finf + Foa-(Math.min(0,Fbal))) / (CONTAM.Units.rho20 * volume);
   //use sprintf to avoid long numbers and parse back to a number
-  Nano.Inputs.Ach.input.baseValue = parseFloat(sprintf("%4.5g", ach));
+  Nano.Inputs.Ach.input.baseValue = ach;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.Ach.select);  
   
-  console.log("Qsup: " + Qsup);
-  console.log("Qret: " + Qret);
+  console.log("Fsup: " + Fsup);
+  console.log("Fret: " + Fret);
+  console.log("Fexh: " + Fexh);
   console.log("volume: " + volume);
-  console.log("QoaMin: " + QoaMin);
-  console.log("Qinf: " + Qinf);
-  console.log("QoaPrim: " + QoaPrim);
-  console.log("Qrec: " + Qrec);
-  console.log("Qoa: " + Qoa);
-  console.log("Qexh: " + Qexh);
-  console.log("Qim: " + Qim);
+  console.log("FoaMin: " + FoaMin);
+  console.log("Finf: " + Finf);
+  console.log("FoaPrim: " + FoaPrim);
+  console.log("Frec: " + Frec);
+  console.log("Foa: " + Foa);
+  console.log("Fzexh: " + Fzexh);
+  console.log("Fbal: " + Fbal);
   console.log("ach: " + ach);
-  
-  Nano.Inputs.Qoa.input.baseValue = parseFloat(sprintf("%4.5g", Qoa));
-  Nano.Inputs.Qrec.input.baseValue = parseFloat(sprintf("%4.5g", Qrec));
-  Nano.Inputs.Qexh.input.baseValue = parseFloat(sprintf("%4.5g", Qexh));
-  Nano.Inputs.Qim.input.baseValue = parseFloat(sprintf("%4.5g", Qim));
+  console.log("-----");
+    
+  Nano.Inputs.Qoa.input.baseValue = Foa;
+  Nano.Inputs.Qrec.input.baseValue = Frec;
+  Nano.Inputs.Qexh.input.baseValue = Fexh;
+  Nano.Inputs.Qim.input.baseValue = Fbal;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.Qoa.select);
   
@@ -1172,6 +1189,9 @@ Nano.GetInputs2 = function()
   
   // compute the volume flow for the infiltration fan - m^3/s
   var infiltrationVolFlow =  Nano.Inputs.Infiltration.valueAsNumber * buildingVolume / 3600;
+  
+  // compute the volume flow for the exhaust fan - m^3/s
+  var exhaustVolFlow =  Nano.Inputs.ExhaustRate.input.baseValue / CONTAM.Units.rho20;
 
   // create an array of variables to set in the project
   // so that they can be sent to the CONTAM worker
@@ -1192,16 +1212,17 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: surfaceAreaFloor});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: surfaceAreaOther});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: surfaceAreaWall});
-  variableList.push({variableName: "CONTAM.Project.PathList[4].pf.pe.ped.eff[0]", variableValue: filterEff});
+  variableList.push({variableName: "CONTAM.Project.PathList[5].pf.pe.ped.eff[0]", variableValue: filterEff});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[0]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: OAScheduleValue});
   variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
   variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.PathList[4].mult", variableValue: envelopeLeakageMultiplier});
+  variableList.push({variableName: "CONTAM.Project.PathList[5].mult", variableValue: envelopeLeakageMultiplier});
   variableList.push({variableName: "CONTAM.Project.Dfe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.AirCleanerFlowRate.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Flte0.GetByNumber(1).ped.eff[0]", variableValue: Nano.Inputs.AirCleanerEff.valueAsNumber});
-  variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(1).ped.Flow", variableValue: infiltrationVolFlow});
+  variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(2).ped.Flow", variableValue: infiltrationVolFlow});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(1).ctrl[0]", variableValue: Nano.Inputs.AirCleanerFlowFrac.valueAsNumber});
+  variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(1).ped.Flow", variableValue: exhaustVolFlow});
   
   
   function errorHandler(error)
@@ -1209,9 +1230,9 @@ Nano.GetInputs2 = function()
     throw new Error(error.message);
   }
   // set the filter element for the OA path
-  CWD.CallContamFunction("CONTAM.setPathFilterElement", [6, filterElementNames[OAFilterIndex]])
+  CWD.CallContamFunction("CONTAM.setPathFilterElement", [7, filterElementNames[OAFilterIndex]])
   // set the filter element for the recirculation path
-  .then((result) => CWD.CallContamFunction("CONTAM.setPathFilterElement", [5, filterElementNames[recircFilterIndex]]))
+  .then((result) => CWD.CallContamFunction("CONTAM.setPathFilterElement", [6, filterElementNames[recircFilterIndex]]))
   // set the occupant day schedule to use the start/end time that the use specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime]))
   // set the day schedule for the breathing source to use the start/end time that the user specified
