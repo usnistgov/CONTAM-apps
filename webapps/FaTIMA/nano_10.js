@@ -20,6 +20,7 @@ window.onload = function()
   Nano.ExpChart = document.getElementById("air_concen_chart");
   Nano.SurfChart = document.getElementById("surf_concen_chart");
   Nano.ExposChart = document.getElementById("expos_chart");
+  Nano.fateChart = document.getElementById("fate_chart");
   Nano.simStatusSpan = document.getElementById("simStatusSpan");
   Nano.downloadLinksSpan = document.getElementById("downloadLinksSpan");
   Nano.Init();
@@ -1359,17 +1360,11 @@ Nano.putResultsInGUI = function()
   
   var Mdeact = Memit - (Mfilt + Mdep + Mexf + Mzone);
   
-  var percentFilt = Mfilt / Memit * 100;
-  var percentExfil = Mexf / Memit * 100;
-  var percentDeac = Mdeact / Memit * 100;
-  var percentDep = Mdep / Memit * 100;
-  var percentInZone = Mzone / Memit * 100;
-  
-  document.getElementById("percentFiltResult").value = sprintf("%3.2f", percentFilt);
-  document.getElementById("percentExfilResult").value = sprintf("%3.2f", percentExfil);
-  document.getElementById("percentDeacResult").value = sprintf("%3.2f", percentDeac);
-  document.getElementById("percentDepResult").value = sprintf("%3.2f", percentDep);
-  document.getElementById("percentZoneResult").value = sprintf("%3.2f", percentInZone);
+  Nano.Results.percentFilt = Mfilt / Memit * 100;
+  Nano.Results.percentExfil = Mexf / Memit * 100;
+  Nano.Results.percentDeac = Mdeact / Memit * 100;
+  Nano.Results.percentDep = Mdep / Memit * 100;
+  Nano.Results.percentInZone = Mzone / Memit * 100;
   
   // surface loading
   // floor
@@ -1733,6 +1728,15 @@ Nano.drawChart = function()
   var exposureYAxisTitle1 = 'Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
   var exposureYAxisTitle2 = 'Integrated Occupant Exposure (' + Nano.decodeHtml(resultUnits[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
 
+  var fate_data_table = google.visualization.arrayToDataTable([
+    ['Fate', 'Percent of Particles'],
+    ['Exited Zone',    Nano.Results.percentExfil],
+    ['Filtered',       Nano.Results.percentFilt],
+    ['Deposited',      Nano.Results.percentDep],
+    ['Deactivated',    Nano.Results.percentDeac],
+    ['Remain in Zone', Nano.Results.percentInZone]
+  ]);
+
   var air_options = {
     backgroundColor: '#F4F5F9',
     chartArea: {'width': '80%', 'height': '80%'},
@@ -1744,6 +1748,10 @@ Nano.drawChart = function()
     },
     series: {
       1: { lineDashStyle: [2, 2] }
+    },
+    backgroundColor: {
+      stroke: "#12659c",
+      strokeWidth: 2,
     },
     legend: { position: 'bottom' }
   };
@@ -1763,6 +1771,10 @@ Nano.drawChart = function()
       3: { lineDashStyle: [3, 1] },
       4: { lineDashStyle: [4, 3] }
     },
+    backgroundColor: {
+      stroke: "#12659c",
+      strokeWidth: 2,
+    },
     legend: { position: 'bottom' }
   };
 
@@ -1781,17 +1793,34 @@ Nano.drawChart = function()
       1: { lineDashStyle: [2, 2], targetAxisIndex: 0 },
       2: { lineDashStyle: [3, 2], targetAxisIndex: 1 }
     },
+    backgroundColor: {
+      stroke: "#12659c",
+      strokeWidth: 2,
+    },
     legend: { position: 'bottom' }
   };
+
+  var fate_options = {
+    title: 'Particle Fate',
+    is3D: true,
+    sliceVisibilityThreshold: 0,
+    backgroundColor: {
+      stroke: "#12659c",
+      strokeWidth: 2,
+    },
+  };
+
 
   var air_chart = new google.visualization.LineChart(Nano.ExpChart);
   var surf_chart = new google.visualization.LineChart(Nano.SurfChart);
   var expos_chart = new google.visualization.LineChart(Nano.ExposChart);
+  var fate_chart =  new google.visualization.PieChart(Nano.fateChart);
   
   //console.log("draw call");
   air_chart.draw(air_data_table, air_options);
   surf_chart.draw(surf_data_table, surf_options);
   expos_chart.draw(expos_data_table, expos_options);
+  fate_chart.draw(fate_data_table, fate_options);
 }
 
 Nano.changeSrcType = function()
