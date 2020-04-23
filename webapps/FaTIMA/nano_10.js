@@ -1214,6 +1214,12 @@ Nano.GetInputs2 = function()
   // compute the volume flow for the exhaust fan - m^3/s
   var exhaustVolFlow =  Nano.Inputs.ExhaustRate.input.baseValue / CONTAM.Units.rho20;
 
+  if(Nano.Inputs.occupantInterval.valueAsNumber <= Nano.Inputs.occupantDuration.valueAsNumber)
+  {
+    alert("The occupancy duration must be less than the occupancy interval.");
+    return;
+  }
+
   // create an array of variables to set in the project
   // so that they can be sent to the CONTAM worker
   var variableList = [];
