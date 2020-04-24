@@ -225,7 +225,10 @@
           </div>
           <div class="unit">
             <div>Particle Deactivation</div>
-            <input type="checkbox" name="particleDecay" id="particleDecayCheck"> <label for="particleDecayCheck">Use Particle Deactivation</label>
+            <select id="useParticleDecay">
+              <option>Use</option>
+              <option selected>Don't Use</option>
+            </select>
           </div>
           <div class="unit">
             <div><label for="ParticleHalflifeInput">Half-life</label></div>
@@ -243,8 +246,11 @@
         <div class="sectiongrid">
           <div class="unithead">Continuous Source</div>
           <div class="unit">
-            <div>Activate Source</div>
-            <input type="checkbox" name="sourceType" id="constSrcCheck" value="constant" checked> <label for="constSrcCheck">Continuous</label>
+            <div>Source State</div>
+            <select id="constSrcState">
+              <option selected>Active</option>
+              <option>Inactive</option>
+            </select>
           </div>
           <div class="unit">
             <div><label for="ReleaseRateInput">Continuous Rate</label></div>
@@ -263,15 +269,18 @@
         <div class="sectiongrid">
           <div class="unithead">Burst Source</div>
           <div class="unit">
-            <div>Activate Source</div>
-            <input type="checkbox" name="sourceType" id="burstSrcCheck" value="burst" checked> <label for="burstSrcCheck">Burst</label>
+            <div>Source State</div>
+            <select id="brstSrcState">
+              <option selected>Active</option>
+              <option>Inactive</option>
+            </select>
           </div>
           <div class="unit">
             <div>Burst Type</div>
-            <input type="radio" name="sourceType" id="singleBurstRadio" value="burst"
-                   style="margin-left: 15px;"> <label for="singleBurstRadio">Single</label>
-            <input type="radio" name="sourceType" id="repeatBurstRadio" value="repeatBurst"
-                   style="margin-left: 15px;" checked> <label for="repeatBurstRadio">Intermittent</label>
+            <select id="brstType">
+              <option>Single</option>
+              <option selected>Intermittent</option>
+            </select>
           </div>
           <div class="unit">
             <div><label for="ReleaseAmountInput">Burst Amount</label></div>
@@ -340,10 +349,10 @@
           </div>
         <div class="unit">
           <div>Occupancy Type</div>
-          <input type="radio" name="occType" id="constOccRadio" value="burst"
-                 style="margin-left: 15px;" checked> <label for="constOccRadio">Constant</label>
-          <input type="radio" name="occType" id="interOccRadio" value="repeatBurst"
-                 style="margin-left: 15px;"> <label for="interOccRadio">Intermittent</label>
+          <select id="occType">
+            <option selected>Constant</option>
+            <option>Intermittent</option>
+          </select>
         </div>
         <div class="unit">
           <div><label for="occIntervalInput">Occupancy Interval</label></div>

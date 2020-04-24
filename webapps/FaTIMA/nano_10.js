@@ -298,8 +298,8 @@ Nano.Init = function()
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDensity);
   Nano.Inputs.PDensity.input.addEventListener("change", Nano.UpdateEdens); 
   
-  Nano.Inputs.PDecays =  document.getElementById("particleDecayCheck");
-  Nano.Inputs.PDecays.addEventListener("click", Nano.changeDecayEnabled);  
+  Nano.Inputs.PDecays =  document.getElementById("useParticleDecay");
+  Nano.Inputs.PDecays.addEventListener("change", Nano.changeDecayEnabled);  
   
   Nano.Inputs.PHalfLife =
   { 
@@ -325,9 +325,10 @@ Nano.Init = function()
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.PDecayRate);
   
   // constant source
-  Nano.Inputs.constSourceType = document.getElementById("constSrcCheck");
-  Nano.Inputs.constSourceType.checked = true;
-  Nano.Inputs.constSourceType.addEventListener("click", Nano.changeConstSrc);
+  Nano.Inputs.constSrcState = document.getElementById("constSrcState");
+  Nano.Inputs.constSrcState.checked = true;
+  Nano.Inputs.constSrcState.addEventListener("change", Nano.changeConstSrc);
+
 
   Nano.Inputs.ReleaseRate =
   { 
@@ -347,14 +348,11 @@ Nano.Init = function()
   Nano.Inputs.ConstSourceEndTime.value = "02:00:00";
   
   // burst source
-  Nano.Inputs.burstSourceType = document.getElementById("burstSrcCheck");
-  Nano.Inputs.burstSourceType.addEventListener("click", Nano.changeBurstSrc);
+  Nano.Inputs.brstSrcState = document.getElementById("brstSrcState");
+  Nano.Inputs.brstSrcState.addEventListener("change", Nano.changeBurstSrc);
 
-  Nano.Inputs.singleBurst = document.getElementById("singleBurstRadio");
-  Nano.Inputs.singleBurst.addEventListener("click", Nano.changeBurstType);
-
-  Nano.Inputs.repeatBurst = document.getElementById("repeatBurstRadio");
-  Nano.Inputs.repeatBurst.addEventListener("click", Nano.changeBurstType);
+  Nano.Inputs.brstType = document.getElementById("brstType");
+  Nano.Inputs.brstType.addEventListener("change", Nano.changeBurstType);
   
   Nano.Inputs.ReleaseAmount =
   { 
@@ -456,11 +454,8 @@ Nano.Init = function()
   Nano.Inputs.ExposEndTime = document.getElementById("EndExposureInput");
   Nano.Inputs.ExposEndTime.value = "03:00:00";
   
-  Nano.Inputs.constOcc = document.getElementById("constOccRadio");
-  Nano.Inputs.constOcc.addEventListener("click", Nano.changeOccType);
-
-  Nano.Inputs.interOcc = document.getElementById("interOccRadio");
-  Nano.Inputs.interOcc.addEventListener("click", Nano.changeOccType);
+  Nano.Inputs.occType = document.getElementById("occType");
+  Nano.Inputs.occType.addEventListener("change", Nano.changeOccType);
 
   Nano.Inputs.occupantInterval = document.getElementById("occIntervalInput");
   Nano.Inputs.occupantInterval.value = "30";
@@ -725,7 +720,7 @@ Nano.ComputeAirCleanerCADR = function()
 
 Nano.changeDecayEnabled = function()
 {
-  Nano.Inputs.PHalfLife.input.disabled = !Nano.Inputs.PDecays.checked;
+  Nano.Inputs.PHalfLife.input.disabled = Nano.Inputs.PDecays.selectedIndex == 1;
 }
 
 Nano.UpdateEdens = function()
@@ -890,9 +885,7 @@ Nano.GetInputs = function()
   if(!Nano.checkInputValidity())
     return;
 
-  //check if using the constant source
-  // otherwise us the burst source
-  if(Nano.Inputs.constSourceType.checked)
+  if(Nano.Inputs.constSrcState.selectedIndex == 0)
   {
     releaseRate = parseFloat(Nano.Inputs.ReleaseRate.input.baseValue);
     if(isNaN(releaseRate))
@@ -901,7 +894,7 @@ Nano.GetInputs = function()
       return;
     }
     console.log("releaseRate: " + releaseRate + " kg/s");
-    if(Nano.Inputs.burstSourceType.checked)
+    if(Nano.Inputs.brstSrcState.selectedIndex == 0)
     {
       releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
       if(isNaN(releaseAmount))
@@ -935,7 +928,7 @@ Nano.GetInputs = function()
   else
   {
     console.log("releaseRate: not used");
-    if(Nano.Inputs.burstSourceType.checked)
+    if(Nano.Inputs.brstSrcState.selectedIndex == 0)
     {
       releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
       if(isNaN(releaseAmount))
@@ -969,7 +962,7 @@ Nano.GetInputs = function()
   }
   
   //set the zone's kinetic reaction
-  if(Nano.Inputs.PDecays.checked)
+  if(Nano.Inputs.PDecays.selectedIndex == 0)
     // set it to the first kinetic reaction
     arrayOfParameters.push({setVariableName: "CONTAM.Project.ZoneList[1].pk", toVariableName: "CONTAM.Project.Kinr0.GetByNumber(1)"});
   else
@@ -1709,33 +1702,32 @@ Nano.drawChart = function()
 
 Nano.changeBurstSrc = function()
 {
-  Nano.Inputs.singleBurst.disabled = !Nano.Inputs.burstSourceType.checked;
-  Nano.Inputs.repeatBurst.disabled = !Nano.Inputs.burstSourceType.checked;
-  Nano.Inputs.ReleaseAmount.input.disabled = !Nano.Inputs.burstSourceType.checked;
-  Nano.Inputs.ReleaseAmount.select.disabled = !Nano.Inputs.burstSourceType.checked;
-  Nano.Inputs.BrstSourceStartTime.disabled = !Nano.Inputs.burstSourceType.checked;
-  Nano.Inputs.BrstSourceEndTime.disabled = !Nano.Inputs.burstSourceType.checked || Nano.Inputs.singleBurst.checked;
-  Nano.Inputs.RepeatInterval.disabled = !Nano.Inputs.burstSourceType.checked || Nano.Inputs.singleBurst.checked;
+  Nano.Inputs.brstType.disabled = Nano.Inputs.brstSrcState.selectedIndex == 1;
+  Nano.Inputs.ReleaseAmount.input.disabled = Nano.Inputs.brstSrcState.selectedIndex == 1;
+  Nano.Inputs.ReleaseAmount.select.disabled = Nano.Inputs.brstSrcState.selectedIndex == 1;
+  Nano.Inputs.BrstSourceStartTime.disabled = Nano.Inputs.brstSrcState.selectedIndex == 1;
+  Nano.Inputs.BrstSourceEndTime.disabled = Nano.Inputs.brstSrcState.selectedIndex == 1 || Nano.Inputs.brstType.selectedIndex == 0;
+  Nano.Inputs.RepeatInterval.disabled = Nano.Inputs.brstSrcState.selectedIndex == 1 || Nano.Inputs.brstType.selectedIndex == 0;
 }
 
 Nano.changeConstSrc = function()
 {
-  Nano.Inputs.ReleaseRate.input.disabled = !Nano.Inputs.constSourceType.checked;
-  Nano.Inputs.ReleaseRate.select.disabled = !Nano.Inputs.constSourceType.checked;
-  Nano.Inputs.ConstSourceStartTime.disabled = !Nano.Inputs.constSourceType.checked;
-  Nano.Inputs.ConstSourceEndTime.disabled = !Nano.Inputs.constSourceType.checked;
+  Nano.Inputs.ReleaseRate.input.disabled = Nano.Inputs.constSrcState.selectedIndex == 1;
+  Nano.Inputs.ReleaseRate.select.disabled = Nano.Inputs.constSrcState.selectedIndex == 1;
+  Nano.Inputs.ConstSourceStartTime.disabled = Nano.Inputs.constSrcState.selectedIndex == 1;
+  Nano.Inputs.ConstSourceEndTime.disabled = Nano.Inputs.constSrcState.selectedIndex == 1;
 }
 
 Nano.changeOccType = function()
 {
-  Nano.Inputs.occupantInterval.disabled = Nano.Inputs.constOcc.checked;
-  Nano.Inputs.occupantDuration.disabled = Nano.Inputs.constOcc.checked;
+  Nano.Inputs.occupantInterval.disabled = Nano.Inputs.occType.selectedIndex == 0;
+  Nano.Inputs.occupantDuration.disabled = Nano.Inputs.occType.selectedIndex == 0;
 }
 
 Nano.changeBurstType = function()
 {
-  Nano.Inputs.BrstSourceEndTime.disabled = Nano.Inputs.singleBurst.checked;
-  Nano.Inputs.RepeatInterval.disabled = Nano.Inputs.singleBurst.checked;
+  Nano.Inputs.BrstSourceEndTime.disabled = Nano.Inputs.brstType.selectedIndex == 0;
+  Nano.Inputs.RepeatInterval.disabled = Nano.Inputs.brstType.selectedIndex == 0;
 }
 
 Nano.UpdateDecay = function()

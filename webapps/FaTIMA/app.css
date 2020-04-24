@@ -44,3 +44,13 @@
   margin: 5px 0px;
   padding:5px;
 }
+
+input, select {
+  border: 1px solid #12659c;
+  border-radius: 4px;
+  padding:4px;
+}
+
+select {
+  padding:3px;
+}
