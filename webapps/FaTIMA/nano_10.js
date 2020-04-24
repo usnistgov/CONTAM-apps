@@ -987,67 +987,12 @@ Nano.GetInputs2 = function()
 {
   console.log("GetInputs2");
   // get inputs into local variables and make sure that they are valid numbers
-
-  var surfaceAreaWall = parseFloat(Nano.Inputs.WallArea.input.baseValue);//
-  if(isNaN(surfaceAreaWall))
-  {
-    alert("The wall area is not a number.");
-    return;
-  }
-  var surfaceAreaCeiling = parseFloat(Nano.Inputs.CeilingArea.input.baseValue);//
-  if(isNaN(surfaceAreaCeiling))
-  {
-    alert("The floor area is not a number.");
-    return;
-  }
-  var surfaceAreaOther = parseFloat(Nano.Inputs.OtherSurfaceArea.input.baseValue);//
-  if(isNaN(surfaceAreaOther))
-  {
-    alert("The other surface area is not a number.");
-    return;
-  }
   
-  var pFactor = parseFloat(Nano.Inputs.PFactor.value);//
-  if(isNaN(pFactor))
-  {
-    alert("The penetration factor is not a number.");
-    return;
-  }
-  // the filter efficiency = 1 - pFactor
-  var filterEff = 1 - pFactor;
-  var returnRate = parseFloat(Nano.Inputs.ReturnRate.input.baseValue);//
-  if(isNaN(returnRate))
-  {
-    alert("The return rate is not a number.");
-    return;
-  }
-
   var OAFilterIndex = Nano.Inputs.OAFilter.selectedIndex;
   var recircFilterIndex = Nano.Inputs.RecirFilter.selectedIndex;
   var filterElementNames = ["zero", "MERV-04","MERV-05", "MERV-06",
     "MERV-07", "MERV-08", "MERV-09", "MERV-10", "MERV-11",
     "MERV-12", "MERV-13", "MERV-14", "MERV-15", "MERV-16"];
-
-  var particlesize = parseFloat(Nano.Inputs.PDiam.input.baseValue);//
-  if(isNaN(particlesize))
-  {
-    alert("The particle size is not a number.");
-    return;
-  }
-
-  var particledensity = parseFloat(Nano.Inputs.PDensity.input.baseValue);//
-  if(isNaN(particledensity))
-  {
-    alert("The particle density is not a number.");
-    return;
-  }
-
-  var particleDecayRate = parseFloat(Nano.Inputs.PDecayRate.input.baseValue);//
-  if(isNaN(particleDecayRate))
-  {
-    alert("The particle decay rate is not a number.");
-    return;
-  }
 
   // constant source times
   var CnstStartSource = Nano.Inputs.ConstSourceStartTime.value;
@@ -1095,55 +1040,7 @@ Nano.GetInputs2 = function()
     alert("The end burst source time cannot be before the start burst source time.");
     return;
   }
-    
-  var RepeatInterval = Math.floor(Nano.Inputs.RepeatInterval.value);
-  if(RepeatInterval < 2)
-  {
-    alert("The Burst Repeat Interval must be at least 2 minutes.");
-    return;
-  }
-  
-  var depositionVelocityFloor = parseFloat(Nano.Inputs.FloorDV.input.baseValue);//
-  if(isNaN(depositionVelocityFloor))
-  {
-    alert("The floor deposition velocity is not a number.");
-    return;
-  }
-  
-  var depositionVelocityWall = parseFloat(Nano.Inputs.WallDV.input.baseValue);//
-  if(isNaN(depositionVelocityWall))
-  {
-    alert("The wall deposition velocity is not a number.");
-    return;
-  }
-  
-  var depositionVelocityCeiling = parseFloat(Nano.Inputs.CeilingDV.input.baseValue);//
-  if(isNaN(depositionVelocityCeiling))
-  {
-    alert("The ceiling deposition velocity is not a number.");
-    return;
-  }
-  
-  var depositionVelocityOtherSurface = parseFloat(Nano.Inputs.OtherSurfaceDV.input.baseValue);//
-  if(isNaN(depositionVelocityOtherSurface))
-  {
-    alert("The other surface deposition velocity is not a number.");
-    return;
-  }
  
-  var outdoorConcen = parseFloat(Nano.Inputs.OutdoorConcen.input.baseValue);//
-  if(isNaN(outdoorConcen))
-  {
-    alert("The outdoor concentration is not a number.");
-    return;
-  }
-  var zoneConcen = parseFloat(Nano.Inputs.InitZoneConcen.input.baseValue);//
-  if(isNaN(zoneConcen))
-  {
-    alert("The initial zone concentration is not a number.");
-    return;
-  }
-
   var StartExposure = Nano.Inputs.ExposStartTime.value;//
   var EndExposure = Nano.Inputs.ExposEndTime.value;//
   Nano.StartExposureTime = CONTAM.TimeUtilities.StringTimeToIntTime(StartExposure);//
@@ -1184,25 +1081,25 @@ Nano.GetInputs2 = function()
   // so that they can be sent to the CONTAM worker
   var variableList = [];
   variableList.push({variableName: "CONTAM.Project.ZoneList[1].Vol", variableValue: Nano.Inputs.Volume.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.ZoneList[1].CC0[0]", variableValue: zoneConcen});
+  variableList.push({variableName: "CONTAM.Project.ZoneList[1].CC0[0]", variableValue: Nano.Inputs.InitZoneConcen.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).name", variableValue: Nano.Inputs.PName.value});
-  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).mdiam", variableValue: particlesize});
-  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: particledensity});
-  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: outdoorConcen});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dV", variableValue: depositionVelocityCeiling});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: depositionVelocityFloor});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: depositionVelocityOtherSurface});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: depositionVelocityWall});
+  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).mdiam", variableValue: Nano.Inputs.PDiam.input.baseValueize});
+  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: Nano.Inputs.PDensity.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: Nano.Inputs.OutdoorConcen.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dV", variableValue: Nano.Inputs.CeilingDV.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: Nano.Inputs.FloorDV.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: Nano.Inputs.OtherSurfaceDV.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: Nano.Inputs.WallDV.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[1].Fahs", variableValue: Nano.Inputs.SupplyRate.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: returnRate});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dA", variableValue: surfaceAreaCeiling});
+  variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: Nano.Inputs.ReturnRate.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dA", variableValue: Nano.Inputs.CeilingArea.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: Nano.Inputs.FloorArea.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: surfaceAreaOther});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: surfaceAreaWall});
-  variableList.push({variableName: "CONTAM.Project.PathList[5].pf.pe.ped.eff[0]", variableValue: filterEff});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: Nano.Inputs.OtherSurfaceArea.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: Nano.Inputs.WallArea.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.PathList[5].pf.pe.ped.eff[0]", variableValue: 1 - Nano.Inputs.PFactor.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[0]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
-  variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: particleDecayRate});
+  variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: Nano.Inputs.PDecayRate.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[5].mult", variableValue: envelopeLeakageMultiplier});
   variableList.push({variableName: "CONTAM.Project.Dfe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.AirCleanerFlowRate.input.baseValue});
@@ -1226,7 +1123,7 @@ Nano.GetInputs2 = function()
   // set the day schedule for the breathing source to use the start/end time that the user specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, CnstStartSourceTime, CnstEndSourceTime, false, 0, 0, false]))
   // set the day schedule for the coughing source to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, BrstStartSourceTime, BrstEndSourceTime, Nano.Inputs.repeatBurst.checked, RepeatInterval * 60, 60, true]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, BrstStartSourceTime, BrstEndSourceTime, Nano.Inputs.repeatBurst.checked, Nano.Inputs.RepeatInterval.valueAsNumber * 60, 60, true]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())
