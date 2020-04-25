@@ -343,9 +343,9 @@ Nano.Init = function()
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.ReleaseRate);
   
   Nano.Inputs.ConstSourceStartTime = document.getElementById("ConstSourceStartTime");
-  Nano.Inputs.ConstSourceStartTime.value = "00:00:00";
+  Nano.Inputs.ConstSourceStartTime.value = "00:00";
   Nano.Inputs.ConstSourceEndTime = document.getElementById("ConstSourceEndTime"); 
-  Nano.Inputs.ConstSourceEndTime.value = "02:00:00";
+  Nano.Inputs.ConstSourceEndTime.value = "02:00";
   
   // burst source
   Nano.Inputs.brstSrcState = document.getElementById("brstSrcState");
@@ -367,9 +367,9 @@ Nano.Init = function()
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Inputs.ReleaseAmount);
 
   Nano.Inputs.BrstSourceStartTime = document.getElementById("BrstSourceStartTime");
-  Nano.Inputs.BrstSourceStartTime.value = "00:01:00";
+  Nano.Inputs.BrstSourceStartTime.value = "00:01";
   Nano.Inputs.BrstSourceEndTime = document.getElementById("BrstSourceEndTime"); 
-  Nano.Inputs.BrstSourceEndTime.value = "02:00:00";
+  Nano.Inputs.BrstSourceEndTime.value = "02:00";
 
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
   Nano.Inputs.RepeatInterval.value = "5";
@@ -450,9 +450,9 @@ Nano.Init = function()
 
   // occupant exposure
   Nano.Inputs.ExposStartTime = document.getElementById("StartExposureInput");
-  Nano.Inputs.ExposStartTime.value = "00:00:00";
+  Nano.Inputs.ExposStartTime.value = "00:00";
   Nano.Inputs.ExposEndTime = document.getElementById("EndExposureInput");
-  Nano.Inputs.ExposEndTime.value = "03:00:00";
+  Nano.Inputs.ExposEndTime.value = "03:00";
   
   Nano.Inputs.occType = document.getElementById("occType");
   Nano.Inputs.occType.addEventListener("change", Nano.changeOccType);
@@ -990,13 +990,13 @@ Nano.GetInputs2 = function()
   // constant source times
   var CnstStartSource = Nano.Inputs.ConstSourceStartTime.value;
   var CnstEndSource = Nano.Inputs.ConstSourceEndTime.value;
-  var CnstStartSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(CnstStartSource);//
+  var CnstStartSourceTime = CONTAM.TimeUtilities.ShortStringTimeToIntTime(CnstStartSource);//
   if(CnstStartSourceTime < 0)
   {
     alert("The start constant source time is not a valid time.");
     return;
   }
-  var CnstEndSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(CnstEndSource);//
+  var CnstEndSourceTime = CONTAM.TimeUtilities.ShortStringTimeToIntTime(CnstEndSource);//
   if(CnstEndSourceTime < 0)
   {
     alert("The end constant source time is not a valid time.");
@@ -1011,7 +1011,7 @@ Nano.GetInputs2 = function()
   //burst source times 
   var BrstStartSource = Nano.Inputs.BrstSourceStartTime.value;
   var BrstEndSource = Nano.Inputs.BrstSourceEndTime.value;
-  var BrstStartSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(BrstStartSource);//
+  var BrstStartSourceTime = CONTAM.TimeUtilities.ShortStringTimeToIntTime(BrstStartSource);//
   if(BrstStartSourceTime < 0)
   {
     alert("The start burst source time is not a valid time.");
@@ -1022,7 +1022,7 @@ Nano.GetInputs2 = function()
     alert("The start burst source time cannot be at 00:00:00.");
     return;
   }
-  var BrstEndSourceTime = CONTAM.TimeUtilities.StringTimeToIntTime(BrstEndSource);//
+  var BrstEndSourceTime = CONTAM.TimeUtilities.ShortStringTimeToIntTime(BrstEndSource);//
   if(BrstEndSourceTime < 0)
   {
     alert("The end burst source time is not a valid time.");
@@ -1036,13 +1036,13 @@ Nano.GetInputs2 = function()
  
   var StartExposure = Nano.Inputs.ExposStartTime.value;//
   var EndExposure = Nano.Inputs.ExposEndTime.value;//
-  Nano.StartExposureTime = CONTAM.TimeUtilities.StringTimeToIntTime(StartExposure);//
+  Nano.StartExposureTime = CONTAM.TimeUtilities.ShortStringTimeToIntTime(StartExposure);//
   if(Nano.StartExposureTime < 0)
   {
     alert("The start exposure time is not a valid time.");
     return;
   }
-  Nano.EndExposureTime = CONTAM.TimeUtilities.StringTimeToIntTime(EndExposure);//
+  Nano.EndExposureTime = CONTAM.TimeUtilities.ShortStringTimeToIntTime(EndExposure);//
   if(Nano.EndExposureTime < 0)
   {
     alert("The end exposure time is not a valid time.");
@@ -1111,12 +1111,12 @@ Nano.GetInputs2 = function()
   // set the filter element for the recirculation path
   .then((result) => CWD.CallContamFunction("CONTAM.setPathFilterElement", [6, filterElementNames[recircFilterIndex]]))
   // set the occupant day schedule to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime,  Nano.Inputs.interOcc.checked, 
+  .then((result) => CWD.CallContamFunction("CONTAM.SetOccDaySchedule", [Nano.StartExposureTime, Nano.EndExposureTime,  Nano.Inputs.occType.selectedIndex == 1, 
     Nano.Inputs.occupantInterval.valueAsNumber * 60, Nano.Inputs.occupantDuration.valueAsNumber * 60]))
   // set the day schedule for the breathing source to use the start/end time that the user specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, CnstStartSourceTime, CnstEndSourceTime, false, 0, 0, false]))
   // set the day schedule for the coughing source to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, BrstStartSourceTime, BrstEndSourceTime, Nano.Inputs.repeatBurst.checked, Nano.Inputs.RepeatInterval.valueAsNumber * 60, 60, true]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, BrstStartSourceTime, BrstEndSourceTime, Nano.Inputs.brstType.selectedIndex == 1, Nano.Inputs.RepeatInterval.valueAsNumber * 60, 60, true]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())

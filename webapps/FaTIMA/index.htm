@@ -258,11 +258,11 @@
             <select id="ReleaseRateCombo"></select>
           </div>
           <div class="unit">
-            <div>Source Time</div>
+            <div>Source Time Period</div>
             <label for="ConstSourceStartTime">Start</label>
-            <input id="ConstSourceStartTime" required style="width:8ch;"> / 
+            <input id="ConstSourceStartTime" required style="width:5ch;"> / 
             <label for="ConstSourceEndTime">End</label>
-            <input id="ConstSourceEndTime" required style="width:8ch;">
+            <input id="ConstSourceEndTime" required style="width:5ch;">
           </div>
         </div>
         <!---Burst Source -->
@@ -288,11 +288,11 @@
             <select id="ReleaseAmountCombo"></select>
           </div>
           <div class="unit">
-            <div>Source Time</div>
+            <div>Source Time Period</div>
             <label for="BrstSourceStartTime">Start</label>
-            <input id="BrstSourceStartTime" required style="width:8ch;"> / 
+            <input id="BrstSourceStartTime" required style="width:5ch;"> / 
             <label for="BrstSourceEndTime">End</label>
-            <input id="BrstSourceEndTime" required style="width:8ch;">
+            <input id="BrstSourceEndTime" required style="width:5ch;">
           </div>
           <div class="unit">
             <div><label for="RepeatSourceInput">Burst Interval</label></div>
@@ -344,8 +344,11 @@
         <div class="sectiongrid">
           <div class="unithead">Occupant Exposure</div>
           <div class="unit">
-            <div><label for="StartExposureInput">Exposure Start/End Time</label></div>
-            <input id="StartExposureInput" required style="width:8ch;"> to <input id="EndExposureInput" required style="width:8ch;">
+            <div><label for="StartExposureInput">Occupancy Time Period</label></div>
+            <label for="StartExposureInput">Start</label>
+            <input id="StartExposureInput" required style="width:5ch;"> / 
+            <label for="EndExposureInput">End</label>
+            <input id="EndExposureInput" required style="width:5ch;">
           </div>
         <div class="unit">
           <div>Occupancy Type</div>
@@ -355,11 +358,11 @@
           </select>
         </div>
         <div class="unit">
-          <div><label for="occIntervalInput">Occupancy Interval</label></div>
+          <div><label for="occIntervalInput">Intermittent Occupancy Interval</label></div>
           <input type="number" step="1" min="3" max="240" id="occIntervalInput" disabled required> mins
         </div>
         <div class="unit">
-          <div><label for="occDurationInput">Occupancy Duration</label></div>
+          <div><label for="occDurationInput">Intermittent Occupancy Duration</label></div>
           <input type="number" step="1" min="2" max="60" id="occDurationInput" disabled required> mins
         </div>
     </div>

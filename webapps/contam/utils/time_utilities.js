@@ -33,6 +33,33 @@ CONTAM.TimeUtilities.StringTimeToIntTime = function (value)
     return intTime;
 }
 
+
+CONTAM.TimeUtilities.ShortStringTimeToIntTime = function (value)
+{
+  var Hours;
+  var Minutes;
+  
+  if(typeof value != "string")
+    return -1;
+  
+  if(value.length != 5)
+    return -1;
+  
+  Hours = parseInt(value.substring(0, 2));
+  if(isNaN(Hours))
+    return -1;
+  Minutes = parseInt(value.substring(3, 5));
+  if(isNaN(Minutes))
+    return -1;
+  var intTime = (Hours * 60 + Minutes) * 60;
+  if(intTime > 86400)
+    return -1;
+  else
+    return intTime;
+}
+
+
+
 CONTAM.TimeUtilities.HourString = function (Time)
 {
   var hours;
