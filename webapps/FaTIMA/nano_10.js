@@ -329,7 +329,6 @@ Nano.Init = function()
   Nano.Inputs.constSrcState.checked = true;
   Nano.Inputs.constSrcState.addEventListener("change", Nano.changeConstSrc);
 
-
   Nano.Inputs.ReleaseRate =
   { 
     initialValue: 2.7925e-017, // 3.2 #/min
@@ -345,7 +344,7 @@ Nano.Init = function()
   Nano.Inputs.ConstSourceStartTime = document.getElementById("ConstSourceStartTime");
   Nano.Inputs.ConstSourceStartTime.value = "00:00";
   Nano.Inputs.ConstSourceEndTime = document.getElementById("ConstSourceEndTime"); 
-  Nano.Inputs.ConstSourceEndTime.value = "02:00";
+  Nano.Inputs.ConstSourceEndTime.value = "24:00";
   
   // burst source
   Nano.Inputs.brstSrcState = document.getElementById("brstSrcState");
@@ -369,7 +368,7 @@ Nano.Init = function()
   Nano.Inputs.BrstSourceStartTime = document.getElementById("BrstSourceStartTime");
   Nano.Inputs.BrstSourceStartTime.value = "00:01";
   Nano.Inputs.BrstSourceEndTime = document.getElementById("BrstSourceEndTime"); 
-  Nano.Inputs.BrstSourceEndTime.value = "02:00";
+  Nano.Inputs.BrstSourceEndTime.value = "24:00";
 
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
   Nano.Inputs.RepeatInterval.value = "5";
@@ -450,17 +449,18 @@ Nano.Init = function()
 
   // occupant exposure
   Nano.Inputs.ExposStartTime = document.getElementById("StartExposureInput");
-  Nano.Inputs.ExposStartTime.value = "00:00";
+  Nano.Inputs.ExposStartTime.value = "07:00";
   Nano.Inputs.ExposEndTime = document.getElementById("EndExposureInput");
-  Nano.Inputs.ExposEndTime.value = "03:00";
+  Nano.Inputs.ExposEndTime.value = "17:00";
   
   Nano.Inputs.occType = document.getElementById("occType");
+  Nano.Inputs.occType.selectedIndex = 1;
   Nano.Inputs.occType.addEventListener("change", Nano.changeOccType);
 
   Nano.Inputs.occupantInterval = document.getElementById("occIntervalInput");
-  Nano.Inputs.occupantInterval.value = "30";
+  Nano.Inputs.occupantInterval.value = "60";
   Nano.Inputs.occupantDuration = document.getElementById("occDurationInput");
-  Nano.Inputs.occupantDuration.value = "5";
+  Nano.Inputs.occupantDuration.value = "10";
 
   Nano.computeSystem();
 

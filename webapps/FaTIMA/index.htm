@@ -246,10 +246,10 @@
         <div class="sectiongrid">
           <div class="unithead">Continuous Source</div>
           <div class="unit">
-            <div>Source State</div>
+            <div>Source</div>
             <select id="constSrcState">
-              <option selected>Active</option>
-              <option>Inactive</option>
+              <option selected>On</option>
+              <option>Off</option>
             </select>
           </div>
           <div class="unit">
@@ -269,10 +269,10 @@
         <div class="sectiongrid">
           <div class="unithead">Burst Source</div>
           <div class="unit">
-            <div>Source State</div>
+            <div>Source</div>
             <select id="brstSrcState">
-              <option selected>Active</option>
-              <option>Inactive</option>
+              <option selected>On</option>
+              <option>Off</option>
             </select>
           </div>
           <div class="unit">
@@ -329,12 +329,12 @@
         <div class="sectiongrid">
           <div class="unithead">Initial Concentrations</div>
           <div class="unit">
-            <div><label for="InitialConcentrationOutdoorInput">Outdoor Concentration</label></div>
+            <div><label for="InitialConcentrationOutdoorInput">Outdoor Air</label></div>
             <input type="number" step="any" min="0" id="InitialConcentrationOutdoorInput" required>
             <select id="InitialConcentrationOutdoorCombo"></select>
           </div>
           <div class="unit">
-            <div><label for="InitialConcentrationInput">Initial Zone Concentration</label></div>
+            <div><label for="InitialConcentrationInput">Zone Air</label></div>
             <input type="number" step="any" min="0" id="InitialConcentrationInput" required>
             <span id="InitialConcentrationUnits"></span>
           </div>
@@ -359,11 +359,11 @@
         </div>
         <div class="unit">
           <div><label for="occIntervalInput">Intermittent Occupancy Interval</label></div>
-          <input type="number" step="1" min="3" max="240" id="occIntervalInput" disabled required> mins
+          <input type="number" step="1" min="3" max="240" id="occIntervalInput" required> mins
         </div>
         <div class="unit">
           <div><label for="occDurationInput">Intermittent Occupancy Duration</label></div>
-          <input type="number" step="1" min="2" max="60" id="occDurationInput" disabled required> mins
+          <input type="number" step="1" min="2" max="60" id="occDurationInput" required> mins
         </div>
     </div>
   </div>
@@ -379,6 +379,26 @@
       <!-- RESULTS -->
       <h3>Results</h3>
       <div class="section">
+
+        <div class="sectiongrid">
+          <div class="unithead">Sources</div>
+          <div class="unit">
+            <div>Continuous</div>
+            <input type="number" step="any" min="0" disabled id="continuousEmmissionResult">
+            <span id="continuousEmmissionResultUnits"></span>
+          </div>
+          <div class="unit">
+            <div>Burst</div> 
+            <input type="number" step="any" min="0" disabled id="burstEmmissionResult">
+            <span id="burstEmmissionResultUnits"></span>
+          </div>
+          <div class="unit">
+            <div>Total</div>
+            <input type="number" step="any" min="0" disabled id="totalEmmissionResult">
+            <select id="totalEmmissionResultCombo"></select>
+          </div>
+        </div>
+
         <div class="sectiongrid">
           <div class="unithead">Airborne Concentration</div>
           <div class="unit">
@@ -437,7 +457,7 @@
         </div>
 
         <div class="sectiongrid">
-          <div class="unithead">Surface Mass Deposited</div>
+          <div class="unithead">Mass Deposited</div>
           <div class="unit">
             <div>Floor</div>
             <input type="number" step="any" min="0" disabled id="floorMassDepResult">
@@ -466,27 +486,7 @@
         </div>
 
         <div class="sectiongrid">
-          <div class="unithead">Total Emissions</div>
-          <div class="unit">
-            <div>Continuous</div>
-            <input type="number" step="any" min="0" disabled id="continuousEmmissionResult">
-            <span id="continuousEmmissionResultUnits"></span>
-          </div>
-          <div class="unit">
-            <div>Burst</div> 
-            <input type="number" step="any" min="0" disabled id="burstEmmissionResult">
-            <span id="burstEmmissionResultUnits"></span>
-          </div>
-          <div class="unit">
-            <div>Total</div>
-            <input type="number" step="any" min="0" disabled id="totalEmmissionResult">
-            <select id="totalEmmissionResultCombo"></select>
-          </div>
-        </div>
-
-
-        <div class="sectiongrid">
-          <div class="unithead">Filter Loading</div>
+          <div class="unithead">Mass Filtered</div>
           <div class="unit">
             <div>Outdoor Air</div>
             <input type="number" step="any" min="0" disabled id="oaFilterLoadingResult">
