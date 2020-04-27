@@ -920,7 +920,7 @@ Nano.GetInputs = function()
       //set constant source release rate
       variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(1).ped.G", variableValue: releaseRate});
       //set the burst source to Off schedule 
-      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(7)"});
       //set burst source release amount to zero
       variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.M", variableValue: 0});
     }
@@ -938,7 +938,7 @@ Nano.GetInputs = function()
       }
       console.log("releaseAmount: " + releaseAmount + " kg");
       //set the const source to Off schedule 
-      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(7)"});
       //set constant source release rate to zero
       variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(1).ped.G", variableValue: 0});
       //set the burst source to coughing schedule
@@ -950,24 +950,26 @@ Nano.GetInputs = function()
     {
       console.log("releaseAmount: not used");
       //set the const source to Off schedule 
-      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(7)"});7
       //set constant source release rate to zero
       variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(1).ped.G", variableValue: 0});
       //set the burst source to Off schedule 
-      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(5)"});
+      arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[1].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(7)"});
       //set burst source release amount to zero
       variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(2).ped.M", variableValue: 0});
 
     }
   }
   
-  //set the zone's kinetic reaction
+  //set the deposition rate for particle deactivation
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).kd", variableValue: Nano.Inputs.PDecayRate.input.baseValue});
+
   if(Nano.Inputs.PDecays.selectedIndex == 0)
-    // set it to the first kinetic reaction
-    arrayOfParameters.push({setVariableName: "CONTAM.Project.ZoneList[1].pk", toVariableName: "CONTAM.Project.Kinr0.GetByNumber(1)"});
+    //set deposition rate for deactivation to deactivate schedule
+    arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[7].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(4)"});
   else
-    // set it to no kinetic reaction
-    variableList.push({variableName: "CONTAM.Project.ZoneList[1].pk", variableValue: null});
+    //set deposition rate for deactivation to off schedule
+    arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[7].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(7)"});
   
   CWD.SetArrayOfContamVariableToVariable(arrayOfParameters)
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
@@ -1076,23 +1078,22 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.ZoneList[1].Vol", variableValue: Nano.Inputs.Volume.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.ZoneList[1].CC0[0]", variableValue: Nano.Inputs.InitZoneConcen.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).name", variableValue: Nano.Inputs.PName.value});
-  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).mdiam", variableValue: Nano.Inputs.PDiam.input.baseValueize});
+  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).mdiam", variableValue: Nano.Inputs.PDiam.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: Nano.Inputs.PDensity.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: Nano.Inputs.OutdoorConcen.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dV", variableValue: Nano.Inputs.CeilingDV.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: Nano.Inputs.FloorDV.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: Nano.Inputs.OtherSurfaceDV.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: Nano.Inputs.WallDV.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: Nano.Inputs.CeilingDV.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: Nano.Inputs.FloorDV.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: Nano.Inputs.OtherSurfaceDV.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(7).ped.dV", variableValue: Nano.Inputs.WallDV.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[1].Fahs", variableValue: Nano.Inputs.SupplyRate.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[2].Fahs", variableValue: Nano.Inputs.ReturnRate.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.dA", variableValue: Nano.Inputs.CeilingArea.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: Nano.Inputs.FloorArea.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: Nano.Inputs.OtherSurfaceArea.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: Nano.Inputs.WallArea.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dA", variableValue: Nano.Inputs.CeilingArea.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dA", variableValue: Nano.Inputs.FloorArea.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dA", variableValue: Nano.Inputs.OtherSurfaceArea.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(7).ped.dA", variableValue: Nano.Inputs.WallArea.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[5].pf.pe.ped.eff[0]", variableValue: 1 - Nano.Inputs.PFactor.valueAsNumber});
-  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[0]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
-  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(10).ctrl[1]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
-  variableList.push({variableName: "CONTAM.Project.Kinr0.GetByNumber(1).pkd.coef", variableValue: Nano.Inputs.PDecayRate.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(12).ctrl[0]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
+  variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(12).ctrl[1]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[5].mult", variableValue: envelopeLeakageMultiplier});
   variableList.push({variableName: "CONTAM.Project.Dfe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.AirCleanerFlowRate.input.baseValue});
