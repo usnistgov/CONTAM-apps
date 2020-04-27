@@ -393,6 +393,11 @@
             <span id="burstEmmissionResultUnits"></span>
           </div>
           <div class="unit">
+            <div>Outdoor</div> 
+            <input type="number" step="any" min="0" disabled id="outdoorEmmissionResult">
+            <span id="outdoorEmmissionResultUnits"></span>
+          </div>
+          <div class="unit">
             <div>Total</div>
             <input type="number" step="any" min="0" disabled id="totalEmmissionResult">
             <select id="totalEmmissionResultCombo"></select>
@@ -506,6 +511,20 @@
             <div>Total</div>
             <input type="number" step="any" min="0" disabled id="totalFilterLoadingResult">
             <select id="totalFilterLoadingResultCombo"></select>
+          </div>
+        </div>
+
+        <div class="sectiongrid">
+          <div class="unithead">Mass Eliminated</div>
+          <div class="unit">
+            <div>Deactivated</div>
+            <input type="number" step="any" min="0" disabled id="massDeactivatedResult">
+            <span id="massDeactivatedResultUnits"></span>
+          </div>
+          <div class="unit">
+            <div>Exited Zone</div>
+            <input type="number" step="any" min="0" disabled id="massExitedResult">
+            <select id="massExitedResultCombo"></select>
           </div>
         </div>
 

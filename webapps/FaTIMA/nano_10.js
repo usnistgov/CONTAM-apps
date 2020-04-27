@@ -591,7 +591,21 @@ Nano.Init = function()
     species: Nano.Species
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.burstEmmission);
+
   
+  Nano.Results.outdoorEmmission =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("outdoorEmmissionResult"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("outdoorEmmissionResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.outdoorEmmission);
+
   // filter loading results
   Nano.Results.totalFilterLoading =
   { 
@@ -708,6 +722,33 @@ Nano.Init = function()
     species: Nano.Species
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.otherMassDeposited);
+
+  // mass eliminated
+  Nano.Results.massDeactivated =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("massDeactivatedResult"),
+    select: document.getElementById("massExitedResultCombo"),
+    unitDisplay: document.getElementById("massDeactivatedResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.massDeactivated);
+
+  Nano.Results.massExited =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("massExitedResult"),
+    select: document.getElementById("massExitedResultCombo"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.massExited);
+
 
 }
 
@@ -1226,7 +1267,7 @@ Nano.ConvertChartTime = function(chart_time)
 Nano.putResultsInGUI = function()
 {
   
-  // calulate particle fate
+  // particle fate
   // get mass emitted
   var Memit = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded;
   var Mfilt = Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.oaFiltMassSto + 
@@ -1235,8 +1276,7 @@ Nano.putResultsInGUI = function()
     Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
   var Mexf = Nano.Results.csmResults.ctm_exfil;
   var Mzone = Nano.Results.ctrlLogResult.finalConcen * CONTAM.Units.rho20 * Nano.Inputs.Volume.input.baseValue;
-  
-  var Mdeact = Memit - (Mfilt + Mdep + Mexf + Mzone);
+  var Mdeact = Nano.Results.csmResults.massDeactivated;
   
   Nano.Results.percentFilt = Mfilt / Memit * 100;
   Nano.Results.percentExfil = Mexf / Memit * 100;
@@ -1261,18 +1301,21 @@ Nano.putResultsInGUI = function()
   Nano.Results.totalSurfaceLoading.input.baseValue = Nano.Results.surfaceTotalLoading;
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalSurfaceLoading.select);
     
-  // emssion results
+  // sources results
   // burst
   Nano.Results.burstEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded;
 
   // continuous
   Nano.Results.continuousEmmission.input.baseValue = Nano.Results.csmResults.continuousMassAdded;
 
+  // outdoor
+  Nano.Results.outdoorEmmission.input.baseValue = Nano.Results.csmResults.ctm_entered;
+
   // total
-  Nano.Results.totalEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded;
+  Nano.Results.totalEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded + Nano.Results.csmResults.ctm_entered;
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalEmmission.select);
   
-  //filter loading results
+  //mass filtered results
   // oa
   Nano.Results.oaFilterLoading.input.baseValue = Nano.Results.csmResults.oaFiltMassSto;
   
@@ -1286,7 +1329,7 @@ Nano.putResultsInGUI = function()
   Nano.Results.totalFilterLoading.input.baseValue = Nano.Results.csmResults.oaFiltMassSto + Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.acFiltMassSto;
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalFilterLoading.select);
   
-  //surface mass deposited
+  //mass deposited
   // floor
   Nano.Results.floorMassDeposited.input.baseValue = Nano.Results.csmResults.floorMassStored;
   
@@ -1304,6 +1347,12 @@ Nano.putResultsInGUI = function()
     Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
     Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalMassDeposited.select);
+
+  // mass eliminated
+  Nano.Results.massDeactivated.input.baseValue = Mdeact;
+
+  Nano.Results.massExited.input.baseValue = Mexf;
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.massExited.select);
 }
 
 Nano.DisplayExposureResults = function()

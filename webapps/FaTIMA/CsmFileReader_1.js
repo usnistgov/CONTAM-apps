@@ -22,6 +22,8 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   var oaFiltMassSto = 0;
   var acFiltMassSto = 0;
   var ctm_exfil = 0;
+  var ctm_entered = 0;
+  var massDeactivated = 0;
 
   rdr.Init(CsmFileText);  
   
@@ -60,14 +62,16 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
       continuousMassAdded = cssRel;
     var cssRem = rdr.readR4(0);
     var cssSto = rdr.readR4(0);
-    if(i==2)
-      floorMassStored = cssSto
     if(i==3)
-      wallsMassStored = cssSto
+      floorMassStored = cssSto
     if(i==4)
-      ceilingMassStored = cssSto
+      wallsMassStored = cssSto
     if(i==5)
+      ceilingMassStored = cssSto
+    if(i==6)
       otherMassStored = cssSto
+    if(i==2)
+      massDeactivated = cssRem
   }
 
   rdr.nextword(3); // blank line
@@ -117,7 +121,7 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   for(i=0;i<nctm;++i)
   {
     var ctm_name = rdr.nextword(0);
-    var ctm_infil = rdr.readR4(0);
+    ctm_entered = rdr.readR4(0);
     ctm_exfil = rdr.readR4(0);
   }
 
@@ -131,6 +135,8 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   'recFiltMassSto' : recFiltMassSto,
   'oaFiltMassSto' : oaFiltMassSto,
   'acFiltMassSto' : acFiltMassSto,
-  'ctm_exfil': ctm_exfil
+  'ctm_exfil': ctm_exfil,
+  'ctm_entered': ctm_entered,
+  'massDeactivated': massDeactivated,
   };
 }
