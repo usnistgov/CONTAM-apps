@@ -1644,7 +1644,7 @@ Nano.drawChart = function()
   if(air_data)
     air_data_table.addRows(air_data);
   var concenYAxisTitle = 'Air Concentration (' + 
-    Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
+    Nano.decodeHtml(CONTAM.Units.Strings.PartConcen[Nano.Results.maximumConcExpos.select.selectedIndex]) + ')'; 
 
   var surf_data_table = new google.visualization.DataTable();
   surf_data_table.addColumn('timeofday', 'Time of Day');
@@ -1658,13 +1658,6 @@ Nano.drawChart = function()
   var surfYAxisTitle = 'Surface Loading (' + 
     Nano.decodeHtml(CONTAM.Units.Strings.Concentration_Surf[Nano.Results.totalSurfaceLoading.select.selectedIndex]) + ')'; 
   
-  // these display the units for integrated concentration 
-  var resultUnits = ["kg s/kg", "kg s/m&sup3;", "lb s/lb", "lb s/ft&sup3;", "g s/kg", 
-  "g s/m&sup3;", "g s/lb", "g s/ft&sup3;", "mg s/kg", "mg s/m&sup3;", "mg s/lb", 
-  "mg s/ft&sup3;", "&micro;g s/kg", "&micro;g s/m&sup3;", "&micro;g s/lb", 
-  "&micro;g s/ft&sup3;", "ng s/kg", "ng s/m&sup3;", "ng s/lb", "ng s/ft&sup3;", 
-  "# s/kg", "# s/m&sup3;", "# s/lb", "# s/ft&sup3;", "# s/L", "# s/cm&sup3;"];
-
   var expos_data_table = new google.visualization.DataTable();
   expos_data_table.addColumn('timeofday', 'Time of Day');
   expos_data_table.addColumn('number', 'Exposure');
@@ -1672,8 +1665,8 @@ Nano.drawChart = function()
   expos_data_table.addColumn('number', 'Integrated Exposure');
   if(expos_data)
     expos_data_table.addRows(expos_data);
-  var exposureYAxisTitle1 = 'Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
-  var exposureYAxisTitle2 = 'Integrated Occupant Exposure (' + Nano.decodeHtml(resultUnits[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
+  var exposureYAxisTitle1 = 'Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.PartConcen[Nano.Results.maximumConcExpos.select.selectedIndex]) + ')'; 
+  var exposureYAxisTitle2 = 'Integrated Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.IntegratedConcen[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
 
   var fate_data_table = google.visualization.arrayToDataTable([
     ['Fate', 'Percent of Particles'],
