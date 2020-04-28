@@ -436,7 +436,7 @@ Nano.Init = function()
   Nano.Inputs.DepositionRateCalc =
   { 
     initialValue: 0, 
-    convert: 0, 
+    convert: 2, 
     func: CONTAM.Units.TimeConstantConvert, 
     strings: CONTAM.Units.Strings.TimeConstant,
     input: document.getElementById("DepositionRateCalculated"),
@@ -1142,7 +1142,7 @@ Nano.GetInputs2 = function()
   }
   if(BrstStartSourceTime == 0)
   {
-    alert("The start burst source time cannot be at 00:00:00.");
+    alert("The start burst source time cannot be at 00:00.");
     return;
   }
   var BrstEndSourceTime = CONTAM.TimeUtilities.ShortStringTimeToIntTime(BrstEndSource);//
