@@ -635,6 +635,7 @@ Nano.Init = function()
     species: Nano.Species
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalEmmission);
+  Nano.Results.totalEmmission.select.addEventListener("input", Nano.DisplayExposureResults); 
 
   Nano.Results.continuousEmmission =
   { 
@@ -684,7 +685,8 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("totalFilterLoadingResult"),
-    select: document.getElementById("totalFilterLoadingResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("totalFilterLoadingResultUnits"),
     species: Nano.Species
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalFilterLoading);
@@ -696,7 +698,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("oaFilterLoadingResult"),
-    select: document.getElementById("totalFilterLoadingResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("oaFilterLoadingResultUnits"),
     species: Nano.Species
   };
@@ -709,7 +711,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("recFilterLoadingResult"),
-    select: document.getElementById("totalFilterLoadingResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("recFilterLoadingResultUnits"),
     species: Nano.Species
   };
@@ -722,7 +724,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("acFilterLoadingResult"),
-    select: document.getElementById("totalFilterLoadingResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("acFilterLoadingResultUnits"),
     species: Nano.Species
   };
@@ -736,7 +738,8 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("totalMassDepResult"),
-    select: document.getElementById("totalMassDepResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("totalMassDepResultUnits"),
     species: Nano.Species
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.totalMassDeposited);
@@ -748,7 +751,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("floorMassDepResult"),
-    select: document.getElementById("totalMassDepResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("floorMassDepResultUnits"),
     species: Nano.Species
   };
@@ -761,7 +764,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("wallMassDepResult"),
-    select: document.getElementById("totalMassDepResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("wallMassDepResultUnits"),
     species: Nano.Species
   };
@@ -774,7 +777,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("ceilingMassDepResult"),
-    select: document.getElementById("totalMassDepResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("ceilingMassDepResultUnits"),
     species: Nano.Species
   };
@@ -787,7 +790,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("otherMassDepResult"),
-    select: document.getElementById("totalMassDepResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("otherMassDepResultUnits"),
     species: Nano.Species
   };
@@ -801,7 +804,7 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("massDeactivatedResult"),
-    select: document.getElementById("massExitedResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
     unitDisplay: document.getElementById("massDeactivatedResultUnits"),
     species: Nano.Species
   };
@@ -814,7 +817,8 @@ Nano.Init = function()
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("massExitedResult"),
-    select: document.getElementById("massExitedResultCombo"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("massExitedResultUnits"),
     species: Nano.Species
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.massExited);
@@ -1348,21 +1352,13 @@ Nano.putResultsInGUI = function()
 {
   
   // particle fate
-  // get mass emitted
-  var Memit = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded;
-  var Mfilt = Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.oaFiltMassSto + 
+  Nano.Results.Mfilt = Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.oaFiltMassSto + 
     Nano.Results.csmResults.acFiltMassSto;
-  var Mdep = Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
+  Nano.Results.Mdep = Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
     Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
-  var Mexf = Nano.Results.csmResults.ctm_exfil;
-  var Mzone = Nano.Results.ctrlLogResult.finalConcen * Nano.Inputs.Volume.input.baseValue;
-  var Mdeact = Nano.Results.csmResults.massDeactivated;
-  
-  Nano.Results.percentFilt = Mfilt / Memit * 100;
-  Nano.Results.percentExfil = Mexf / Memit * 100;
-  Nano.Results.percentDeac = Mdeact / Memit * 100;
-  Nano.Results.percentDep = Mdep / Memit * 100;
-  Nano.Results.percentInZone = Mzone / Memit * 100;
+  Nano.Results.Mexf = Nano.Results.csmResults.ctm_exfil;
+  Nano.Results.Mzone = Nano.Results.ctrlLogResult.finalConcen * Nano.Inputs.Volume.input.baseValue;
+  Nano.Results.Mdeact = Nano.Results.csmResults.massDeactivated;
   
   // surface loading
   // floor
@@ -1429,9 +1425,9 @@ Nano.putResultsInGUI = function()
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalMassDeposited.select);
 
   // mass eliminated
-  Nano.Results.massDeactivated.input.baseValue = Mdeact;
+  Nano.Results.massDeactivated.input.baseValue = Nano.Results.Mdeact;
 
-  Nano.Results.massExited.input.baseValue = Mexf;
+  Nano.Results.massExited.input.baseValue = Nano.Results.Mexf;
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.massExited.select);
 }
 
@@ -1702,23 +1698,36 @@ Nano.drawChart = function()
   var exposureYAxisTitle1 = 'Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.PartConcen[Nano.Results.maximumConcExpos.select.selectedIndex]) + ')'; 
   var exposureYAxisTitle2 = 'Integrated Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.IntegratedConcen[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
 
+  // mass
+  //exited zone 
+  var exited = CONTAM.Units.Mass2Convert(Nano.Results.Mexf, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
+  //filtered 
+  var filtered = CONTAM.Units.Mass2Convert(Nano.Results.Mfilt, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
+  //deposited 
+  var deposited = CONTAM.Units.Mass2Convert(Nano.Results.Mdep, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
+  //deactivated 
+  var deactivated = CONTAM.Units.Mass2Convert(Nano.Results.Mdeact, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
+  //remained in zone 
+  var remain = CONTAM.Units.Mass2Convert(Nano.Results.Mzone, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
+  var fate_units = CONTAM.Units.Strings2.Mass2[Nano.Results.totalEmmission.select.selectedIndex];
+
   var fate_data_table = google.visualization.arrayToDataTable([
     ['Fate', 'Percent of Particles'],
-    ['Exited Zone: '    + sprintf("%4.1f", Nano.Results.percentExfil),  Nano.Results.percentExfil],
-    ['Filtered: '       + sprintf("%4.1f", Nano.Results.percentFilt),   Nano.Results.percentFilt],
-    ['Deposited: '      + sprintf("%4.1f", Nano.Results.percentDep),    Nano.Results.percentDep],
-    ['Deactivated: '    + sprintf("%4.1f", Nano.Results.percentDeac),   Nano.Results.percentDeac],
-    ['Remain in Zone: ' + sprintf("%4.1f", Nano.Results.percentInZone), Nano.Results.percentInZone]
+    ['Exited Zone: '    + sprintf("%4.1f", exited),  exited],
+    ['Filtered: '       + sprintf("%4.1f", filtered), filtered],
+    ['Deposited: '      + sprintf("%4.1f", deposited),  deposited],
+    ['Deactivated: '    + sprintf("%4.1f", deactivated),deactivated],
+    ['Remain in Zone: ' + sprintf("%4.1f", remain), remain]
   ]);
 
   //sources
   //burst
-  var burst = CONTAM.Units.Mass2Convert(Nano.Results.burstEmmission.input.baseValue, Nano.Results.burstEmmission.select.selectedIndex, 0, Nano.Species);
+  var burst = CONTAM.Units.Mass2Convert(Nano.Results.burstEmmission.input.baseValue, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
   // continuous
-  var continuous = CONTAM.Units.Mass2Convert(Nano.Results.continuousEmmission.input.baseValue, Nano.Results.burstEmmission.select.selectedIndex, 0, Nano.Species);
+  var continuous = CONTAM.Units.Mass2Convert(Nano.Results.continuousEmmission.input.baseValue, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
   // outdoor
-  var outdoor = CONTAM.Units.Mass2Convert(Nano.Results.outdoorEmmission.input.baseValue, Nano.Results.burstEmmission.select.selectedIndex, 0, Nano.Species);
-  var sources_units = CONTAM.Units.Strings2.Mass2[Nano.Results.burstEmmission.select.selectedIndex];
+  var outdoor = CONTAM.Units.Mass2Convert(Nano.Results.outdoorEmmission.input.baseValue, Nano.Results.totalEmmission.select.selectedIndex, 0, Nano.Species);
+  var sources_units = CONTAM.Units.Strings2.Mass2[Nano.Results.totalEmmission.select.selectedIndex];
   var sources_data_table = google.visualization.arrayToDataTable([
     ['Source', sources_units],
     ['Continunous',  continuous],
@@ -1828,9 +1837,9 @@ Nano.drawChart = function()
     },
     legend: { position: 'bottom' }
   };
-
+  
   var fate_options = {
-    title: 'Particle Fate',
+    title: 'Particle Fate (' + fate_units + ")",
     is3D: true,
     sliceVisibilityThreshold: 0,
     backgroundColor: {
