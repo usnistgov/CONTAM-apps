@@ -1321,7 +1321,7 @@ Nano.putResultsInGUI = function()
   var Mdep = Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
     Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
   var Mexf = Nano.Results.csmResults.ctm_exfil;
-  var Mzone = Nano.Results.ctrlLogResult.finalConcen * CONTAM.Units.rho20 * Nano.Inputs.Volume.input.baseValue;
+  var Mzone = Nano.Results.ctrlLogResult.finalConcen * Nano.Inputs.Volume.input.baseValue;
   var Mdeact = Nano.Results.csmResults.massDeactivated;
   
   Nano.Results.percentFilt = Mfilt / Memit * 100;
