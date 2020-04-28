@@ -21,6 +21,9 @@ window.onload = function()
   Nano.SurfChart = document.getElementById("surf_concen_chart");
   Nano.ExposChart = document.getElementById("expos_chart");
   Nano.fateChart = document.getElementById("fate_chart");
+  Nano.sourcesChart = document.getElementById("sources_chart");
+  Nano.depositedChart = document.getElementById("deposited_chart");
+  Nano.filteredChart = document.getElementById("filtered_chart");
   Nano.simStatusSpan = document.getElementById("simStatusSpan");
   Nano.downloadLinksSpan = document.getElementById("downloadLinksSpan");
   Nano.Init();
@@ -1677,6 +1680,61 @@ Nano.drawChart = function()
     ['Remain in Zone: ' + sprintf("%4.1f", Nano.Results.percentInZone), Nano.Results.percentInZone]
   ]);
 
+  //sources
+  //burst
+  var burst = CONTAM.Units.Mass2Convert(Nano.Results.burstEmmission.input.baseValue, Nano.Results.burstEmmission.select.selectedIndex, 0, Nano.Species);
+  // continuous
+  var continuous = CONTAM.Units.Mass2Convert(Nano.Results.continuousEmmission.input.baseValue, Nano.Results.burstEmmission.select.selectedIndex, 0, Nano.Species);
+  // outdoor
+  var outdoor = CONTAM.Units.Mass2Convert(Nano.Results.outdoorEmmission.input.baseValue, Nano.Results.burstEmmission.select.selectedIndex, 0, Nano.Species);
+  var sources_units = CONTAM.Units.Strings2.Mass2[Nano.Results.burstEmmission.select.selectedIndex];
+  var sources_data_table = google.visualization.arrayToDataTable([
+    ['Source', sources_units],
+    ['Continunous',  continuous],
+    ['Burst',  burst],
+    ['Outdoor',  outdoor],
+  ]);
+  
+  //mass deposited
+  // floor
+  var floor = CONTAM.Units.Mass2Convert(Nano.Results.floorMassDeposited.input.baseValue, Nano.Results.floorMassDeposited.select.selectedIndex, 0, Nano.Species);
+  
+  // wall
+  var wall = CONTAM.Units.Mass2Convert(Nano.Results.wallMassDeposited.input.baseValue, Nano.Results.floorMassDeposited.select.selectedIndex, 0, Nano.Species);
+  
+  // ceiling
+  var ceiling = CONTAM.Units.Mass2Convert(Nano.Results.ceilingMassDeposited.input.baseValue, Nano.Results.floorMassDeposited.select.selectedIndex, 0, Nano.Species);
+  
+  // other
+  var other = CONTAM.Units.Mass2Convert(Nano.Results.otherMassDeposited.input.baseValue, Nano.Results.floorMassDeposited.select.selectedIndex, 0, Nano.Species);
+  
+  var deposited_units = CONTAM.Units.Strings2.Mass2[Nano.Results.floorMassDeposited.select.selectedIndex];
+  var deposited_data_table = google.visualization.arrayToDataTable([
+    ['surface', deposited_units],
+    ['Floor',  floor],
+    ['Wall',  wall],
+    ['Ceiling', ceiling],
+    ['Other', other],
+  ]);
+
+  //mass filtered
+  // outdoor
+  var outdoor = CONTAM.Units.Mass2Convert(Nano.Results.oaFilterLoading.input.baseValue, Nano.Results.oaFilterLoading.select.selectedIndex, 0, Nano.Species);
+  
+  // recirc
+  var recirc = CONTAM.Units.Mass2Convert(Nano.Results.recFilterLoading.input.baseValue, Nano.Results.recFilterLoading.select.selectedIndex, 0, Nano.Species);
+  
+  // air cleaner
+  var air_cleaner = CONTAM.Units.Mass2Convert(Nano.Results.acFilterLoading.input.baseValue, Nano.Results.acFilterLoading.select.selectedIndex, 0, Nano.Species);
+  
+  var filtered_units = CONTAM.Units.Strings2.Mass2[Nano.Results.acFilterLoading.select.selectedIndex];
+  var filtered_data_table = google.visualization.arrayToDataTable([
+    ['filter', filtered_units],
+    ['Outdoor Air',  outdoor],
+    ['Recirculation',  recirc],
+    ['Air Cleaner', air_cleaner],
+  ]);
+
   var air_options = {
     backgroundColor: '#F4F5F9',
     chartArea: {'width': '80%', 'height': '80%'},
@@ -1750,17 +1808,53 @@ Nano.drawChart = function()
     },
   };
 
+  var sources_options = {
+    title: 'Sources (' + sources_units + ")",
+    is3D: true,
+    sliceVisibilityThreshold: 0,
+    backgroundColor: {
+      stroke: "#12659c",
+      strokeWidth: 2,
+    },
+  };
+
+  var deposited_options = {
+    title: 'Mass Deposited (' + deposited_units + ")",
+    is3D: true,
+    sliceVisibilityThreshold: 0,
+    backgroundColor: {
+      stroke: "#12659c",
+      strokeWidth: 2,
+    },
+  };
+
+  var filtered_options = {
+    title: 'Mass Filtered (' + filtered_units + ")",
+    is3D: true,
+    sliceVisibilityThreshold: 0,
+    backgroundColor: {
+      stroke: "#12659c",
+      strokeWidth: 2,
+    },
+  };
+
 
   var air_chart = new google.visualization.LineChart(Nano.ExpChart);
   var surf_chart = new google.visualization.LineChart(Nano.SurfChart);
   var expos_chart = new google.visualization.LineChart(Nano.ExposChart);
   var fate_chart =  new google.visualization.PieChart(Nano.fateChart);
+  var sources_chart =  new google.visualization.PieChart(Nano.sourcesChart);
+  var deposited_chart =  new google.visualization.PieChart(Nano.depositedChart);
+  var filtered_chart =  new google.visualization.PieChart(Nano.filteredChart);
   
   //console.log("draw call");
   air_chart.draw(air_data_table, air_options);
   surf_chart.draw(surf_data_table, surf_options);
   expos_chart.draw(expos_data_table, expos_options);
   fate_chart.draw(fate_data_table, fate_options);
+  sources_chart.draw(sources_data_table, sources_options);
+  deposited_chart.draw(deposited_data_table, deposited_options);
+  filtered_chart.draw(filtered_data_table, filtered_options);
 }
 
 Nano.changeBurstSrc = function()
