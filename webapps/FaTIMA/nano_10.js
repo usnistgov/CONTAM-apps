@@ -111,7 +111,7 @@ Nano.Init = function()
 
   Nano.Inputs.WallArea =
   { 
-    initialValue: 0, 
+    initialValue: 63.25, 
     convert: 0, 
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
@@ -123,7 +123,7 @@ Nano.Init = function()
 
   Nano.Inputs.CeilingArea =
   { 
-    initialValue: 0, 
+    initialValue: 40, 
     convert: 0, 
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
@@ -135,7 +135,7 @@ Nano.Init = function()
 
   Nano.Inputs.OtherSurfaceArea =
   { 
-    initialValue: 0, 
+    initialValue: 4, 
     convert: 0, 
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
