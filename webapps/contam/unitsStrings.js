@@ -104,10 +104,19 @@ CONTAM.Units.Strings.Concentration_Surf =  // surface area concentration for DVR
 
 CONTAM.Units.Strings.Energy = ["W", "BTU"];
 CONTAM.Units.Strings.HeatGains = 
-  ["W/m&sup2;", "BTU/h/ft&sup2;", "W/ft&sup2;", "kJ/h·m&sup2;"];
+  ["W/m&sup2;", "BTU/h/ft&sup2;", "W/ft&sup2;", "kJ/h m&sup2;"];
 CONTAM.Units.Strings.IntegratedConcen =
-  ["kg s/m&sup3;", "g s/m&sup3;", "mg s/m&sup3;", "&micro;g s/m&sup3;", "&num; s/m&sup3;"];
-  
+  ["kg s/m&sup3;", "mg s/m&sup3;", "&micro;g s/m&sup3;", "&num; s/m&sup3;", "mg s/L", "&micro;g s/L",
+  "&num; s/L", "mg min/m&sup3;", "&micro;g min/m&sup3;", "mg min/L", "&micro;g min/L", "&num; min/L",
+  "kg h/L", "g h/L", "&num; h/L", "kg h/cm&sup3;", "g h/cm&sup3;", "&num; h/cm&sup3;",
+  "lb h/ft&sup3;", "&num; h/ft&sup3;", "lb min/ft&sup3;", "&num; min/ft&sup3;", "lb h/in&sup3;",
+  "&num; h/in&sup3;", "lb min/in&sup3;", "&num; min/in&sup3;" ];
+
+CONTAM.Units.Strings.PartConcen = 
+  ["kg/m&sup3", "g/m&sup3", "mg/m&sup3", "&micro;g/m&sup3", "&num;/m&sup3;", "kg/L", "g/L", "mg/L",
+    "&micro;g/L", "&num;/L", "kg/cm&sup3", "g/cm&sup3", "mg/cm&sup3", "&micro;g/cm&sup3", "&num;/cm&sup3;",
+    "lb/ft&sup3", "&num;/ft&sup3", "lb/in&sup3", "&num;/in&sup3" ];
+
 // these don't need escaping like ones above
 CONTAM.Units.Strings2 = {};
 CONTAM.Units.Strings2.TimeConstant = ["1/s", "1/min", "1/h", "1/dy", "1/yr"];
@@ -203,6 +212,15 @@ CONTAM.Units.Strings2.Concentration_Surf =  // surface area concentration for DV
 
 CONTAM.Units.Strings2.Energy = ["W", "BTU"];
 CONTAM.Units.Strings2.HeatGains = 
-  ["W/m\xB2", "BTU/h/ft\xB2", "W/ft\xB2", "kJ/h·m\xB2"];
+  ["W/m\xB2", "BTU/h/ft\xB2", "W/ft\xB2", "kJ/h m\xB2"];
 CONTAM.Units.Strings2.IntegratedConcen =
-  ["kg s/m\xB3", "g s/m\xB3", "mg s/m\xB3", "\xB5g s/m\xB3", "# s/m\xB3"];
+  ["kg s/m\xB3", "mg s/m\xB3", "\xB5g s/m\xB3", "# s/m\xB3", "mg s/L", "\xB5g s/L",
+  "# s/L", "mg min/m\xB3", "\xB5g min/m\xB3", "mg min/L", "\xB5g min/L", "# min/L",
+  "kg h/L", "g h/L", "# h/L", "kg h/cm\xB3", "g h/cm\xB3", "# h/cm\xB3",
+  "lb h/ft\xB3", "# h/ft\xB3", "lb min/ft\xB3", "# min/ft\xB3", "lb h/in\xB3",
+  "# h/in\xB3", "lb min/in\xB3", "# min/in\xB3" ];
+
+CONTAM.Units.Strings2.PartConcen = 
+  ["kg/m\xB3", "g/m\xB3", "mg/m\xB3", "\xB5g/m\xB3", "#/m\xB3", "kg/L", "g/L", "mg/L",
+    "\xB5g/L", "#/L", "kg/cm\xB3", "g/cm\xB3", "mg/cm\xB3", "\xB5g/cm\xB3", "#/cm\xB3",
+    "lb/ft\xB3", "#/ft\xB3", "lb/in\xB3", "#/in\xB3" ];

@@ -68,6 +68,7 @@ CONTAM.Units.Types.Mass2              = 37;
 CONTAM.Units.Types.Mass3              = 38;
 CONTAM.Units.Types.IntegratedConcen   = 39;
 CONTAM.Units.Types.ConcSS2            = 40;
+CONTAM.Units.Types.PartConcen         = 41;
 
 
 //converts temperature units
@@ -737,13 +738,13 @@ CONTAM.Units.ConcenConvert = function(Value, Cnvrt, Direction, Spcs)
       return Value * Math.pow(k, 2) * 0.45359;
     case 17: // kg/kg -> mg/ft3
       return Value * Math.pow(k, 2) * (rho20 / 35.3147);
-    case 18: // kg/kg -> æg/kg
+    case 18: // kg/kg -> ï¿½g/kg
       return Value * Math.pow(k, 3);
-    case 19: // kg/kg -> æg/m3
+    case 19: // kg/kg -> ï¿½g/m3
       return Value * Math.pow(k, 3) * rho20;
-    case 20: // kg/kg -> æg/lb
+    case 20: // kg/kg -> ï¿½g/lb
       return Value * Math.pow(k, 3) * 0.45359;
-    case 21: // kg/kg -> æg/ft3
+    case 21: // kg/kg -> ï¿½g/ft3
       return Value * Math.pow(k, 3) * (rho20 / 35.3147);
     case 22: // kg/kg -> nano-g/kg
       return Value * Math.pow(k, 4);
@@ -775,11 +776,11 @@ CONTAM.Units.ConcenConvert = function(Value, Cnvrt, Direction, Spcs)
       return (Value * Math.pow(k, 2) * (vol20 / mw) * rho20);
     case 36: // kg/kg -> mL/lb
       return Value * Math.pow(k, 2) * (vol20 / mw) * 0.45359;
-    case 37: // kg/kg -> æL/kg
+    case 37: // kg/kg -> ï¿½L/kg
       return Value * Math.pow(k, 3) * (vol20 / mw);
-    case 38: // kg/kg -> æL/m3
+    case 38: // kg/kg -> ï¿½L/m3
       return Value * Math.pow(k, 3) * (vol20 / mw) * rho20;
-    case 39: // kg/kg -> æL/lb
+    case 39: // kg/kg -> ï¿½L/lb
       return Value * Math.pow(k, 3) * (vol20 / mw) * 0.45359;
     case 40: // kg/kg -> # / kg
       return Value / (0.16666667 * Math.PI * md * md * md * ed);
@@ -827,13 +828,13 @@ CONTAM.Units.ConcenConvert = function(Value, Cnvrt, Direction, Spcs)
       return Value * Math.pow(m, 2) / 0.45359;
     case 62: // mg/ft3 -> kg/kg
       return Value * Math.pow(m, 2) * (35.3147 / rho20);
-    case 63: // æg/kg -> kg/kg
+    case 63: // ï¿½g/kg -> kg/kg
       return Value * Math.pow(m, 3);
-    case 64: // æg/m3 -> kg/kg
+    case 64: // ï¿½g/m3 -> kg/kg
       return Value * Math.pow(m, 3) / rho20;
-    case 65: // æg/lb -> kg/kg
+    case 65: // ï¿½g/lb -> kg/kg
       return Value * Math.pow(m, 3) / 0.45359;
-    case 66: // æg/ft3 -> kg/kg
+    case 66: // ï¿½g/ft3 -> kg/kg
       return Value * Math.pow(m, 3) * (35.3147 / rho20);
     case 67: // nano-g/kg -> kg/kg
       return Value * Math.pow(m, 4);
@@ -865,11 +866,11 @@ CONTAM.Units.ConcenConvert = function(Value, Cnvrt, Direction, Spcs)
       return Value * Math.pow(m, 2) * (mw / vol20) / rho20;
     case 81: // mL/lb -> kg/kg
       return Value * Math.pow(m, 2) * (mw / vol20) / 0.45359;
-    case 82: // æL/kg -> kg/kg
+    case 82: // ï¿½L/kg -> kg/kg
       return Value * Math.pow(m, 3) * (mw / vol20);
-    case 83: // æL/m3 -> kg/kg
+    case 83: // ï¿½L/m3 -> kg/kg
       return Value * Math.pow(m, 3) * (mw / vol20) / rho20;
-    case 84: // æL/lb -> kg/kg
+    case 84: // ï¿½L/lb -> kg/kg
       return Value * Math.pow(m, 3) * (mw / vol20) / 0.45359;
     case 85: // # / kg -> kg/kg
       return Value * (0.16666667 * Math.PI * md * md * md * ed);
@@ -1489,41 +1490,203 @@ CONTAM.Units.ConSSConvert2 = function(Value, Cnvrt, Direction, Spcs)
   }
 }
 
-
-//integrated concentration units
 CONTAM.Units.IntegratedConcenConvert = function(Value, Cnvrt, Direction, Spcs)
 {
   if (Spcs == null)
     throw new Error('A species must be set for Integrated Concentration Conversions');
-  var k     = CONTAM.Units.k;
-  var m     = CONTAM.Units.m;
   var ed = Spcs.edens; // effective density
   var md = Spcs.mdiam; // mean diameter
   var Conversion = Cnvrt;
-  if (Direction == 1 && Conversion != 0)
-  {
-    Conversion = Conversion + 4;
-  }
+  // Define new unit conversion constants
+  var kg_to_g  = 1e3;
+  var kg_to_mg = 1e6;
+  var kg_to_ug = 1e9;
+  var kg_to_lb = 2.20462;
+  var kg_to_num = 1.0/(0.16666667 * Math.PI * md * md * md * ed)  // 1/(Vpart*RHOpart)
+  var s_to_min = 1.66667e-2; // 1/60
+  var s_to_h = 2.77778e-4;   // 1/3600
+  var m3_to_L = 1.0e3;
+  var m3_to_cm3 = 1.0e6;
+  var m3_to_ft3 = 3.5315;
+  var m3_to_in3 = 6.1024e4;
+  
   switch (Conversion)
   {
     default:
-    case 0:
-      return Value;
-    case 1: // kg s / m3 -> g s / m3
-      return Value * k;
-    case 2: // kg s / m3 -> mg s / m3
-      return Value * k * k;
-    case 3: // kg s / m3 -> microg s / m3
-      return Value * k * k * k;
-    case 4: // kg s / m3 -> # s / m3
-      return Value / (0.16666667 * Math.PI * md * md * md * ed);
-    case 5: // g s / m3 -> kg s / m3
-      return Value * m;
-    case 6: // mg s / m3 -> kg s / m3
-      return Value * m * m;
-    case 7: // microg s / m3 -> kg s / m3
-      return Value * m * m * m;
-    case 8: // # s / m3 -> kg s / m3
-      return Value * (0.16666667 * Math.PI * md * md * md * ed);
+      case 0:  // kg-s/m3
+            conv = 1.0;
+            break;
+      case 1:  // mg-s/m3
+            conv = kg_to_mg;
+            break;
+      case 2:  // ug-s/m3
+            conv = kg_to_ug;
+            break;
+      case 3:  // #-s/m3
+            conv = kg_to_num;
+            break;
+      case 4:  // mg-s/L
+            conv = kg_to_mg / m3_to_L;
+            break;
+      case 5:  // ug-s/L
+            conv = kg_to_ug / m3_to_L;
+            break;
+      case 6:  // #-s/L
+            conv = kg_to_num / m3_to_L;
+            break;
+      case 7:  // mg-min/m3
+            conv = kg_to_mg * s_to_min;
+            break;
+      case 8:  // ug-min/m3
+            conv = kg_to_ug * s_to_min;
+            break;
+      case 9:  // mg-min/L
+            conv = kg_to_mg * s_to_min / m3_to_L;
+            break;
+      case 10:  // ug-min/L
+            conv = kg_to_ug * s_to_min / m3_to_L;
+            break;
+      case 11:  // #-min/L
+            conv = kg_to_num * s_to_min / m3_to_L;
+            break;
+      case 12:  // kg-h/L
+            conv = s_to_h / m3_to_L;
+            break;
+      case 13:  // g-h/L
+            conv = kg_to_g * s_to_h / m3_to_L;
+            break;
+      case 14:  // #-h/L
+            conv = kg_to_num * s_to_h / m3_to_L;
+            break;
+      case 15:  // kg-h/cm3
+            conv = s_to_h / m3_to_cm3;
+            break;
+      case 16:  // g-h/cm3
+            conv = kg_to_g * s_to_h / m3_to_cm3;
+            break;
+      case 17:  // #-h/cm3
+            conv = kg_to_num * s_to_h / m3_to_cm3;
+            break;
+      case 18:  // lb-h/ft3
+            conv = kg_to_lb * s_to_h / m3_to_ft3;
+            break;
+      case 19:  // #-h/ft3
+            conv = kg_to_num * s_to_h / m3_to_ft3;
+            break;
+      case 20:  // lb-min/ft3
+            conv = kg_to_lb * s_to_min / m3_to_ft3;
+            break;
+      case 21:  // #-min/ft3
+            conv = kg_to_num * s_to_min / m3_to_ft3;
+            break;
+      case 22:  // lb-h/in3
+            conv = kg_to_lb * s_to_h / m3_to_in3;
+            break;
+      case 23:  // #-h/in3
+            conv = kg_to_num * s_to_h / m3_to_in3;
+            break;
+      case 24:  // lb-min/in3
+            conv = kg_to_lb * s_to_min / m3_to_in3;
+            break;
+      case 25:  // #-min/in3
+            conv = kg_to_num * s_to_min / m3_to_in3;
+  }
+
+  if (Direction == 0 )
+  {
+        return Value * conv;
+  }
+  else
+  {
+        return Value / conv;
+  }
+}
+
+
+
+CONTAM.Units.PartConcenConvert = function(Value, Cnvrt, Direction, Spcs)
+{
+  if (Spcs == null)
+    throw new Error('A species must be set for Integrated Concentration Conversions');
+  var ed = Spcs.edens; // effective density
+  var md = Spcs.mdiam; // mean diameter
+  var Conversion = Cnvrt;
+  // Define new unit conversion constants
+  var kg_to_g  = 1e3;
+  var kg_to_mg = 1e6;
+  var kg_to_ug = 1e9;
+  var kg_to_lb = 2.20462;
+  var kg_to_num = 1.0/(0.16666667 * Math.PI * md * md * md * ed)  // 1/(Vpart*RHOpart)
+  var m3_to_L = 1.0e3;
+  var m3_to_cm3 = 1.0e6;
+  var m3_to_ft3 = 3.5315;
+  var m3_to_in3 = 6.1024e4;
+  switch (Conversion)
+  {
+    default:
+      case 0:  // kg/m3
+            conv = 1.0;
+            break;
+      case 1:  // g/m3
+            conv = kg_to_g;
+            break;
+      case 2:  // mg/m3
+            conv = kg_to_mg;
+            break;
+      case 3:  // ug/m3
+            conv = kg_to_ug;
+            break;
+      case 4:  // #/m3
+            conv = kg_to_num;
+            break;
+      case 5:  // kg/L
+            conv = m3_to_L;
+            break;
+      case 6:  // g/L
+            conv = kg_to_g / m3_to_L;
+            break;
+      case 7:  // mg/L
+            conv = kg_to_mg / m3_to_L;
+            break;
+      case 8:  // ug/L
+            conv = kg_to_ug / m3_to_L;
+            break;
+      case 9:  // #/L
+            conv = kg_to_num / m3_to_L;
+            break;
+      case 10:  // kg/cm3
+            conv = m3_to_cm3;
+            break;
+      case 11:  // g/cm3
+            conv = kg_to_g / m3_to_cm3;
+            break;
+      case 12:  // mg/cm3
+            conv = kg_to_mg / m3_to_cm3;
+            break;
+      case 13:  // ug/cm3
+            conv = kg_to_ug / m3_to_cm3;
+            break;
+      case 14:  // #/cm3
+            conv = kg_to_num / m3_to_cm3;
+            break;
+      case 15:  // lb/ft3
+            conv = kg_to_lb / m3_to_ft3;
+            break;
+      case 16:  // #/ft3
+            conv = kg_to_num / m3_to_ft3;
+            break;
+      case 17:  // lb/in3
+            conv = kg_to_lb / m3_to_in3;
+            break;
+      case 18:  // #/in3
+            conv = kg_to_num / m3_to_in3;
+  }
+  if (Direction == 0 )
+  {
+      return Value * conv;
+  }
+  else
+  {
+      return Value / conv;
   }
 }

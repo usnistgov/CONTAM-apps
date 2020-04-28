@@ -425,9 +425,9 @@ Nano.Init = function()
   Nano.Inputs.OutdoorConcen =
   { 
     initialValue: 0, 
-    convert: 21, 
-    func: CONTAM.Units.Concen_P_Convert, 
-    strings: CONTAM.Units.Strings.Concentration_P,
+    convert: 4, 
+    func: CONTAM.Units.PartConcenConvert, 
+    strings: CONTAM.Units.Strings.PartConcen,
     input: document.getElementById("InitialConcentrationOutdoorInput"),
     select: document.getElementById("InitialConcentrationOutdoorCombo"),
     species: Nano.Species
@@ -437,9 +437,9 @@ Nano.Init = function()
   Nano.Inputs.InitZoneConcen =
   { 
     initialValue: 0, 
-    convert: 21, 
-    func: CONTAM.Units.Concen_P_Convert, 
-    strings: CONTAM.Units.Strings.Concentration_P,
+    convert: 4, 
+    func: CONTAM.Units.PartConcenConvert, 
+    strings: CONTAM.Units.Strings.PartConcen,
     input: document.getElementById("InitialConcentrationInput"),
     select: document.getElementById("InitialConcentrationOutdoorCombo"),
     unitDisplay: document.getElementById("InitialConcentrationUnits"),
@@ -466,26 +466,72 @@ Nano.Init = function()
 
   //results
   
-  // these display the units for integrated concentration 
-  var resultUnits = ["kg s/kg", "kg s/m&sup3;", "lb s/lb", "lb s/ft&sup3;", "g s/kg", 
-  "g s/m&sup3;", "g s/lb", "g s/ft&sup3;", "mg s/kg", "mg s/m&sup3;", "mg s/lb", 
-  "mg s/ft&sup3;", "&micro;g s/kg", "&micro;g s/m&sup3;", "&micro;g s/lb", 
-  "&micro;g s/ft&sup3;", "ng s/kg", "ng s/m&sup3;", "ng s/lb", "ng s/ft&sup3;", 
-  "# s/kg", "# s/m&sup3;", "# s/lb", "# s/ft&sup3;", "# s/L", "# s/cm&sup3;"];
-
   //integrated concentration result
   Nano.Results.IntegratedExposure =
   { 
     initialValue: 0, 
-    convert: 21, 
-    func: CONTAM.Units.Concen_P_Convert, 
-    strings: resultUnits,
+    convert: 3, 
+    func: CONTAM.Units.IntegratedConcenConvert, 
+    strings: CONTAM.Units.Strings.IntegratedConcen,
     input: document.getElementById("IntegratedExposureInput"),
     select: document.getElementById("IntegratedExposureCombo"),
     species: Nano.Species
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.IntegratedExposure);
   Nano.Results.IntegratedExposure.select.addEventListener("input", Nano.DisplayExposureResults); 
+
+  // concentration results
+  Nano.Results.maximumConc =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.PartConcenConvert, 
+    strings: CONTAM.Units.Strings.PartConcen,
+    input: document.getElementById("maximumConc"),
+    select: document.getElementById("maximumConcCombo"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.maximumConc);
+  Nano.Results.maximumConc.select.addEventListener("input", Nano.DisplayExposureResults); 
+
+  Nano.Results.averageExposureResult =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.ConcnSurfConvert, 
+    strings: CONTAM.Units.Strings.Concentration_Surf,
+    input: document.getElementById("averageExposureResult"),
+    select: document.getElementById("maximumConcCombo"),
+    unitDisplay: document.getElementById("averageExposureResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.averageExposureResult);
+
+  Nano.Results.averageDailyExposureResult =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.PartConcenConvert, 
+    strings: CONTAM.Units.Strings.PartConcen,
+    input: document.getElementById("averageDailyExposureResult"),
+    select: document.getElementById("maximumConcCombo"),
+    unitDisplay: document.getElementById("averageDailyExposureResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.averageDailyExposureResult);
+
+  Nano.Results.maximumConcExpos =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.PartConcenConvert, 
+    strings: CONTAM.Units.Strings.PartConcen,
+    input: document.getElementById("maximumConcExpos"),
+    select: document.getElementById("maximumConcCombo"),
+    unitDisplay: document.getElementById("maximumConcExposUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.maximumConcExpos);
 
   //surface loading  result
   Nano.Results.totalSurfaceLoading =
@@ -1359,7 +1405,7 @@ Nano.DisplayExposureResults = function()
 {
   var maxExpos = 0;
 
-  if(Nano.integralResult == null || Nano.integralResult == undefined)
+  if(!Nano.Results.ctrlLogResult)
   {
     console.log('no results found by DisplayExposureResults function');
     return;
@@ -1367,91 +1413,73 @@ Nano.DisplayExposureResults = function()
   
   // load the inputs with unit selects
   // concentration
-  Nano.Results.IntegratedExposure.input.baseValue = Nano.integralResult;
+  Nano.Results.IntegratedExposure.input.baseValue = Nano.Results.ctrlLogResult.integral;
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.IntegratedExposure.select);
+  
+  // concentration results
   
   // load the other concentration result display boxes
 
-  //average exposure over the user's exposure period (in kg/kg)
-  var averageExposureUserBase = (Nano.integralResult / Nano.ExposureDuration);
-  //average exposure over the user's exposure period (in user picked units)
-  Nano.AverageExposureUserUnits = CONTAM.Units.Concen_P_Convert(
-    averageExposureUserBase, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
-  // set the resultant average exposure
-  document.getElementById("resultantexposure2").value = 
-    parseFloat(sprintf("%4.5g", Nano.AverageExposureUserUnits));
-  // set the resultant average exposure units
-  document.getElementById("resultantexposure2units").innerHTML = 
-    CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex];
-  
-  // set the display of the period of the average
+  //average exposure over the user's exposure period (in kg/m3)
+  Nano.Results.averageExposureResult.input.baseValue = (Nano.Results.ctrlLogResult.integral / Nano.ExposureDuration);
+    // set the display of the period of the average
   document.getElementById("averageExposureDiv").textContent = 
     "Average (" + (Nano.ExposureDuration / 3600).toString() + " h)";
-  //average exposure over 24 period (in kg/kg)
-  var averageExposure24Base = Nano.averageConcen;
-  //average exposure over 24 period (in user picked units)
-  Nano.AverageExposure24Units = CONTAM.Units.Concen_P_Convert(
-    averageExposure24Base, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
-  // set the resultant 24h average exposure
-  document.getElementById("resultantexposure3").value = 
-    parseFloat(sprintf("%4.5g", Nano.AverageExposure24Units));
-  // set the resultant 24h average exposure units
-  document.getElementById("resultantexposure3units").innerHTML = 
-    CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex];
-  
-  //max concentration (in user picked units)
-  var maxConcenUnits = CONTAM.Units.Concen_P_Convert(
-    Nano.maxConcen, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
-  document.getElementById("maximumConc").value = 
-    parseFloat(sprintf("%4.5g", maxConcenUnits));
-  document.getElementById("maximumConcunits").innerHTML = 
-    CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex];
+  var AverageExposure24Units = CONTAM.Units.PartConcenConvert(Nano.Results.averageExposureResult.input.baseValue, 
+    Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
+
+  //average exposure over 24 period (in kg/m3)
+  Nano.Results.averageDailyExposureResult.input.baseValue = Nano.Results.ctrlLogResult.averageConcen;
+  var AverageExposureUserUnits = CONTAM.Units.PartConcenConvert(Nano.Results.averageDailyExposureResult.input.baseValue, 
+    Nano.Results.averageDailyExposureResult.select.selectedIndex, 0, Nano.Species);
+  //max concentration 
+  Nano.Results.maximumConc.input.baseValue = Nano.Results.ctrlLogResult.maxConcen;
   
   //plot results
   Nano.concenDataUserUnits = [];
   Nano.exposureDataUserUnits = [];
   Nano.surfaceDataUserUnits = [];
-  for(var i=0; i<Nano.concenDataLogUnits.length; ++i)
+  for(var i=0; i<Nano.Results.ctrlLogResult.concendata.length; ++i)
   {
     // create a concentration record for plotting
     var concenRecord = [];
     // add the time 
-    concenRecord.push(Nano.concenDataLogUnits[i][0]);
-    var basevalue = Nano.concenDataLogUnits[i][1];
-    var uservalue = CONTAM.Units.Concen_P_Convert(
-      basevalue, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
+    concenRecord.push(Nano.Results.ctrlLogResult.concendata[i][0]);
+    var basevalue = Nano.Results.ctrlLogResult.concendata[i][1];
+    var uservalue = CONTAM.Units.PartConcenConvert(
+      basevalue, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
     // add the concentration
     concenRecord.push(uservalue);
     // add the average
-    concenRecord.push(Nano.AverageExposure24Units);
+    concenRecord.push(AverageExposure24Units);
     // add the record to the array of records
     Nano.concenDataUserUnits.push(concenRecord);
 
     // create an exposure record for plotting
     var exposureRecord = [];
     // add the time
-    var chart_time = Nano.exposureDataLogUnits[i][0];
+    var chart_time = Nano.Results.ctrlLogResult.exposuredata[i][0];
     var seconds = Nano.ConvertChartTime(chart_time);
     exposureRecord.push(chart_time);
     // add the concen
-    basevalue = Nano.exposureDataLogUnits[i][1];
-    uservalue = CONTAM.Units.Concen_P_Convert(
-      basevalue, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
+    basevalue = Nano.Results.ctrlLogResult.exposuredata[i][1];
+    uservalue = CONTAM.Units.PartConcenConvert(
+      basevalue, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
     exposureRecord.push(uservalue);
     // add the average only inside of the exposure period
     if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime) 
     {
-      exposureRecord.push(Nano.AverageExposureUserUnits);
-      if(uservalue > maxExpos)
-        maxExpos = uservalue;
+      exposureRecord.push(AverageExposureUserUnits);
+      if(basevalue > maxExpos)
+        maxExpos = basevalue;
     }
     else
     {
       exposureRecord.push(0);
     }
     //integrated expos
-    basevalue = Nano.exposureDataLogUnits[i][2];
-    uservalue = CONTAM.Units.Concen_P_Convert(
+    basevalue = Nano.Results.ctrlLogResult.exposuredata[i][2];
+    uservalue = CONTAM.Units.IntegratedConcenConvert(
       basevalue, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
     exposureRecord.push(uservalue);
     
@@ -1489,11 +1517,10 @@ Nano.DisplayExposureResults = function()
   // put exposure results in the UI
   document.getElementById("maxExposureDiv").textContent = 
     "Maximum (" + (Nano.ExposureDuration / 3600).toString() + " h)";
-  document.getElementById("maximumConcExpos").value = 
-    parseFloat(sprintf("%4.5g", maxExpos));
-  // use innerHTML to get entities converted to characters
-  document.getElementById("maximumConcExposunits").innerHTML = 
-    CONTAM.Units.Strings.Concentration_P[Nano.Results.IntegratedExposure.select.selectedIndex];
+  Nano.Results.maximumConcExpos.input.baseValue = maxExpos;
+
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.maximumConcExpos.select);
+
 
   // call function to draw the google charts
   Nano.drawChart();
@@ -1540,14 +1567,7 @@ Nano.onCXWorkerMessage = function(oEvent)
       [Nano.saveFilesData[logFileIndex].contents]).then(
       function(result)
       {
-        Nano.concenDataLogUnits = result.concendata; // #/m3
-        Nano.exposureDataLogUnits = result.exposuredata; // #/m3
-        
-        Nano.integralResult = result.integral; // # s/m3
-        Nano.maxConcen = result.maxConcen; // #/m3
-        Nano.averageConcen = result.averageConcen; // #/m3
         Nano.Results.ctrlLogResult = result;
-
         console.log("read srf file");
         CWD.CallContamFunction("CONTAM.SrfFileReader.ReadSurfaceFile", 
           [Nano.saveFilesData[srfFileIndex].contents]).then(
