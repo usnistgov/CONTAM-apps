@@ -1425,12 +1425,12 @@ Nano.DisplayExposureResults = function()
     // set the display of the period of the average
   document.getElementById("averageExposureDiv").textContent = 
     "Average (" + (Nano.ExposureDuration / 3600).toString() + " h)";
-  var AverageExposure24Units = CONTAM.Units.PartConcenConvert(Nano.Results.averageExposureResult.input.baseValue, 
+  var AverageExposureUserUnits = CONTAM.Units.PartConcenConvert(Nano.Results.averageExposureResult.input.baseValue, 
     Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
 
   //average exposure over 24 period (in kg/m3)
   Nano.Results.averageDailyExposureResult.input.baseValue = Nano.Results.ctrlLogResult.averageConcen;
-  var AverageExposureUserUnits = CONTAM.Units.PartConcenConvert(Nano.Results.averageDailyExposureResult.input.baseValue, 
+  var AverageExposure24Units = CONTAM.Units.PartConcenConvert(Nano.Results.averageDailyExposureResult.input.baseValue, 
     Nano.Results.averageDailyExposureResult.select.selectedIndex, 0, Nano.Species);
   //max concentration 
   Nano.Results.maximumConc.input.baseValue = Nano.Results.ctrlLogResult.maxConcen;
