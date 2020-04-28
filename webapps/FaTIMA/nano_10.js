@@ -1163,11 +1163,11 @@ Nano.GetInputs2 = function()
   // so that they can be sent to the CONTAM worker
   var variableList = [];
   variableList.push({variableName: "CONTAM.Project.ZoneList[1].Vol", variableValue: Nano.Inputs.Volume.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.ZoneList[1].CC0[0]", variableValue: Nano.Inputs.InitZoneConcen.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.ZoneList[1].CC0[0]", variableValue: Nano.Inputs.InitZoneConcen.input.baseValue / CONTAM.Units.rho20});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).name", variableValue: Nano.Inputs.PName.value});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).mdiam", variableValue: Nano.Inputs.PDiam.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).edens", variableValue: Nano.Inputs.PDensity.input.baseValue});
-  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: Nano.Inputs.OutdoorConcen.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Spcs0.GetByNumber(1).ccdef", variableValue: Nano.Inputs.OutdoorConcen.input.baseValue / CONTAM.Units.rho20});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(4).ped.dV", variableValue: Nano.Inputs.CeilingDV.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(5).ped.dV", variableValue: Nano.Inputs.FloorDV.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(6).ped.dV", variableValue: Nano.Inputs.OtherSurfaceDV.input.baseValue});
