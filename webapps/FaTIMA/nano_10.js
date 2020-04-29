@@ -1480,8 +1480,16 @@ Nano.DisplayExposureResults = function()
       basevalue, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
     // add the concentration
     concenRecord.push(uservalue);
+    //add the concentration tooltip
+    concenRecord.push("Y: " + sprintf("%.3g", uservalue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.concendata[i][0])));
+
     // add the average
     concenRecord.push(AverageExposure24Units);
+    // add the average tooltip
+    concenRecord.push("Y: " + sprintf("%.3g", AverageExposure24Units) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.concendata[i][0])));
+
     // add the record to the array of records
     Nano.concenDataUserUnits.push(concenRecord);
 
@@ -1496,22 +1504,34 @@ Nano.DisplayExposureResults = function()
     uservalue = CONTAM.Units.PartConcenConvert(
       basevalue, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
     exposureRecord.push(uservalue);
+    //add the exposure tooltip
+    exposureRecord.push("Y: " + sprintf("%.3g", uservalue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
     // add the average only inside of the exposure period
     if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime) 
     {
       exposureRecord.push(AverageExposureUserUnits);
+      //add the exposure average tooltip
+      exposureRecord.push("Y: " + sprintf("%.3g", AverageExposureUserUnits) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
       if(basevalue > maxExpos)
         maxExpos = basevalue;
     }
     else
     {
       exposureRecord.push(0);
+      //add the exposure tooltip
+      exposureRecord.push("Y: 0.00, X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
     }
     //integrated expos
     basevalue = Nano.Results.ctrlLogResult.exposuredata[i][2];
     uservalue = CONTAM.Units.IntegratedConcenConvert(
       basevalue, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
     exposureRecord.push(uservalue);
+    //add the exposure tooltip
+    exposureRecord.push("Y: " + sprintf("%.3g", uservalue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
     
     // add the record to the array of records
     Nano.exposureDataUserUnits.push(exposureRecord);
@@ -1522,25 +1542,46 @@ Nano.DisplayExposureResults = function()
     surfaceRecord.push(Nano.surfaceDataBaseUnits[i][0]);
 
     // add total value
-    surfaceRecord.push(CONTAM.Units.ConcnSurfConvert(
-    Nano.surfaceDataBaseUnits[i][1], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species));
+    var totalValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][1], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    surfaceRecord.push(totalValue);
+    //add the total value tooltip
+    surfaceRecord.push("Y: " + sprintf("%.3g", totalValue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
     
     // add floor value
-    surfaceRecord.push(CONTAM.Units.ConcnSurfConvert(
-    Nano.surfaceDataBaseUnits[i][2], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species));
+    var floorValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][2], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    surfaceRecord.push(floorValue);
+    //add the floor value tooltip
+    surfaceRecord.push("Y: " + sprintf("%.3g", floorValue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
         
     // add wall value
-    surfaceRecord.push(CONTAM.Units.ConcnSurfConvert(
-    Nano.surfaceDataBaseUnits[i][3], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species));
+    var wallValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][3], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    surfaceRecord.push(wallValue);
+    //add the wall value tooltip
+    surfaceRecord.push("Y: " + sprintf("%.3g", wallValue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
     
     // add ceiling value
-    surfaceRecord.push(CONTAM.Units.ConcnSurfConvert(
-    Nano.surfaceDataBaseUnits[i][4], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species));
+    var ceilingValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][4], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    surfaceRecord.push(ceilingValue);
+    //add the ceiling value tooltip
+    surfaceRecord.push("Y: " + sprintf("%.3g", ceilingValue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
     
     // add other value
-    surfaceRecord.push(CONTAM.Units.ConcnSurfConvert(
-    Nano.surfaceDataBaseUnits[i][5], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species));
-    // add the record to the array of records
+    var otherValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][5], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    surfaceRecord.push(otherValue);
+    //add the other value tooltip
+    surfaceRecord.push("Y: " + sprintf("%.3g", otherValue) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
+
+      // add the record to the array of records
     Nano.surfaceDataUserUnits.push(surfaceRecord);
   }
 
@@ -1670,7 +1711,11 @@ Nano.drawChart = function()
   var air_data_table = new google.visualization.DataTable();
   air_data_table.addColumn('timeofday', 'Time of Day');
   air_data_table.addColumn('number', 'Zone Concentration');
+  // A column for custom tooltip content
+  air_data_table.addColumn({type: 'string', role: 'tooltip'});
   air_data_table.addColumn('number', 'Average Zone Concentration');
+  // A column for custom tooltip content
+  air_data_table.addColumn({type: 'string', role: 'tooltip'});
   if(air_data)
     air_data_table.addRows(air_data);
   var concenYAxisTitle = 'Air Concentration (' + 
@@ -1679,10 +1724,20 @@ Nano.drawChart = function()
   var surf_data_table = new google.visualization.DataTable();
   surf_data_table.addColumn('timeofday', 'Time of Day');
   surf_data_table.addColumn('number', 'Total');
+  // A column for custom tooltip content
+  surf_data_table.addColumn({type: 'string', role: 'tooltip'});
   surf_data_table.addColumn('number', 'Floor');
+  // A column for custom tooltip content
+  surf_data_table.addColumn({type: 'string', role: 'tooltip'});
   surf_data_table.addColumn('number', 'Wall');
+  // A column for custom tooltip content
+  surf_data_table.addColumn({type: 'string', role: 'tooltip'});
   surf_data_table.addColumn('number', 'Ceiling');
+  // A column for custom tooltip content
+  surf_data_table.addColumn({type: 'string', role: 'tooltip'});
   surf_data_table.addColumn('number', 'Other');
+  // A column for custom tooltip content
+  surf_data_table.addColumn({type: 'string', role: 'tooltip'});
   if(surf_data)
     surf_data_table.addRows(surf_data);
   var surfYAxisTitle = 'Surface Loading (' + 
@@ -1691,8 +1746,14 @@ Nano.drawChart = function()
   var expos_data_table = new google.visualization.DataTable();
   expos_data_table.addColumn('timeofday', 'Time of Day');
   expos_data_table.addColumn('number', 'Exposure');
+  // A column for custom tooltip content
+  expos_data_table.addColumn({type: 'string', role: 'tooltip'});
   expos_data_table.addColumn('number', 'Average Exposure');
+  // A column for custom tooltip content
+  expos_data_table.addColumn({type: 'string', role: 'tooltip'});
   expos_data_table.addColumn('number', 'Integrated Exposure');
+  // A column for custom tooltip content
+  expos_data_table.addColumn({type: 'string', role: 'tooltip'});
   if(expos_data)
     expos_data_table.addRows(expos_data);
   var exposureYAxisTitle1 = 'Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.PartConcen[Nano.Results.maximumConcExpos.select.selectedIndex]) + ')'; 

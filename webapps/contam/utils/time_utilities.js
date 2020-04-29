@@ -98,4 +98,23 @@ CONTAM.TimeUtilities.IntTimeToStringTime = function(time)
 }
 
 
+CONTAM.TimeUtilities.IntTimeToShortStringTime = function(time)
+{
+  var strHours, strMinutes;
+  var intHours, intMinutes;
+
+  intMinutes = Math.floor(time / 60);
+  intHours = Math.floor(intMinutes / 60);
+  intMinutes = intMinutes % 60;
+  if (intHours < 10)
+      strHours = "0" + intHours.toString();
+  else
+      strHours = intHours.toString();
+  if (intMinutes < 10)
+      strMinutes = "0" + intMinutes.toString();
+  else
+      strMinutes = intMinutes.toString();
+  return strHours + ":" + strMinutes;
+}
+
 
