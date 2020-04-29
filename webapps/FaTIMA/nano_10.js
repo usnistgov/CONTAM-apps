@@ -1713,11 +1713,11 @@ Nano.drawChart = function()
 
   var fate_data_table = google.visualization.arrayToDataTable([
     ['Fate', 'Percent of Particles'],
-    ['Exited Zone: '    + sprintf("%4.1f", exited),  exited],
-    ['Filtered: '       + sprintf("%4.1f", filtered), filtered],
-    ['Deposited: '      + sprintf("%4.1f", deposited),  deposited],
-    ['Deactivated: '    + sprintf("%4.1f", deactivated),deactivated],
-    ['Remain in Zone: ' + sprintf("%4.1f", remain), remain]
+    ['Exited Zone',    exited],
+    ['Filtered',       filtered],
+    ['Deposited',      deposited],
+    ['Deactivated',    deactivated],
+    ['Remain in Zone', remain]
   ]);
 
   //sources
@@ -1846,6 +1846,7 @@ Nano.drawChart = function()
       stroke: "#12659c",
       strokeWidth: 2,
     },
+    tooltip: { text: 'percentage'  },
   };
 
   var sources_options = {
@@ -1856,6 +1857,7 @@ Nano.drawChart = function()
       stroke: "#12659c",
       strokeWidth: 2,
     },
+    tooltip: { text: 'percentage'  },
   };
 
   var deposited_options = {
@@ -1866,6 +1868,7 @@ Nano.drawChart = function()
       stroke: "#12659c",
       strokeWidth: 2,
     },
+    tooltip: { text: 'percentage'  },
   };
 
   var filtered_options = {
@@ -1876,6 +1879,7 @@ Nano.drawChart = function()
       stroke: "#12659c",
       strokeWidth: 2,
     },
+    tooltip: { text: 'percentage'  },
   };
 
 
