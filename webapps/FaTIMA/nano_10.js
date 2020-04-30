@@ -85,6 +85,7 @@ Nano.Init = function()
   Nano.Inputs.Volume.input.addEventListener("change", Nano.computeSystem); 
   Nano.Inputs.Volume.input.addEventListener("change", Nano.computeLevelHeight); 
   Nano.Inputs.Volume.input.addEventListener("change", Nano.calculatedEffDEpRate); 
+  Nano.Inputs.Volume.input.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
  
   Nano.Inputs.FloorArea = 
   { 
@@ -98,6 +99,7 @@ Nano.Init = function()
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.FloorArea);
   Nano.Inputs.FloorArea.input.addEventListener("change", Nano.computeLevelHeight); 
   Nano.Inputs.FloorArea.input.addEventListener("change", Nano.calculatedEffDEpRate); 
+  Nano.Inputs.FloorArea.input.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
   
   Nano.Inputs.LevelHeight = 
   { 
@@ -123,6 +125,7 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.WallArea);
   Nano.Inputs.WallArea.input.addEventListener("change", Nano.calculatedEffDEpRate); 
+  Nano.Inputs.WallArea.input.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
 
   Nano.Inputs.CeilingArea =
   { 
@@ -136,6 +139,7 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.CeilingArea);
   Nano.Inputs.CeilingArea.input.addEventListener("change", Nano.calculatedEffDEpRate); 
+  Nano.Inputs.CeilingArea.input.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
 
   Nano.Inputs.OtherSurfaceArea =
   { 
@@ -149,7 +153,12 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.OtherSurfaceArea);
   Nano.Inputs.OtherSurfaceArea.input.addEventListener("change", Nano.calculatedEffDEpRate); 
- 
+  Nano.Inputs.OtherSurfaceArea.input.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
+
+  Nano.Inputs.SurfaceVolumeRatio = document.getElementById("SurfaceVolumeRatio");
+  Nano.Inputs.SurfaceVolumeRatio.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
+  Nano.computeSurfaceVolumeRatio();
+
   //Infiltration
   Nano.Inputs.Infiltration = document.getElementById("InfiltrationInput");
   Nano.Inputs.Infiltration.value = 0.5;
@@ -838,9 +847,15 @@ Nano.Init = function()
 
 }
 
+Nano.computeSurfaceVolumeRatio = function()
+{
+  Nano.Inputs.SurfaceVolumeRatio.value = sprintf("%.2g",(Nano.Inputs.FloorArea.input.baseValue + Nano.Inputs.WallArea.input.baseValue + 
+    Nano.Inputs.CeilingArea.input.baseValue + Nano.Inputs.OtherSurfaceArea.input.baseValue)/ Nano.Inputs.Volume.input.baseValue);
+}
+
 Nano.calculatedEffDEpRate = function()
 {
-  Nano.Inputs.DepositionRateCalc.input.baseValue = 
+  Nano.Inputs.DepositionRateCalc.input.baseValue =  
     (Nano.Inputs.FloorDV.input.baseValue * Nano.Inputs.FloorArea.input.baseValue + 
     Nano.Inputs.WallDV.input.baseValue * Nano.Inputs.WallArea.input.baseValue + 
     Nano.Inputs.CeilingDV.input.baseValue * Nano.Inputs.CeilingArea.input.baseValue +
@@ -851,7 +866,8 @@ Nano.calculatedEffDEpRate = function()
 
 Nano.ComputeAirCleanerCADR = function()
 {
-  Nano.Inputs.AirCleanerCADR.input.baseValue = Nano.Inputs.AirCleanerFlowRate.input.baseValue * Nano.Inputs.AirCleanerFlowFrac.valueAsNumber * Nano.Inputs.AirCleanerEff.valueAsNumber;
+  Nano.Inputs.AirCleanerCADR.input.baseValue = Nano.Inputs.AirCleanerFlowRate.input.baseValue * 
+    Nano.Inputs.AirCleanerFlowFrac.valueAsNumber * Nano.Inputs.AirCleanerEff.valueAsNumber;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.AirCleanerCADR.select);
 }
@@ -2008,13 +2024,11 @@ Nano.changeBurstType = function()
 Nano.UpdateDecay = function()
 {
   var halfLife = Nano.Inputs.PHalfLife.input.baseValue; // s
-  console.log("new half life: " + halfLife);
   var newDecayRate;
   if(isNaN(halfLife) || halfLife <= 0)
     newDecayRate = NaN
   else
     newDecayRate = -Math.abs(Math.log(0.5)/halfLife); // 1/s
-  console.log("new decay rate: " + newDecayRate);
   Nano.Inputs.PDecayRate.input.baseValue = newDecayRate;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.PDecayRate.select);
