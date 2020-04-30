@@ -1242,7 +1242,7 @@ Nano.GetInputs2 = function()
   // set the day schedule for the breathing source to use the start/end time that the user specified
   .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [2, CnstStartSourceTime, CnstEndSourceTime, false, 0, 0, false]))
   // set the day schedule for the coughing source to use the start/end time that the user specified
-  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, BrstStartSourceTime, BrstEndSourceTime, Nano.Inputs.brstType.selectedIndex == 1, Nano.Inputs.RepeatInterval.valueAsNumber * 60, 60, true]))
+  .then((result) => CWD.CallContamFunction("CONTAM.SetDaySchedule", [3, BrstStartSourceTime, BrstEndSourceTime, Nano.Inputs.brstType.selectedIndex == 1, Nano.Inputs.RepeatInterval.valueAsNumber * 60, 15, true]))
   // send the array of variables to change to the CONTAM worker
   .then((result) => CWD.SetArrayOfContamVariables(variableList))
   .then((result) => Nano.RunSim())

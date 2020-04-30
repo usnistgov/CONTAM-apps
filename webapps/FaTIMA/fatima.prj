@@ -36,7 +36,7 @@ WPC description
 !tsdens relax tsmaxi cnvgSS densZP stackD dodMdt
    0    0.75    20     1      0      0      0
 !date_st time_st  date_0 time_0   date_1 time_1    t_step   t_list   t_scrn
-  Jan01 00:00:00  Jan01 00:00:00  Jan01 24:00:00  00:01:00 00:01:00 01:00:00
+  Jan01 00:00:00  Jan01 00:00:00  Jan01 24:00:00  00:00:15 00:00:15 01:00:00
 !restart  date  time
     0    Jan01 00:00:00
 !list doDlg pfsave zfsave zcsave
