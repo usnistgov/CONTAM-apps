@@ -823,6 +823,19 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.massExited);
 
+  Nano.Results.massRemaining =
+  { 
+    initialValue: 0, 
+    convert: 3, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("massRemainingResult"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("massRemainingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.massRemaining);
+
 }
 
 Nano.calculatedEffDEpRate = function()
@@ -1389,7 +1402,6 @@ Nano.putResultsInGUI = function()
 
   // total
   Nano.Results.totalEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded + Nano.Results.csmResults.ctm_entered;
-  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalEmmission.select);
   
   //mass filtered results
   // oa
@@ -1403,7 +1415,6 @@ Nano.putResultsInGUI = function()
   
   //total
   Nano.Results.totalFilterLoading.input.baseValue = Nano.Results.csmResults.oaFiltMassSto + Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.acFiltMassSto;
-  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalFilterLoading.select);
   
   //mass deposited
   // floor
@@ -1422,12 +1433,14 @@ Nano.putResultsInGUI = function()
   Nano.Results.totalMassDeposited.input.baseValue = 
     Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
     Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
-  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.totalMassDeposited.select);
 
-  // mass eliminated
+  // other mass 
   Nano.Results.massDeactivated.input.baseValue = Nano.Results.Mdeact;
 
   Nano.Results.massExited.input.baseValue = Nano.Results.Mexf;
+
+  Nano.Results.massRemaining.input.baseValue = Nano.Results.Mzone;
+
   CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Results.massExited.select);
 }
 
