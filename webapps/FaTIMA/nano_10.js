@@ -379,7 +379,7 @@ Nano.Init = function()
   Nano.Inputs.BrstSourceEndTime.value = "24:00";
 
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
-  Nano.Inputs.RepeatInterval.value = "5";
+  Nano.Inputs.RepeatInterval.value = "0.5";
   
   // particle deposition velocity
   Nano.Inputs.FloorDV =
