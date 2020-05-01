@@ -262,7 +262,7 @@
             <select id="ReleaseRateCombo"></select>
           </div>
           <div class="unit">
-            <div>Source Time Period</div>
+            <div>Continuous Time Period</div>
             <label for="ConstSourceStartTime">Start</label>
             <input id="ConstSourceStartTime" required style="width:5ch;"> / 
             <label for="ConstSourceEndTime">End</label>
@@ -287,12 +287,12 @@
             </select>
           </div>
           <div class="unit">
-            <div><label for="ReleaseAmountInput">Burst Amount</label></div>
+            <div><label for="ReleaseAmountInput">Amount per Burst</label></div>
             <input type="number" step="any" min="0.01" id="ReleaseAmountInput" required>
             <select id="ReleaseAmountCombo"></select>
           </div>
           <div class="unit">
-            <div>Source Time Period</div>
+            <div>Burst Time Period</div>
             <label for="BrstSourceStartTime">Start</label>
             <input id="BrstSourceStartTime" required style="width:5ch;"> / 
             <label for="BrstSourceEndTime">End</label>
@@ -300,7 +300,7 @@
           </div>
           <div class="unit">
             <div><label for="RepeatSourceInput">Burst Interval</label></div>
-            <input type="number" step="0.25" min="0.5" max="60" id="RepeatSourceInput" required> mins
+            <input type="number" step="0.25" min="0.5" max="60" id="RepeatSourceInput" required> min
           </div>
         </div>
 
@@ -416,9 +416,9 @@
         <div class="sectiongrid">
           <div class="unithead">Airborne Concentration</div>
           <div class="unit">
-            <div id="averageExposureDiv">Average</div>
-            <input type="number" step="any" min="0" disabled id="averageExposureResult">
-            <span id="averageExposureResultUnits"></span>
+            <div id="averageConcOccResultDiv">Average</div>
+            <input type="number" step="any" min="0" disabled id="averageConcOccResult">
+            <span id="averageConcOccResultUnits"></span>
           </div>
           <div class="unit">
             <div>Average (24 h)</div> 
@@ -426,14 +426,22 @@
             <span id="averageDailyExposureResultUnits"></span>
           </div>
           <div class="unit">
-            <div id="maxExposureDiv">Peak</div> 
-            <input type="number" step="any" min="0" disabled id="maximumConcExpos">
-            <span id="maximumConcExposUnits"></span>
-          </div>
-          <div class="unit">
-            <div>Peak (24 h)</div> 
+            <div>Maximum (24 h)</div> 
             <input type="number" step="any" min="0" disabled id="maximumConc">
             <select id="maximumConcCombo"></select>
+          </div>
+        </div>
+        <div class="sectiongrid">
+          <div class="unithead">Airborne Exposure</div>
+          <div class="unit">
+            <div id="averageExposureDiv">Average</div>
+            <input type="number" step="any" min="0" disabled id="averageExposureResult">
+            <span id="averageExposureResultUnits"></span>
+          </div>
+          <div class="unit">
+            <div id="maxExposureDiv">Maximum</div> 
+            <input type="number" step="any" min="0" disabled id="maximumConcExpos">
+            <span id="maximumConcExposUnits"></span>
           </div>
           <div class="unit">
             <div>Integrated Exposure</div>
@@ -543,10 +551,14 @@
         </div>
 
       </div>
+      <h4>Transient Charts</h4>
       <div class="section" style="padding:1ex; overflow:auto;">
         <div id="air_concen_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
         <div id="expos_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
         <div id="surf_concen_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
+      </div>
+      <h4>Particle Fate Summary Charts</h4>
+      <div class="section" style="padding:1ex; overflow:auto;">
         <div id="fate_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
         <div id="sources_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
         <div id="deposited_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>

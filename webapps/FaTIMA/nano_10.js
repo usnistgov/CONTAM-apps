@@ -498,21 +498,7 @@ Nano.Init = function()
   Nano.computeSystem();
 
   //results
-  
-  //integrated concentration result
-  Nano.Results.IntegratedExposure =
-  { 
-    initialValue: 0, 
-    convert: 3, 
-    func: CONTAM.Units.IntegratedConcenConvert, 
-    strings: CONTAM.Units.Strings.IntegratedConcen,
-    input: document.getElementById("IntegratedExposureInput"),
-    select: document.getElementById("IntegratedExposureCombo"),
-    species: Nano.Species
-  };
-  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.IntegratedExposure);
-  Nano.Results.IntegratedExposure.select.addEventListener("input", Nano.DisplayExposureResults); 
-
+  //
   // concentration results
   Nano.Results.maximumConc =
   { 
@@ -527,6 +513,35 @@ Nano.Init = function()
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.maximumConc);
   Nano.Results.maximumConc.select.addEventListener("input", Nano.DisplayExposureResults); 
 
+  Nano.Results.averageDailyExposureResult =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.PartConcenConvert, 
+    strings: CONTAM.Units.Strings.PartConcen,
+    input: document.getElementById("averageDailyExposureResult"),
+    select: document.getElementById("maximumConcCombo"),
+    unitDisplay: document.getElementById("averageDailyExposureResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.averageDailyExposureResult);
+
+  Nano.Results.averageConcOcc =
+  { 
+    initialValue: 0, 
+    convert: 4, 
+    func: CONTAM.Units.PartConcenConvert, 
+    strings: CONTAM.Units.Strings.PartConcen,
+    input: document.getElementById("averageConcOccResult"),
+    select: document.getElementById("maximumConcCombo"),
+    unitDisplay: document.getElementById("averageConcOccResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.averageConcOcc);
+
+  // exposure results 
+
+  //integrated concentration result
   Nano.Results.averageExposureResult =
   { 
     initialValue: 0, 
@@ -540,18 +555,18 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.averageExposureResult);
 
-  Nano.Results.averageDailyExposureResult =
+  Nano.Results.IntegratedExposure =
   { 
     initialValue: 0, 
-    convert: 4, 
-    func: CONTAM.Units.PartConcenConvert, 
-    strings: CONTAM.Units.Strings.PartConcen,
-    input: document.getElementById("averageDailyExposureResult"),
-    select: document.getElementById("maximumConcCombo"),
-    unitDisplay: document.getElementById("averageDailyExposureResultUnits"),
+    convert: 3, 
+    func: CONTAM.Units.IntegratedConcenConvert, 
+    strings: CONTAM.Units.Strings.IntegratedConcen,
+    input: document.getElementById("IntegratedExposureInput"),
+    select: document.getElementById("IntegratedExposureCombo"),
     species: Nano.Species
   };
-  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.averageDailyExposureResult);
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.IntegratedExposure);
+  Nano.Results.IntegratedExposure.select.addEventListener("input", Nano.DisplayExposureResults); 
 
   Nano.Results.maximumConcExpos =
   { 
@@ -1493,8 +1508,30 @@ Nano.DisplayExposureResults = function()
     Nano.Results.averageDailyExposureResult.select.selectedIndex, 0, Nano.Species);
   //max concentration 
   Nano.Results.maximumConc.input.baseValue = Nano.Results.ctrlLogResult.maxConcen;
+
+  //compute the average zone conc during occupancy
+  var sumConcOcc = 0;
+  var countConcOcc = 0;
+  for(var i=0; i<Nano.Results.ctrlLogResult.concendata.length; ++i)
+  {
+    var chart_time = Nano.Results.ctrlLogResult.concendata[i][0];
+    var seconds = Nano.ConvertChartTime(chart_time);
+    if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime) 
+    {
+      var basevalue = Nano.Results.ctrlLogResult.concendata[i][1];
+      sumConcOcc+= basevalue;
+      countConcOcc++;
+    }
+  }
+  var AverageConcOccUserUnits = sumConcOcc / countConcOcc;
+  Nano.Results.averageConcOcc.input.baseValue = AverageConcOccUserUnits;
+  var AverageConcOccUserUnits = CONTAM.Units.PartConcenConvert(
+    AverageConcOccUserUnits, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
+  // set the display of the period of the average
+  document.getElementById("averageConcOccResultDiv").textContent = 
+  "Average (" + (Nano.ExposureDuration / 3600).toString() + " h)";
   
-  //plot results
+  //create the plot data rows
   Nano.concenDataUserUnits = [];
   Nano.exposureDataUserUnits = [];
   Nano.surfaceDataUserUnits = [];
@@ -1503,7 +1540,9 @@ Nano.DisplayExposureResults = function()
     // create a concentration record for plotting
     var concenRecord = [];
     // add the time 
-    concenRecord.push(Nano.Results.ctrlLogResult.concendata[i][0]);
+    var chart_time = Nano.Results.ctrlLogResult.concendata[i][0];
+    var seconds = Nano.ConvertChartTime(chart_time);
+    concenRecord.push(chart_time);
     var basevalue = Nano.Results.ctrlLogResult.concendata[i][1];
     var uservalue = CONTAM.Units.PartConcenConvert(
       basevalue, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
@@ -1518,6 +1557,21 @@ Nano.DisplayExposureResults = function()
     // add the average tooltip
     concenRecord.push("Y: " + sprintf("%.3g", AverageExposure24Units) + ", X: " + 
       CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.concendata[i][0])));
+    // add the average only inside of the exposure period
+    if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime) 
+    {
+      concenRecord.push(AverageConcOccUserUnits);
+      //add the exposure average tooltip
+      concenRecord.push("Y: " + sprintf("%.3g", AverageConcOccUserUnits) + ", X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
+    }
+    else
+    {
+      concenRecord.push(0);
+      //add the exposure tooltip
+      concenRecord.push("Y: 0.00, X: " + 
+      CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
+    }
 
     // add the record to the array of records
     Nano.concenDataUserUnits.push(concenRecord);
@@ -1739,10 +1793,13 @@ Nano.drawChart = function()
 
   var air_data_table = new google.visualization.DataTable();
   air_data_table.addColumn('timeofday', 'Time of Day');
-  air_data_table.addColumn('number', 'Zone Concentration');
+  air_data_table.addColumn('number', 'Zone');
   // A column for custom tooltip content
   air_data_table.addColumn({type: 'string', role: 'tooltip'});
-  air_data_table.addColumn('number', 'Average Zone Concentration');
+  air_data_table.addColumn('number', 'Average (24 h)');
+  // A column for custom tooltip content
+  air_data_table.addColumn({type: 'string', role: 'tooltip'});
+  air_data_table.addColumn('number', 'Average  (' + (Nano.ExposureDuration / 3600).toString() + " h)");
   // A column for custom tooltip content
   air_data_table.addColumn({type: 'string', role: 'tooltip'});
   if(air_data)
@@ -1774,10 +1831,10 @@ Nano.drawChart = function()
   
   var expos_data_table = new google.visualization.DataTable();
   expos_data_table.addColumn('timeofday', 'Time of Day');
-  expos_data_table.addColumn('number', 'Exposure');
+  expos_data_table.addColumn('number', 'Zone (Occ Present)');
   // A column for custom tooltip content
   expos_data_table.addColumn({type: 'string', role: 'tooltip'});
-  expos_data_table.addColumn('number', 'Average Exposure');
+  expos_data_table.addColumn('number', 'Average (' + (Nano.ExposureDuration / 3600).toString() + " h)");
   // A column for custom tooltip content
   expos_data_table.addColumn({type: 'string', role: 'tooltip'});
   expos_data_table.addColumn('number', 'Integrated Exposure');
@@ -1785,8 +1842,8 @@ Nano.drawChart = function()
   expos_data_table.addColumn({type: 'string', role: 'tooltip'});
   if(expos_data)
     expos_data_table.addRows(expos_data);
-  var exposureYAxisTitle1 = 'Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.PartConcen[Nano.Results.maximumConcExpos.select.selectedIndex]) + ')'; 
-  var exposureYAxisTitle2 = 'Integrated Occupant Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.IntegratedConcen[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
+  var exposureYAxisTitle1 = 'Exposure Concentration (' + Nano.decodeHtml(CONTAM.Units.Strings.PartConcen[Nano.Results.maximumConcExpos.select.selectedIndex]) + ')'; 
+  var exposureYAxisTitle2 = 'Integrated Exposure (' + Nano.decodeHtml(CONTAM.Units.Strings.IntegratedConcen[Nano.Results.IntegratedExposure.select.selectedIndex]) + ')'; 
 
   // mass
   //exited zone 
@@ -1868,14 +1925,15 @@ Nano.drawChart = function()
   var air_options = {
     backgroundColor: '#F4F5F9',
     chartArea: {'width': '80%', 'height': '80%'},
-    title: 'Air Concentration',
+    title: 'Airborne Concentration',
     vAxis: { format:'scientific'},
     vAxes: {
       // Adds titles to each axis.
       0: {title: concenYAxisTitle},
     },
     series: {
-      1: { lineDashStyle: [2, 2] }
+      1: { lineDashStyle: [2, 2] },
+      2: { lineDashStyle: [3, 2] },
     },
     backgroundColor: {
       stroke: "#12659c",
@@ -1909,7 +1967,7 @@ Nano.drawChart = function()
   var expos_options = {
     backgroundColor: '#F4F5F9',
     chartArea: {'width': '80%', 'height': '80%'},
-    title: 'Occupant Exposure',
+    title: 'Airborne Exposure',
     vAxis: { format:'scientific'},
     vAxes: {
       // Adds titles to each axis.
