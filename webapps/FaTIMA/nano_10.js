@@ -967,8 +967,8 @@ Nano.computeSystem = function()
   var Frec = Math.min(Fret, Fsup - FoaPrim);
   var Foa = Fsup - Frec;
   var Fexh = Fret - Frec;
-  var Fbal = Fsup + Finf - Fret - Fzexh;
-  var ach = (Finf + Foa-(Math.min(0,Fbal))) / (CONTAM.Units.rho20 * volume);
+  Nano.Inputs.Fbal = Fsup + Finf - Fret - Fzexh;
+  var ach = (Finf + Foa-(Math.min(0,Nano.Inputs.Fbal))) / (CONTAM.Units.rho20 * volume);
   //use sprintf to avoid long numbers and parse back to a number
   Nano.Inputs.Ach.input.baseValue = ach;
   // this will make the inputs display the new baseValues in the proper units
@@ -984,7 +984,7 @@ Nano.computeSystem = function()
   console.log("Frec: " + Frec);
   console.log("Foa: " + Foa);
   console.log("Fzexh: " + Fzexh);
-  console.log("Fbal: " + Fbal);
+  console.log("Fbal: " + Nano.Inputs.Fbal);
   console.log("ach: " + ach);
   console.log("-----");
     
@@ -1401,6 +1401,8 @@ Nano.putResultsInGUI = function()
   Nano.Results.Mdep = Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
     Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
   Nano.Results.Mexf = Nano.Results.csmResults.ctm_exfil;
+  if(Nano.Inputs.Fbal >= 0)
+    Nano.Results.Mexf += Nano.Results.csmResults.penetrationPath5;
   Nano.Results.Mzone = Nano.Results.ctrlLogResult.finalConcen * Nano.Inputs.Volume.input.baseValue;
   Nano.Results.Mdeact = Nano.Results.csmResults.massDeactivated;
   

@@ -24,7 +24,7 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   var ctm_exfil = 0;
   var ctm_entered = 0;
   var massDeactivated = 0;
-
+  var penetrationPath5 = 0;
   rdr.Init(CsmFileText);  
   
   rdr.nextword(4); // line 1
@@ -96,6 +96,8 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   {
     var filtPath = rdr.nextword(0);
     var filtCtm1 = rdr.readR4(0);
+    if(i==3)
+      penetrationPath5 = filtCtm1
     if(i==4)
       recFiltMassSto = filtCtm1
     if(i==5)
@@ -138,5 +140,6 @@ CONTAM.CsmFileReader.ReadCSMFile = function(CsmFileText)
   'ctm_exfil': ctm_exfil,
   'ctm_entered': ctm_entered,
   'massDeactivated': massDeactivated,
+  'penetrationPath5': penetrationPath5,
   };
 }
