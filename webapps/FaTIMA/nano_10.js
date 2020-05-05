@@ -76,7 +76,7 @@ Nano.Init = function()
   { 
     initialValue: 100, 
     convert: 0, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.VolumeConvert, 
     strings: CONTAM.Units.Strings.Volume,
     input: document.getElementById("BuildingVolumeInput"),
@@ -92,7 +92,7 @@ Nano.Init = function()
   { 
     initialValue: 40, 
     convert: 0, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaFloorInput"),
@@ -107,7 +107,7 @@ Nano.Init = function()
   { 
     initialValue: 20, 
     convert: 0, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.LengthConvert, 
     strings: CONTAM.Units.Strings.Length,
     input: document.getElementById("LevelHeightInput"),
@@ -120,7 +120,7 @@ Nano.Init = function()
   { 
     initialValue: 63.25, 
     convert: 0, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaWallInput"),
@@ -135,7 +135,7 @@ Nano.Init = function()
   { 
     initialValue: 40, 
     convert: 0, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaCeilingInput"),
@@ -150,7 +150,7 @@ Nano.Init = function()
   { 
     initialValue: 4, 
     convert: 0, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaOtherInput"),
@@ -267,7 +267,7 @@ Nano.Init = function()
   { 
     initialValue: 0.113655, // 200 scfm
     convert: 1, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.FlowConvert, 
     strings: CONTAM.Units.Strings.Flow,
     input: document.getElementById("AirCleanerFlowRateInput"),
@@ -305,7 +305,7 @@ Nano.Init = function()
   { 
     initialValue: Nano.Species.mdiam, 
     convert: 6, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.LengthConvert, 
     strings: CONTAM.Units.Strings.Length,
     input: document.getElementById("ParticleDiameterInput"),
@@ -318,7 +318,7 @@ Nano.Init = function()
   { 
     initialValue: Nano.Species.edens, 
     convert: 2, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.DensityConvert, 
     strings: CONTAM.Units.Strings.Density,
     input: document.getElementById("ParticleDensityInput"),
@@ -334,7 +334,7 @@ Nano.Init = function()
   { 
     initialValue: 3960, 
     convert: 2, 
-    minValue: 0.01,
+    minValue: Number.EPSILON,
     func: CONTAM.Units.TimeConvert, 
     strings: CONTAM.Units.Strings.Time,
     input: document.getElementById("ParticleHalflifeInput"),
@@ -363,7 +363,7 @@ Nano.Init = function()
   { 
     initialValue: 2.7925e-017, // 3.2 #/min
     convert: 19, 
-    minValue: 0.01,
+    minValue: 0.0,
     func: CONTAM.Units.ConSSConvert2, 
     strings: CONTAM.Units.Strings.ConSS2,
     input: document.getElementById("ReleaseRateInput"),
@@ -388,7 +388,7 @@ Nano.Init = function()
   { 
     initialValue: 2.3562e-014, // 45 #
     convert: 3, 
-    minValue: 0.01,
+    minValue: 0.0,
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("ReleaseAmountInput"),
