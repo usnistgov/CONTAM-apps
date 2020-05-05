@@ -27,6 +27,7 @@ window.onload = function()
   Nano.simStatusSpan = document.getElementById("simStatusSpan");
   Nano.downloadLinksSpan = document.getElementById("downloadLinksSpan");
   Nano.Init();
+  Nano.disableScroll();
   Nano.GetPrj().then(
     function(result)
     {
@@ -2104,4 +2105,13 @@ Nano.checkInputValidity = function()
   }
   return true;
   
+}
+
+Nano.disableScroll = function(){
+
+  var inputsWithoutSpinButtons = document.querySelectorAll(".no-spinners");
+  for (const input of inputsWithoutSpinButtons) {
+    input.addEventListener("wheel", function(e){ this.blur()});
+
+  }
 }
