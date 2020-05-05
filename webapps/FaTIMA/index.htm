@@ -53,37 +53,37 @@
           <div class="unithead">Zone Geometry</div>
           <div class="unit">
             <div><label for="BuildingVolumeInput">Volume</label></div>
-            <input type="number" step="any" id="BuildingVolumeInput" required>
+            <input type="number" step="any" id="BuildingVolumeInput" required class="no-spinners">
             <select id="BuildingVolumeCombo"></select>
           </div>
           <div class="unit">
             <div><label for="LevelHeightInput">Level Height</label></div>
-            <input type="number" step="any" id="LevelHeightInput" disabled>
+            <input type="number" step="any" id="LevelHeightInput" disabled class="no-spinners">
             <select id="LevelHeightCombo"></select>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaFloorInput">Floor Area</label></div>
-            <input type="number" step="any" id="SurfaceAreaFloorInput" required>
+            <input type="number" step="any" id="SurfaceAreaFloorInput" required class="no-spinners">
             <select id="SurfaceAreaFloorCombo"></select>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaWallInput">Wall Area</label></div>
-            <input type="number" step="any" id="SurfaceAreaWallInput" required> 
+            <input type="number" step="any" id="SurfaceAreaWallInput" required class="no-spinners"> 
             <span id="SurfaceAreaWallUnits"></span>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaCeilingInput">Ceiling Area</label></div>
-            <input type="number" step="any" id="SurfaceAreaCeilingInput" required> 
+            <input type="number" step="any" id="SurfaceAreaCeilingInput" required class="no-spinners"> 
             <span id="SurfaceAreaCeilingUnits"></span>
           </div>
           <div class="unit">
             <div><label for="SurfaceAreaOtherInput">Other Surface Area</label></div>
-            <input type="number" step="any" id="SurfaceAreaOtherInput" required> 
+            <input type="number" step="any" id="SurfaceAreaOtherInput" required class="no-spinners"> 
             <span id="SurfaceAreaOtherUnits"></span>
           </div>
           <div class="unit">
             <div><label for="SurfaceVolumeRatio">Surface to Volume Ratio</label></div>
-            <input type="number" step="any" id="SurfaceVolumeRatio" disabled> 
+            <input type="number" step="any" id="SurfaceVolumeRatio" disabled class="no-spinners"> 
           </div>
         </div>
 
@@ -105,7 +105,7 @@
           <div class="unithead">Ventilation System</div>
             <div class="unit">
               <div><label for="SupplyRateInput">Supply Airflow Rate</label></div>
-              <input type="number" step="any" id="SupplyRateInput" required>
+              <input type="number" step="any" id="SupplyRateInput" required class="no-spinners">
               <select id="SupplyRateCombo"></select>
             </div>
             <div class="unit">
@@ -114,12 +114,12 @@
             </div>
             <div class="unit">
               <div><label for="ReturnRateInput">Return Airflow Rate</label></div>
-              <input type="number" step="any" id="ReturnRateInput" required>
+              <input type="number" step="any" id="ReturnRateInput" required class="no-spinners">
               <span id="ReturnRateUnits"></span>
             </div>
             <div class="unit">
               <div><label for="SupplyRateInput">Local Exhaust Airflow Rate</label></div>
-              <input type="number" step="any" id="ExhaustRateInput" required>
+              <input type="number" step="any" id="ExhaustRateInput" required class="no-spinners">
               <span id="ExhaustRateUnits"></span>
             </div>
         </div>
@@ -172,17 +172,17 @@
           <div class="unithead">Calculated Airflows</div>
           <div class="unit">
             <div><label for="AchCalc">Total Outdoor Air Change Rate</label></div>
-            <input type="number" step="any" disabled id="AchCalc">
+            <input type="number" step="any" disabled id="AchCalc" class="no-spinners">
             <select id="AchCombo"></select>
           </div>
           <div class="unit">
             <div><label for="QoaCalc">Outdoor Air Intake Rate</label></div>
-            <input type="number" step="any" disabled id="QoaCalc">
+            <input type="number" step="any" disabled id="QoaCalc" class="no-spinners">
             <span id="QoaCalcUnits"></span>
           </div>
           <div class="unit">
             <div><label for="QrecCalc">Recirculation Airflow Rate</label></div>
-            <input type="number" step="any" disabled id="QrecCalc">
+            <input type="number" step="any" disabled id="QrecCalc" class="no-spinners">
             <span id="QrecCalcUnits"></span>
           </div>
         </div>
@@ -192,7 +192,7 @@
           <div class="unithead">Room Air Cleaner</div>
           <div class="unit">
             <div><label for="AirCleanerFlowRateInput">Maximum Airflow Rate</label></div>
-            <input type="number" step="any" id="AirCleanerFlowRateInput" required>
+            <input type="number" step="any" id="AirCleanerFlowRateInput" required class="no-spinners">
             <select id="AirCleanerFlowRateCombo"></select>
           </div>
           <div class="unit">
@@ -205,7 +205,7 @@
           </div>
           <div class="unit">
             <div><abbr title="Clean air delivery rate"><label for="AirCleanerCADRInput">CADR</label></abbr></div>
-            <input type="number" step="any" min="0" id="AirCleanerCADRInput" disabled>
+            <input type="number" step="any" min="0" id="AirCleanerCADRInput" disabled class="no-spinners">
             <span id="AirCleanerCADRUnits">test</span>
           </div>
         </div>
@@ -219,12 +219,12 @@
           </div>
           <div class="unit">
             <div><label for="ParticleDiameterInput">Diameter</label></div>
-            <input type="number" step="any" id="ParticleDiameterInput" required>
+            <input type="number" step="any" id="ParticleDiameterInput" required class="no-spinners">
             <select id="ParticleDiameterCombo"></select>
           </div>
           <div class="unit">
             <div><label for="ParticleDensityInput">Density</label></div>
-            <input type="number" step="any" id="ParticleDensityInput" required>
+            <input type="number" step="any" id="ParticleDensityInput" required class="no-spinners">
             <select id="ParticleDensityCombo"></select>
           </div>
           <div class="unit">
@@ -236,12 +236,12 @@
           </div>
           <div class="unit">
             <div><label for="ParticleHalflifeInput">Half-life</label></div>
-            <input type="number" step="0.01" id="ParticleHalflifeInput" disabled required>
+            <input type="number" step="0.01" id="ParticleHalflifeInput" disabled required class="no-spinners">
             <select id="ParticleHalflifeCombo"></select>
           </div>
           <div class="unit">
             <div><label for="ParticleDecayRateInput">Decay Rate</label></div>
-            <input type="number" step="any" id="ParticleDecayRateInput" disabled>
+            <input type="number" step="any" id="ParticleDecayRateInput" disabled class="no-spinners">
             <select id="ParticleDecayRateCombo"></select>
           </div>
         </div>
@@ -258,7 +258,7 @@
           </div>
           <div class="unit">
             <div><label for="ReleaseRateInput">Generation Rate</label></div>
-            <input type="number" step="any" id="ReleaseRateInput" required>
+            <input type="number" step="any" id="ReleaseRateInput" required class="no-spinners">
             <select id="ReleaseRateCombo"></select>
           </div>
           <div class="unit">
@@ -288,7 +288,7 @@
           </div>
           <div class="unit">
             <div><label for="ReleaseAmountInput">Amount per Burst</label></div>
-            <input type="number" step="any" id="ReleaseAmountInput" required>
+            <input type="number" step="any" id="ReleaseAmountInput" required class="no-spinners">
             <select id="ReleaseAmountCombo"></select>
           </div>
           <div class="unit">
@@ -309,27 +309,27 @@
           <div class="unithead">Particle Deposition Velocities</div>
           <div class="unit">
             <div><label for="DepositionVelocityFloorInput">Floor</label></div>
-            <input type="number" step="any" id="DepositionVelocityFloorInput" required>
+            <input type="number" step="any" id="DepositionVelocityFloorInput" required class="no-spinners">
             <select id="DepositionVelocityFloorCombo"></select>
           </div>
           <div class="unit">
             <div><label for="DepositionVelocityWallInput">Walls</label></div>
-            <input type="number" step="any" id="DepositionVelocityWallInput" required>
+            <input type="number" step="any" id="DepositionVelocityWallInput" required class="no-spinners">
             <span id="DepositionVelocityWallUnits"></span>
           </div>
           <div class="unit">
             <div><label for="DepositionVelocityCeilingInput">Ceiling</label></div>
-            <input type="number" step="any" id="DepositionVelocityCeilingInput" required>
+            <input type="number" step="any" id="DepositionVelocityCeilingInput" required class="no-spinners">
             <span id="DepositionVelocityCeilingUnits"></span>
           </div>
           <div class="unit">
             <div><label for="DepositionVelocityOtherInput">Other Surface</label></div>
-            <input type="number" step="any" id="DepositionVelocityOtherInput" required>
+            <input type="number" step="any" id="DepositionVelocityOtherInput" required class="no-spinners">
             <span id="DepositionVelocityOtherUnits"></span>
           </div>
           <div class="unit">
             <div><label for="DepositionRateCalculated">Effective Deposition Rate</label></div>
-            <input type="number" step="any" id="DepositionRateCalculated" disabled>
+            <input type="number" step="any" id="DepositionRateCalculated" disabled class="no-spinners">
             <select id="DepositionRateCalculatedCombo"></select>
           </div>
         </div>
@@ -339,12 +339,12 @@
           <div class="unithead">Initial Concentrations</div>
           <div class="unit">
             <div><label for="InitialConcentrationOutdoorInput">Outdoor Air</label></div>
-            <input type="number" step="any" id="InitialConcentrationOutdoorInput" required>
+            <input type="number" step="any" id="InitialConcentrationOutdoorInput" required class="no-spinners">
             <select id="InitialConcentrationOutdoorCombo"></select>
           </div>
           <div class="unit">
             <div><label for="InitialConcentrationInput">Zone Air</label></div>
-            <input type="number" step="any" id="InitialConcentrationInput" required>
+            <input type="number" step="any" id="InitialConcentrationInput" required class="no-spinners">
             <span id="InitialConcentrationUnits"></span>
           </div>
         </div>
@@ -393,22 +393,22 @@
           <div class="unithead">Sources</div>
           <div class="unit">
             <div>Continuous</div>
-            <input type="number" step="any" disabled id="continuousEmmissionResult">
+            <input type="number" step="any" disabled id="continuousEmmissionResult" class="no-spinners">
             <span id="continuousEmmissionResultUnits"></span>
           </div>
           <div class="unit">
             <div>Burst</div> 
-            <input type="number" step="any" disabled id="burstEmmissionResult">
+            <input type="number" step="any" disabled id="burstEmmissionResult" class="no-spinners">
             <span id="burstEmmissionResultUnits"></span>
           </div>
           <div class="unit">
             <div>Outdoor</div> 
-            <input type="number" step="any" disabled id="outdoorEmmissionResult">
+            <input type="number" step="any" disabled id="outdoorEmmissionResult" class="no-spinners">
             <span id="outdoorEmmissionResultUnits"></span>
           </div>
           <div class="unit">
             <div>Total</div>
-            <input type="number" step="any" disabled id="totalEmmissionResult">
+            <input type="number" step="any" disabled id="totalEmmissionResult" class="no-spinners">
             <select id="totalEmmissionResultCombo"></select>
           </div>
         </div>
@@ -417,17 +417,17 @@
           <div class="unithead">Airborne Concentration</div>
           <div class="unit">
             <div id="averageConcOccResultDiv">Average</div>
-            <input type="number" step="any" disabled id="averageConcOccResult">
+            <input type="number" step="any" disabled id="averageConcOccResult" class="no-spinners">
             <span id="averageConcOccResultUnits"></span>
           </div>
           <div class="unit">
             <div>Average (24 h)</div> 
-            <input type="number" step="any" disabled id="averageDailyExposureResult">
+            <input type="number" step="any" disabled id="averageDailyExposureResult" class="no-spinners">
             <span id="averageDailyExposureResultUnits"></span>
           </div>
           <div class="unit">
             <div>Maximum (24 h)</div> 
-            <input type="number" step="any" disabled id="maximumConc">
+            <input type="number" step="any" disabled id="maximumConc" class="no-spinners">
             <select id="maximumConcCombo"></select>
           </div>
         </div>
@@ -435,17 +435,17 @@
           <div class="unithead">Airborne Exposure</div>
           <div class="unit">
             <div id="averageExposureDiv">Average</div>
-            <input type="number" step="any" disabled id="averageExposureResult">
+            <input type="number" step="any" disabled id="averageExposureResult" class="no-spinners">
             <span id="averageExposureResultUnits"></span>
           </div>
           <div class="unit">
             <div id="maxExposureDiv">Maximum</div> 
-            <input type="number" step="any" disabled id="maximumConcExpos">
+            <input type="number" step="any" disabled id="maximumConcExpos" class="no-spinners">
             <span id="maximumConcExposUnits"></span>
           </div>
           <div class="unit">
             <div>Integrated Exposure</div>
-            <input type="number" step="any" disabled id="IntegratedExposureInput">
+            <input type="number" step="any" disabled id="IntegratedExposureInput" class="no-spinners">
             <select id="IntegratedExposureCombo"></select>
           </div>
         </div>
@@ -453,27 +453,27 @@
           <div class="unithead">Surface Loading</div>
           <div class="unit">
             <div>Floor</div>
-            <input type="number" step="any" disabled id="floorLoadingResult">
+            <input type="number" step="any" disabled id="floorLoadingResult" class="no-spinners">
             <span id="floorLoadingResultUnits"></span>
           </div>
           <div class="unit">
             <div>Wall</div> 
-            <input type="number" step="any" disabled id="wallLoadingResult">
+            <input type="number" step="any" disabled id="wallLoadingResult" class="no-spinners">
             <span id="wallLoadingResultUnits"></span>
           </div>
           <div class="unit">
             <div>Ceiling</div> 
-            <input type="number" step="any" disabled id="ceilingLoadingResult">
+            <input type="number" step="any" disabled id="ceilingLoadingResult" class="no-spinners">
             <span id="ceilingLoadingResultUnits"></span>
           </div>
           <div class="unit">
             <div>Other</div> 
-            <input type="number" step="any" disabled id="otherLoadingResult">
+            <input type="number" step="any" disabled id="otherLoadingResult" class="no-spinners">
             <span id="otherLoadingResultUnits"></span>
           </div>
           <div class="unit">
             <div>Total</div>
-            <input type="number" step="any" disabled id="totalLoadingResultInput">
+            <input type="number" step="any" disabled id="totalLoadingResultInput" class="no-spinners">
             <select id="totalLoadingResultCombo"></select>
           </div>
         </div>
@@ -482,27 +482,27 @@
           <div class="unithead">Mass Deposited</div>
           <div class="unit">
             <div>Floor</div>
-            <input type="number" step="any" disabled id="floorMassDepResult">
+            <input type="number" step="any" disabled id="floorMassDepResult" class="no-spinners">
             <span id="floorMassDepResultUnits"></span>
           </div>
           <div class="unit">
             <div>Walls</div> 
-            <input type="number" step="any" disabled id="wallMassDepResult">
+            <input type="number" step="any" disabled id="wallMassDepResult" class="no-spinners">
             <span id="wallMassDepResultUnits"></span>
           </div>
           <div class="unit">
             <div>Ceiling</div>
-            <input type="number" step="any" disabled id="ceilingMassDepResult">
+            <input type="number" step="any" disabled id="ceilingMassDepResult" class="no-spinners">
             <span id="ceilingMassDepResultUnits"></span>
           </div>
           <div class="unit">
             <div>Other</div> 
-            <input type="number" step="any" disabled id="otherMassDepResult">
+            <input type="number" step="any" disabled id="otherMassDepResult" class="no-spinners">
             <span id="otherMassDepResultUnits"></span>
           </div>
           <div class="unit">
             <div>Total</div>
-            <input type="number" step="any" disabled id="totalMassDepResult">
+            <input type="number" step="any" disabled id="totalMassDepResult" class="no-spinners">
             <span id="totalMassDepResultUnits"></span>
           </div>
         </div>
@@ -511,22 +511,22 @@
           <div class="unithead">Mass Filtered</div>
           <div class="unit">
             <div>Outdoor Air</div>
-            <input type="number" step="any" disabled id="oaFilterLoadingResult">
+            <input type="number" step="any" disabled id="oaFilterLoadingResult" class="no-spinners">
             <span id="oaFilterLoadingResultUnits"></span>
           </div>
           <div class="unit">
             <div>Recirculation</div> 
-            <input type="number" step="any" disabled id="recFilterLoadingResult">
+            <input type="number" step="any" disabled id="recFilterLoadingResult" class="no-spinners">
             <span id="recFilterLoadingResultUnits"></span>
           </div>
           <div class="unit">
             <div>Air Cleaner</div> 
-            <input type="number" step="any" disabled id="acFilterLoadingResult">
+            <input type="number" step="any" disabled id="acFilterLoadingResult" class="no-spinners">
             <span id="acFilterLoadingResultUnits"></span>
           </div>
           <div class="unit">
             <div>Total</div>
-            <input type="number" step="any" disabled id="totalFilterLoadingResult">
+            <input type="number" step="any" disabled id="totalFilterLoadingResult" class="no-spinners">
             <span id="totalFilterLoadingResultUnits"></span>
           </div>
         </div>
@@ -535,17 +535,17 @@
           <div class="unithead">Other Mass</div>
           <div class="unit">
             <div>Deactivated</div>
-            <input type="number" step="any" disabled id="massDeactivatedResult">
+            <input type="number" step="any" disabled id="massDeactivatedResult" class="no-spinners">
             <span id="massDeactivatedResultUnits"></span>
           </div>
           <div class="unit">
             <div>Exited Zone</div>
-            <input type="number" step="any" disabled id="massExitedResult">
+            <input type="number" step="any" disabled id="massExitedResult" class="no-spinners">
             <span id="massExitedResultUnits"></span>
           </div>
           <div class="unit">
             <div>Remaining in Zone</div>
-            <input type="number" step="any" disabled id="massRemainingResult">
+            <input type="number" step="any" disabled id="massRemainingResult" class="no-spinners">
             <span id="massRemainingResultUnits"></span>
           </div>
         </div>
