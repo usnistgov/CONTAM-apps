@@ -84,7 +84,6 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.Volume);
   Nano.Inputs.Volume.input.addEventListener("change", Nano.computeSystem); 
-  Nano.Inputs.Volume.input.addEventListener("change", Nano.computeLevelHeight); 
   Nano.Inputs.Volume.input.addEventListener("change", Nano.calculatedEffDEpRate); 
   Nano.Inputs.Volume.input.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
  
@@ -99,22 +98,8 @@ Nano.Init = function()
     select: document.getElementById("SurfaceAreaFloorCombo")
   };
   CONTAM.Units.SetupUnitInputs(Nano.Inputs.FloorArea);
-  Nano.Inputs.FloorArea.input.addEventListener("change", Nano.computeLevelHeight); 
   Nano.Inputs.FloorArea.input.addEventListener("change", Nano.calculatedEffDEpRate); 
   Nano.Inputs.FloorArea.input.addEventListener("change", Nano.computeSurfaceVolumeRatio); 
-  
-  Nano.Inputs.LevelHeight = 
-  { 
-    initialValue: 20, 
-    convert: 0, 
-    minValue: Number.EPSILON,
-    func: CONTAM.Units.LengthConvert, 
-    strings: CONTAM.Units.Strings.Length,
-    input: document.getElementById("LevelHeightInput"),
-    select: document.getElementById("LevelHeightCombo")
-  };
-  CONTAM.Units.SetupUnitInputs(Nano.Inputs.LevelHeight);
-  Nano.computeLevelHeight();
 
   Nano.Inputs.WallArea =
   { 
@@ -933,14 +918,6 @@ Nano.UpdateMdiam = function()
   Nano.ReconvertReleaseAmount();
 }
 
-Nano.computeLevelHeight = function()
-{
-  Nano.Inputs.LevelHeight.input.baseValue = Nano.Inputs.Volume.input.baseValue / Nano.Inputs.FloorArea.input.baseValue;
-  // this will make the inputs display the new baseValues in the proper units
-  CONTAM.Units.ChangeUnits.apply(Nano.Inputs.LevelHeight.select);
-   
-}
-
 // convert the value in the input box for release rate 
 // to the base units from the currently selected unit
 Nano.ReconvertReleaseRate = function()
@@ -1284,7 +1261,6 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.PathList[5].pf.pe.ped.eff[0]", variableValue: 1 - Nano.Inputs.PFactor.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(12).ctrl[0]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(12).ctrl[1]", variableValue: Nano.Inputs.OAIntakeFrac.valueAsNumber});
-  variableList.push({variableName: "CONTAM.Project.LevList[1].delht", variableValue: Nano.Inputs.LevelHeight.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.PathList[5].mult", variableValue: envelopeLeakageMultiplier});
   variableList.push({variableName: "CONTAM.Project.Dfe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.AirCleanerFlowRate.input.baseValue});
   variableList.push({variableName: "CONTAM.Project.Flte0.GetByNumber(1).ped.eff[0]", variableValue: Nano.Inputs.AirCleanerEff.valueAsNumber});
