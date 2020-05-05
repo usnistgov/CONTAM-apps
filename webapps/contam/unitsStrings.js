@@ -53,7 +53,7 @@ CONTAM.Units.Strings.DuctLeakage = ["L/s/m&sup2;", "cfm/100ft&sup2;"];
 CONTAM.Units.Strings.Leak3 = 
   ["m&sup2;/m&sup2;", "in&sup2;/ft&sup2;", "cm&sup2;/m&sup2;"];
 CONTAM.Units.Strings.Leak2 = ["m&sup2;/m", "in&sup2;/ft", "cm&sup2;/m"];
-CONTAM.Units.Strings.Mass2 = ["kg", "lb", "g", "#"];
+CONTAM.Units.Strings.Mass2 = ["kg", "lb", "g", "mg", "&micro;g", "#"];
 CONTAM.Units.Strings.Mass3 = ["kg", "lb", "g", "#", "Bq", "pCi"];
 CONTAM.Units.Strings.Concentration_MP = 
   ["kg/kg", "ppm", "ppb", "kg/m&sup3;", "lb/lb", "lb/ft&sup3;", "g/kg", 
@@ -161,7 +161,7 @@ CONTAM.Units.Strings2.DuctLeakage = ["L/s/m\xB2", "cfm/100ft\xB2"];
 CONTAM.Units.Strings2.Leak3 = 
   ["m\xB2/m\xB2", "in\xB2/ft\xB2", "cm\xB2/m\xB2"];
 CONTAM.Units.Strings2.Leak2 = ["m\xB2/m", "in\xB2/ft", "cm\xB2/m"];
-CONTAM.Units.Strings2.Mass2 = ["kg", "lb", "g", "#"];
+CONTAM.Units.Strings2.Mass2 = ["kg", "lb", "g", "mg", "\xB5g", "#"];
 CONTAM.Units.Strings2.Mass3 = ["kg", "lb", "g", "#", "Bq", "pCi"];
 CONTAM.Units.Strings2.Concentration_MP = 
   ["kg/kg", "ppm", "ppb", "kg/m\xB3", "lb/lb", "lb/ft\xB3", "g/kg", 

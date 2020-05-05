@@ -1181,7 +1181,7 @@ CONTAM.Units.Mass2Convert = function(Value, Cnvrt, Direction, Spcs)
   var Conversion = Cnvrt;
   if (Direction == 1 && Conversion != 0)
   {
-    Conversion = Conversion + 3;
+    Conversion = Conversion + 5;
   }
   switch (Conversion)
   {
@@ -1192,15 +1192,23 @@ CONTAM.Units.Mass2Convert = function(Value, Cnvrt, Direction, Spcs)
       return Value / 0.45359237;  // kg -> lb
     case 2:
       return Value * k;           // kg -> g
-    case 3:                       /* kg -> # - 2003/10/15 */
-      return Value / (0.16666667 * Math.PI * md * md * md * ed);
+    case 3:
+      return Value * k * k;           // kg -> mg
     case 4:
+      return Value * k * k * k;           // kg -> ug
+    case 5:                       /* kg -> # - 2003/10/15 */
+      return Value / (0.16666667 * Math.PI * md * md * md * ed);
+    case 6:
       return Value * 0.45359237;  // lb -> kg
-    case 5:
+    case 7:
       return Value * m;           // g -> kg
-    case 6:                       /* # -> kg - 2003/10/15 */
+    case 8:
+      return Value * m * m;           // mg -> kg
+    case 9:
+      return Value * m * m * m;           // ug -> kg
+    case 10:                       /* # -> kg - 2003/10/15 */
       return Value * (0.16666667 * Math.PI * md * md * md * ed);
-  }
+              }
 }
 
 CONTAM.Units.ConSSConvert = function(Value, Cnvrt, Direction, Spcs)

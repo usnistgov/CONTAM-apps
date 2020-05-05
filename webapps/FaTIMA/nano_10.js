@@ -372,7 +372,7 @@ Nano.Init = function()
   Nano.Inputs.ReleaseAmount =
   { 
     initialValue: 2.3562e-014, // 45 #
-    convert: 3, 
+    convert: 5, 
     minValue: 0.0,
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
@@ -657,7 +657,7 @@ Nano.Init = function()
   Nano.Results.totalEmmission =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("totalEmmissionResult"),
@@ -670,7 +670,7 @@ Nano.Init = function()
   Nano.Results.continuousEmmission =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("continuousEmmissionResult"),
@@ -683,7 +683,7 @@ Nano.Init = function()
   Nano.Results.burstEmmission =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("burstEmmissionResult"),
@@ -697,7 +697,7 @@ Nano.Init = function()
   Nano.Results.outdoorEmmission =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("outdoorEmmissionResult"),
@@ -711,7 +711,7 @@ Nano.Init = function()
   Nano.Results.totalFilterLoading =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("totalFilterLoadingResult"),
@@ -724,7 +724,7 @@ Nano.Init = function()
   Nano.Results.oaFilterLoading =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("oaFilterLoadingResult"),
@@ -737,7 +737,7 @@ Nano.Init = function()
   Nano.Results.recFilterLoading =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("recFilterLoadingResult"),
@@ -750,7 +750,7 @@ Nano.Init = function()
   Nano.Results.acFilterLoading =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("acFilterLoadingResult"),
@@ -764,7 +764,7 @@ Nano.Init = function()
   Nano.Results.totalMassDeposited =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("totalMassDepResult"),
@@ -777,7 +777,7 @@ Nano.Init = function()
   Nano.Results.floorMassDeposited =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("floorMassDepResult"),
@@ -790,7 +790,7 @@ Nano.Init = function()
   Nano.Results.wallMassDeposited =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("wallMassDepResult"),
@@ -803,7 +803,7 @@ Nano.Init = function()
   Nano.Results.ceilingMassDeposited =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("ceilingMassDepResult"),
@@ -816,7 +816,7 @@ Nano.Init = function()
   Nano.Results.otherMassDeposited =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("otherMassDepResult"),
@@ -830,7 +830,7 @@ Nano.Init = function()
   Nano.Results.massDeactivated =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("massDeactivatedResult"),
@@ -843,7 +843,7 @@ Nano.Init = function()
   Nano.Results.massExited =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("massExitedResult"),
@@ -856,7 +856,7 @@ Nano.Init = function()
   Nano.Results.massRemaining =
   { 
     initialValue: 0, 
-    convert: 3, 
+    convert: 5, 
     func: CONTAM.Units.Mass2Convert, 
     strings: CONTAM.Units.Strings.Mass2,
     input: document.getElementById("massRemainingResult"),
