@@ -330,7 +330,7 @@ Nano.Init = function()
   
   Nano.Inputs.PDecayRate =
   { 
-    initialValue: -0.000175, 
+    initialValue: 0.00017504, 
     convert: 2, 
     func: CONTAM.Units.TimeConstantConvert, 
     strings: CONTAM.Units.Strings.TimeConstant,
@@ -2085,7 +2085,7 @@ Nano.UpdateDecay = function()
   if(isNaN(halfLife) || halfLife <= 0)
     newDecayRate = NaN
   else
-    newDecayRate = -Math.abs(Math.log(0.5)/halfLife); // 1/s
+    newDecayRate = -1*Math.log(0.5)/halfLife; // 1/s
   Nano.Inputs.PDecayRate.input.baseValue = newDecayRate;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.PDecayRate.select);
