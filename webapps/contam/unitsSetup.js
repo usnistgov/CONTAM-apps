@@ -36,9 +36,9 @@ CONTAM.Units.SetupUnitInputs = function(unitObject)
 
   // the baseValue is stored with the numeric input where the non-base value is input
   unitObject.input.baseValue = unitObject.initialValue;
-  if(unitObject.maxValue)
+  if(unitObject.maxValue != null)
     unitObject.input.baseMax = unitObject.maxValue;
-  if(unitObject.minValue)  
+  if(unitObject.minValue != null)  
     unitObject.input.baseMin = unitObject.minValue;
   unitObject.input.unitObject = unitObject;
   unitObject.input.addEventListener("change", CONTAM.Units.ChangeUnitValue); 
@@ -91,10 +91,10 @@ CONTAM.Units.ChangeUnits = function ()
     this.inputs[i].unitObject.convert = this.selectedIndex;
     //since the units have changed the min and max must also change to the new units
     // if they are present
-    if(this.inputs[i].baseMax)
+    if(this.inputs[i].baseMax != null)
       this.inputs[i].max = this.unitObject.func(this.inputs[i].baseMax,
         this.unitObject.convert, 0);
-    if(this.inputs[i].baseMin)
+    if(this.inputs[i].baseMin != null)
       this.inputs[i].min = this.unitObject.func(this.inputs[i].baseMin,
         this.unitObject.convert, 0);
   
