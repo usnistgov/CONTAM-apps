@@ -64,3 +64,8 @@ select {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.animateInOut {
+  overflow: hidden;
+  transition: max-height 1.8s;
+}

@@ -29,6 +29,7 @@ window.onload = function()
   Nano.resultsSection = document.getElementById("resultsSection");
   Nano.inputsSection = document.getElementById("inputsSection");
   Nano.goBackButton = document.getElementById("goBackButton");
+  Nano.setupAnimation();
   Nano.Init();
   Nano.disableScroll();
   Nano.GetPrj().then(
@@ -67,6 +68,13 @@ window.onload = function()
     }
   );
 
+}
+
+Nano.setupAnimation = function(){
+  Nano.inputsSectionHeight = Nano.inputsSection.getBoundingClientRect().height;
+  Nano.resultsSectionHeight = Nano.resultsSection.getBoundingClientRect().height;
+  Nano.inputsSection.style.maxHeight = Nano.inputsSectionHeight + "px";
+  Nano.resultsSection.style.maxHeight = 0;
 }
 
 // init the inputs
@@ -1299,6 +1307,9 @@ Nano.RunSim = function()
   var projectText;
   
   console.log("RunSim");
+
+  Nano.inputsSection.style.maxHeight = 0;
+
   //Save Project which will produce the text of the project file
   CWD.CallContamFunction("CONTAM.Project.prjsave", []).then(
     function(result)
@@ -1743,8 +1754,7 @@ Nano.onCXWorkerMessage = function(oEvent)
               {            
                 Nano.Results.csmResults = result;
                 Nano.putResultsInGUI();
-                Nano.resultsSection.style.display = "block";
-                Nano.inputsSection.style.display = "none";
+                Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
                 Nano.goBackButton.style.display = "inline-block";
                 Nano.DisplayExposureResults();
               },
@@ -2123,8 +2133,8 @@ Nano.disableScroll = function(){
 }
 
 Nano.hideResults = function(){
-  Nano.resultsSection.style.display = "none";
-  Nano.inputsSection.style.display = "block";
+  Nano.inputsSection.style.maxHeight = Nano.inputsSectionHeight + "px";
+  Nano.resultsSection.style.maxHeight = "0px";
   Nano.goBackButton.style.display = "none";
   Nano.simStatusSpan.textContent = "";  
   while (Nano.downloadLinksSpan.firstChild) {
