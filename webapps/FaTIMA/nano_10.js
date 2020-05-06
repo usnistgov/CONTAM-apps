@@ -1939,7 +1939,7 @@ Nano.drawChart = function()
     },
     series: {
       1: { lineDashStyle: [2, 2] },
-      2: { lineDashStyle: [3, 2] },
+      2: { lineDashStyle: [3, 2], color: 'green' },
     },
     backgroundColor: {
       stroke: "#12659c",
@@ -1983,7 +1983,7 @@ Nano.drawChart = function()
     series: {
       0: { lineDashStyle: [1, 0], targetAxisIndex: 0 },
       1: { lineDashStyle: [2, 2], targetAxisIndex: 0 },
-      2: { lineDashStyle: [3, 2], targetAxisIndex: 1 }
+      2: { lineDashStyle: [3, 2], targetAxisIndex: 1, color: 'green' }
     },
     backgroundColor: {
       stroke: "#12659c",
@@ -2129,6 +2129,5 @@ Nano.hideResults = function(){
   Nano.simStatusSpan.textContent = "";  
   while (Nano.downloadLinksSpan.firstChild) {
     Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
-}
-
+  }
 }
