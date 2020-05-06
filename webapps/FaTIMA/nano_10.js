@@ -1837,7 +1837,7 @@ Nano.drawChart = function()
   
   var expos_data_table = new google.visualization.DataTable();
   expos_data_table.addColumn('timeofday', 'Time of Day');
-  expos_data_table.addColumn('number', 'Zone (Occ Present)');
+  expos_data_table.addColumn('number', 'Occupant');
   // A column for custom tooltip content
   expos_data_table.addColumn({type: 'string', role: 'tooltip'});
   expos_data_table.addColumn('number', 'Average (' + (Nano.ExposureDuration / 3600).toString() + " h)");
