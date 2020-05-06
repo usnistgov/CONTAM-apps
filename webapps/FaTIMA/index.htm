@@ -42,10 +42,11 @@
         <div>
           <h2>Fate and Transport of Indoor Microbiological Aerosols (FaTIMA)</h2>
           <p><strong>Instructions: Set Inputs then click the RUN SIMULATION button.</strong></p>
-          <h3>Inputs</h3>
         </div>
       </div>
       <!---INPUTS -->
+      <div id="inputsSection">
+        <h3>Inputs</h3>
       <div class="section">
 
         <!---Zone Geometry -->
@@ -370,6 +371,7 @@
           <input type="number" step="1" min="2" max="60" id="occDurationInput" required> mins
         </div>
     </div>
+    </div>
   </div>
 
       <!-- RUN SIMULATION -->
@@ -378,9 +380,13 @@
                onclick="Nano.GetInputs();">
         <span id="simStatusSpan"></span>
         <span id="downloadLinksSpan"></span>
+        <input type="button" value="Go back to Inputs" style="margin: 10px;background: #008817; color:white; border:none; padding:8px; font-weight:bold; display:none;"
+              onclick="Nano.hideResults();" id="goBackButton">
+
       </div>
 
       <!-- RESULTS -->
+    <div id="resultsSection" style="display:none;">
       <h3>Results</h3>
       <div class="section">
 
@@ -559,6 +565,11 @@
         <div id="deposited_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
         <div id="filtered_chart" style="max-width: 600px; height: 300px;display:inline-block; width:100%;"></div>
       </div>
+      <div>        
+        <input type="button" value="Go back to Inputs" style="margin: 10px;background: #008817; color:white; border:none; padding:8px; font-weight:bold;"
+        onclick="Nano.hideResults();">
+      </div>
+    </div>
     </article>
     <footer>
       Version 1.0 - Page Updated : 6/5/2018 - Page Created : 02/2016<br>

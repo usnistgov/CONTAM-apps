@@ -26,6 +26,9 @@ window.onload = function()
   Nano.filteredChart = document.getElementById("filtered_chart");
   Nano.simStatusSpan = document.getElementById("simStatusSpan");
   Nano.downloadLinksSpan = document.getElementById("downloadLinksSpan");
+  Nano.resultsSection = document.getElementById("resultsSection");
+  Nano.inputsSection = document.getElementById("inputsSection");
+  Nano.goBackButton = document.getElementById("goBackButton");
   Nano.Init();
   Nano.disableScroll();
   Nano.GetPrj().then(
@@ -1740,6 +1743,9 @@ Nano.onCXWorkerMessage = function(oEvent)
               {            
                 Nano.Results.csmResults = result;
                 Nano.putResultsInGUI();
+                Nano.resultsSection.style.display = "block";
+                Nano.inputsSection.style.display = "none";
+                Nano.goBackButton.style.display = "inline-block";
                 Nano.DisplayExposureResults();
               },
               function(error)
@@ -2114,4 +2120,15 @@ Nano.disableScroll = function(){
     input.addEventListener("wheel", function(e){ this.blur()});
 
   }
+}
+
+Nano.hideResults = function(){
+  Nano.resultsSection.style.display = "none";
+  Nano.inputsSection.style.display = "block";
+  Nano.goBackButton.style.display = "none";
+  Nano.simStatusSpan.textContent = "";  
+  while (Nano.downloadLinksSpan.firstChild) {
+    Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
+}
+
 }
