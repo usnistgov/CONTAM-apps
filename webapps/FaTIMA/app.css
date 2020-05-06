@@ -67,5 +67,5 @@ select {
 
 .animateInOut {
   overflow: hidden;
-  transition: max-height 1.8s;
+  transition: max-height 1.5s cubic-bezier(0.1, -0.6, 0.2, 0);
 }
