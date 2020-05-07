@@ -1,6 +1,6 @@
 importScripts("element_list.js", "globals.js", "read_epw.js", "reader_1.js",
   "read_tmy2.js", "read_tmy3.js", "simread.js", 
-  "unitsConversions.js","unitsSetup.js","unitsStrings.js",
+  "unitsStrings.js","unitsConversions.js","unitsSetup.js",
   "project/icons.js", "project/project_1.js", "project/upgraders.js", 
   "project/c24toc30.js", "project/c30toc31.js", "project/c31toc32.js", 
   "project/prjsave_1.js", "utils/date_utilities.js", "utils/sprintf_1.js", 
