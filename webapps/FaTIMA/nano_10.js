@@ -8,7 +8,6 @@ Nano.Species.mdiam = 1e-006;
 Nano.Species.decay = 0;
 Nano.Species.molwt = 0;
 
-
 // this object holds the inputs from the user
 // it is filled in the init function
 Nano.Inputs = {};
@@ -103,7 +102,7 @@ Nano.Init = function()
   { 
     initialValue: 40, 
     convert: 0, 
-    minValue: Number.EPSILON,
+    minValue: 0,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaFloorInput"),
@@ -117,7 +116,7 @@ Nano.Init = function()
   { 
     initialValue: 63.25, 
     convert: 0, 
-    minValue: Number.EPSILON,
+    minValue: 0,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaWallInput"),
@@ -132,7 +131,7 @@ Nano.Init = function()
   { 
     initialValue: 40, 
     convert: 0, 
-    minValue: Number.EPSILON,
+    minValue: 0,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaCeilingInput"),
@@ -147,7 +146,7 @@ Nano.Init = function()
   { 
     initialValue: 4, 
     convert: 0, 
-    minValue: Number.EPSILON,
+    minValue: 0,
     func: CONTAM.Units.AreaConvert, 
     strings: CONTAM.Units.Strings.Area,
     input: document.getElementById("SurfaceAreaOtherInput"),
