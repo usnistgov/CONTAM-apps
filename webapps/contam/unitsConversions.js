@@ -805,7 +805,7 @@ CONTAM.Units.ConcenConvert = function(Value, Cnvrt, Direction, Spcs)
     case 50: // pCi/lb -> kg/kg
       return ((Value * mw / (k * Av * dr)) * 0.037) / 0.45359;
     case 51: // pCi/L -> kg/kg
-      return ((Value * mw / (k * Av * dr)) * 0.037) / rho20;
+      return ((Value * mw / (k * Av * dr)) * 0.037) /  0.001204;
     case 52: // kg/m3 -> kg/kg
       return Value / rho20;
     case 53: // lb/lb -> kg/kg
@@ -849,9 +849,9 @@ CONTAM.Units.ConcenConvert = function(Value, Cnvrt, Direction, Spcs)
     case 72: // m3/m3 -> kg/kg
       return Value * (mw / vol20) / rho20;
     case 73: // ft3/lb -> kg/kg
-      return Value * mw * 35.3147 / vol20 / 0.45359;
+      return Value * mw / 35.3147 / vol20 / 0.45359;
     case 74: // ft3/ft3 -> kg/kg
-      return Value * mw * 35.3147 / vol20 * 35.3147 / rho20;
+      return Value * mw / 35.3147 / vol20 * 35.3147 / rho20;
     case 75: // L/kg -> kg/kg
       return Value * m * (mw / vol20);
     case 76: // L/m3 -> kg/kg
@@ -1000,15 +1000,15 @@ CONTAM.Units.VolumeConvert = function(Value, Cnvrt, Direction)
     case 7:
       return Value / 35.3146667;      // ft3 -> m3
     case 8:
-      return Value * Math.pow(m, -2); // cm3 -> m3
+      return Value * Math.pow(m, 2); // cm3 -> m3
     case 9:
       return Value / 61023.7440576;   // in3 -> m3
     case 10:
-      return Value * Math.pow(m, -3); // mm3 -> m3
+      return Value * Math.pow(m, 3); // mm3 -> m3
     case 11:
       return Value * m;               // dm3 -> m3
     case 12:
-      return Value * Math.pow(m, -6); // um3 -> m3
+      return Value * Math.pow(m, 6); // um3 -> m3
   }
 }
 
@@ -1102,15 +1102,15 @@ CONTAM.Units.ConcnSurfConvert = function(Value, Conversion, Direction, Spcs)
       // V = 4/3 pi R^3
       return Value / (0.16666667 * Math.PI * md * md * md * ed) * 0.0001;
     case 10: /* kg/m2 -> lb/m2 */
-      return Value * 2.2046;
+      return Value * 2.2046 * 0.092903;
     case 11: /* kg -> # */ /* 1/m^2 -> 1/ft^2  */
       // V = 4/3 pi R^3
       return Value / (0.16666667 * Math.PI * md * md * md * ed) * 0.092903;
     case 12: /* kg/m2 -> lb/m2 */ /* 1/ft^2 -> 1/in^2 */
-      return Value * 2.2046 / 144.0;
+      return Value * 2.2046 / 144.0 * 0.092903;
     case 13:/* kg -> # */ /* 1/ft^2 -> 1/in^2 */
       // V = 4/3 pi R^3
-      return Value / (0.16666667 * Math.PI * md * md * md * ed) / 144.0;
+      return Value / (0.16666667 * Math.PI * md * md * md * ed) / 144.0 * 0.092903;
     case 14: //1 /* g  -> kg */
       return Value * m;
     case 15: // 2 /* mg -> kg */
@@ -1137,10 +1137,10 @@ CONTAM.Units.ConcnSurfConvert = function(Value, Conversion, Direction, Spcs)
       // V = 4/3 pi R^3
       return Value * (0.16666667 * Math.PI * md * md * md * ed) / 0.092903;
     case 25: //12 /* lb/m2 -> kg/m2 *//* 1/in^2 -> 1/ft^2 */
-      return Value / 2.2046 * 144.0;
+      return Value / 2.2046 * 144.0 / 0.092903;
     case 26: //13  /* # -> kg *//* 1/in^2 -> 1/ft^2 */
       // V = 4/3 pi R^3
-      return Value * (0.16666667 * Math.PI * md * md * md * ed) * 144.0;
+      return Value * (0.16666667 * Math.PI * md * md * md * ed) * 144.0 / 0.092903;
   }
 }
 
@@ -1515,7 +1515,7 @@ CONTAM.Units.IntegratedConcenConvert = function(Value, Cnvrt, Direction, Spcs)
   var s_to_h = 2.77778e-4;   // 1/3600
   var m3_to_L = 1.0e3;
   var m3_to_cm3 = 1.0e6;
-  var m3_to_ft3 = 3.5315;
+  var m3_to_ft3 = 35.315;
   var m3_to_in3 = 6.1024e4;
   
   switch (Conversion)
@@ -1627,7 +1627,7 @@ CONTAM.Units.PartConcenConvert = function(Value, Cnvrt, Direction, Spcs)
   var kg_to_num = 1.0/(0.16666667 * Math.PI * md * md * md * ed)  // 1/(Vpart*RHOpart)
   var m3_to_L = 1.0e3;
   var m3_to_cm3 = 1.0e6;
-  var m3_to_ft3 = 3.5315;
+  var m3_to_ft3 = 35.315;
   var m3_to_in3 = 6.1024e4;
   switch (Conversion)
   {
@@ -1698,3 +1698,27 @@ CONTAM.Units.PartConcenConvert = function(Value, Cnvrt, Direction, Spcs)
       return Value / conv;
   }
 }
+
+CONTAM.Units.TypeList = [
+  {label: "Temperature", strings: CONTAM.Units.Strings.Temperature, func: CONTAM.Units.TemperatureConvert, species: false},
+  {label: "Length", strings: CONTAM.Units.Strings.Length, func: CONTAM.Units.LengthConvert, species: false},
+  {label: "FlowPerArea", strings: CONTAM.Units.Strings.FlowPerArea, func: CONTAM.Units.FlowPerAreaConvert, species: false},
+  {label: "HeatGains", strings: CONTAM.Units.Strings.HeatGains, func: CONTAM.Units.HeatGainsConvert, species: false},
+  {label: "Pressure", strings: CONTAM.Units.Strings.Pressure, func: CONTAM.Units.PressureConvert, species: false},
+  {label: "Density", strings: CONTAM.Units.Strings.Density, func: CONTAM.Units.DensityConvert, species: false},
+  {label: "PressureDiff", strings: CONTAM.Units.Strings.PressureDiff, func: CONTAM.Units.PressureDiffConvert, species: false},
+  {label: "Flow", strings: CONTAM.Units.Strings.Flow, func: CONTAM.Units.FlowConvert, species: false},
+  {label: "Concentration", strings: CONTAM.Units.Strings.Concentration_MDP, func: CONTAM.Units.ConcenConvert, species: true},
+  {label: "Area", strings: CONTAM.Units.Strings.Area, func: CONTAM.Units.AreaConvert, species: false},
+  {label: "Speed", strings: CONTAM.Units.Strings.Speed, func: CONTAM.Units.SpeedConvert, species: false},
+  {label: "Volume", strings: CONTAM.Units.Strings.Volume, func: CONTAM.Units.VolumeConvert, species: false},
+  {label: "TimeConstant", strings: CONTAM.Units.Strings.TimeConstant, func: CONTAM.Units.TimeConstantConvert, species: false},
+  {label: "Time", strings: CONTAM.Units.Strings.Time, func: CONTAM.Units.TimeConvert, species: false},
+  {label: "Concentration_Surf", strings: CONTAM.Units.Strings.Concentration_Surf, func: CONTAM.Units.ConcnSurfConvert, species: true},
+  {label: "Mass", strings: CONTAM.Units.Strings.Mass, func: CONTAM.Units.MassConvert, species: false},
+  {label: "Mass2", strings: CONTAM.Units.Strings.Mass2, func: CONTAM.Units.Mass2Convert, species: true},
+  {label: "ConSS", strings: CONTAM.Units.Strings.ConSS , func: CONTAM.Units.ConSSConvert, species: true},
+  {label: "ConSS2", strings: CONTAM.Units.Strings.ConSS2, func: CONTAM.Units.ConSSConvert2, species: true},
+  {label: "IntegratedConcen", strings: CONTAM.Units.Strings.IntegratedConcen, func: CONTAM.Units.IntegratedConcenConvert, species: true},
+  {label: "PartConcen", strings: CONTAM.Units.Strings.PartConcen, func: CONTAM.Units.PartConcenConvert, species: true},
+];
