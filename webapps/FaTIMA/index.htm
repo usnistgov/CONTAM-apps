@@ -217,7 +217,9 @@
             <div><label for="ParticleDiameterInput">Diameter</label></div>
             <input type="number" step="any" id="ParticleDiameterInput" required class="no-spinners">
             <select id="ParticleDiameterCombo"></select>
-            <img src="../../images/Info_icon.svg" width="25" height="25" style="vertical-align: top;" alt="information icon" title="Changing the particle diameter does not automatically update deposition velocities. Deposition velocities must be updated manually. However, particle filtration efficiencies of MERV filters are determined from the particle size entered here.">
+            <img src="../../images/Info_icon.svg" width="25" height="25" style="vertical-align: top;" alt="information icon" 
+              title="Changing the particle diameter does not automatically update deposition velocities. Deposition velocities must be updated manually. However, particle filtration efficiencies of MERV filters are determined from the particle size entered here." 
+              onclick="alert('Changing the particle diameter does not automatically update deposition velocities. Deposition velocities must be updated manually. However, particle filtration efficiencies of MERV filters are determined from the particle size entered here.');">
           </div>
           <div class="unit">
             <div><label for="ParticleDensityInput">Density</label></div>
