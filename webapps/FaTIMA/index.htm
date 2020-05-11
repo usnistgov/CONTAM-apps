@@ -577,7 +577,8 @@
     </div>
     </article>
     <footer>
-      Version 1.0 - Page Updated : 6/5/2018 - Page Created : 02/2016<br>
+      Version 1.0 - Page Updated : <span id="moddate"></span> - Page Created : 05/2020<br>
+      <script>document.getElementById('moddate').textContent = new Date(document.lastModified).toDateString()</script>
     </footer>
   </body>
 </html>
