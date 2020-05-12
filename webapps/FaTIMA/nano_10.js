@@ -1384,6 +1384,8 @@ Nano.createPRJSaveLink = function(prjText)
   savelink.className = "blacklink";
   saveSpan.appendChild(savelink);
   Nano.downloadLinksSpan.appendChild(saveSpan);
+  document.getElementById("projectFileLabel").style.display = "inline-block";
+
 }
 
 //this will convert time from google chart format to # of seconds
@@ -1753,10 +1755,11 @@ Nano.onCXWorkerMessage = function(oEvent)
               {            
                 Nano.Results.csmResults = result;
                 Nano.putResultsInGUI();
-                Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
                 Nano.goBackButton.style.display = "inline-block";
+                document.getElementById("reportLabel").style.display = "inline-block";
                 Nano.DisplayExposureResults();
                 Nano.createCSVSaveLink(Nano.writeReport());
+                Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
               },
               function(error)
               {
@@ -2137,6 +2140,9 @@ Nano.hideResults = function(){
   Nano.resultsSection.style.maxHeight = "0px";
   Nano.goBackButton.style.display = "none";
   Nano.simStatusSpan.textContent = "";  
+  document.getElementById("reportLabel").style.display = "none";
+  document.getElementById("projectFileLabel").style.display = "none";
+
   while (Nano.downloadLinksSpan.firstChild) {
     Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
   }
