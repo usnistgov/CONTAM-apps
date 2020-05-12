@@ -369,11 +369,11 @@
         </div>
         <div class="unit">
           <div><label for="occIntervalInput">Intermittent Occupancy Interval</label></div>
-          <input type="number" step="1" min="3" max="240" id="occIntervalInput" required> mins
+          <input type="number" step="1" min="3" max="240" id="occIntervalInput" required> min
         </div>
         <div class="unit">
           <div><label for="occDurationInput">Intermittent Occupancy Duration</label></div>
-          <input type="number" step="1" min="2" max="60" id="occDurationInput" required> mins
+          <input type="number" step="1" min="2" max="60" id="occDurationInput" required> min
         </div>
     </div>
     </div>
@@ -385,9 +385,9 @@
                onclick="Nano.GetInputs();">
         <span id="simStatusSpan"></span>
         <span id="downloadLinksSpan"></span>
-        <input type="button" value="Go back to Inputs" style="margin: 10px;background: #008817; color:white; border:none; padding:8px; font-weight:bold; display:none;"
-              onclick="Nano.hideResults();" id="goBackButton">
-
+        <div style="display:inline-block" id="downloadCSVSpan"></div>
+       <input type="button" value="Go back to Inputs" style="margin: 10px;background: #008817; color:white; border:none; padding:8px; font-weight:bold; display:none;"
+          onclick="Nano.hideResults();" id="goBackButton">
       </div>
 
       <!-- RESULTS -->

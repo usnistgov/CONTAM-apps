@@ -25,6 +25,7 @@ window.onload = function()
   Nano.filteredChart = document.getElementById("filtered_chart");
   Nano.simStatusSpan = document.getElementById("simStatusSpan");
   Nano.downloadLinksSpan = document.getElementById("downloadLinksSpan");
+  Nano.downloadCSVSpan = document.getElementById("downloadCSVSpan");
   Nano.resultsSection = document.getElementById("resultsSection");
   Nano.inputsSection = document.getElementById("inputsSection");
   Nano.goBackButton = document.getElementById("goBackButton");
@@ -1400,7 +1401,6 @@ Nano.ConvertChartTime = function(chart_time)
   
   var string_time = hours + ":" + minutes + ":" + seconds;
   return CONTAM.TimeUtilities.StringTimeToIntTime(string_time);
-  
 }
 
 Nano.putResultsInGUI = function()
@@ -1512,12 +1512,12 @@ Nano.DisplayExposureResults = function()
     // set the display of the period of the average
   document.getElementById("averageExposureDiv").textContent = 
     "Average (" + (Nano.ExposureDuration / 3600).toString() + " h)";
-  var AverageExposureUserUnits = CONTAM.Units.PartConcenConvert(Nano.Results.averageExposureResult.input.baseValue, 
+  Nano.Results.AverageExposureUserUnits = CONTAM.Units.PartConcenConvert(Nano.Results.averageExposureResult.input.baseValue, 
     Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
 
   //average exposure over 24 period (in kg/m3)
   Nano.Results.averageDailyExposureResult.input.baseValue = Nano.Results.ctrlLogResult.averageConcen;
-  var AverageExposure24Units = CONTAM.Units.PartConcenConvert(Nano.Results.averageDailyExposureResult.input.baseValue, 
+  Nano.Results.AverageExposure24Units = CONTAM.Units.PartConcenConvert(Nano.Results.averageDailyExposureResult.input.baseValue, 
     Nano.Results.averageDailyExposureResult.select.selectedIndex, 0, Nano.Species);
   //max concentration 
   Nano.Results.maximumConc.input.baseValue = Nano.Results.ctrlLogResult.maxConcen;
@@ -1536,10 +1536,10 @@ Nano.DisplayExposureResults = function()
       countConcOcc++;
     }
   }
-  var AverageConcOccUserUnits = sumConcOcc / countConcOcc;
-  Nano.Results.averageConcOcc.input.baseValue = AverageConcOccUserUnits;
-  var AverageConcOccUserUnits = CONTAM.Units.PartConcenConvert(
-    AverageConcOccUserUnits, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
+  Nano.Results.AverageConcOccUserUnits = sumConcOcc / countConcOcc;
+  Nano.Results.averageConcOcc.input.baseValue = Nano.Results.AverageConcOccUserUnits;
+  Nano.Results.AverageConcOccUserUnits = CONTAM.Units.PartConcenConvert(
+    Nano.Results.AverageConcOccUserUnits, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
   // set the display of the period of the average
   document.getElementById("averageConcOccResultDiv").textContent = 
   "Average (" + (Nano.ExposureDuration / 3600).toString() + " h)";
@@ -1566,16 +1566,16 @@ Nano.DisplayExposureResults = function()
       CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.concendata[i][0])));
 
     // add the average
-    concenRecord.push(AverageExposure24Units);
+    concenRecord.push(Nano.Results.AverageExposure24Units);
     // add the average tooltip
-    concenRecord.push("Y: " + sprintf("%.3g", AverageExposure24Units) + ", X: " + 
+    concenRecord.push("Y: " + sprintf("%.3g", Nano.Results.AverageExposure24Units) + ", X: " + 
       CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.concendata[i][0])));
     // add the average only inside of the exposure period
     if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime) 
     {
-      concenRecord.push(AverageConcOccUserUnits);
+      concenRecord.push(Nano.Results.AverageConcOccUserUnits);
       //add the exposure average tooltip
-      concenRecord.push("Y: " + sprintf("%.3g", AverageConcOccUserUnits) + ", X: " + 
+      concenRecord.push("Y: " + sprintf("%.3g", Nano.Results.AverageConcOccUserUnits) + ", X: " + 
       CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
     }
     else
@@ -1606,9 +1606,9 @@ Nano.DisplayExposureResults = function()
     // add the average only inside of the exposure period
     if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime) 
     {
-      exposureRecord.push(AverageExposureUserUnits);
+      exposureRecord.push(Nano.Results.AverageExposureUserUnits);
       //add the exposure average tooltip
-      exposureRecord.push("Y: " + sprintf("%.3g", AverageExposureUserUnits) + ", X: " + 
+      exposureRecord.push("Y: " + sprintf("%.3g", Nano.Results.AverageExposureUserUnits) + ", X: " + 
       CONTAM.TimeUtilities.IntTimeToShortStringTime(Nano.ConvertChartTime(Nano.Results.ctrlLogResult.exposuredata[i][0])));
       if(basevalue > maxExpos)
         maxExpos = basevalue;
@@ -1756,6 +1756,7 @@ Nano.onCXWorkerMessage = function(oEvent)
                 Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
                 Nano.goBackButton.style.display = "inline-block";
                 Nano.DisplayExposureResults();
+                Nano.createCSVSaveLink(Nano.writeReport());
               },
               function(error)
               {
@@ -2139,4 +2140,464 @@ Nano.hideResults = function(){
   while (Nano.downloadLinksSpan.firstChild) {
     Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
   }
+  while (Nano.downloadLinksSpan.firstChild) {
+    Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
+  }
+}
+
+Nano.writeReport = function(){
+
+  // entries is an array of data
+  //put a delimiter bewteen the entries and an end of line at the end
+  function addDelimiters(entries, delimiter) {
+    let result = "";
+    entries.forEach(function(entry) {
+        result += entry + delimiter;
+    });
+    return result;
+  };
+
+  // entries is an array of arrays of data
+  // use the addDelimiters function on each of the sub arrays
+  function AddLinesAndDelimiters(entries, delimiter) {
+    let result = "";
+    entries.forEach(function(entry){
+        result += addDelimiters(entry, delimiter);
+        result += "\n";
+    });
+    return result;
+  };
+
+  let report = [];
+  report.push(["\ufeffInputs"]);
+
+  report.push([]);
+  report.push(["Zone Geometry"]);
+  report.push([
+    '',
+    `Zone Volume (${Nano.Inputs.Volume.select.options[Nano.Inputs.Volume.select.selectedIndex].textContent})`,
+    `Floor Area (${Nano.Inputs.FloorArea.select.options[Nano.Inputs.FloorArea.select.selectedIndex].textContent} )`,
+    `Wall Area (${Nano.Inputs.WallArea.select.options[Nano.Inputs.WallArea.select.selectedIndex].textContent})`,
+    `Ceiling Area (${Nano.Inputs.CeilingArea.select.options[Nano.Inputs.CeilingArea.select.selectedIndex].textContent})`,
+    `Other Surface Area (${Nano.Inputs.OtherSurfaceArea.select.options[Nano.Inputs.OtherSurfaceArea.select.selectedIndex].textContent})`,
+    `Surface Volume Ratio`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.Volume.input.valueAsNumber}`,
+    `${Nano.Inputs.FloorArea.input.valueAsNumber}`,
+    `${Nano.Inputs.WallArea.input.valueAsNumber}`,
+    `${Nano.Inputs.CeilingArea.input.valueAsNumber}`,
+    `${Nano.Inputs.OtherSurfaceArea.input.valueAsNumber}`,
+    `${Nano.Inputs.SurfaceVolumeRatio.valueAsNumber}`,
+  ]);
+
+  report.push(["Infiltration"]);
+  report.push([
+    '',
+    'Infiltration 1/h',
+    'Penetration Factor'
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.Infiltration.valueAsNumber}`,
+    `${Nano.Inputs.PFactor.valueAsNumber}`
+  ]);
+
+  report.push(["Ventilation System"]);
+  report.push([
+    '',
+    `Supply Airflow Rate (${Nano.Inputs.SupplyRate.select.options[Nano.Inputs.SupplyRate.select.selectedIndex].textContent})`,
+    `Outdoor Air Intake Fraction`,
+    `Return Airflow Rate (${Nano.Inputs.ReturnRate.select.options[Nano.Inputs.ReturnRate.select.selectedIndex].textContent})`,
+    `Local Exhaust Airflow Rate (${Nano.Inputs.ExhaustRate.select.options[Nano.Inputs.ExhaustRate.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.SupplyRate.input.valueAsNumber}`,
+    `${Nano.Inputs.OAIntakeFrac.valueAsNumber}`,
+    `${Nano.Inputs.ReturnRate.input.valueAsNumber}`,
+    `${Nano.Inputs.ExhaustRate.input.valueAsNumber}`,
+  ]);
+
+  report.push(["System Filters"]);
+  report.push([
+    '',
+    'Outdoor Air Filter',
+    'Recirculation Air Filter',
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.OAFilter.value}`,
+    `${Nano.Inputs.RecirFilter.value}`,
+  ]);
+
+  report.push(["Calculated Airflows"]);
+  report.push([
+    '',
+    `Total Outdoor Air Change Rate (${Nano.Inputs.Ach.select.options[Nano.Inputs.Ach.select.selectedIndex].textContent})`,
+    `Outdoor Air Intake Rate (${Nano.Inputs.Qoa.select.options[Nano.Inputs.Qoa.select.selectedIndex].textContent})`,
+    `Recirculation Airflow Rate (${Nano.Inputs.Qrec.select.options[Nano.Inputs.Qrec.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.Ach.input.valueAsNumber}`,
+    `${Nano.Inputs.Qoa.input.valueAsNumber}`,
+    `${Nano.Inputs.Qrec.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Room Air Cleaner"]);
+  report.push([
+    '',
+    `Maximum Airflow Rate (${Nano.Inputs.AirCleanerFlowRate.select.options[Nano.Inputs.AirCleanerFlowRate.select.selectedIndex].textContent})`,
+    `Fan Flow Fraction`,
+    `Filter Efficiency`,
+    `CADR (${Nano.Inputs.AirCleanerCADR.select.options[Nano.Inputs.AirCleanerCADR.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.AirCleanerFlowRate.input.valueAsNumber}`,
+    `${Nano.Inputs.AirCleanerFlowFrac.valueAsNumber}`,
+    `${Nano.Inputs.AirCleanerEff.valueAsNumber}`,
+    `${Nano.Inputs.AirCleanerCADR.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Particle Properties"]);
+  report.push([
+    '',
+    `Name`,
+    `Diameter (${Nano.Inputs.PDiam.select.options[Nano.Inputs.PDiam.select.selectedIndex].textContent})`,
+    `Density (${Nano.Inputs.PDensity.select.options[Nano.Inputs.PDensity.select.selectedIndex].textContent})`,
+    `Particle Deactivation`,
+    `Half-life (${Nano.Inputs.PHalfLife.select.options[Nano.Inputs.PHalfLife.select.selectedIndex].textContent})`,
+    `Decay Rate (${Nano.Inputs.PDecayRate.select.options[Nano.Inputs.PDecayRate.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.PName.value}`,
+    `${Nano.Inputs.PDiam.input.valueAsNumber}`,
+    `${Nano.Inputs.PDensity.input.valueAsNumber}`,
+    `${Nano.Inputs.PDecays.value}`,
+    `${Nano.Inputs.PHalfLife.input.valueAsNumber}`,
+    `${Nano.Inputs.PDecayRate.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Continuous Source"]);
+  report.push([
+    '',
+    `Source`,
+    `Generation Rate (${Nano.Inputs.ReleaseRate.select.options[Nano.Inputs.ReleaseRate.select.selectedIndex].textContent})`,
+    `Generation Time Period (Start)`,
+    `Generation Time Period (End)`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.constSrcState.value}`,
+    `${Nano.Inputs.ReleaseRate.input.valueAsNumber}`,
+    `${Nano.Inputs.ConstSourceStartTime.value}`,
+    `${Nano.Inputs.ConstSourceEndTime.value}`,
+  ]);
+
+  report.push(["Burst Source"]);
+  report.push([
+    '',
+    `Source`,
+    `Burst Type`,
+    `Amount per Burst (${Nano.Inputs.ReleaseAmount.select.options[Nano.Inputs.ReleaseAmount.select.selectedIndex].textContent})`,
+    `Generation Time Period (Start)`,
+    `Generation Time Period (End)`,
+    `Burst Interval (min)`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.brstSrcState.value}`,
+    `${Nano.Inputs.brstType.value}`,
+    `${Nano.Inputs.ReleaseAmount.input.valueAsNumber}`,
+    `${Nano.Inputs.BrstSourceStartTime.value}`,
+    `${Nano.Inputs.BrstSourceEndTime.value}`,
+    `${Nano.Inputs.RepeatInterval.valueAsNumber}`,
+  ]);
+
+  report.push(["Particle Deposition Velocities"]);
+  report.push([
+    '',
+    `Floor (${Nano.Inputs.FloorDV.select.options[Nano.Inputs.FloorDV.select.selectedIndex].textContent})`,
+    `Wall (${Nano.Inputs.WallDV.select.options[Nano.Inputs.WallDV.select.selectedIndex].textContent})`,
+    `Ceiling (${Nano.Inputs.CeilingDV.select.options[Nano.Inputs.CeilingDV.select.selectedIndex].textContent})`,
+    `Other Surface (${Nano.Inputs.OtherSurfaceDV.select.options[Nano.Inputs.OtherSurfaceDV.select.selectedIndex].textContent})`,
+    `Effective Deposition Rate (${Nano.Inputs.DepositionRateCalc.select.options[Nano.Inputs.DepositionRateCalc.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.FloorDV.input.valueAsNumber}`,
+    `${Nano.Inputs.WallDV.input.valueAsNumber}`,
+    `${Nano.Inputs.CeilingDV.input.valueAsNumber}`,
+    `${Nano.Inputs.OtherSurfaceDV.input.valueAsNumber}`,
+    `${Nano.Inputs.DepositionRateCalc.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Initial Concentrations"]);
+  report.push([
+    '',
+    `Outdoor Air (${Nano.Inputs.OutdoorConcen.select.options[Nano.Inputs.OutdoorConcen.select.selectedIndex].textContent})`,
+    `Zone Air (${Nano.Inputs.InitZoneConcen.select.options[Nano.Inputs.InitZoneConcen.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.OutdoorConcen.input.valueAsNumber}`,
+    `${Nano.Inputs.InitZoneConcen.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Occupant Exposure"]);
+  report.push([
+    '',
+    `Occupancy Time Period (Start)`,
+    `Occupancy Time Period (End)`,
+    `Occupancy Type`,
+    `Intermittent Occupancy Interval (min)`,
+    `Intermittent Occupancy Duration (min)`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Inputs.ExposStartTime.value}`,
+    `${Nano.Inputs.ExposEndTime.value}`,
+    `${Nano.Inputs.occType.value}`,
+    `${Nano.Inputs.occupantInterval.valueAsNumber}`,
+    `${Nano.Inputs.occupantDuration.valueAsNumber}`,
+  ]);
+  report.push([]);
+  report.push(["Results"]);
+
+  report.push([]);
+  report.push(["Sources"]);
+  report.push([
+    '',
+    `Continuous (${Nano.Results.continuousEmmission.select.options[Nano.Results.continuousEmmission.select.selectedIndex].textContent})`,
+    `Burst (${Nano.Results.burstEmmission.select.options[Nano.Results.burstEmmission.select.selectedIndex].textContent})`,
+    `Outdoor (${Nano.Results.outdoorEmmission.select.options[Nano.Results.outdoorEmmission.select.selectedIndex].textContent})`,
+    `Total (${Nano.Results.totalEmmission.select.options[Nano.Results.totalEmmission.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Results.continuousEmmission.input.valueAsNumber}`,
+    `${Nano.Results.burstEmmission.input.valueAsNumber}`,
+    `${Nano.Results.outdoorEmmission.input.valueAsNumber}`,
+    `${Nano.Results.totalEmmission.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Airborne Concentration"]);
+  report.push([
+    '',
+    `${document.getElementById('averageConcOccResultDiv').textContent} (${Nano.Results.averageConcOcc.select.options[Nano.Results.averageConcOcc.select.selectedIndex].textContent})`,
+    `Average (24 h) (${Nano.Results.averageDailyExposureResult.select.options[Nano.Results.averageDailyExposureResult.select.selectedIndex].textContent})`,
+    `Maximum (24 h) (${Nano.Results.maximumConc.select.options[Nano.Results.maximumConc.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Results.averageConcOcc.input.valueAsNumber}`,
+    `${Nano.Results.averageDailyExposureResult.input.valueAsNumber}`,
+    `${Nano.Results.maximumConc.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Airborne Exposure"]);
+  report.push([
+    '',
+    `${document.getElementById('averageExposureDiv').textContent} (${Nano.Results.averageExposureResult.select.options[Nano.Results.averageExposureResult.select.selectedIndex].textContent})`,
+    `${document.getElementById('maxExposureDiv').textContent} (${Nano.Results.maximumConcExpos.select.options[Nano.Results.maximumConcExpos.select.selectedIndex].textContent})`,
+    `Integrated Exposure (${Nano.Results.IntegratedExposure.select.options[Nano.Results.IntegratedExposure.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Results.averageExposureResult.input.valueAsNumber}`,
+    `${Nano.Results.maximumConcExpos.input.valueAsNumber}`,
+    `${Nano.Results.IntegratedExposure.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Surface Loading"]);
+  report.push([
+    '',
+    `Floor (${Nano.Results.floorSurfaceLoading.select.options[Nano.Results.floorSurfaceLoading.select.selectedIndex].textContent})`,
+    `Wall (${Nano.Results.wallSurfaceLoading.select.options[Nano.Results.wallSurfaceLoading.select.selectedIndex].textContent})`,
+    `Ceiling (${Nano.Results.ceilingSurfaceLoading.select.options[Nano.Results.ceilingSurfaceLoading.select.selectedIndex].textContent})`,
+    `Other (${Nano.Results.otherSurfaceLoading.select.options[Nano.Results.otherSurfaceLoading.select.selectedIndex].textContent})`,
+    `Total (${Nano.Results.totalSurfaceLoading.select.options[Nano.Results.totalSurfaceLoading.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Results.floorSurfaceLoading.input.valueAsNumber}`,
+    `${Nano.Results.wallSurfaceLoading.input.valueAsNumber}`,
+    `${Nano.Results.ceilingSurfaceLoading.input.valueAsNumber}`,
+    `${Nano.Results.otherSurfaceLoading.input.valueAsNumber}`,
+    `${Nano.Results.totalSurfaceLoading.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Deposited"]);
+  report.push([
+    '',
+    `Floor (${Nano.Results.floorMassDeposited.select.options[Nano.Results.floorMassDeposited.select.selectedIndex].textContent})`,
+    `Walls (${Nano.Results.wallMassDeposited.select.options[Nano.Results.wallMassDeposited.select.selectedIndex].textContent})`,
+    `Ceiling (${Nano.Results.ceilingMassDeposited.select.options[Nano.Results.ceilingMassDeposited.select.selectedIndex].textContent})`,
+    `Other (${Nano.Results.otherMassDeposited.select.options[Nano.Results.otherMassDeposited.select.selectedIndex].textContent})`,
+    `Total (${Nano.Results.totalMassDeposited.select.options[Nano.Results.totalMassDeposited.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Results.floorMassDeposited.input.valueAsNumber}`,
+    `${Nano.Results.wallMassDeposited.input.valueAsNumber}`,
+    `${Nano.Results.ceilingMassDeposited.input.valueAsNumber}`,
+    `${Nano.Results.otherMassDeposited.input.valueAsNumber}`,
+    `${Nano.Results.totalMassDeposited.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Filtered"]);
+  report.push([
+    '',
+    `Outdoor Air (${Nano.Results.oaFilterLoading.select.options[Nano.Results.oaFilterLoading.select.selectedIndex].textContent})`,
+    `Recirculation (${Nano.Results.recFilterLoading.select.options[Nano.Results.recFilterLoading.select.selectedIndex].textContent})`,
+    `AirCleaner (${Nano.Results.acFilterLoading.select.options[Nano.Results.acFilterLoading.select.selectedIndex].textContent})`,
+    `Total (${Nano.Results.totalFilterLoading.select.options[Nano.Results.totalFilterLoading.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Results.oaFilterLoading.input.valueAsNumber}`,
+    `${Nano.Results.recFilterLoading.input.valueAsNumber}`,
+    `${Nano.Results.acFilterLoading.input.valueAsNumber}`,
+    `${Nano.Results.totalFilterLoading.input.valueAsNumber}`,
+  ]);
+
+  report.push(["Other"]);
+  report.push([
+    '',
+    `Deactivated (${Nano.Results.massDeactivated.select.options[Nano.Results.massDeactivated.select.selectedIndex].textContent})`,
+    `Exited Zone (${Nano.Results.massExited.select.options[Nano.Results.massExited.select.selectedIndex].textContent})`,
+    `Remining in Zone (${Nano.Results.massRemaining.select.options[Nano.Results.massRemaining.select.selectedIndex].textContent})`,
+  ]);
+  report.push([
+    '',
+    `${Nano.Results.massDeactivated.input.valueAsNumber}`,
+    `${Nano.Results.massExited.input.valueAsNumber}`,
+    `${Nano.Results.massRemaining.input.valueAsNumber}`,
+  ]);
+
+  report.push([]);
+  report.push(["Airborne Concentration", "", "", "", "", "Airborne Exposure", "", "", "", "", "Surface Loading"]);
+  report.push([
+    'Time',
+    `Zone (${Nano.Results.averageExposureResult.select.options[Nano.Results.averageExposureResult.select.selectedIndex].textContent})`,
+    `Average (24 h) (${Nano.Results.averageExposureResult.select.options[Nano.Results.averageExposureResult.select.selectedIndex].textContent})`,
+    `${document.getElementById('averageConcOccResultDiv').textContent} (${Nano.Results.averageExposureResult.select.options[Nano.Results.averageExposureResult.select.selectedIndex].textContent})`,
+    '',
+    'Time',
+    `'Occupant (${Nano.Results.averageExposureResult.select.options[Nano.Results.averageExposureResult.select.selectedIndex].textContent})`,
+    `${document.getElementById('averageExposureDiv').textContent} (${Nano.Results.averageExposureResult.select.options[Nano.Results.averageExposureResult.select.selectedIndex].textContent})`,
+    `'Integrated Exposure (${Nano.Results.IntegratedExposure.select.options[Nano.Results.IntegratedExposure.select.selectedIndex].textContent})`,
+    '',
+    'Time',
+    `Total (${Nano.Results.totalSurfaceLoading.select.options[Nano.Results.totalSurfaceLoading.select.selectedIndex].textContent})`,
+    `Floor (${Nano.Results.totalSurfaceLoading.select.options[Nano.Results.totalSurfaceLoading.select.selectedIndex].textContent})`,
+    `Wall (${Nano.Results.totalSurfaceLoading.select.options[Nano.Results.totalSurfaceLoading.select.selectedIndex].textContent})`,
+    `Ceiling (${Nano.Results.totalSurfaceLoading.select.options[Nano.Results.totalSurfaceLoading.select.selectedIndex].textContent})`,
+    `Other (${Nano.Results.totalSurfaceLoading.select.options[Nano.Results.totalSurfaceLoading.select.selectedIndex].textContent})`,
+  ]);
+  let line;
+  for(let i=0; i<Nano.Results.ctrlLogResult.concendata.length; ++i)
+  {
+    line = [];
+    var chart_time = Nano.Results.ctrlLogResult.concendata[i][0];
+    var seconds = Nano.ConvertChartTime(chart_time);
+    line.push(CONTAM.TimeUtilities.IntTimeToStringTime(seconds));
+    var basevalue = Nano.Results.ctrlLogResult.concendata[i][1];
+    var uservalue = CONTAM.Units.PartConcenConvert(
+      basevalue, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
+    line.push(uservalue);
+    line.push(Nano.Results.AverageExposure24Units);
+    if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime){
+      line.push(Nano.Results.AverageConcOccUserUnits);
+    }else{
+      line.push("0");
+    }
+    line.push("");
+    var chart_time = Nano.Results.ctrlLogResult.concendata[i][0];
+    var seconds = Nano.ConvertChartTime(chart_time);
+    line.push(CONTAM.TimeUtilities.IntTimeToStringTime(seconds));
+    basevalue = Nano.Results.ctrlLogResult.exposuredata[i][1];
+    uservalue = CONTAM.Units.PartConcenConvert(
+      basevalue, Nano.Results.averageExposureResult.select.selectedIndex, 0, Nano.Species);
+    line.push(uservalue);
+    if(seconds >= Nano.StartExposureTime && seconds <= Nano.EndExposureTime){
+      line.push(Nano.Results.AverageExposureUserUnits);
+    } else {
+      line.push("0");
+    }
+    basevalue = Nano.Results.ctrlLogResult.exposuredata[i][2];
+    uservalue = CONTAM.Units.IntegratedConcenConvert(
+      basevalue, Nano.Results.IntegratedExposure.select.selectedIndex, 0, Nano.Species);
+    line.push(uservalue);
+    line.push("");
+    var chart_time = Nano.Results.ctrlLogResult.concendata[i][0];
+    var seconds = Nano.ConvertChartTime(chart_time);
+    line.push(CONTAM.TimeUtilities.IntTimeToStringTime(seconds));
+    // add total value
+    var totalValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][1], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    line.push(totalValue);
+    
+    // add floor value
+    var floorValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][2], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    line.push(floorValue);
+        
+    // add wall value
+    var wallValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][3], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    line.push(wallValue);
+    
+    // add ceiling value
+    var ceilingValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][4], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    line.push(ceilingValue);
+    
+    // add other value
+    var otherValue = CONTAM.Units.ConcnSurfConvert(
+      Nano.surfaceDataBaseUnits[i][5], Nano.Results.totalSurfaceLoading.select.selectedIndex, 0, Nano.Species);
+    line.push(otherValue);
+
+    report.push(line);
+  }
+
+  let fullReport = AddLinesAndDelimiters(report, ",");
+  return fullReport;
+}
+
+Nano.createCSVSaveLink = function(csvText)
+{
+  while (Nano.downloadCSVSpan.firstChild) {
+      Nano.downloadCSVSpan.removeChild(Nano.downloadCSVSpan.firstChild);
+  }
+
+  var saveSpan = document.createElement("span");
+  var savelink = document.createElement("a");
+  var filename = "fatima.csv"
+  var prjBlob = new Blob([csvText], {type:'text/plain'})
+
+  //microsoft doing their own thing again
+  if(window.navigator.msSaveOrOpenBlob) 
+  {
+    savelink.onclick  = function()
+    {
+      window.navigator.msSaveOrOpenBlob(prjBlob, filename);
+    }
+    savelink.style.cursor = "pointer";
+    savelink.style.color = "#00f";
+    savelink.style.textDecoration = "underline";
+  }
+  else
+  {
+    savelink.download = filename;
+    savelink.href = window.URL.createObjectURL(prjBlob);
+  }
+  savelink.textContent = "Download CSV Report";
+  savelink.className = "blacklink";
+  saveSpan.appendChild(savelink);
+  Nano.downloadCSVSpan.appendChild(saveSpan);
 }
