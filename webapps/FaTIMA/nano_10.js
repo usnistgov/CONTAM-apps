@@ -2146,8 +2146,8 @@ Nano.hideResults = function(){
   while (Nano.downloadLinksSpan.firstChild) {
     Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
   }
-  while (Nano.downloadLinksSpan.firstChild) {
-    Nano.downloadLinksSpan.removeChild(Nano.downloadLinksSpan.firstChild);
+  while (Nano.downloadCSVSpan.firstChild) {
+    Nano.downloadCSVSpan.removeChild(Nano.downloadCSVSpan.firstChild);
   }
 }
 
