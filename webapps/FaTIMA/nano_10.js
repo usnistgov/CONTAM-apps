@@ -1321,10 +1321,11 @@ Nano.RunSim = function()
       // let the user know the simulation is starting
       Nano.simStatusSpan.textContent = "Running Simulation...";
       
+      
       // create the ContamX worker
-      var myWorker = new Worker("../contam-x/contamx_worker.js");
+      Nano.CXWorker = new Worker("../contam-x/contamx_worker.js");
       //setup a function to receive messages from ContamX
-      myWorker.onmessage = Nano.onCXWorkerMessage;
+      Nano.CXWorker.onmessage = Nano.onCXWorkerMessage;
 
       // create the data object to send to the ContamX worker
       // which includes the project name and project file contents
@@ -1344,7 +1345,7 @@ Nano.RunSim = function()
       data.DvfText = "";
 
       // pass message to ContamX worker to start simulation
-      myWorker.postMessage(data);
+      Nano.CXWorker.postMessage(data);
     },
     function(error)
     {
@@ -1378,7 +1379,11 @@ Nano.createPRJSaveLink = function(prjText)
   else
   {
     savelink.download = filename;
-    savelink.href = window.URL.createObjectURL(prjBlob);
+    if(Nano.Results.savePrjLink){
+      window.URL.revokeObjectURL(Nano.Results.savePrjLink);
+    }
+    Nano.Results.savePrjLink = window.URL.createObjectURL(prjBlob);
+    savelink.href = Nano.Results.savePrjLink;
   }
   savelink.textContent = "Download CONTAM Project";
   savelink.className = "blacklink";
@@ -1731,6 +1736,9 @@ Nano.onCXWorkerMessage = function(oEvent)
         csmFileIndex = i;
       }      
     }
+    Nano.CXWorker.terminate();
+    Nano.CXWorker = null;
+
     console.log("read log file");
     CWD.CallContamFunction("CONTAM.CtrlLogFileReader.ReadLogFile", 
       [Nano.saveFilesData[logFileIndex].contents]).then(
@@ -2600,7 +2608,11 @@ Nano.createCSVSaveLink = function(csvText)
   else
   {
     savelink.download = filename;
-    savelink.href = window.URL.createObjectURL(prjBlob);
+    if(Nano.Results.saveReportLink){
+      window.URL.revokeObjectURL(Nano.Results.saveReportLink);
+    }
+    Nano.Results.saveReportLink = window.URL.createObjectURL(prjBlob);
+    savelink.href = Nano.Results.saveReportLink
   }
   savelink.textContent = "Download CSV Report";
   savelink.className = "blacklink";
