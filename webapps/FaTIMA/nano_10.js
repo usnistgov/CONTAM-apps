@@ -1759,8 +1759,6 @@ Nano.onCXWorkerMessage = function(oEvent)
                 Nano.goBackButton.style.display = "inline-block";
                 document.getElementById("reportLabel").style.display = "inline-block";
                 Nano.DisplayExposureResults();
-                Nano.createCSVSaveLink(Nano.writeReport());
-                Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
               },
               function(error)
               {
@@ -2081,7 +2079,10 @@ Nano.drawChart = function()
   Nano.Results.sources_chart =  new google.visualization.PieChart(document.getElementById("sources_chart"));
   Nano.Results.deposited_chart =  new google.visualization.PieChart(document.getElementById("deposited_chart"));
   Nano.Results.filtered_chart =  new google.visualization.PieChart(document.getElementById("filtered_chart"));
-  
+
+  // listen for ready from last chart
+  google.visualization.events.addListener(Nano.Results.filtered_chart, 'ready', Nano.chartsReady);
+
   //console.log("draw call");
   Nano.Results.air_chart.draw(air_data_table, air_options);
   Nano.Results.surf_chart.draw(surf_data_table, surf_options);
@@ -2090,6 +2091,12 @@ Nano.drawChart = function()
   Nano.Results.sources_chart.draw(sources_data_table, sources_options);
   Nano.Results.deposited_chart.draw(deposited_data_table, deposited_options);
   Nano.Results.filtered_chart.draw(filtered_data_table, filtered_options);
+}
+
+Nano.chartsReady = function(){
+  //alert("charts ready");
+  Nano.createCSVSaveLink(Nano.writeReport());
+  Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
 }
 
 Nano.changeBurstSrc = function()
