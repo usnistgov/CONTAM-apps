@@ -16,13 +16,6 @@ Nano.Results = {};
 
 window.onload = function()
 {
-  Nano.ExpChart = document.getElementById("air_concen_chart");
-  Nano.SurfChart = document.getElementById("surf_concen_chart");
-  Nano.ExposChart = document.getElementById("expos_chart");
-  Nano.fateChart = document.getElementById("fate_chart");
-  Nano.sourcesChart = document.getElementById("sources_chart");
-  Nano.depositedChart = document.getElementById("deposited_chart");
-  Nano.filteredChart = document.getElementById("filtered_chart");
   Nano.simStatusSpan = document.getElementById("simStatusSpan");
   Nano.downloadLinksSpan = document.getElementById("downloadLinksSpan");
   Nano.downloadCSVSpan = document.getElementById("downloadCSVSpan");
@@ -1809,7 +1802,7 @@ Nano.drawChart = function()
 {
   var air_data, surf_data, expos_data;
   
-  //console.log("drawChart");
+  console.log("drawChart");
 
   if(Nano.concenDataUserUnits)
   {
@@ -1817,6 +1810,7 @@ Nano.drawChart = function()
     surf_data = Nano.surfaceDataUserUnits;
     expos_data = Nano.exposureDataUserUnits;
   }
+  else return;
 
   var air_data_table = new google.visualization.DataTable();
   air_data_table.addColumn('timeofday', 'Time of Day');
@@ -2057,23 +2051,45 @@ Nano.drawChart = function()
     tooltip: { text: 'percentage'  },
   };
 
+  //free previous chart data
+  if (Nano.Results.air_chart) {
+    Nano.Results.air_chart.clearChart();
+  }
+  if (Nano.Results.surf_chart) {
+    Nano.Results.surf_chart.clearChart();
+  }
+  if (Nano.Results.expos_chart) {
+    Nano.Results.expos_chart.clearChart();
+  }
+  if (Nano.Results.fate_chart) {
+    Nano.Results.fate_chart.clearChart();
+  }
+  if (Nano.Results.air_chart) {
+    Nano.Results.air_chart.clearChart();
+  }
+  if (Nano.Results.sources_chart) {
+    Nano.Results.sources_chart.clearChart();
+  }
+  if (Nano.Results.filtered_chart) {
+    Nano.Results.filtered_chart.clearChart();
+  }
 
-  var air_chart = new google.visualization.LineChart(Nano.ExpChart);
-  var surf_chart = new google.visualization.LineChart(Nano.SurfChart);
-  var expos_chart = new google.visualization.LineChart(Nano.ExposChart);
-  var fate_chart =  new google.visualization.PieChart(Nano.fateChart);
-  var sources_chart =  new google.visualization.PieChart(Nano.sourcesChart);
-  var deposited_chart =  new google.visualization.PieChart(Nano.depositedChart);
-  var filtered_chart =  new google.visualization.PieChart(Nano.filteredChart);
+  Nano.Results.air_chart = new google.visualization.LineChart(document.getElementById("air_concen_chart"));
+  Nano.Results.surf_chart = new google.visualization.LineChart(document.getElementById("surf_concen_chart"));
+  Nano.Results.expos_chart = new google.visualization.LineChart(document.getElementById("expos_chart"));
+  Nano.Results.fate_chart =  new google.visualization.PieChart(document.getElementById("fate_chart"));
+  Nano.Results.sources_chart =  new google.visualization.PieChart(document.getElementById("sources_chart"));
+  Nano.Results.deposited_chart =  new google.visualization.PieChart(document.getElementById("deposited_chart"));
+  Nano.Results.filtered_chart =  new google.visualization.PieChart(document.getElementById("filtered_chart"));
   
   //console.log("draw call");
-  air_chart.draw(air_data_table, air_options);
-  surf_chart.draw(surf_data_table, surf_options);
-  expos_chart.draw(expos_data_table, expos_options);
-  fate_chart.draw(fate_data_table, fate_options);
-  sources_chart.draw(sources_data_table, sources_options);
-  deposited_chart.draw(deposited_data_table, deposited_options);
-  filtered_chart.draw(filtered_data_table, filtered_options);
+  Nano.Results.air_chart.draw(air_data_table, air_options);
+  Nano.Results.surf_chart.draw(surf_data_table, surf_options);
+  Nano.Results.expos_chart.draw(expos_data_table, expos_options);
+  Nano.Results.fate_chart.draw(fate_data_table, fate_options);
+  Nano.Results.sources_chart.draw(sources_data_table, sources_options);
+  Nano.Results.deposited_chart.draw(deposited_data_table, deposited_options);
+  Nano.Results.filtered_chart.draw(filtered_data_table, filtered_options);
 }
 
 Nano.changeBurstSrc = function()
