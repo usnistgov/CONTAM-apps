@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<title>ContamX</title>
+<meta charset="UTF-8">
+<script type="text/javascript" src="contamx.js"></script>
+<style>
+  
+  .redback
+  {
+    background:rgba(150,90,90,0.2);
+    border-radius: 10px; 
+    padding:10px;
+    margin:10px;
+  }
+
+  .flexrow
+  {
+    display: flex; 
+    flex-direction: Row;
+    align-items: center;
+  }
+  
+  .whitelink
+  {
+    color:white;
+  }
+  
+</style>
+</head>
+<body style="color:white; background:#353839;font-family: Tahoma, Geneva, sans-serif">
+  <div style="display: flex; flex-direction: Column; position:absolute; top:0px; left:0px;right:0px;bottom:0px; padding:5px;">
+    <div style="flex: 1;display: flex; flex-direction: Row;">
+      <div style="flex: 1;margin:5px;min-height: 3ex;max-height: 140ex; padding:5px;overflow: auto;">
+        <h1>ContamX</h1>
+        <h2>Select Input Files</h2>
+          
+          <div class="redback flexrow">
+            <div style="flex:1; min-width:5ch;font-size:x-large;">PRJ</div>
+            <div style="flex:20;">
+              <div>Project File:</div>
+              <input type="file" id="prj-input">
+              <div style="display:inline-block; vertical-align:middle;">
+                <svg height="20" width="20" onclick="CONTAMX.replaceFileInput('prj-input');" style="cursor: pointer;" title="Remove this file">
+                  <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#353839" />
+                  <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+                  <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+                </svg> 
+              </div>
+            </div>
+          </div>
+
+          <div class="redback flexrow">
+            <div style="flex:1; min-width:5ch;font-size:x-large;">WTH</div>
+            <div style="flex:20;">
+              <div>Weather File:</div>
+              <input type="file" id="wth-input">
+              <div style="display:inline-block; vertical-align:middle;">
+                <svg height="20" width="20" onclick="CONTAMX.replaceFileInput('wth-input');" style="cursor: pointer;" title="Remove this file">
+                  <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#353839" />
+                  <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+                  <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+                </svg> 
+              </div>
+            </div>
+          </div>
+
+          <div class="redback flexrow">
+            <div style="flex:1; min-width:5ch;font-size:x-large;">CTM</div>
+            <div style="flex:20;">
+              <div>Outdoor Contaminant File:</div>
+              <input type="file" id="ctm-input">
+              <div style="display:inline-block; vertical-align:middle;">
+                <svg height="20" width="20" onclick="CONTAMX.replaceFileInput('ctm-input');" style="cursor: pointer;" title="Remove this file">
+                  <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#353839" />
+                  <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+                  <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+                </svg> 
+              </div>
+            </div>
+          </div>
+
+          <div class="redback flexrow">
+            <div style="flex:1; min-width:5ch;font-size:x-large;">WPC</div>
+            <div style="flex:20;">
+              <div>Wind Pressure Coefficient File:</div>
+              <input type="file" id="wpc-input">
+              <div style="display:inline-block; vertical-align:middle;">
+                <svg height="20" width="20" onclick="CONTAMX.replaceFileInput('wpc-input');" style="cursor: pointer;" title="Remove this file">
+                  <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#353839" />
+                  <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+                  <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+                </svg> 
+              </div>
+            </div>
+          </div>
+
+          <div class="redback flexrow">
+            <div style="flex:1; min-width:5ch;font-size:x-large;">CVF</div>
+            <div style="flex:20;">
+              <div>Continuous Values File:</div>
+              <input type="file" id="cvf-input">
+              <div style="display:inline-block; vertical-align:middle;">
+                <svg height="20" width="20" onclick="CONTAMX.replaceFileInput('cvf-input');" style="cursor: pointer;" title="Remove this file">
+                  <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#353839" />
+                  <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+                  <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+                </svg> 
+              </div>
+            </div>
+          </div>
+
+          <div class="redback flexrow">
+            <div style="flex:1; min-width:5ch;font-size:x-large;">DVF</div>
+            <div style="flex:20;">
+              <div>Discrete Values File:</div>
+              <input type="file" id="dvf-input">
+              <div style="display:inline-block; vertical-align:middle;">
+                <svg height="20" width="20" onclick="CONTAMX.replaceFileInput('dvf-input');" style="cursor: pointer;" title="Remove this file">
+                  <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="#353839" />
+                  <line x1="7" y1="7" x2="13" y2="13" style="stroke:white;stroke-width:2" />
+                  <line x1="7" y1="13" x2="13" y2="7" style="stroke:white;stroke-width:2" />
+                </svg> 
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <input type="button" id="gobutton" value="start simulation" onclick="CONTAMX.RunSim();"><br>
+          <h2>Output Files</h2>
+          <div id="saveInsertDiv"></div>
+      </div>
+      <pre style="flex: 1;margin:5px;color:#C0C0C0; background:black;padding:5px; border: medium inset;overflow: auto; max-height: 57em;" id="ConsoleDiv"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></pre>
+    </div>
+  </div>
+</body>
+</html>
