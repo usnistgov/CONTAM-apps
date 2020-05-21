@@ -80,8 +80,6 @@ window.addEventListener('resize', function() {
     // Run code here, resizing has "stopped"
     let inputSectionMaxHeight = Nano.inputsSection.style.maxHeight;
     let resultSectionMaxHeight = Nano.resultsSection.style.maxHeight;
-    console.log("inputSectionMaxHeight: " + inputSectionMaxHeight);
-    console.log("resultSectionMaxHeight: " + resultSectionMaxHeight);
     Nano.inputsSection.style.maxHeight = "none";
     Nano.resultsSection.style.maxHeight = "none";
     Nano.inputsSectionHeight = Nano.inputsSection.getBoundingClientRect().height;
@@ -1021,20 +1019,6 @@ Nano.computeSystem = function()
   Nano.Inputs.Ach.input.baseValue = ach;
   // this will make the inputs display the new baseValues in the proper units
   CONTAM.Units.ChangeUnits.apply(Nano.Inputs.Ach.select);  
-  
-  console.log("Fsup: " + Fsup);
-  console.log("Fret: " + Fret);
-  console.log("Fexh: " + Fexh);
-  console.log("volume: " + volume);
-  console.log("FoaMin: " + FoaMin);
-  console.log("Finf: " + Finf);
-  console.log("FoaPrim: " + FoaPrim);
-  console.log("Frec: " + Frec);
-  console.log("Foa: " + Foa);
-  console.log("Fzexh: " + Fzexh);
-  console.log("Fbal: " + Nano.Inputs.Fbal);
-  console.log("ach: " + ach);
-  console.log("-----");
     
   Nano.Inputs.Qoa.input.baseValue = Foa;
   Nano.Inputs.Qrec.input.baseValue = Frec;
@@ -1050,7 +1034,6 @@ Nano.onWorkerMessage = function(oEvent)
 
 Nano.GetPrj = function()
 {
-  console.log("FaTIMA GetPrj (start)");
   return promise = new Promise(function(resolve, reject) 
   {
     // Do the usual XHR stuff
@@ -1063,7 +1046,6 @@ Nano.GetPrj = function()
       if (req.status == 200) {
         // Resolve the promise with the response text
         Nano.CtmPrj = req.responseText;
-        console.log("FaTIMA GetPrj Resolve (end)");
         resolve(req.response);
       }
       else {
@@ -1097,7 +1079,6 @@ Nano.GetInputs = function()
   {
     throw new Error(error.message);
   }
-  console.log("GetInputs");
   
   if(!Nano.checkInputValidity())
     return;
@@ -1110,7 +1091,6 @@ Nano.GetInputs = function()
       alert("The release rate is not a number.");
       return;
     }
-    console.log("releaseRate: " + releaseRate + " kg/s");
     if(Nano.Inputs.brstSrcState.selectedIndex == 0)
     {
       releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
@@ -1119,7 +1099,6 @@ Nano.GetInputs = function()
         alert("The release amount is not a number.");
         return;
       }
-      console.log("releaseAmount: " + releaseAmount + " kg");
       //set the constant source to breathing schedule
       arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(2)"});
       //set constant source release rate
@@ -1131,7 +1110,6 @@ Nano.GetInputs = function()
     }
     else
     {
-      console.log("releaseAmount: not used");
       //set the constant source to breathing schedule
       arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(2)"});
       //set constant source release rate
@@ -1144,7 +1122,6 @@ Nano.GetInputs = function()
   }
   else
   {
-    console.log("releaseRate: not used");
     if(Nano.Inputs.brstSrcState.selectedIndex == 0)
     {
       releaseAmount = parseFloat(Nano.Inputs.ReleaseAmount.input.baseValue);
@@ -1153,7 +1130,6 @@ Nano.GetInputs = function()
         alert("The release amount is not a number.");
         return;
       }
-      console.log("releaseAmount: " + releaseAmount + " kg");
       //set the const source to Off schedule 
       arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(7)"});
       //set constant source release rate to zero
@@ -1165,7 +1141,6 @@ Nano.GetInputs = function()
     }
     else
     {
-      console.log("releaseAmount: not used");
       //set the const source to Off schedule 
       arrayOfParameters.push({setVariableName: "CONTAM.Project.CssList[2].ps", toVariableName: "CONTAM.Project.Wsch0.GetByNumber(7)"});7
       //set constant source release rate to zero
@@ -1197,7 +1172,6 @@ Nano.GetInputs = function()
 
 Nano.GetInputs2 = function()
 {
-  console.log("GetInputs2");
   // get inputs into local variables and make sure that they are valid numbers
   
   var OAFilterIndex = Nano.Inputs.OAFilter.selectedIndex;
@@ -1343,8 +1317,6 @@ Nano.GetInputs2 = function()
 Nano.RunSim = function()
 {
   var projectText;
-  
-  console.log("RunSim");
 
   Nano.inputsSection.style.maxHeight = 0;
 
@@ -1791,13 +1763,11 @@ Nano.onCXWorkerMessage = function(oEvent)
     Nano.CXWorker.terminate();
     Nano.CXWorker = null;
 
-    console.log("read log file");
     CWD.CallContamFunction("CONTAM.CtrlLogFileReader.ReadLogFile", 
       [Nano.saveFilesData[logFileIndex].contents]).then(
       function(result)
       {
         Nano.Results.ctrlLogResult = result;
-        console.log("read srf file");
         CWD.CallContamFunction("CONTAM.SrfFileReader.ReadSurfaceFile", 
           [Nano.saveFilesData[srfFileIndex].contents]).then(
           function(result)
@@ -1858,8 +1828,6 @@ Nano.decodeHtml = function(html)
 Nano.drawChart = function() 
 {
   var air_data, surf_data, expos_data;
-  
-  console.log("drawChart");
 
   if(Nano.concenDataUserUnits)
   {
