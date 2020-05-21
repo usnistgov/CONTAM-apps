@@ -70,6 +70,30 @@ Nano.setupAnimation = function(){
   Nano.resultsSection.style.maxHeight = 0;
 }
 
+//handle resize to get the correct maxheight of results and input sections
+window.addEventListener('resize', function() {
+
+  let inputSectionMaxHeight = Nano.inputsSection.style.maxHeight;
+  let resultSectionMaxHeight = Nano.resultsSection.style.maxHeight;
+  Nano.inputsSection.style.maxHeight = "none";
+  Nano.resultsSection.style.maxHeight = "none";
+  Nano.inputsSectionHeight = Nano.inputsSection.getBoundingClientRect().height;
+  Nano.resultsSectionHeight = Nano.resultsSection.getBoundingClientRect().height;
+  if(inputSectionMaxHeight == "0px"){
+    Nano.inputsSection.style.maxHeight = 0;
+  }
+  else{
+    Nano.inputsSection.style.maxHeight = Nano.inputsSectionHeight + "px";
+  }
+  if(resultSectionMaxHeight == "0px"){
+    Nano.resultsSection.style.maxHeight = 0;
+  }
+  else{
+    Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
+  }
+  
+}, true);
+
 // init the inputs
 Nano.Init = function()
 {
