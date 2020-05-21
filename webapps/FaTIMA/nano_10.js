@@ -70,28 +70,36 @@ Nano.setupAnimation = function(){
   Nano.resultsSection.style.maxHeight = 0;
 }
 
+Nano.resizeTimer = null;
+
 //handle resize to get the correct maxheight of results and input sections
 window.addEventListener('resize', function() {
 
-  let inputSectionMaxHeight = Nano.inputsSection.style.maxHeight;
-  let resultSectionMaxHeight = Nano.resultsSection.style.maxHeight;
-  Nano.inputsSection.style.maxHeight = "none";
-  Nano.resultsSection.style.maxHeight = "none";
-  Nano.inputsSectionHeight = Nano.inputsSection.getBoundingClientRect().height;
-  Nano.resultsSectionHeight = Nano.resultsSection.getBoundingClientRect().height;
-  if(inputSectionMaxHeight == "0px"){
-    Nano.inputsSection.style.maxHeight = 0;
-  }
-  else{
-    Nano.inputsSection.style.maxHeight = Nano.inputsSectionHeight + "px";
-  }
-  if(resultSectionMaxHeight == "0px"){
-    Nano.resultsSection.style.maxHeight = 0;
-  }
-  else{
-    Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
-  }
-  
+  clearTimeout(Nano.resizeTimer);
+  Nano.resizeTimer = setTimeout(function() {
+    // Run code here, resizing has "stopped"
+    let inputSectionMaxHeight = Nano.inputsSection.style.maxHeight;
+    let resultSectionMaxHeight = Nano.resultsSection.style.maxHeight;
+    console.log("inputSectionMaxHeight: " + inputSectionMaxHeight);
+    console.log("resultSectionMaxHeight: " + resultSectionMaxHeight);
+    Nano.inputsSection.style.maxHeight = "none";
+    Nano.resultsSection.style.maxHeight = "none";
+    Nano.inputsSectionHeight = Nano.inputsSection.getBoundingClientRect().height;
+    Nano.resultsSectionHeight = Nano.resultsSection.getBoundingClientRect().height;
+    if(inputSectionMaxHeight == "0px"){
+      Nano.inputsSection.style.maxHeight = 0;
+    }
+    else{
+      Nano.inputsSection.style.maxHeight = Nano.inputsSectionHeight + "px";
+    }
+    if(resultSectionMaxHeight == "0px"){
+      Nano.resultsSection.style.maxHeight = 0;
+    }
+    else{
+      Nano.resultsSection.style.maxHeight = Nano.resultsSectionHeight + "px";
+    }
+              
+  }, 250);
 }, true);
 
 // init the inputs
@@ -789,6 +797,19 @@ Nano.Init = function()
   };
   CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.acFilterLoading);
 
+  Nano.Results.envFilterLoading =
+  { 
+    initialValue: 0, 
+    convert: 5, 
+    func: CONTAM.Units.Mass2Convert, 
+    strings: CONTAM.Units.Strings.Mass2,
+    input: document.getElementById("envFilterLoadingResult"),
+    select: document.getElementById("totalEmmissionResultCombo"),
+    unitDisplay: document.getElementById("envFilterLoadingResultUnits"),
+    species: Nano.Species
+  };
+  CONTAM.Units.SetupSpeciesUnitInputs(Nano.Results.envFilterLoading);
+
   // surface mass deposited
   Nano.Results.totalMassDeposited =
   { 
@@ -1432,14 +1453,24 @@ Nano.putResultsInGUI = function()
   
   // particle fate
   Nano.Results.Mfilt = Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.oaFiltMassSto + 
-    Nano.Results.csmResults.acFiltMassSto;
+    Nano.Results.csmResults.acFiltMassSto + Nano.Results.csmResults.penetrationPath3;
   Nano.Results.Mdep = Nano.Results.csmResults.floorMassStored + Nano.Results.csmResults.wallsMassStored + 
     Nano.Results.csmResults.ceilingMassStored + Nano.Results.csmResults.otherMassStored;
   Nano.Results.Mexf = Nano.Results.csmResults.ctm_exfil;
-  if(Nano.Inputs.Fbal >= 0)
+  let envLoading = Nano.Results.csmResults.penetrationPath3;
+  let outdoorSource = Nano.Results.csmResults.ctm_entered + Nano.Results.csmResults.oaFiltMassSto + Nano.Results.csmResults.penetrationPath3;
+  if(Nano.Inputs.Fbal >= 0){
     Nano.Results.Mexf += Nano.Results.csmResults.penetrationPath5;
+  } else {
+    Nano.Results.Mfilt += Nano.Results.csmResults.penetrationPath5;
+    envLoading += Nano.Results.csmResults.penetrationPath5;
+    outdoorSource += Nano.Results.csmResults.penetrationPath5;
+  }
+
   Nano.Results.Mzone = Nano.Results.ctrlLogResult.finalConcen * Nano.Inputs.Volume.input.baseValue;
   Nano.Results.Mdeact = Nano.Results.csmResults.massDeactivated;
+
+  
   
   // surface loading
   // floor
@@ -1466,10 +1497,10 @@ Nano.putResultsInGUI = function()
   Nano.Results.continuousEmmission.input.baseValue = Nano.Results.csmResults.continuousMassAdded;
 
   // outdoor
-  Nano.Results.outdoorEmmission.input.baseValue = Nano.Results.csmResults.ctm_entered;
+  Nano.Results.outdoorEmmission.input.baseValue = outdoorSource;
 
   // total
-  Nano.Results.totalEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded + Nano.Results.csmResults.ctm_entered;
+  Nano.Results.totalEmmission.input.baseValue = Nano.Results.csmResults.burstMassAdded + Nano.Results.csmResults.continuousMassAdded + outdoorSource;
   
   //mass filtered results
   // oa
@@ -1480,9 +1511,13 @@ Nano.putResultsInGUI = function()
   
   // ac
   Nano.Results.acFilterLoading.input.baseValue = Nano.Results.csmResults.acFiltMassSto;
+
+  //envelope
+  Nano.Results.envFilterLoading.input.baseValue = envLoading;
   
   //total
-  Nano.Results.totalFilterLoading.input.baseValue = Nano.Results.csmResults.oaFiltMassSto + Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.acFiltMassSto;
+  Nano.Results.totalFilterLoading.input.baseValue = Nano.Results.csmResults.oaFiltMassSto + 
+    Nano.Results.csmResults.recFiltMassSto + Nano.Results.csmResults.acFiltMassSto + envLoading;
   
   //mass deposited
   // floor
@@ -1858,7 +1893,7 @@ Nano.drawChart = function()
   surf_data_table.addColumn('number', 'Floor');
   // A column for custom tooltip content
   surf_data_table.addColumn({type: 'string', role: 'tooltip'});
-  surf_data_table.addColumn('number', 'Wall');
+  surf_data_table.addColumn('number', 'Walls');
   // A column for custom tooltip content
   surf_data_table.addColumn({type: 'string', role: 'tooltip'});
   surf_data_table.addColumn('number', 'Ceiling');
@@ -1907,7 +1942,7 @@ Nano.drawChart = function()
     ['Filtered',       filtered],
     ['Deposited',      deposited],
     ['Deactivated',    deactivated],
-    ['Remain in Zone', remain]
+    ['Remain Airborne', remain]
   ]);
 
   //sources
@@ -1942,7 +1977,7 @@ Nano.drawChart = function()
   var deposited_data_table = google.visualization.arrayToDataTable([
     ['surface', deposited_units],
     ['Floor',  floor],
-    ['Wall',  wall],
+    ['Walls',  wall],
     ['Ceiling', ceiling],
     ['Other', other],
   ]);
@@ -1957,12 +1992,16 @@ Nano.drawChart = function()
   // air cleaner
   var air_cleaner = CONTAM.Units.Mass2Convert(Nano.Results.acFilterLoading.input.baseValue, Nano.Results.acFilterLoading.select.selectedIndex, 0, Nano.Species);
   
+  //envelope
+  var envelope = CONTAM.Units.Mass2Convert(Nano.Results.envFilterLoading.input.baseValue, Nano.Results.envFilterLoading.select.selectedIndex, 0, Nano.Species);
+
   var filtered_units = CONTAM.Units.Strings2.Mass2[Nano.Results.acFilterLoading.select.selectedIndex];
   var filtered_data_table = google.visualization.arrayToDataTable([
     ['filter', filtered_units],
     ['Outdoor Air',  outdoor],
     ['Recirculation',  recirc],
     ['Air Cleaner', air_cleaner],
+    ['Envelope', envelope],
   ]);
 
   var air_options = {
