@@ -2091,7 +2091,7 @@ Nano.drawChart = function()
   };
 
   var deposited_options = {
-    title: 'Mass Deposited (' + deposited_units + ")",
+    title: 'Deposited (' + deposited_units + ")",
     is3D: true,
     sliceVisibilityThreshold: 0,
     backgroundColor: {
@@ -2102,7 +2102,7 @@ Nano.drawChart = function()
   };
 
   var filtered_options = {
-    title: 'Mass Filtered (' + filtered_units + ")",
+    title: 'Filtered (' + filtered_units + ")",
     is3D: true,
     sliceVisibilityThreshold: 0,
     backgroundColor: {
