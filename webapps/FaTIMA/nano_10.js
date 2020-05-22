@@ -1253,9 +1253,6 @@ Nano.GetInputs2 = function()
   
   // compute the volume flow for the infiltration fan - m^3/s
   var infiltrationVolFlow =  Nano.Inputs.Infiltration.valueAsNumber * Nano.Inputs.Volume.input.baseValue / 3600;
-  
-  // compute the volume flow for the exhaust fan - m^3/s
-  var exhaustVolFlow =  Nano.Inputs.ExhaustRate.input.baseValue / CONTAM.Units.rho20;
 
   if(Nano.Inputs.occupantInterval.valueAsNumber <= Nano.Inputs.occupantDuration.valueAsNumber)
   {
@@ -1290,8 +1287,7 @@ Nano.GetInputs2 = function()
   variableList.push({variableName: "CONTAM.Project.Flte0.GetByNumber(1).ped.eff[0]", variableValue: Nano.Inputs.AirCleanerEff.valueAsNumber});
   variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(2).ped.Flow", variableValue: infiltrationVolFlow});
   variableList.push({variableName: "CONTAM.Project.Dsch0.GetByNumber(1).ctrl[0]", variableValue: Nano.Inputs.AirCleanerFlowFrac.valueAsNumber});
-  variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(1).ped.Flow", variableValue: exhaustVolFlow});
-  
+  variableList.push({variableName: "CONTAM.Project.Afe0.GetByNumber(1).ped.Flow", variableValue: Nano.Inputs.ExhaustRate.input.baseValue});
   
   function errorHandler(error)
   {
