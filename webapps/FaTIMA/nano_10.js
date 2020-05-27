@@ -2519,7 +2519,7 @@ Nano.writeReport = function(){
     `Outdoor Air (${Nano.Results.oaFilterLoading.select.options[Nano.Results.oaFilterLoading.select.selectedIndex].textContent})`,
     `Recirculation (${Nano.Results.recFilterLoading.select.options[Nano.Results.recFilterLoading.select.selectedIndex].textContent})`,
     `AirCleaner (${Nano.Results.acFilterLoading.select.options[Nano.Results.acFilterLoading.select.selectedIndex].textContent})`,
-    `Envelope (${Nano.Results.envFilterLoading.select.options[Nano.Results.envFilterLoading.select.selectedIndex].textContent})`
+    `Envelope (${Nano.Results.envFilterLoading.select.options[Nano.Results.envFilterLoading.select.selectedIndex].textContent})`,
     `Total (${Nano.Results.totalFilterLoading.select.options[Nano.Results.totalFilterLoading.select.selectedIndex].textContent})`,
   ]);
   report.push([
@@ -2527,7 +2527,7 @@ Nano.writeReport = function(){
     `${Nano.Results.oaFilterLoading.input.valueAsNumber}`,
     `${Nano.Results.recFilterLoading.input.valueAsNumber}`,
     `${Nano.Results.acFilterLoading.input.valueAsNumber}`,
-    `${Nano.Results.envFilterLoading.input.valueAsNumber}`
+    `${Nano.Results.envFilterLoading.input.valueAsNumber}`,
     `${Nano.Results.totalFilterLoading.input.valueAsNumber}`,
   ]);
 
