@@ -194,10 +194,10 @@ Nano.Init = function()
   Nano.Inputs.PFactor.value = 1;
 
   // Ventilation System
-  // SupplyRate = 0.13379 kg/s = 400 m3/h * 1.2041 kg/m3 / 3600 s/h
+  // SupplyRate = 0.12041 kg/s = 360 m3/h * 1.2041 kg/m3 / 3600 s/h
   Nano.Inputs.SupplyRate =
   { 
-    initialValue: 0.13379,
+    initialValue: 0.12041,
     convert: 4,                       // m3/h
     minValue: 0.0,
     func: CONTAM.Units.FlowConvert, 
@@ -214,7 +214,7 @@ Nano.Init = function()
 
   Nano.Inputs.ReturnRate =
   { 
-    initialValue: 0.13379,
+    initialValue: 0.12041,
     convert: 3, 
     minValue: 0.0,
     func: CONTAM.Units.FlowConvert, 
@@ -281,7 +281,7 @@ Nano.Init = function()
   Nano.Inputs.OAFilter = document.getElementById("OAFilterSelect");
   
   Nano.Inputs.RecirFilter = document.getElementById("RecircFilterSelect");
-  
+  Nano.Inputs.RecirFilter.value = "MERV 8";
   // air cleaner
   Nano.Inputs.AirCleanerFlowRate =
   { 
@@ -297,7 +297,7 @@ Nano.Init = function()
   Nano.Inputs.AirCleanerFlowRate.input.addEventListener("change", Nano.ComputeAirCleanerCADR); 
 
   Nano.Inputs.AirCleanerFlowFrac =  document.getElementById("AirCleanerFlowFractionInput");
-  Nano.Inputs.AirCleanerFlowFrac.value =  0.0;
+  Nano.Inputs.AirCleanerFlowFrac.value =  1.0;
   Nano.Inputs.AirCleanerFlowFrac.addEventListener("change", Nano.ComputeAirCleanerCADR);  
 
   Nano.Inputs.AirCleanerEff =  document.getElementById("AirCleanerEffInput");
@@ -423,13 +423,13 @@ Nano.Init = function()
   Nano.Inputs.BrstSourceEndTime.value = "24:00";
 
   Nano.Inputs.RepeatInterval = document.getElementById("RepeatSourceInput");
-  Nano.Inputs.RepeatInterval.value = "0.5";
+  Nano.Inputs.RepeatInterval.value = "10";
   
   // particle deposition velocity
   Nano.Inputs.FloorDV =
   { 
-    initialValue: 6.944e-005, // m/s
-    convert: 0, 
+    initialValue: 0.0000371, // m/s
+    convert: 2, 
     minValue: 0.0,
     func: CONTAM.Units.SpeedConvert, 
     strings: CONTAM.Units.Strings.Speed,
@@ -441,8 +441,8 @@ Nano.Init = function()
  
   Nano.Inputs.WallDV =
   { 
-    initialValue: 0, 
-    convert: 0, 
+    initialValue: 0.00000326, 
+    convert: 2, 
     minValue: 0.0,
     func: CONTAM.Units.SpeedConvert, 
     strings: CONTAM.Units.Strings.Speed,
@@ -455,8 +455,8 @@ Nano.Init = function()
   
   Nano.Inputs.CeilingDV =
   { 
-    initialValue: 0, 
-    convert: 0, 
+    initialValue: 4.33e-10, 
+    convert: 2, 
     minValue: 0.0,
     func: CONTAM.Units.SpeedConvert, 
     strings: CONTAM.Units.Strings.Speed,
@@ -470,7 +470,7 @@ Nano.Init = function()
   Nano.Inputs.OtherSurfaceDV =
   { 
     initialValue: 0, 
-    convert: 0, 
+    convert: 2, 
     minValue: 0.0,
     func: CONTAM.Units.SpeedConvert, 
     strings: CONTAM.Units.Strings.Speed,
