@@ -1154,7 +1154,7 @@ Nano.GetInputs = function()
   }
   
   //set the deposition rate for particle deactivation
-  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).kd", variableValue: Nano.Inputs.PDecayRate.input.baseValue});
+  variableList.push({variableName: "CONTAM.Project.Cse0.GetByNumber(3).ped.kd", variableValue: Nano.Inputs.PDecayRate.input.baseValue});
 
   if(Nano.Inputs.PDecays.selectedIndex == 0)
     //set deposition rate for deactivation to deactivate schedule
