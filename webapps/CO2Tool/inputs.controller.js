@@ -464,7 +464,7 @@ function InputsController($state, InputsService) {
 					if(inputsCtrl.inputs.residential.wholeVentType == '62.2'){
 						ventilationRate = inputsCtrl.inputs.calc622value / inputsCtrl.inputs.residential.houseNumPeople;
 					} else {
-						ventilationRate = (inputsCtrl.inputs.residenytial.wholeACH * volumeOfBldg / 3.6) / inputsCtrl.inputs.residential.houseNumPeople;
+						ventilationRate = (inputsCtrl.inputs.residential.wholeACH * volumeOfBldg / 3.6) / inputsCtrl.inputs.residential.houseNumPeople;
 					}
 					occupants = inputsCtrl.inputs.residential.house_occupants.slice();
 				} else {
