@@ -946,46 +946,36 @@ Nano.changeDecayEnabled = function()
   Nano.Inputs.PHalfLife.input.disabled = Nano.Inputs.PDecays.selectedIndex == 1;
 }
 
+// update the effective density value in the model
+// and update values that rely on EF
 Nano.UpdateEdens = function()
 {
   Nano.Species.edens = Nano.Inputs.PDensity.input.baseValue;
   // after changing the effective density 
-  // reconvert the release rate from non-base units to base units
-  Nano.ReconvertReleaseRate();
-  // reconvert the release amount from non-base units to base units
-  Nano.ReconvertReleaseAmount();
+  // update the release rate 
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.ReleaseRate.select);  
+  // update the release amount
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.ReleaseAmount.select);  
+  // update zone concen
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.InitZoneConcen.select);  
+  // update outdoor air concen
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.OutdoorConcen.select);  
 }
 
+// update the mean diameter value in the model
+// and update values that rely on MD
 Nano.UpdateMdiam = function()
 {
   Nano.Species.mdiam = Nano.Inputs.PDiam.input.baseValue;
   // after changing the mean diameter
-  // reconvert the release rate from non-base units to base units
-  Nano.ReconvertReleaseRate();
-  // reconvert the release amount from non-base units to base units
-  Nano.ReconvertReleaseAmount();
-}
-
-// convert the value in the input box for release rate 
-// to the base units from the currently selected unit
-Nano.ReconvertReleaseRate = function()
-{
-  if(CONTAM.Units.programChaningInput == false)
-  {
-    Nano.ReleaseRateInput.baseValue = Nano.ReleaseRateInput.convertFunction(parseFloat(Nano.ReleaseRateInput.value), 
-      Nano.ReleaseRateInput.convert, 1, Nano.Species);  
-  }
-}
-
-// convert the value in the input box for release amount 
-// to the base units from the currently selected unit
-Nano.ReconvertReleaseAmount = function()
-{
-  if(CONTAM.Units.programChaningInput == false)
-  {
-    Nano.ReleaseAmountInput.baseValue = Nano.ReleaseAmountInput.convertFunction(parseFloat(Nano.ReleaseAmountInput.value), 
-      Nano.ReleaseAmountInput.convert, 1, Nano.Species);  
-  }
+  // update the release rate 
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.ReleaseRate.select);  
+  // update the release amount
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.ReleaseAmount.select);  
+  // update zone concen
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.InitZoneConcen.select);  
+  // update outdoor air concen
+  CONTAM.Units.ChangeSpeciesUnits.apply(Nano.Inputs.OutdoorConcen.select);  
 }
 
 // compute the system values and display them in the UI
