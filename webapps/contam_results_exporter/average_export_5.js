@@ -171,22 +171,22 @@ ContamRE.averageExport.outputAvgtResultItems = function(items)
         switch(unitType)
         {
           case CONTAM.Units.Types.Concentration_MP:
-            unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_MDP:
-            unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_MD:
-            unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_M:
-            unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_P[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_P[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc];
             break;
         }
       }
@@ -197,12 +197,12 @@ ContamRE.averageExport.outputAvgtResultItems = function(items)
           case CONTAM.Units.Types.Concentration_MP:
           case CONTAM.Units.Types.Concentration_MDP:
           case CONTAM.Units.Types.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_P[ContamRE.options.averageExport.particleUnits];
+            unitsString = CONTAM.Units.Strings2.Concentration_P[ContamRE.options.averageExport.particleUnits];
             break;
           case CONTAM.Units.Types.Concentration_MD:
           case CONTAM.Units.Types.Concentration_M:
           case CONTAM.Units.Types.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[ContamRE.options.averageExport.gasUnits];
+            unitsString = CONTAM.Units.Strings2.Concentration_N[ContamRE.options.averageExport.gasUnits];
             break;
         }
         
@@ -234,27 +234,27 @@ ContamRE.averageExport.outputAvgtResultItems = function(items)
           switch(unitType)
           {
             case CONTAM.Units.Types.Concentration_MP:
-              unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MP_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MDP:
-              unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MDP_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MD:
-              unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MD_Convert;
               break;
             case CONTAM.Units.Types.Concentration_M:
-              unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_M_Convert;
               break;
             case CONTAM.Units.Types.Concentration_P:
-              unitsString = CONTAM.Units.Strings.Concentration_P[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_P[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_P_Convert;
               break;
             case CONTAM.Units.Types.Concentration_N:
-              unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_N_Convert;
               break;
           }
@@ -266,14 +266,14 @@ ContamRE.averageExport.outputAvgtResultItems = function(items)
             case CONTAM.Units.Types.Concentration_MP:
             case CONTAM.Units.Types.Concentration_MDP:
             case CONTAM.Units.Types.Concentration_P:
-              unitsString = CONTAM.Units.Strings.Concentration_P[ContamRE.options.averageExport.particleUnits];
+              unitsString = CONTAM.Units.Strings2.Concentration_P[ContamRE.options.averageExport.particleUnits];
               unitsValue = ContamRE.options.averageExport.particleUnits;
               unitsFunc = CONTAM.Units.Concen_P_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MD:
             case CONTAM.Units.Types.Concentration_M:
             case CONTAM.Units.Types.Concentration_N:
-              unitsString = CONTAM.Units.Strings.Concentration_N[ContamRE.options.averageExport.gasUnits];
+              unitsString = CONTAM.Units.Strings2.Concentration_N[ContamRE.options.averageExport.gasUnits];
               unitsValue = ContamRE.options.averageExport.gasUnits;
               unitsFunc = CONTAM.Units.Concen_N_Convert;
               break;
@@ -427,22 +427,22 @@ ContamRE.averageExport.outputSAvgResultItems = function(items)
         switch(unitType)
         {
           case CONTAM.Units.Types.Concentration_MP:
-            unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_MDP:
-            unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_MD:
-            unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_M:
-            unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_P[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_P[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc];
             break;
         }
       }
@@ -453,12 +453,12 @@ ContamRE.averageExport.outputSAvgResultItems = function(items)
           case CONTAM.Units.Types.Concentration_MP:
           case CONTAM.Units.Types.Concentration_MDP:
           case CONTAM.Units.Types.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_P[ContamRE.options.averageExport.particleUnits];
+            unitsString = CONTAM.Units.Strings2.Concentration_P[ContamRE.options.averageExport.particleUnits];
             break;
           case CONTAM.Units.Types.Concentration_MD:
           case CONTAM.Units.Types.Concentration_M:
           case CONTAM.Units.Types.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[ContamRE.options.averageExport.gasUnits];
+            unitsString = CONTAM.Units.Strings2.Concentration_N[ContamRE.options.averageExport.gasUnits];
             break;
         }
         
@@ -491,27 +491,27 @@ ContamRE.averageExport.outputSAvgResultItems = function(items)
           switch(unitType)
           {
             case CONTAM.Units.Types.Concentration_MP:
-              unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MP_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MDP:
-              unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MDP_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MD:
-              unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MD_Convert;
               break;
             case CONTAM.Units.Types.Concentration_M:
-              unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_M_Convert;
               break;
             case CONTAM.Units.Types.Concentration_P:
-              unitsString = CONTAM.Units.Strings.Concentration_P[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_P[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_P_Convert;
               break;
             case CONTAM.Units.Types.Concentration_N:
-              unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_N_Convert;
               break;
           }
@@ -523,14 +523,14 @@ ContamRE.averageExport.outputSAvgResultItems = function(items)
             case CONTAM.Units.Types.Concentration_MP:
             case CONTAM.Units.Types.Concentration_MDP:
             case CONTAM.Units.Types.Concentration_P:
-              unitsString = CONTAM.Units.Strings.Concentration_P[ContamRE.options.averageExport.particleUnits];
+              unitsString = CONTAM.Units.Strings2.Concentration_P[ContamRE.options.averageExport.particleUnits];
               unitsValue = ContamRE.options.averageExport.particleUnits;
               unitsFunc = CONTAM.Units.Concen_P_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MD:
             case CONTAM.Units.Types.Concentration_M:
             case CONTAM.Units.Types.Concentration_N:
-              unitsString = CONTAM.Units.Strings.Concentration_N[ContamRE.options.averageExport.gasUnits];
+              unitsString = CONTAM.Units.Strings2.Concentration_N[ContamRE.options.averageExport.gasUnits];
               unitsValue = ContamRE.options.averageExport.gasUnits;
               unitsFunc = CONTAM.Units.Concen_N_Convert;
               break;

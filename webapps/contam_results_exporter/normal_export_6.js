@@ -117,22 +117,22 @@ ContamRE.normalExport.outputCtmResultItems = function(items)
         switch(unitType)
         {
           case CONTAM.Units.Types.Concentration_MP:
-            unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_MDP:
-            unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_MD:
-            unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_M:
-            unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_P[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_P[ctm.ucc];
             break;
           case CONTAM.Units.Types.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc];
+            unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc];
             break;
         }
       }
@@ -143,12 +143,12 @@ ContamRE.normalExport.outputCtmResultItems = function(items)
           case CONTAM.Units.Types.Concentration_MP:
           case CONTAM.Units.Types.Concentration_MDP:
           case CONTAM.Units.Types.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_P[ContamRE.options.normalExport.particleUnits];
+            unitsString = CONTAM.Units.Strings2.Concentration_P[ContamRE.options.normalExport.particleUnits];
             break;
           case CONTAM.Units.Types.Concentration_MD:
           case CONTAM.Units.Types.Concentration_M:
           case CONTAM.Units.Types.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[ContamRE.options.normalExport.gasUnits];
+            unitsString = CONTAM.Units.Strings2.Concentration_N[ContamRE.options.normalExport.gasUnits];
             break;
         }
         
@@ -180,27 +180,27 @@ ContamRE.normalExport.outputCtmResultItems = function(items)
           switch(unitType)
           {
             case CONTAM.Units.Types.Concentration_MP:
-              unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MP_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MDP:
-              unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MDP_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MD:
-              unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_MD_Convert;
               break;
             case CONTAM.Units.Types.Concentration_M:
-              unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_M_Convert;
               break;
             case CONTAM.Units.Types.Concentration_P:
-              unitsString = CONTAM.Units.Strings.Concentration_P[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_P[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_P_Convert;
               break;
             case CONTAM.Units.Types.Concentration_N:
-              unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc];
+              unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc];
               unitsFunc = CONTAM.Units.Concen_N_Convert;
               break;
           }
@@ -212,14 +212,14 @@ ContamRE.normalExport.outputCtmResultItems = function(items)
             case CONTAM.Units.Types.Concentration_MP:
             case CONTAM.Units.Types.Concentration_MDP:
             case CONTAM.Units.Types.Concentration_P:
-              unitsString = CONTAM.Units.Strings.Concentration_P[ContamRE.options.normalExport.particleUnits];
+              unitsString = CONTAM.Units.Strings2.Concentration_P[ContamRE.options.normalExport.particleUnits];
               unitsValue = ContamRE.options.normalExport.particleUnits;
               unitsFunc = CONTAM.Units.Concen_P_Convert;
               break;
             case CONTAM.Units.Types.Concentration_MD:
             case CONTAM.Units.Types.Concentration_M:
             case CONTAM.Units.Types.Concentration_N:
-              unitsString = CONTAM.Units.Strings.Concentration_N[ContamRE.options.normalExport.gasUnits];
+              unitsString = CONTAM.Units.Strings2.Concentration_N[ContamRE.options.normalExport.gasUnits];
               unitsValue = ContamRE.options.normalExport.gasUnits;
               unitsFunc = CONTAM.Units.Concen_N_Convert;
               break;
@@ -390,24 +390,24 @@ ContamRE.normalExport.outputEnvResultItems = function(items)
     outputString += "Node\t";
     if(ContamRE.options.normalExport.ambtTemp)
       outputString += "Ambt Temperature [" + 
-        CONTAM.Units.Strings.Temperature[ContamRE.options.normalExport.TempUnits]  +"]\t";
+        CONTAM.Units.Strings2.Temperature[ContamRE.options.normalExport.TempUnits]  +"]\t";
     if(ContamRE.options.normalExport.ambtPress)
       outputString += "Ambt Pressure [" + 
-        CONTAM.Units.Strings.Pressure[ContamRE.options.normalExport.PressUnits] + "]\t";
+        CONTAM.Units.Strings2.Pressure[ContamRE.options.normalExport.PressUnits] + "]\t";
     if(ContamRE.options.normalExport.ambtWspd)
       outputString += "Wind Speed [" + 
-        CONTAM.Units.Strings.Speed[ContamRE.options.normalExport.WSUnits] + "]\t";
+        CONTAM.Units.Strings2.Speed[ContamRE.options.normalExport.WSUnits] + "]\t";
     if(ContamRE.options.normalExport.ambtWdir)
       outputString += "Wind Direction\t";
     if(ContamRE.options.normalExport.bldgTemp)
       outputString += "Temperature [" + 
-        CONTAM.Units.Strings.Temperature[ContamRE.options.normalExport.TempUnits]  +"]\t";
+        CONTAM.Units.Strings2.Temperature[ContamRE.options.normalExport.TempUnits]  +"]\t";
     if(ContamRE.options.normalExport.bldgDens)
       outputString += "Density [" +
-        CONTAM.Units.Strings.Density[ContamRE.options.normalExport.DensUnits] + "]\t";
+        CONTAM.Units.Strings2.Density[ContamRE.options.normalExport.DensUnits] + "]\t";
     if(ContamRE.options.normalExport.bldgPress)
       outputString += "Pressure [" + 
-        CONTAM.Units.Strings.Pressure[ContamRE.options.normalExport.PressUnits] + "]\t";
+        CONTAM.Units.Strings2.Pressure[ContamRE.options.normalExport.PressUnits] + "]\t";
   }
   outputString += CONTAM.Project.EOL;
   for(var row=0; row<items.dateTime.length; ++row)
@@ -423,7 +423,7 @@ ContamRE.normalExport.outputEnvResultItems = function(items)
       if(ContamRE.options.normalExport.bldgTemp)
       {
         outputString += "Temperature [" + 
-          CONTAM.Units.Strings.Temperature[ContamRE.options.normalExport.TempUnits] + "]\t";
+          CONTAM.Units.Strings2.Temperature[ContamRE.options.normalExport.TempUnits] + "]\t";
         for(var col=0; col<items.length; ++col)
         {
           var temp;
@@ -445,7 +445,7 @@ ContamRE.normalExport.outputEnvResultItems = function(items)
       if(ContamRE.options.normalExport.bldgDens)
       {
         outputString += "Density [" +
-          CONTAM.Units.Strings.Density[ContamRE.options.normalExport.DensUnits] + "]\t";
+          CONTAM.Units.Strings2.Density[ContamRE.options.normalExport.DensUnits] + "]\t";
         for(var col=0; col<items.length; ++col)
         {
           if(items[col].type == 4)
@@ -463,7 +463,7 @@ ContamRE.normalExport.outputEnvResultItems = function(items)
       if(ContamRE.options.normalExport.bldgPress)
       {
         outputString += "Pressure [" + 
-          CONTAM.Units.Strings.Pressure[ContamRE.options.normalExport.PressUnits] + "]\t";
+          CONTAM.Units.Strings2.Pressure[ContamRE.options.normalExport.PressUnits] + "]\t";
         for(var col=0; col<items.length; ++col)
         {
           var press;
@@ -484,7 +484,7 @@ ContamRE.normalExport.outputEnvResultItems = function(items)
       if(ContamRE.options.normalExport.ambtWspd)
       {
         outputString += "Wind Speed [" + 
-          CONTAM.Units.Strings.Speed[ContamRE.options.normalExport.WSUnits] + "]\t";
+          CONTAM.Units.Strings2.Speed[ContamRE.options.normalExport.WSUnits] + "]\t";
         for(var col=0; col<items.length; ++col)
         {
           if(items[col].type == 4)
@@ -695,13 +695,13 @@ ContamRE.normalExport.outputLinkResultItems = function(items)
     outputString += "Link\t";
     if(ContamRE.options.normalExport.deltaP)
       outputString += "Pressure Difference [" + 
-        CONTAM.Units.Strings.PressureDiff[ContamRE.options.normalExport.PressDiffUnits] + "]\t";
+        CONTAM.Units.Strings2.PressureDiff[ContamRE.options.normalExport.PressDiffUnits] + "]\t";
     if(ContamRE.options.normalExport.Flow1)
       outputString += "Flow 1 [" + 
-        CONTAM.Units.Strings.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
+        CONTAM.Units.Strings2.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
     if(ContamRE.options.normalExport.Flow2)
       outputString += "Flow 2 [" + 
-      CONTAM.Units.Strings.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
+      CONTAM.Units.Strings2.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
   }
   outputString += CONTAM.Project.EOL;
   for(var row=0; row<items.dateTime.length; ++row)
@@ -716,7 +716,7 @@ ContamRE.normalExport.outputLinkResultItems = function(items)
         outputString += CONTAM.TimeUtilities.IntTimeToStringTime(items.dateTime[row].time);
         outputString += "\t";
         outputString += "Pressure Difference [" + 
-          CONTAM.Units.Strings.PressureDiff[ContamRE.options.normalExport.PressDiffUnits] + "]\t";
+          CONTAM.Units.Strings2.PressureDiff[ContamRE.options.normalExport.PressDiffUnits] + "]\t";
         for(var col=0; col<items.length; ++col)
         {
           var press = CONTAM.Units.PressureDiffConvert(items[col].results[row].dP,
@@ -733,7 +733,7 @@ ContamRE.normalExport.outputLinkResultItems = function(items)
         outputString += CONTAM.TimeUtilities.IntTimeToStringTime(items.dateTime[row].time);
         outputString += "\t";
         outputString += "Flow 1 [" + 
-          CONTAM.Units.Strings.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
+          CONTAM.Units.Strings2.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
         for(var col=0; col<items.length; ++col)
         {
           var flow = CONTAM.Units.FlowConvert(items[col].results[row].Flow0,
@@ -750,7 +750,7 @@ ContamRE.normalExport.outputLinkResultItems = function(items)
         outputString += CONTAM.TimeUtilities.IntTimeToStringTime(items.dateTime[row].time);
         outputString += "\t";
         outputString += "Flow 2 [" + 
-          CONTAM.Units.Strings.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
+          CONTAM.Units.Strings2.Flow[ContamRE.options.normalExport.FlowUnits] + "]\t";
         for(var col=0; col<items.length; ++col)
         {
           var flow = CONTAM.Units.FlowConvert(items[col].results[row].Flow1,

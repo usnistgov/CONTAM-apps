@@ -121,27 +121,27 @@ ContamRE.exposureExport.CreateOneFilePerContaminant = function(options)
       switch(unitType)
       {
         case cut.Concentration_MD:
-          unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc]
+          unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc]
           unitsFunc = CONTAM.Units.Concen_MD_Convert;
           break;
         case cut.Concentration_M:
-          unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc]
+          unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc]
           unitsFunc = CONTAM.Units.Concen_M_Convert;
           break;
         case cut.Concentration_N:
-          unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc]
+          unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc]
           unitsFunc = CONTAM.Units.Concen_N_Convert;
           break;
         case cut.Concentration_MP:
-          unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc]
+          unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc]
           unitsFunc = CONTAM.Units.Concen_MP_Convert;
           break;
         case cut.Concentration_MDP:
-          unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc]
+          unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc]
           unitsFunc = CONTAM.Units.Concen_MDP_Convert;
           break;
         case cut.Concentration_P:
-          unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc]
+          unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc]
           unitsFunc = CONTAM.Units.Concen_P_Convert;
           break;
       }
@@ -153,14 +153,14 @@ ContamRE.exposureExport.CreateOneFilePerContaminant = function(options)
         case cut.Concentration_MD:
         case cut.Concentration_M:
         case cut.Concentration_N:
-          unitsString = CONTAM.Units.Strings.Concentration_N[options.gasUnits]
+          unitsString = CONTAM.Units.Strings2.Concentration_N[options.gasUnits]
           unitsFunc = CONTAM.Units.Concen_N_Convert;
           unitsConv = options.gasUnits;
           break;
         case cut.Concentration_MP:
         case cut.Concentration_MDP:
         case cut.Concentration_P:
-          unitsString = CONTAM.Units.Strings.Concentration_P[options.particleUnits]
+          unitsString = CONTAM.Units.Strings2.Concentration_P[options.particleUnits]
           unitsFunc = CONTAM.Units.Concen_P_Convert;
           unitsConv = options.particleUnits;
           break;
@@ -226,27 +226,27 @@ ContamRE.exposureExport.CreateOneFilePerOccupant = function(options)
         switch(unitType)
         {
           case cut.Concentration_MD:
-            unitsString = CONTAM.Units.Strings.Concentration_MD[ctm.ucc]
+            unitsString = CONTAM.Units.Strings2.Concentration_MD[ctm.ucc]
             unitsFunc = CONTAM.Units.Concen_MD_Convert;
             break;
           case cut.Concentration_M:
-            unitsString = CONTAM.Units.Strings.Concentration_M[ctm.ucc]
+            unitsString = CONTAM.Units.Strings2.Concentration_M[ctm.ucc]
             unitsFunc = CONTAM.Units.Concen_M_Convert;
             break;
           case cut.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[ctm.ucc]
+            unitsString = CONTAM.Units.Strings2.Concentration_N[ctm.ucc]
             unitsFunc = CONTAM.Units.Concen_N_Convert;
             break;
           case cut.Concentration_MP:
-            unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc]
+            unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc]
             unitsFunc = CONTAM.Units.Concen_MP_Convert;
             break;
           case cut.Concentration_MDP:
-            unitsString = CONTAM.Units.Strings.Concentration_MDP[ctm.ucc]
+            unitsString = CONTAM.Units.Strings2.Concentration_MDP[ctm.ucc]
             unitsFunc = CONTAM.Units.Concen_MDP_Convert;
             break;
           case cut.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_MP[ctm.ucc]
+            unitsString = CONTAM.Units.Strings2.Concentration_MP[ctm.ucc]
             unitsFunc = CONTAM.Units.Concen_P_Convert;
             break;
         }
@@ -258,14 +258,14 @@ ContamRE.exposureExport.CreateOneFilePerOccupant = function(options)
           case cut.Concentration_MD:
           case cut.Concentration_M:
           case cut.Concentration_N:
-            unitsString = CONTAM.Units.Strings.Concentration_N[options.gasUnits]
+            unitsString = CONTAM.Units.Strings2.Concentration_N[options.gasUnits]
             unitsFunc = CONTAM.Units.Concen_N_Convert;
             unitsConv = options.gasUnits;
             break;
           case cut.Concentration_MP:
           case cut.Concentration_MDP:
           case cut.Concentration_P:
-            unitsString = CONTAM.Units.Strings.Concentration_P[options.particleUnits]
+            unitsString = CONTAM.Units.Strings2.Concentration_P[options.particleUnits]
             unitsFunc = CONTAM.Units.Concen_P_Convert;
             unitsConv = options.particleUnits;
             break;
