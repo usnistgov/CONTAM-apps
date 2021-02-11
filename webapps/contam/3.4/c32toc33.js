@@ -15,12 +15,12 @@ CONTAM.Project.Upgraders.C32toC33.note_data33 = function()
   var nnote, j, nr, n;
   var note;  /* annotation */
 
-  nnote = rdr.rdr.readIX(1);    /* read note data */
+  nnote = rdr.readIX(1);    /* read note data */
   fc += sprintf("%d ! annotations:", nnote ) + prj.EOL;
 
   for( j=1; j<=nnote; j++ )
     {
-    n = rdr.rdr.readIX(1);
+    n = rdr.readIX(1);
     if( n != j ) 
       CONTAM.error( 2, "Note number mis-match: " + i.toString());
     nr = n;
@@ -29,7 +29,7 @@ CONTAM.Project.Upgraders.C32toC33.note_data33 = function()
     }
   fc += prj.UNK + prj.EOL;
 
-  if( rdr.rdr.readIX(1) != prj.UNK)
+  if( rdr.readIX(1) != prj.UNK)
     CONTAM.error( 2, "PRJ read error in note section");
   CONTAM.Project.Upgraders.C32toC33.c33File += fc;
 
@@ -50,6 +50,8 @@ CONTAM.Project.Upgraders.C32toC33.path_data33 = function()
   var vf_node_name; /* value file node name */ 
   var fc = "";
   var rdr = CONTAM.Reader;
+  var prj = CONTAM.Project;
+  var g = CONTAM.Globals;
 
   npath = rdr.readIX(0);    /* read path data */
   fc += sprintf("%d ! flow paths:", npath ) + prj.EOL;
@@ -62,7 +64,7 @@ CONTAM.Project.Upgraders.C32toC33.path_data33 = function()
     if( nr != i ) 
       CONTAM.error( 2, "Path number mis-match: " + i.toString());
     flags = rdr.readIX( 0 );
-    flags &= FLAG_P;
+    flags &= g.FLAG_P;
 
     jn = rdr.readIX( 0 );
     jm = rdr.readIX( 0 );
@@ -148,6 +150,7 @@ CONTAM.Project.Upgraders.C32toC33.css_data33 = function()
   var vf_node_name=""; /* value file node name */ 
   var fc = "";
   var rdr = CONTAM.Reader;
+  var prj = CONTAM.Project;
 
   ncss = rdr.readIX( 0 );     /* read number of items */
   fc += sprintf("%d ! source/sinks:", ncss ) + prj.EOL;
@@ -173,18 +176,18 @@ CONTAM.Project.Upgraders.C32toC33.css_data33 = function()
     Xmax = rdr.readR4( 0 );
     Ymax = rdr.readR4( 0 );
     Hmax = rdr.readR4( 0 );
-    u_XYZ = readI2( 0 );
+    u_XYZ = rdr.readI2( 0 );
 
-    vf_type = readI2( 0 );     // CW 3.2, cdvf type
+    vf_type = rdr.readI2( 0 );     // CW 3.2, cdvf type
     if(vf_type == 1 || // cvf
       vf_type == 2)    // dvf
     {
        vf_node_name = rdr.nextword(0);
     }
-    if(readI2(0)) // cfd name exists
+    if(rdr.readI2(0)) // cfd name exists
       cfd_name = rdr.nextword(0);
     else
-      strcpy(cfd_name,"");
+      cfd_name = "";
 
     fc += sprintf( "%3d %3d %3d %3d %3d %5g %5g  %g %g %g  %g %g %g %d %d",
       nr, jz, je, js, jc, mult, CC0, Xmin, Ymin,
@@ -194,7 +197,7 @@ CONTAM.Project.Upgraders.C32toC33.css_data33 = function()
     if( vf_type > 0 )
       fc += sprintf( " %s", vf_node_name );
 
-    if(strlen(cfd_name)>0)
+    if(cfd_name.length > 0)
       fc += sprintf(" 1 %s", cfd_name);
     else
       fc += sprintf(" 0");
@@ -222,6 +225,7 @@ CONTAM.Project.Upgraders.C32toC33.pexp_data33 = function()
   var desc; /* exposure/person description */
   var fc = "";
   var rdr = CONTAM.Reader;
+  var prj = CONTAM.Project;
 
   npexp = rdr.readIX( 0 );    /* read pexp data */
   fc += sprintf( "%d ! exposures:", npexp ) + prj.EOL;
@@ -287,6 +291,9 @@ CONTAM.Project.Upgraders.C32toC33.system_data33 = function()
   var nahs, i, nr, zone_r, zone_s, path_r, path_s, path_x;
   var name; /* system name */
   var desc; /* system description */
+  var prj = CONTAM.Project;
+  var rdr = CONTAM.Reader;
+  var fc = "";
 
   nahs = rdr.readIX( 0 );
   fc += sprintf( "%d ! simple AHS:", nahs )+ prj.EOL;
@@ -330,6 +337,7 @@ CONTAM.Project.Upgraders.C32toC33.upgrade = function()
   var fc = "";
   var c33 = CONTAM.Project.Upgraders.C32toC33;
   var u = CONTAM.Project.Upgraders;
+  var prj = CONTAM.Project;
   
   console.log("Upgrade 3.2 prj file to 3.3");
   
@@ -348,7 +356,7 @@ CONTAM.Project.Upgraders.C32toC33.upgrade = function()
 
   var desc = rdr.nextword(3);   // read description
   fc += desc + prj.EOL;
-  CONTAM.Project.Upgraders.C32toC33.c33File = fc;
+  u.C32toC33.c33File = fc;
 
   fc = u.same_data();    // run data
   fc += u.same_data();  // species data
@@ -364,21 +372,26 @@ CONTAM.Project.Upgraders.C32toC33.upgrade = function()
   fc += u.same_data();    // duct flow elmt data
   fc += u.same_data();    // super element data
   fc += u.same_data();    // control data
-  c33.system_data33( uprj );    // simple AHS data
-  fc += u.same_data();    // zone data
+  u.C32toC33.c33File += fc;
+  c33.system_data33();    // simple AHS data
+  fc = u.same_data();    // zone data
   fc += u.same_data();    // zone contaminants
-  c33.path_data33( uprj );    // path data - add color
-  fc += u.same_data();    // junction data
+  u.C32toC33.c33File += fc;
+  c33.path_data33();    // path data - add color
+  fc = u.same_data();    // junction data
   fc += u.same_data();    // junction contaminants
   fc += u.same_data();    // segment data
-  c33.css_data33 ( uprj );    // ctm s/s data - add color
-  c33.same_data  ( uprj );    // occupancy data
-  c33.pexp_data33( uprj );    // exposure data - add color
-  c33.note_data33( uprj );    // annotation data - add color
+  u.C32toC33.c33File += fc;
+  c33.css_data33 ();    // ctm s/s data - add color
+  fc = u.same_data();    // occupancy data
+  u.C32toC33.c33File += fc;
+  c33.pexp_data33();    // exposure data - add color
+  c33.note_data33();    // annotation data - add color
 
   buffer = rdr.nextword(2); // skip remainder last line
 
-  fc += sprintf( uprj, "* end project file." ) + prj.EOL;
+  fc = sprintf( "* end project file." ) + prj.EOL;
+  u.C32toC33.c33File += fc;
 
 }  // End fcn C32toC33().
 

@@ -10,6 +10,7 @@ CONTAM.Project.Upgraders.C33toC34.run_data34 = function()
   var u = CONTAM.Project.Upgraders;
   var fc = ""
   var rdr = CONTAM.Reader;
+  var prj = CONTAM.Project;
   
   //fprintf( uprj, "! rows cols ud uf    T   uT     N     wH  u  Ao    a\n" );
   fc += u.same_line();
@@ -147,15 +148,15 @@ CONTAM.Project.Upgraders.C33toC34.run_data34 = function()
   cfd_imax = rdr.readI2( 0 );
   cfd_dtcmo = rdr.readI2( 0 );
 
-  fc += sprintf( uprj, "!cfd   cfdcnvg  var zref maxi dtcmo solv smooth   cnvgUVW     cnvgT" ) + prj.EOL; // CW 3.0, CW 3.4
-  fc += sprintf( uprj, "%4d %9.2e %4d  %3d %4d  %4d %4d   %4d %9.2e %9.2e",
+  fc += sprintf( "!cfd   cfdcnvg  var zref maxi dtcmo solv smooth   cnvgUVW     cnvgT" ) + prj.EOL; // CW 3.0, CW 3.4
+  fc += sprintf( "%4d %9.2e %4d  %3d %4d  %4d %4d   %4d %9.2e %9.2e",
     cfd_ctype, cfd_convcpl, cfd_var, 0, cfd_imax, cfd_dtcmo,
     1, 1, 0.001, 0.001 ) + prj.EOL;
 
   fc += prj.UNK + prj.EOL;
   if( rdr.readIX(1) != prj.UNK)
     CONTAM.error( 2, "PRJ read error in run data section");
-  CONTAM.Project.Upgraders.C32toC33.c33File += fc;
+  u.C33toC34.c34File += fc;
 
 }  /* end run_data34 */
 
@@ -170,6 +171,7 @@ CONTAM.Project.Upgraders.C33toC34.upgrade = function()
   var fc = "";
   var c34 = CONTAM.Project.Upgraders.C33toC34;
   var u = CONTAM.Project.Upgraders;
+  var prj = CONTAM.Project;
   
   console.log("Upgrade 3.3 prj file to 3.4");
   
@@ -188,10 +190,10 @@ CONTAM.Project.Upgraders.C33toC34.upgrade = function()
 
   var desc = rdr.nextword(3);   // read description
   fc += desc + prj.EOL;
-  CONTAM.Project.Upgraders.C33toC34.c34File = fc;
+  u.C33toC34.c34File = fc;
   
-  c34.run_data34( uprj );   // run data
-  fc += u.same_data();    // species data
+  c34.run_data34();   // run data
+  fc = u.same_data();    // species data
   fc += u.same_data();    // level data
   fc += u.same_data();    // day schd data
   fc += u.same_data();    // week schd data
@@ -218,7 +220,8 @@ CONTAM.Project.Upgraders.C33toC34.upgrade = function()
 
   buffer = rdr.nextword(2); // skip remainder last line
 
-  fc += sprintf( uprj, "* end project file." ) + prj.EOL;
+  fc += sprintf( "* end project file." ) + prj.EOL;
+  u.C33toC34.c34File += fc;
 
 }  // End fcn C33toC34().
 
