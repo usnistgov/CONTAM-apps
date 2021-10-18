@@ -86,7 +86,7 @@
       </nav>
     </div>
     <article>
-      <h1>CONTAM Weather File Creator</h1>
+      <h1>CONTAM Weather File Creator 2.0</h1>
       <section>
         <fieldset>
           <legend>EPW File</legend>
@@ -464,20 +464,10 @@
           A download link will appear here when a conversion is completed.
         </p>
       </section>
-      <h2>Download Executable Version of the Tool</h2>
-      <section>
-        <a href="../../docs/ContamWeatherTool.zip">Save the Zip file with the tool.</a> 
-        This includes:
-        <ul>
-          <li>the Windows command-line version of the tool</li>
-          <li>a sample config file</li>
-          <li>the documentation file</li>
-          <li>the C++ runtime</li>
-        </ul>
-      </section>
     </article>
     <footer>
-      Page Updated : 7/19/2018 - Page Created : 05/2018<br>
+      Page Updated : <span id="moddate"></span> - Page Created : 05/2021<br>
+      <script>document.getElementById('moddate').textContent = new Date(document.lastModified).toDateString()</script>
     </footer>
   </body>
 </html>
