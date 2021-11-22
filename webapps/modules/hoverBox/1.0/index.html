@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta charset="UTF-8"> 
+<script type="module" src="testApp.js"></script>
+<style>
+hover-box::part(boxContent) {
+  border: 1px solid #12659c;
+  border-radius: 4px;
+  padding:4px;
+}
+
+</style>
+</head>
+<body>
+
+<div>
+  <h1>Hover Box Example</h1>
+  <hover-box id="te">
+    <div slot="pageContent" style="background-color: yellow; width: 200px;">
+      hover/click me!
+    </div>
+    <div slot="boxContent">
+      some text
+    </div>
+  </hover-box>
+</div>
+
+</body>
+</html>

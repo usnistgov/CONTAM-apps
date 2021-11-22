@@ -1,0 +1,64 @@
+﻿<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>ViPER - Virus Particle Exposure in Residences Tool</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="description" content="The VIPER Webtool is a single zone indoor air quality and ventilation analysis tool developed by the National Institute of Standards and Technology (NIST) for evaluating an occupant’s relative exposure to viral particles  resulting from a temporary visitor inside the home ">
+    <meta name="keywords" content="FATIMA, exposure, viruses, filtration, deactivation, fate, aerosols, CONTAM, 
+      multizone, multizone modeling, contaminant, indoor air quality, IAQ, ventilation, airflow, modeling">
+    <script type="module" src="viper.js"></script>
+    <script type="text/javascript" src="../../menu.js"></script>
+    <link href="../../site.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async type="text/javascript" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+    </script>
+    <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+    <script src="https://pages.nist.gov/nist-header-footer/js/jquery-1.9.0.min.js" type="text/javascript" defer="defer"></script>
+    <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+  </head>
+  <body>
+    <div class="title"  style="display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling" class="blacklink">
+          <h1 class="inblock">Multizone Modeling</h1>
+        </a>
+      </div>
+      <nav>
+        <input id="menuImage" type="image" alt="Menu Icon"
+          src="../../images/menuIcon.svg" width="40" height="40">
+      </nav>
+    </div>
+
+    <article>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <h2>ViPER - Virus Particle Exposure in Residences Tool</h2>
+        </div>
+      </div>
+      <div id="resType">
+        <select-value id="resultTypeSelect" value="resultType" strings="resultTypeOptions" values="resultTypeValues">Results Format</select-value>
+        <hover-box>
+          <img slot="pageContent" class="helpIcon" src="../../images/Info_icon.svg" width="25" height="25" style="vertical-align: top;" alt="information icon">
+          <div slot="boxContent" class="tooltip">
+            <div>Select the option that most closely reflects the desired format of the results.
+              <ul>
+                <li>Particle Concentration - The ‘Particle Concentration’ option corresponds to results representative of the number of particles within the home.</li>
+                <li>Integrated Exposure - The ‘Integrated Exposure’ option corresponds to results representative of cumulative occupant exposure to particles within the home.</li>
+              </ul>
+            </div>
+          </div>
+        </hover-box>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;" id="caseContainer">
+        <viper-case></viper-case>
+        <viper-case></viper-case>
+      </div>
+      <auto-button func="addCase" state="document.state">Add Case</auto-button>
+    </article>
+    <footer>
+      Version 1.0 - Page Updated : <span id="moddate"></span> - Page Created : 09/2021<br>
+      <script>document.getElementById('moddate').textContent = new Date(document.lastModified).toDateString()</script>
+    </footer>
+  </body>
+</html>
