@@ -1,8 +1,6 @@
 import { SelectValue } from "../modules/SelectValue/1.0/SelectValue.js";
 import { eventMixin } from "../modules/EventMixin/EventMixin.js"
-import { sprintf } from "../modules/sprintf/sprintf.js";
 import { AutoButton } from "../modules/AutoButton/1.0/AutoButton.js";
-import { HowtoTabs, HowtoTab, HowtoPanel } from "../modules/howto-tabs/howto-tabs.js";
 import { ViperCase } from "./case.js";
 import { HoverBox } from "../modules/hoverBox/1.0/hoverbox.js"
 
