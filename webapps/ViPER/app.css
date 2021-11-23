@@ -91,14 +91,6 @@ auto-button::part(button) {
   border-radius: 4px;
 }
 
-input:valid, edit-value::part(input):valid {
-  background-color: green;
-}
-
-input:invalid, edit-value::part(input):invalid {
-  background-color: pink;
-}
-
 howto-tab {
   border: 1px solid #12659c;
   padding: 20px;
