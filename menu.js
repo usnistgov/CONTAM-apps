@@ -83,13 +83,13 @@ menuModule.menuClick = function(ev)
   link5.style.padding = "1ex";
   menu.appendChild(link5);
   
-  //var link6 = document.createElement("A");
-  //link6.textContent = "CONTAM Weather Tool";
-  //link6.href = "https://pages.nist.gov/CONTAM-apps/webapps/WeatherTool/index.htm";
-  //link6.className = "blacklink";
-  //link6.style.display = "block";
-  //link6.style.padding = "1ex";
-  //menu.appendChild(link6);
+  var link6 = document.createElement("A");
+  link6.textContent = "CONTAM Weather Tool";
+  link6.href = "https://pages.nist.gov/CONTAM-apps/webapps/WeatherTool/index.htm";
+  link6.className = "blacklink";
+  link6.style.display = "block";
+  link6.style.padding = "1ex";
+  menu.appendChild(link6);
   
   var link7 = document.createElement("A");
   link7.textContent = "Engineered Nanoparticle Airborne Exposure Tool";
@@ -98,6 +98,14 @@ menuModule.menuClick = function(ev)
   link7.style.display = "block";
   link7.style.padding = "1ex";
   menu.appendChild(link7);
+
+  var nextLink = document.createElement("A");
+  nextLink.textContent = "FaTIMA";
+  nextLink.href = "https://pages.nist.gov/CONTAM-apps/webapps/FaTIMA";
+  nextLink.className = "blacklink";
+  nextLink.style.display = "block";
+  nextLink.style.padding = "1ex";
+  menu.appendChild(nextLink);
   
   var link8 = document.createElement("A");
   link8.textContent = "Nanoparticle Coagulation Tool";
@@ -106,6 +114,14 @@ menuModule.menuClick = function(ev)
   link8.style.display = "block";
   link8.style.padding = "1ex";
   menu.appendChild(link8);
+  
+  var link9 = document.createElement("A");
+  link9.textContent = "ViPER";
+  link9.href = "https://pages.nist.gov/CONTAM-apps/webapps/ViPER";
+  link9.className = "blacklink";
+  link9.style.display = "block";
+  link9.style.padding = "1ex";
+  menu.appendChild(link9);
 
   document.body.appendChild(menu);
   
