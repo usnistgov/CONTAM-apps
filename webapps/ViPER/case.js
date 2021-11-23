@@ -424,7 +424,19 @@ export class ViperCase extends HTMLElement {
         }
       </style>
       <div style="margin:5px;" class="section">
-        <h3 id="caseHeading" style="margin:1ex 0px;">Case</h3>
+        <div class="flex-end">
+          <h3 id="caseHeading" style="margin:1ex 0px;">Case</h3>
+          <hover-box>
+            <img slot="pageContent" class="helpIcon" src="../../images/Info_icon.svg" width="25" height="25" style="vertical-align: top;display:none;" alt="information icon">
+            <div slot="boxContent" class="tooltip">
+              <ul>
+                <li>Base Case: This is your home – select the size, visit duration, and other parameters to set the Base Case. Click on the info icons to learn more about each parameter.</li>
+                <li>Comparison Case(s): These are the changes in your home that you may make when you have a visitor. Use the Add Case button to add additional comparison conditions. </li>
+                <li>The “Result change from base” at the bottom indicates either the change in Particle Concentration or Integrated Exposure which was selected earlier.</li>
+              </ul>
+            </div>
+          </hover-box>
+        </div>
         <div style="display:grid;row-gap: 1ex;">
           <div class="flex-end">
             <select-value id="bldgSizeSelect" value="bldgSize" strings="bldgSizeOptions" values="bldgSizeValues">Home Size</select-value>
