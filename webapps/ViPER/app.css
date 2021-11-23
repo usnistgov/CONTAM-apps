@@ -45,12 +45,6 @@
   padding:5px;
 }
 
-input, select {
-  border: 1px solid #12659c;
-  border-radius: 4px;
-  padding:4px;
-}
-
 select {
   padding:3px;
 }
@@ -70,7 +64,7 @@ select {
   transition: max-height 1.5s cubic-bezier(0.1, -0.6, 0.2, 0);
 }
 
-input, select, day-schedule-editor::part(select), day-schedule-editor::part(button), day-schedule-editor::part(input), day-schedule-editor::part(dialog), 
+day-schedule-editor::part(select), day-schedule-editor::part(button), day-schedule-editor::part(input), day-schedule-editor::part(dialog), 
 unit-value::part(select), unit-value::part(input), select-value::part(select), edit-value::part(input), time-editor::part(select)
 {
   border: 1px solid #12659c;
