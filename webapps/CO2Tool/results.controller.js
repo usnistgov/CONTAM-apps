@@ -134,15 +134,15 @@ function ResultsController($stateParams) {
 	}
 	//console.log(resultsCtrl);
 	// setup chart
+	createPlotData(resultsCtrl);
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawChart);
-	createPlotData(resultsCtrl);
 	
 	function drawChart(){
 		var vaxisTitle = "Concentration [mg/m\xB3]";
 		var haxisTitle = "Time [h]";
 		var options = {
-		  title: 'CO2 Chart',
+		  title: '',
 		  curveType: 'function',
 		  hAxis: {title: haxisTitle},
 		  legend: { position: 'bottom' },
@@ -305,7 +305,7 @@ function createPlotData(resultsCtrl) {
 	resultsCtrl.chartData = [];
 
 	// add labels to chart data
-	resultsCtrl.chartData.push(["", "Primary CO2", "Alternate CO2"]);
+	resultsCtrl.chartData.push(["", "Primary Ventilation Rate", "Alternate Ventilation Rate"]);
 
 	// add the data to the chart data
 	resultsCtrl.results.points.forEach(row => {
