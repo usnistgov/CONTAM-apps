@@ -2,12 +2,11 @@ var CO2Tool = {};
 
 //people - # of people, mass, age group, sex, activity (met)
 // age group (0-5) <3, 3 to 10, 10 to 18, 18 to 30, 30 to 60, > 60
-CO2Tool.calculateResult = function(CO2Outdoor, initialCO2Indoor, 
+CO2Tool.calculateResult = function(CO2Outdoor, 
 	volumePerPerson, timeToMetric, ventilationRate, groupsOfPeople, altVentilationRate){
 			
 	console.log("Calculate results: ");
-	console.log("CO2Outdoor: " + CO2Outdoor + " mg/m3");
-	console.log("initialCO2Indoor: " + initialCO2Indoor + " mg/m3");
+	console.log("CO2Outdoor: " + CO2Outdoor + " ppm");
 	console.log("volumePerPerson: " + volumePerPerson + " m3");
 	console.log("timeToMetric: " + timeToMetric + " h");
 	console.log("ventilationRate: " + ventilationRate + " L/s");
@@ -19,11 +18,11 @@ CO2Tool.calculateResult = function(CO2Outdoor, initialCO2Indoor,
 	var defaultOA = 3.6 * ventilationRate / volumePerPerson;
 	console.log("defaultOA: " + defaultOA);
 
-	var Css = 1 * (CO2Outdoor + (1.8 * 1000000 * Vco2avg / ventilationRate));
+	var Css = CO2Outdoor + (1000000 * Vco2avg / ventilationRate);
 	console.log("Css: " + Css);
-	var c_at_metric = initialCO2Indoor * Math.exp(-defaultOA * timeToMetric) + Css * (1 - Math.exp(-defaultOA * timeToMetric));
+	var c_at_metric = CO2Outdoor * Math.exp(-defaultOA * timeToMetric) + Css * (1 - Math.exp(-defaultOA * timeToMetric));
 	console.log("c_at_metric: " + c_at_metric);
-	var c_at_h = initialCO2Indoor * Math.exp(-defaultOA * 1) + Css * (1 - Math.exp(-defaultOA * 1));
+	var c_at_h = CO2Outdoor * Math.exp(-defaultOA * 1) + Css * (1 - Math.exp(-defaultOA * 1));
 	console.log("c_at_h: " + c_at_h);
 	var timeToCSS = 3 * (volumePerPerson / ventilationRate) / 3.6;
 	console.log("timeToCSS: " + timeToCSS);
@@ -32,11 +31,11 @@ CO2Tool.calculateResult = function(CO2Outdoor, initialCO2Indoor,
 	var altDefaultOA = 3.6 * altVentilationRate / volumePerPerson;
 	console.log("alt defaultOA: " + altDefaultOA);
 
-	var altCss = 1 * (CO2Outdoor + (1.8 * 1000000 * Vco2avg / altVentilationRate));
+	var altCss = CO2Outdoor + (1000000 * Vco2avg / altVentilationRate);
 	console.log("alt Css: " + altCss);
-	var alt_c_at_metric = initialCO2Indoor * Math.exp(-altDefaultOA * timeToMetric) + altCss * (1 - Math.exp(-altDefaultOA * timeToMetric));
+	var alt_c_at_metric = CO2Outdoor * Math.exp(-altDefaultOA * timeToMetric) + altCss * (1 - Math.exp(-altDefaultOA * timeToMetric));
 	console.log("alt c_at_metric: " + alt_c_at_metric);
-	var alt_c_at_h = initialCO2Indoor * Math.exp(-altDefaultOA * 1) + altCss * (1 - Math.exp(-altDefaultOA * 1));
+	var alt_c_at_h = CO2Outdoor * Math.exp(-altDefaultOA * 1) + altCss * (1 - Math.exp(-altDefaultOA * 1));
 	console.log("alt c_at_h: " + alt_c_at_h);
 	var alt_timeToCSS = 3 * (volumePerPerson / altVentilationRate) / 3.6;
 	console.log("alt timeToCSS: " + alt_timeToCSS);
@@ -50,8 +49,8 @@ CO2Tool.calculateResult = function(CO2Outdoor, initialCO2Indoor,
 	maxTime += 2;
 	for(var time=0; time <= maxTime; time+=0.01666666666)
 	{
-		var valueAtTime = initialCO2Indoor * Math.exp(-defaultOA * time) + Css * (1 - Math.exp(-defaultOA * time));
-		var altValueAtTime = initialCO2Indoor * Math.exp(-altDefaultOA * time) + altCss * (1 - Math.exp(-altDefaultOA * time));
+		var valueAtTime = CO2Outdoor * Math.exp(-defaultOA * time) + Css * (1 - Math.exp(-defaultOA * time));
+		var altValueAtTime = CO2Outdoor * Math.exp(-altDefaultOA * time) + altCss * (1 - Math.exp(-altDefaultOA * time));
 		points.push({'time': time, 'value': valueAtTime, 'altvalue': altValueAtTime});
 	}
 	

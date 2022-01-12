@@ -20,14 +20,9 @@ function ResultsController($stateParams) {
 			resultsCtrl.altVentilationRate = resultsCtrl.inputs.commercial.predefined.altVentilationRate;
 			// convert to kg/kg
 			let CO2Outdoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.commercial.predefined.CO2Outdoor, 
-				11, 1, resultsCtrl.inputs.commercial.CO2Outdoor.species);
-			let initialCO2Indoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.commercial.predefined.initialCO2Indoor, 
-				11, 1, resultsCtrl.inputs.commercial.CO2Outdoor.species);
+				1, 1, resultsCtrl.inputs.commercial.CO2Outdoor.species);
 			resultsCtrl.CO2Outdoor = {baseValue: CO2Outdoor, conversion: 1, label: "Outdoor CO2 Concentration", 
 				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert,
-				min: 0, species: resultsCtrl.inputs.CO2Species};
-			resultsCtrl.initialCO2Indoor = {baseValue: initialCO2Indoor, conversion: 1, label: "Initial Indoor CO2 Concentration",
-				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert, 
 				min: 0, species: resultsCtrl.inputs.CO2Species};
 			resultsCtrl.ceilingHeight = {baseValue: resultsCtrl.inputs.commercial.predefined.ceilingHeight, conversion: 0, label: "Ceiling Height", 
 				unitStrings: CONTAM.Units.Strings2.Length, unitFunction: CONTAM.Units.LengthConvert, min: 0};
@@ -139,7 +134,7 @@ function ResultsController($stateParams) {
 	google.charts.setOnLoadCallback(drawChart);
 	
 	function drawChart(){
-		var vaxisTitle = "Concentration [mg/m\xB3]";
+		var vaxisTitle = "Concentration [ppm]";
 		var haxisTitle = "Time [h]";
 		var options = {
 		  title: '',

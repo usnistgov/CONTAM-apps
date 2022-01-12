@@ -361,11 +361,9 @@ function InputsController($state, InputsService) {
 				
 				ceilingHeight = inputsCtrl.inputs.commercial.ceilingHeight.baseValue;
 				
-				// convert CO2 to mg/m^3
+				// convert CO2 to ppm
 				CO2Outdoor = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.CO2Outdoor.baseValue, 
-					11, 0, inputsCtrl.inputs.commercial.CO2Outdoor.species);
-				initialCO2Indoor = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.CO2Outdoor.baseValue, 
-					11, 0, inputsCtrl.inputs.commercial.CO2Outdoor.species);
+					1, 0, inputsCtrl.inputs.commercial.CO2Outdoor.species);
 			}
 			//save inputs to the InputsService
 			InputsService.setInputs(inputsCtrl.inputs);
@@ -373,7 +371,7 @@ function InputsController($state, InputsService) {
 			let volumePerPerson = (100 / occupantDensity) * ceilingHeight;
 				
 			// do calculations
-			inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, initialCO2Indoor, volumePerPerson, 
+			inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, volumePerPerson, 
 				timeToMetric, ventilationRate, occupants, altVentilationRate);
 		
 		} else {
@@ -427,7 +425,7 @@ function InputsController($state, InputsService) {
 				InputsService.setInputs(inputsCtrl.inputs);
 				
 				// do calculations
-				inputsCtrl.results = window.CO2Tool.calculateResult(scenarioData.CO2Outdoor, scenarioData.initialCO2Indoor, 
+				inputsCtrl.results = window.CO2Tool.calculateResult(scenarioData.CO2Outdoor, 
 					volumePerPerson, scenarioData.timeToMetric, ventilationRate, occupants, 
 					CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.predefined.altVentilationRate.baseValue, 2, 0));
 			} else {
@@ -506,14 +504,12 @@ function InputsController($state, InputsService) {
 				//save inputs to the InputsService
 				InputsService.setInputs(inputsCtrl.inputs);
 				
-				// convert CO2 to mg/m^3
-				var CO2Outdoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.CO2Outdoor.baseValue, 
-					11, 0, inputsCtrl.inputs.residential.CO2Outdoor.species);
-				var CO2Indoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.CO2Outdoor.baseValue, 
-					11, 0, inputsCtrl.inputs.residential.CO2Outdoor.species);
-				
+				// convert CO2 to ppm
+				var CO2Outdoor_ppm = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.CO2Outdoor.baseValue, 
+					1, 0, inputsCtrl.inputs.residential.CO2Outdoor.species);
+
 				// do calculations
-				inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor_mg_per_m3, CO2Indoor_mg_per_m3, volumePerPerson, 
+				inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor_ppm, volumePerPerson, 
 					timeToMetric, ventilationRate, occupants, altVentilationRate);
 			}
 		}

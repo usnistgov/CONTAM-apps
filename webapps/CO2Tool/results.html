@@ -24,16 +24,6 @@
 				disable-number="true"
 				disable-units="true"></unitconverter>					
 			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
-				unit-strings="resultsCtrl.initialCO2Indoor.unitStrings" 
-				unit-function="resultsCtrl.initialCO2Indoor.unitFunction"
-				unit-conversion="resultsCtrl.initialCO2Indoor.conversion"
-				base-value="resultsCtrl.initialCO2Indoor.baseValue"
-				field-label="resultsCtrl.initialCO2Indoor.label"
-				min="resultsCtrl.initialCO2Indoor.min"
-				species="resultsCtrl.initialCO2Indoor.species"
-				disable-number="true"
-				disable-units="true"></unitconverter>					
-			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 				unit-strings="resultsCtrl.CO2Outdoor.unitStrings" 
 				unit-function="resultsCtrl.CO2Outdoor.unitFunction"
 				unit-conversion="resultsCtrl.CO2Outdoor.conversion"
@@ -149,17 +139,17 @@
 					<td>{{resultsCtrl.results.alt.timeToCSS | number:1}}</td>
 				</tr>
 				<tr>
-					<td>CO2 concentration at steady state (mg/m&sup3;):</td>
+					<td>CO2 concentration at steady state (ppm):</td>
 					<td>{{resultsCtrl.results.base.Css | number:0}}</td>
 					<td>{{resultsCtrl.results.alt.Css | number:0}}</td>
 				</tr>
 				<tr>
-					<td>CO2 concentration at time to metric (mg/m&sup3;):</td>
+					<td>CO2 concentration at time to metric (ppm):</td>
 					<td>{{resultsCtrl.results.base.c_at_metric | number:0}}</td>
 					<td>{{resultsCtrl.results.alt.c_at_metric | number:0}}</td>
 				</tr>
 				<tr>
-					<td>CO2 concentration at 1 hour (mg/m&sup3;):</td>
+					<td>CO2 concentration at 1 hour (ppm):</td>
 					<td>{{resultsCtrl.results.base.c_at_h | number:0}}</td>
 					<td>{{resultsCtrl.results.alt.c_at_h | number:0}}</td>
 				</tr>
