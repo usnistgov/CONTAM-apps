@@ -94,29 +94,21 @@
 						species="inputsCtrl.inputs.commercial.CO2Outdoor.species"></unitconverter>
 
 					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
-						unit-strings="inputsCtrl.inputs.commercial.floorArea.unitStrings" 
-						unit-function="inputsCtrl.inputs.commercial.floorArea.unitFunction"
-						unit-conversion="inputsCtrl.inputs.commercial.floorArea.conversion"
-						base-value="inputsCtrl.inputs.commercial.floorArea.baseValue"
-						field-label="inputsCtrl.inputs.commercial.floorArea.label"
-						min="inputsCtrl.inputs.commercial.floorArea.min"></unitconverter>
-
-					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 						unit-strings="inputsCtrl.inputs.commercial.ceilingHeight.unitStrings" 
 						unit-function="inputsCtrl.inputs.commercial.ceilingHeight.unitFunction"
 						unit-conversion="inputsCtrl.inputs.commercial.ceilingHeight.conversion"
 						base-value="inputsCtrl.inputs.commercial.ceilingHeight.baseValue"
 						field-label="inputsCtrl.inputs.commercial.ceilingHeight.label"
 						min="inputsCtrl.inputs.commercial.ceilingHeight.min"></unitconverter>				
-					<!--
+
 					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 						unit-strings="inputsCtrl.inputs.commercial.floorArea.unitStrings" 
 						unit-function="inputsCtrl.inputs.commercial.floorArea.unitFunction"
 						unit-conversion="inputsCtrl.inputs.commercial.floorArea.conversion"
 						base-value="inputsCtrl.inputs.commercial.floorArea.baseValue"
 						field-label="inputsCtrl.inputs.commercial.floorArea.label"
-						min="inputsCtrl.inputs.commercial.floorArea.min"></unitconverter>				
-					-->
+						min="inputsCtrl.inputs.commercial.floorArea.min"
+            value-change-callback="inputsCtrl.updateBothValues"></unitconverter>
 				</div>
 			</div>
 		</div>
@@ -139,14 +131,6 @@
 						field-label="inputsCtrl.inputs.residential.CO2Outdoor.label"
 						min="inputsCtrl.inputs.residential.CO2Outdoor.min"
 						species="inputsCtrl.inputs.residential.CO2Outdoor.species"></unitconverter>
-
-					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
-						unit-strings="inputsCtrl.inputs.residential.floorArea.unitStrings" 
-						unit-function="inputsCtrl.inputs.residential.floorArea.unitFunction"
-						unit-conversion="inputsCtrl.inputs.residential.floorArea.conversion"
-						base-value="inputsCtrl.inputs.residential.floorArea.baseValue"
-						field-label="inputsCtrl.inputs.residential.floorArea.label"
-						min="inputsCtrl.inputs.residential.floorArea.min"></unitconverter>
 
 					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 						unit-strings="inputsCtrl.inputs.residential.ceilingHeight.unitStrings" 
