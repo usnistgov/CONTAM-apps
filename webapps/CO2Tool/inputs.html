@@ -2,7 +2,7 @@
 			<div class="col-md-6 col-xs-12">
 				<div class="row">
 					<h4 class="col-xs-12">Building Type</h4>
-					<div class="col-sm-6 col-xs-12"><input type="radio" value="com" ng-model="inputsCtrl.inputs.SpaceCategory" style="margin-right: 1ex"> Commercial/Institution</div>
+					<div class="col-sm-6 col-xs-12"><input type="radio" value="com" ng-model="inputsCtrl.inputs.SpaceCategory" style="margin-right: 1ex"> Commercial/Institutional</div>
 					<div class="col-sm-6 col-xs-12"><input type="radio" value="res" ng-model="inputsCtrl.inputs.SpaceCategory" style="margin-right: 1ex"> Residential</div>
 				</div>
 			</div>
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'pre' && inputsCtrl.inputs.SpaceCategory == 'com'">
-			<h3>Predefined Commercial Buildings (from ASHRAE Standard 62.1-2016)</h3>
+			<h3>Predefined Commercial Buildings (from ASHRAE Standard 62.1-2019)</h3>
 			<div class="container section" style="padding-top: 1ex; padding-bottom: 1ex;">
 				<select ng-model="inputsCtrl.inputs.preDefinedSpaceTypeSelection" ng-Change="inputsCtrl.changeSpaceType()" class="form-control">
 					<option value="0">Classroom (5-8 y)</option>
@@ -49,7 +49,7 @@
 						<span class="underline">Occupant Density</span><br>{{inputsCtrl.inputs.commercial.predefined.occupantDensity}} #/100 m&sup2;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.commercial.predefined.ventilationRate}} L/s
+						<span class="underline">Primary Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.commercial.predefined.ventilationRate}} L/s
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Time to Metric</span><br>{{inputsCtrl.inputs.commercial.predefined.timeToMetric}} h
@@ -264,35 +264,35 @@
 			<h3>Predefined Residential Buildings</h3>
 			<div class="container section" style="padding-top: 1ex; padding-bottom: 1ex;">
 				<select ng-model="inputsCtrl.inputs.preDefinedResSpaceTypeSelection" ng-Change="inputsCtrl.changeResSpaceType()" class="form-control col-xs-12">
-					<option value="0">Large House, Baseline Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="0">Large House, Baseline Family, Whole House, ASHRAE Standard 62.2-2019</option>
 					<option value="1">Large House, Baseline Family, Whole House, 0.5 Air Changes per Hour</option>
-					<option value="2">Large House, Large Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="2">Large House, Large Family, Whole House, ASHRAE Standard 62.2-2019</option>
 					<option value="3">Large House, Large Family, Whole House, 0.5 Air Changes per Hour</option>
-					<option value="4">Small House, Baseline Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="4">Small House, Baseline Family, Whole House, ASHRAE Standard 62.2-2019</option>
 					<option value="5">Small House, Baseline Family, Whole House, 0.5 Air Changes per Hour</option>
-					<option value="6">Small House, Small Family, Whole House, ASHRAE Standard 62.2-2016</option>
+					<option value="6">Small House, Small Family, Whole House, ASHRAE Standard 62.2-2019</option>
 					<option value="7">Small House, Small Family, Whole House, 0.5 Air Changes per Hour</option>
-					<option value="8">Large House, Baseline Family, Master Bedroom, Perfect Distribution</option>
+					<option value="8">Large House, Baseline Family, Primary Bedroom, Perfect Distribution</option>
 					<option value="9">Large House, Baseline Family, Child Bedroom, Perfect Distribution</option>
-					<option value="10">Large House, Baseline Family, Master Bedroom, Uniform Distribution</option>
+					<option value="10">Large House, Baseline Family, Primary Bedroom, Uniform Distribution</option>
 					<option value="11">Large House, Baseline Family, Child Bedroom, Uniform Distribution</option>
-					<option value="12">Large House, Baseline Family, Master Bedroom, 10 L/s per Person</option>
+					<option value="12">Large House, Baseline Family, Primary Bedroom, 10 L/s per Person</option>
 					<option value="13">Large House, Baseline Family, Child Bedroom, 10 L/s per Person</option>
-					<option value="14">Large House, Large Family, Master Bedroom, Perfect Distribution</option>
+					<option value="14">Large House, Large Family, Primary Bedroom, Perfect Distribution</option>
 					<option value="15">Large House, Large Family, Child Bedroom, Perfect Distribution</option>
-					<option value="16">Large House, Large Family, Master Bedroom, Uniform Distribution</option>
+					<option value="16">Large House, Large Family, Primary Bedroom, Uniform Distribution</option>
 					<option value="17">Large House, Large Family, Child Bedroom, Uniform Distribution</option>
-					<option value="18">Large House, Large Family, Master Bedroom, 10 L/s per Person</option>
+					<option value="18">Large House, Large Family, Primary Bedroom, 10 L/s per Person</option>
 					<option value="19">Large House, Large Family, Child Bedroom, 10 L/s per Person</option>
-					<option value="20">Small House, Baseline Family, Master Bedroom, Perfect Distribution</option>
+					<option value="20">Small House, Baseline Family, Primary Bedroom, Perfect Distribution</option>
 					<option value="21">Small House, Baseline Family, Child Bedroom, Perfect Distribution</option>
-					<option value="22">Small House, Baseline Family, Master Bedroom, Uniform Distribution</option>
+					<option value="22">Small House, Baseline Family, Primary Bedroom, Uniform Distribution</option>
 					<option value="23">Small House, Baseline Family, Child Bedroom, Uniform Distribution</option>
-					<option value="24">Small House, Baseline Family, Master Bedroom, 10 L/s per Person</option>
+					<option value="24">Small House, Baseline Family, Primary Bedroom, 10 L/s per Person</option>
 					<option value="25">Small House, Baseline Family, Child Bedroom, 10 L/s per Person</option>
-					<option value="26">Small House, Small Family, Master Bedroom, Perfect Distribution</option>
-					<option value="27">Small House, Small Family, Master Bedroom, Uniform Distribution</option>
-					<option value="28">Small House, Small Family, Master Bedroom, 10 L/s per Person</option>
+					<option value="26">Small House, Small Family, Primary Bedroom, Perfect Distribution</option>
+					<option value="27">Small House, Small Family, Primary Bedroom, Uniform Distribution</option>
+					<option value="28">Small House, Small Family, Primary Bedroom, 10 L/s per Person</option>
 				</select>
 				<div class="row">
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
@@ -317,16 +317,13 @@
 						<span class="underline">Scenario</span><br>{{inputsCtrl.inputs.residential.predefined.scenario}}
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Method</span><br>{{inputsCtrl.inputs.residential.predefined.method}}
-					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Number of Occupants in House</span><br>{{inputsCtrl.inputs.residential.predefined.numWholeOccupants | number:0}}
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
 						<span class="underline">Number of Air Changes</span><br>{{inputsCtrl.inputs.residential.predefined.ach | number:1}}
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
-						<span class="underline">Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.achpp | number:1}} L/s
+						<span class="underline">Primary Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.achpp | number:1}} L/s
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.scenario == 'Bedroom'">
 						<span class="underline">Bedroom Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.bedFloorArea | number:1}} m&sup2;
@@ -412,7 +409,7 @@
 						<div class="col-xs-12" style="padding-bottom: 1ex;">
 							<div class="row">
 								<div class="col-md-3 col-sm-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
-									<div><input type="radio" value="62.2" ng-model="inputsCtrl.inputs.residential.wholeVentType" style="margin-right: 1ex">ASHRAE 62.2-2016</div>
+									<div><input type="radio" value="62.2" ng-model="inputsCtrl.inputs.residential.wholeVentType" style="margin-right: 1ex">ASHRAE 62.2-2019</div>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
 									<div><input type="radio" value="ACH" ng-model="inputsCtrl.inputs.residential.wholeVentType" style="margin-right: 1ex">Air Change rate:</div>
@@ -437,7 +434,7 @@
 							<div class="row" style="padding: 1ex 0px;">
 								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Air Change rate:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.residential.wholeACH" min="0.0001" class="form-control" ng-Change="inputsCtrl.updateACHPerPerson();"></div>
-								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">ACH</div>
+								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">1/h</div>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.wholeVentType == 'ACH'">
@@ -549,10 +546,10 @@
 						<div class="col-xs-12">
 							<div class="row" style="padding-bottom: 1ex;">
 								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
-									<div><input type="radio" value="Perfect" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 perfect</div>
+									<div><input type="radio" value="Perfect" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2019 perfect</div>
 								</div>
 								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
-									<div><input type="radio" value="Uniform" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2016 uniform</div>
+									<div><input type="radio" value="Uniform" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">ASHRAE 62.2-2019 uniform</div>
 								</div>
 								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
 									<div><input type="radio" value="CEN" ng-model="inputsCtrl.inputs.residential.roomVentType" style="margin-right: 1ex">User-Defined</div>
