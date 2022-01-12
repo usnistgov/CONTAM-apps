@@ -70,12 +70,8 @@ function InputsController($state, InputsService) {
 		// this will make the grouplist show the remove group button for the user list only
 		inputsCtrl.inputs.residential.bedroom_occupants.showRemove = true;
 
-		inputsCtrl.inputs.residential.CO2Outdoor = {baseValue: 0, conversion: 11, label: "Outdoor CO2 Concentration", 
+		inputsCtrl.inputs.residential.CO2Outdoor = {baseValue: 0.00060776, conversion: 1, label: "Outdoor CO2 Concentration", 
 			unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert,
-			min: 0, species: inputsCtrl.inputs.CO2Species};
-
-		inputsCtrl.inputs.residential.initialCO2Indoor = {baseValue: 0, conversion: 11, label: "Initial Indoor CO2 Concentration",
-			unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert, 
 			min: 0, species: inputsCtrl.inputs.CO2Species};
 
 		inputsCtrl.inputs.residential.floorArea = {baseValue: 100, conversion: 0, label: "Building Floor Area", 
@@ -104,16 +100,12 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.commercial.occupants.showRemove = true;
 		inputsCtrl.inputs.commercial.buildingName = "";
 
-		inputsCtrl.inputs.commercial.CO2Outdoor = {baseValue: 0, conversion: 11, label: "Outdoor CO2 Concentration", 
+		inputsCtrl.inputs.commercial.CO2Outdoor = {baseValue: 0.00060776, conversion: 1, label: "Outdoor CO2 Concentration", 
 			unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert,
 			min: 0, species: inputsCtrl.inputs.CO2Species};
 
-		inputsCtrl.inputs.commercial.initialCO2Indoor = {baseValue: 0, conversion: 11, label: "Initial Indoor CO2 Concentration",
-			unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert, 
-			min: 0, species: inputsCtrl.inputs.CO2Species};
-
-		//inputsCtrl.inputs.commercial.floorArea = {baseValue: 100, conversion: 0, label: "Building Floor Area", 
-			//unitStrings: CONTAM.Units.Strings2.Area, unitFunction: CONTAM.Units.AreaConvert, min: 1};
+		inputsCtrl.inputs.commercial.floorArea = {baseValue: 100, conversion: 0, label: "Building Floor Area", 
+			unitStrings: CONTAM.Units.Strings2.Area, unitFunction: CONTAM.Units.AreaConvert, min: 1};
 
 		inputsCtrl.inputs.commercial.ceilingHeight = {baseValue: 3, conversion: 0, label: "Ceiling Height", 
 			unitStrings: CONTAM.Units.Strings2.Length, unitFunction: CONTAM.Units.LengthConvert, min: 0};
@@ -372,8 +364,8 @@ function InputsController($state, InputsService) {
 				// convert CO2 to mg/m^3
 				CO2Outdoor = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.CO2Outdoor.baseValue, 
 					11, 0, inputsCtrl.inputs.commercial.CO2Outdoor.species);
-				initialCO2Indoor = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.initialCO2Indoor.baseValue, 
-					11, 0, inputsCtrl.inputs.commercial.initialCO2Indoor.species);
+				initialCO2Indoor = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.CO2Outdoor.baseValue, 
+					11, 0, inputsCtrl.inputs.commercial.CO2Outdoor.species);
 			}
 			//save inputs to the InputsService
 			InputsService.setInputs(inputsCtrl.inputs);
@@ -517,8 +509,8 @@ function InputsController($state, InputsService) {
 				// convert CO2 to mg/m^3
 				var CO2Outdoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.CO2Outdoor.baseValue, 
 					11, 0, inputsCtrl.inputs.residential.CO2Outdoor.species);
-				var CO2Indoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.initialCO2Indoor.baseValue, 
-					11, 0, inputsCtrl.inputs.residential.initialCO2Indoor.species);
+				var CO2Indoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.CO2Outdoor.baseValue, 
+					11, 0, inputsCtrl.inputs.residential.CO2Outdoor.species);
 				
 				// do calculations
 				inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor_mg_per_m3, CO2Indoor_mg_per_m3, volumePerPerson, 
