@@ -725,18 +725,14 @@ function InputsController($state, InputsService) {
 				alert(inputsCtrl.inputs.commercial.CO2Outdoor.label + message);
 				return true;
 			}
-			if(inputsCtrl.inputs.commercial.initialCO2Indoor.baseValue == null) {
-				alert(inputsCtrl.inputs.commercial.initialCO2Indoor.label + message);
-				return true;
-			}
 			if(inputsCtrl.inputs.commercial.ceilingHeight.baseValue == null) {
 				alert(inputsCtrl.inputs.commercial.ceilingHeight.label + message);
 				return true;
 			}
-			//if(inputsCtrl.inputs.commercial.floorArea.baseValue == null) {
-			//	alert(inputsCtrl.inputs.commercial.floorArea.label + message);
-			//	return true;
-			//}
+			if(inputsCtrl.inputs.commercial.floorArea.baseValue == null) {
+				alert(inputsCtrl.inputs.commercial.floorArea.label + message);
+				return true;
+			}
 			if(inputsCtrl.inputs.SpaceTypeType == "user"){
 				if(inputsCtrl.inputs.commercial.userOccupantDensity == null) {
 					alert("Occupant density" + message);
@@ -763,10 +759,6 @@ function InputsController($state, InputsService) {
 		} else {
 			if(inputsCtrl.inputs.residential.CO2Outdoor.baseValue == null) {
 				alert(inputsCtrl.inputs.residential.CO2Outdoor.label + message);
-				return true;
-			}
-			if(inputsCtrl.inputs.residential.initialCO2Indoor.baseValue == null) {
-				alert(inputsCtrl.inputs.residential.initialCO2Indoor.label + message);
 				return true;
 			}
 			if(inputsCtrl.inputs.residential.ceilingHeight.baseValue == null) {

@@ -22,11 +22,11 @@ function ResultsController($stateParams) {
 			let CO2Outdoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.commercial.predefined.CO2Outdoor, 
 				11, 1, resultsCtrl.inputs.commercial.CO2Outdoor.species);
 			let initialCO2Indoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.commercial.predefined.initialCO2Indoor, 
-				11, 1, resultsCtrl.inputs.commercial.initialCO2Indoor.species);
-			resultsCtrl.CO2Outdoor = {baseValue: CO2Outdoor, conversion: 11, label: "Outdoor CO2 Concentration", 
+				11, 1, resultsCtrl.inputs.commercial.CO2Outdoor.species);
+			resultsCtrl.CO2Outdoor = {baseValue: CO2Outdoor, conversion: 1, label: "Outdoor CO2 Concentration", 
 				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert,
 				min: 0, species: resultsCtrl.inputs.CO2Species};
-			resultsCtrl.initialCO2Indoor = {baseValue: initialCO2Indoor, conversion: 11, label: "Initial Indoor CO2 Concentration",
+			resultsCtrl.initialCO2Indoor = {baseValue: initialCO2Indoor, conversion: 1, label: "Initial Indoor CO2 Concentration",
 				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert, 
 				min: 0, species: resultsCtrl.inputs.CO2Species};
 			resultsCtrl.ceilingHeight = {baseValue: resultsCtrl.inputs.commercial.predefined.ceilingHeight, conversion: 0, label: "Ceiling Height", 
