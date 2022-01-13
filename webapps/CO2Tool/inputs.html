@@ -34,9 +34,6 @@
 						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.commercial.predefined.CO2Outdoor}} mg/m&sup3;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Initial Indoor CO2 Concentration</span><br>{{inputsCtrl.inputs.commercial.predefined.initialCO2Indoor}} mg/m&sup3;
-					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.commercial.predefined.ceilingHeight}} m
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
@@ -109,6 +106,14 @@
 						field-label="inputsCtrl.inputs.commercial.floorArea.label"
 						min="inputsCtrl.inputs.commercial.floorArea.min"
             value-change-callback="inputsCtrl.updateBothValues"></unitconverter>
+
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.commercial.temperature.unitStrings" 
+						unit-function="inputsCtrl.inputs.commercial.temperature.unitFunction"
+						unit-conversion="inputsCtrl.inputs.commercial.temperature.conversion"
+						base-value="inputsCtrl.inputs.commercial.temperature.baseValue"
+						field-label="inputsCtrl.inputs.commercial.temperature.label"
+						min="inputsCtrl.inputs.commercial.temperature.min"></unitconverter>
 				</div>
 			</div>
 		</div>
@@ -149,6 +154,14 @@
 						field-label="inputsCtrl.inputs.residential.floorArea.label"
 						min="inputsCtrl.inputs.residential.floorArea.min"
 						value-change-callback="inputsCtrl.updateBothValues"></unitconverter>				
+
+					<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+						unit-strings="inputsCtrl.inputs.residential.temperature.unitStrings" 
+						unit-function="inputsCtrl.inputs.residential.temperature.unitFunction"
+						unit-conversion="inputsCtrl.inputs.residential.temperature.conversion"
+						base-value="inputsCtrl.inputs.residential.temperature.baseValue"
+						field-label="inputsCtrl.inputs.residential.temperature.label"
+						min="inputsCtrl.inputs.residential.temperature.min"></unitconverter>				
 				</div>
 			</div>
 		</div>
@@ -279,9 +292,6 @@
 				<div class="row">
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.CO2Outdoor | number:1}} mg/m&sup3;
-					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Initial Indoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.initialCO2Indoor | number:1}} mg/m&sup3;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Building Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.floorArea | number:1}} m&sup2;

@@ -3,7 +3,7 @@ var CO2Tool = {};
 //people - # of people, mass, age group, sex, activity (met)
 // age group (0-5) <3, 3 to 10, 10 to 18, 18 to 30, 30 to 60, > 60
 CO2Tool.calculateResult = function(CO2Outdoor, 
-	volumePerPerson, timeToMetric, ventilationRate, groupsOfPeople, altVentilationRate){
+	volumePerPerson, timeToMetric, ventilationRate, groupsOfPeople, altVentilationRate, temperature){
 			
 	console.log("Calculate results: ");
 	console.log("CO2Outdoor: " + CO2Outdoor + " ppm");
@@ -11,8 +11,9 @@ CO2Tool.calculateResult = function(CO2Outdoor,
 	console.log("timeToMetric: " + timeToMetric + " h");
 	console.log("ventilationRate: " + ventilationRate + " L/s");
 	console.log("altVentilationRate: " + altVentilationRate + " L/s");
+	console.log("temperature: " + temperature + " K");
 	
-	var Vco2avg = CO2Tool.calculateGenerationRate(groupsOfPeople);	
+	var Vco2avg = CO2Tool.calculateGenerationRate(groupsOfPeople, temperature);	
 	
 	// main result
 	var defaultOA = 3.6 * ventilationRate / volumePerPerson;
@@ -59,7 +60,7 @@ CO2Tool.calculateResult = function(CO2Outdoor,
 		points: points };
 }
 
-CO2Tool.calculateGenerationRate = function(groupsOfPeople){
+CO2Tool.calculateGenerationRate = function(groupsOfPeople, temperature){
 	
 	var RQ = 0.85;
 	var sumVco2 = 0;
@@ -88,7 +89,10 @@ CO2Tool.calculateGenerationRate = function(groupsOfPeople){
 			console.log("mass: " + groupOfPeople.mass);
 		}
 		console.log("BMR: " + BMR);
-		Vco2 = RQ * BMR * groupOfPeople.met * 0.000569;
+    let pressure = 101; //kPa
+    //CO2GEN = RQ * BMR * Met * ((T + 273.2) / P) * 0.000211
+    Vco2 = RQ * BMR * groupOfPeople.met*(temperature/ pressure) * 0.000211;
+		//Vco2 = RQ * BMR * groupOfPeople.met * 0.000569;
 		console.log("Vco2: " + Vco2);
 		sumVco2 += Vco2 * groupOfPeople.numPeople;
 		sumPeople += groupOfPeople.numPeople;

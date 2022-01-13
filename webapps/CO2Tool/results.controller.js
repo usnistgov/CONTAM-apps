@@ -32,14 +32,16 @@ function ResultsController($stateParams) {
 				unitStrings: CONTAM.Units.Strings2.Time, unitFunction: CONTAM.Units.TimeConvert, min: 1};
 			resultsCtrl.occupantDensity = resultsCtrl.inputs.commercial.predefined.occupantDensity;
 			resultsCtrl.occupants = resultsCtrl.inputs.commercial.predefined.occupants.slice();
+			resultsCtrl.temperature = {baseValue: 296.15, conversion: 2, label: "Indoor Temperature", 
+				unitStrings: CONTAM.Units.Strings2.Temperature, unitFunction: CONTAM.Units.TemperatureConvert};
 			// this will make the grouplist not show the remove occupants button
 			resultsCtrl.occupants.showRemove = false;
 		} else {
 			resultsCtrl.ventilationRate = resultsCtrl.inputs.commercial.ventilationRate;
 			resultsCtrl.altVentilationRate = resultsCtrl.inputs.commercial.altVentilationRate;
-			resultsCtrl.initialCO2Indoor = resultsCtrl.inputs.commercial.initialCO2Indoor;
 			resultsCtrl.CO2Outdoor = resultsCtrl.inputs.commercial.CO2Outdoor;
 			resultsCtrl.ceilingHeight = resultsCtrl.inputs.commercial.ceilingHeight;
+			resultsCtrl.temperature = resultsCtrl.inputs.commercial.temperature;
 			resultsCtrl.timeToMetric = resultsCtrl.inputs.commercial.timeToMetric;
 			resultsCtrl.occupantDensity = resultsCtrl.inputs.commercial.userOccupantDensity;
 			resultsCtrl.occupants = resultsCtrl.inputs.commercial.occupants.slice();
@@ -56,18 +58,15 @@ function ResultsController($stateParams) {
 			// convert to kg/kg
 			let CO2Outdoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.residential.predefined.CO2Outdoor, 
 				11, 1, resultsCtrl.inputs.residential.CO2Outdoor.species);
-			let initialCO2Indoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.residential.predefined.initialCO2Indoor, 
-				11, 1, resultsCtrl.inputs.residential.initialCO2Indoor.species);
 			resultsCtrl.CO2Outdoor = {baseValue: CO2Outdoor, conversion: 11, label: "Outdoor CO2 Concentration", 
 				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert,
 				min: 0, species: resultsCtrl.inputs.CO2Species};
-			resultsCtrl.initialCO2Indoor = {baseValue: initialCO2Indoor, conversion: 11, label: "Initial Indoor CO2 Concentration",
-				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert, 
-				min: 0, species: resultsCtrl.inputs.CO2Species};			
 			resultsCtrl.ceilingHeight = {baseValue: resultsCtrl.inputs.residential.predefined.ceilingHeight, conversion: 0, label: "Ceiling Height", 
 				unitStrings: CONTAM.Units.Strings2.Length, unitFunction: CONTAM.Units.LengthConvert, min: 0};
 			resultsCtrl.floorArea = {baseValue: resultsCtrl.inputs.residential.predefined.floorArea, conversion: 0, label: "Building Floor Area", 
 				unitStrings: CONTAM.Units.Strings2.Area, unitFunction: CONTAM.Units.AreaConvert, min: 1};
+			resultsCtrl.temperature = {baseValue: 296.15, conversion: 2, label: "Indoor Temperature", 
+				unitStrings: CONTAM.Units.Strings2.Temperature, unitFunction: CONTAM.Units.TemperatureConvert};
 			// convert to s	
 			let timeToMetric = CONTAM.Units.TimeConvert(resultsCtrl.inputs.residential.predefined.timeToMetric, 2, 1)
 			resultsCtrl.timeToMetric = {baseValue: timeToMetric, conversion: 2, label: "Time to Metric",
@@ -84,10 +83,10 @@ function ResultsController($stateParams) {
 			resultsCtrl.numBedrooms = resultsCtrl.inputs.residential.predefined.numBedrooms;
 		} else {
 			resultsCtrl.altVentilationRate = resultsCtrl.inputs.residential.altVentilationRate;
-			resultsCtrl.initialCO2Indoor = resultsCtrl.inputs.residential.initialCO2Indoor;
 			resultsCtrl.CO2Outdoor = resultsCtrl.inputs.residential.CO2Outdoor;
 			resultsCtrl.ceilingHeight = resultsCtrl.inputs.residential.ceilingHeight;
 			resultsCtrl.floorArea = resultsCtrl.inputs.residential.floorArea;
+			resultsCtrl.temperature = resultsCtrl.inputs.residential.temperature;
 			resultsCtrl.timeToMetric = resultsCtrl.inputs.residential.timeToMetric;
 			resultsCtrl.scenario = resultsCtrl.inputs.residential.resType;
 			resultsCtrl.houseNumPeople = resultsCtrl.inputs.residential.houseNumPeople;
@@ -203,7 +202,7 @@ function ResultsController($stateParams) {
 			report.push([type + "Residential Building"]);
 		}		
 		report.push(["Inputs + Space Description"]);
-		let line = ["", "Co (mg/m\xB3)", "Ci (mg/m\xB3)", "HCeil (m)", "tmetric (h)", "Q (L/s person)", "Qalt (L/s person)"];
+		let line = ["", "Co (ppm)", "HCeil (m)", "tmetric (h)", "Q (L/s person)", "Qalt (L/s person)"];
 		if(resultsCtrl.inputs.SpaceCategory =='res'){
 			line.push("Bfl (m\xB2)");
 		}
@@ -212,11 +211,9 @@ function ResultsController($stateParams) {
 		}
 		report.push(line);
 		
-		// convert CO2 to mg/m\xB3
-		let CO2Outdoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(resultsCtrl.CO2Outdoor.baseValue, 
-			11, 0, resultsCtrl.CO2Outdoor.species);
-		let CO2Indoor_mg_per_m3 = CONTAM.Units.Concen_M_Convert(resultsCtrl.initialCO2Indoor.baseValue, 
-			11, 0, resultsCtrl.initialCO2Indoor.species);
+		// convert CO2 to ppm
+		let CO2Outdoor_ppm = CONTAM.Units.Concen_M_Convert(resultsCtrl.CO2Outdoor.baseValue, 
+			1, 0, resultsCtrl.CO2Outdoor.species);
 		
 		// convert to L/s
 		let altVentilationRate = CONTAM.Units.FlowConvert(resultsCtrl.altVentilationRate.baseValue, 2, 0);
@@ -224,7 +221,7 @@ function ResultsController($stateParams) {
 		
 		// convert to h
 		let timeToMetric = CONTAM.Units.TimeConvert(resultsCtrl.timeToMetric.baseValue, 2, 0);		
-		line = ["", CO2Outdoor_mg_per_m3.toFixed(0), CO2Indoor_mg_per_m3.toFixed(0), 
+		line = ["", CO2Outdoor_ppm.toFixed(0), 
 			resultsCtrl.ceilingHeight.baseValue.toFixed(1), timeToMetric.toFixed(1),
 			ventilationRate.toFixed(1), altVentilationRate.toFixed(1)];
 		if(resultsCtrl.inputs.SpaceCategory =='com'){
