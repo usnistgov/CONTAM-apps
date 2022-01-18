@@ -132,49 +132,49 @@ function InputsController($state, InputsService) {
 	
 	// stored data on spaces
 	inputsCtrl.spaceTypeData = [
-		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 25, timeToMetric: 2, ventilationRate:7.4, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 35, timeToMetric: 2, ventilationRate:6.7, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.9, occupantDensity: 70, timeToMetric: 2, ventilationRate:5.1, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 50, timeToMetric: 1, ventilationRate:3.1, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 10, timeToMetric: 6, ventilationRate:5.5, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 5, timeToMetric: 2, ventilationRate:8.5, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 0, ceilingHeight: 3},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.6, occupantDensity: 15, timeToMetric: 2, ventilationRate:7.8, CO2Outdoor: 0, ceilingHeight: 3}
+		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 25, timeToMetric: 2, ventilationRate:7.4, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 35, timeToMetric: 2, ventilationRate:6.7, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.9, occupantDensity: 70, timeToMetric: 2, ventilationRate:5.1, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 50, timeToMetric: 1, ventilationRate:3.1, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 10, timeToMetric: 6, ventilationRate:5.5, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 5, timeToMetric: 2, ventilationRate:8.5, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.6, occupantDensity: 15, timeToMetric: 2, ventilationRate:7.8, CO2Outdoor: 400, ceilingHeight: 3}
 	];
 
 	// stored data on houses
 	inputsCtrl.resHouseData = [
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, scenario: 'Whole House', method: '62.2', numWholeOccupants: 4, occupants: 0}, // big house normal family (622)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 3, ach: 0.5, achpp: 23.8, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 4, occupants: 0}, // big house normal family (ACH)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, scenario: 'Whole House', method: '62.2', numWholeOccupants: 6, occupants: 1}, // big house big family (622)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 5, ach: 0.5, achpp: 15.86, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 6, occupants: 1}, // big house big family (ACH)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 3, calc622: 29, calc622pp: 7.25, scenario: 'Whole House', method: '62.2', numWholeOccupants: 4, occupants: 0}, // little house normal family (622)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 3, ach: 0.5, achpp: 8.5, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 4, occupants: 0}, // little house normal family (ACH)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, calc622: 22, calc622pp: 11, scenario: 'Whole House', method: '62.2', numWholeOccupants: 2, occupants: 2}, // little house small family (622)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, ach: 0.5, achpp: 17, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 2, occupants: 2}, // little house small family (ACH)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 25.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family perfect (Primary)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 12.875, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family perfect (child)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 6.18, uniformpp: 3.09, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family uniform (Primary)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 4.12, uniformpp: 2.06, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family uniform (child)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family 10 L/s (Primary)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family 10 L/s (child)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 19.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family perfect (Primary)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 9.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family perfect (child)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 7.02, uniformpp: 3.51, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family uniform (Primary)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 4.68, uniformpp: 4.68, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family uniform (child)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family 10 L/s (Primary)
-		{CO2Outdoor: 0, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family 10 L/s (child)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, perfect: 14.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family perfect (Primary)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, perfect: 7.25, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family perfect (child)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, uniform: 5.8, uniformpp: 2.9, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family uniform (Primary)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, uniform: 4.35, uniformpp: 4.35, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family uniform (child)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family 10 L/s (Primary)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family 10 L/s (child)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, perfect: 11, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family perfect (Primary)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, uniform: 4.4, uniformpp: 2.2, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family uniform (Primary)
-		{CO2Outdoor: 0, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2} // little house small family 10 L/s (Primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, scenario: 'Whole House', method: '62.2', numWholeOccupants: 4, occupants: 0}, // big house normal family (622)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 3, ach: 0.5, achpp: 23.8, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 4, occupants: 0}, // big house normal family (ACH)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, scenario: 'Whole House', method: '62.2', numWholeOccupants: 6, occupants: 1}, // big house big family (622)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 5, ach: 0.5, achpp: 15.86, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 6, occupants: 1}, // big house big family (ACH)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 3, calc622: 29, calc622pp: 7.25, scenario: 'Whole House', method: '62.2', numWholeOccupants: 4, occupants: 0}, // little house normal family (622)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 3, ach: 0.5, achpp: 8.5, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 4, occupants: 0}, // little house normal family (ACH)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, calc622: 22, calc622pp: 11, scenario: 'Whole House', method: '62.2', numWholeOccupants: 2, occupants: 2}, // little house small family (622)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, ach: 0.5, achpp: 17, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 2, occupants: 2}, // little house small family (ACH)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 25.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family perfect (Primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 12.875, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family perfect (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 6.18, uniformpp: 3.09, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family uniform (Primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 4.12, uniformpp: 2.06, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family uniform (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family 10 L/s (Primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family 10 L/s (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 19.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family perfect (Primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 9.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family perfect (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 7.02, uniformpp: 3.51, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family uniform (Primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 4.68, uniformpp: 4.68, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family uniform (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family 10 L/s (Primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family 10 L/s (child)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, perfect: 14.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family perfect (Primary)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, perfect: 7.25, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family perfect (child)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, uniform: 5.8, uniformpp: 2.9, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family uniform (Primary)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, uniform: 4.35, uniformpp: 4.35, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family uniform (child)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family 10 L/s (Primary)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family 10 L/s (child)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, perfect: 11, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family perfect (Primary)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, uniform: 4.4, uniformpp: 2.2, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family uniform (Primary)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2} // little house small family 10 L/s (Primary)
 	];
 
 	// predefined occupant data
