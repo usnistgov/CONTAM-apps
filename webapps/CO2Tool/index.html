@@ -23,6 +23,9 @@
     <script src="../contam/unitsStrings.js"></script>
     <script src="../components/unitconverter.component.js"></script>
     <script src="../contam/unitsConversions.js"></script>
+    <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+    <script src="https://pages.nist.gov/nist-header-footer/js/jquery-1.9.0.min.js" type="text/javascript" defer="defer"></script>
+    <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
 	<style>
 		.section 
 		{ 
@@ -39,9 +42,8 @@
     <div class="title"  style="display: flex; justify-content: space-between;">
       <div>
         <a href="https://www.nist.gov/el/energy-and-environment-division-73200/nist-multizone-modeling" class="blacklink">
-          <img src="../../images/NIST_logo.svg" width="151" height="40">
+          <h1 class="inblock">Multizone Modeling</h1>
         </a>
-        <h1 class="inblock">Multizone Modeling</h1>
       </div>
       <nav>
         <input id="menuImage" type="image" alt="Menu Icon"
@@ -62,7 +64,8 @@
       </section>
     </article>
     <footer>
-      Page Updated : 8/15/2019 - Page Created : 06/2019<br>
+      Page Updated : <span id="moddate"></span> - Page Created : 06/2019<br>
+      <script>document.getElementById('moddate').textContent = new Date(document.lastModified).toDateString()</script>
     </footer>
   </body>
 </html>
