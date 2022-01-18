@@ -94,7 +94,7 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.residential.roomFloorArea = {baseValue: 12, conversion: 0, label: "Bedroom Floor Area", 
 			unitStrings: CONTAM.Units.Strings2.Area, unitFunction: CONTAM.Units.AreaConvert, min: 1};
 			
-		inputsCtrl.inputs.residential.roomVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Primary Ventilation per Person",
+		inputsCtrl.inputs.residential.roomVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Primary Ventilation Rate per Person",
 			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
 
 		//commercial
@@ -119,7 +119,7 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.commercial.timeToMetric = {baseValue: 7200, conversion: 2, label: "Time to Metric",
 			unitStrings: CONTAM.Units.Strings2.Time, unitFunction: CONTAM.Units.TimeConvert, min: 1};
 
-		inputsCtrl.inputs.commercial.ventilationRate = {baseValue: 0.012041, conversion: 2, label: "Primary Ventilation per Person",
+		inputsCtrl.inputs.commercial.ventilationRate = {baseValue: 0.012041, conversion: 2, label: "Primary Ventilation Rate per Person",
 			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
 		inputsCtrl.inputs.commercial.altVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
 			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
@@ -318,14 +318,14 @@ function InputsController($state, InputsService) {
 			
 		if(inputsCtrl.inputs.SpaceCategory =='com') {
 			let ceilingHeight; // in m
-			let CO2Outdoor; // in mg/m^3
+			let CO2Outdoor; // in ppm
 			let occupantDensity;
 			let occupants; 
 			let timeToMetric; // in h
 			let ventilationRate; // in mg/m^3
 			let altVentilationRate; // in mg/m^3
-      let temperature; // in K
-			
+			let temperature; // in K
+
 			if(inputsCtrl.inputs.SpaceTypeType == "pre"){
 				timeToMetric = inputsCtrl.inputs.commercial.predefined.timeToMetric
 				ventilationRate = inputsCtrl.inputs.commercial.predefined.ventilationRate;
@@ -337,19 +337,13 @@ function InputsController($state, InputsService) {
         temperature = 296.15;
 			}else{
 				if(inputsCtrl.inputs.commercial.occupants.length == 0) {
-					alert(inputsCtrl.inputs.commercial.userOccupantDensity + " occupants must be defined.");
+					alert("At least one occupant must be defined.");
 					return;
 				}
 				var occupantCount = 0;
 				// determine number of occupants entered
 				for(var i=0; i<inputsCtrl.inputs.commercial.occupants.length; ++i) {
 					occupantCount += inputsCtrl.inputs.commercial.occupants[i].numPeople;
-				}
-				if(occupantCount != inputsCtrl.inputs.commercial.userOccupantDensity) { 
-					alert("The total number of occupants entered must match the occupant density.\n" + 
-						"Occupant Density: " + inputsCtrl.inputs.commercial.userOccupantDensity + "\n" +
-						"Total Occupant Count: " + occupantCount);
-					return;
 				}
 				occupantDensity = inputsCtrl.inputs.commercial.userOccupantDensity;
 				// convert from seconds to hours
@@ -371,9 +365,9 @@ function InputsController($state, InputsService) {
 			}
 			//save inputs to the InputsService
 			InputsService.setInputs(inputsCtrl.inputs);
-			
+
 			let volumePerPerson = (100 / occupantDensity) * ceilingHeight;
-				
+
 			// do calculations
 			inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, volumePerPerson, 
 				timeToMetric, ventilationRate, occupants, altVentilationRate, temperature);
@@ -638,7 +632,6 @@ function InputsController($state, InputsService) {
 			11, 1, inputsCtrl.inputs.commercial.CO2Outdoor.species);
 
 		inputsCtrl.inputs.commercial.ceilingHeight.baseValue = inputsCtrl.inputs.commercial.predefined.ceilingHeight;
-		inputsCtrl.inputs.commercial.userOccupantDensity = inputsCtrl.inputs.commercial.predefined.occupantDensity;
 		//convert from hours to seconds
 		inputsCtrl.inputs.commercial.timeToMetric.baseValue = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.predefined.timeToMetric, 2, 1);
 		// convert from L/s to kg/s 
@@ -734,10 +727,6 @@ function InputsController($state, InputsService) {
 				return true;
 			}
 			if(inputsCtrl.inputs.SpaceTypeType == "user"){
-				if(inputsCtrl.inputs.commercial.userOccupantDensity == null) {
-					alert("Occupant density" + message);
-					return true;
-				}
 				if(inputsCtrl.inputs.commercial.ventilationRate.baseValue == null) {
 					alert(inputsCtrl.inputs.commercial.ventilationRate.label + message);
 					return true;

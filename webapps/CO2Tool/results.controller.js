@@ -58,7 +58,7 @@ function ResultsController($stateParams) {
 			// convert to kg/kg
 			let CO2Outdoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.residential.predefined.CO2Outdoor, 
 				11, 1, resultsCtrl.inputs.residential.CO2Outdoor.species);
-			resultsCtrl.CO2Outdoor = {baseValue: CO2Outdoor, conversion: 11, label: "Outdoor CO2 Concentration", 
+			resultsCtrl.CO2Outdoor = {baseValue: CO2Outdoor, conversion: 1, label: "Outdoor CO2 Concentration", 
 				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert,
 				min: 0, species: resultsCtrl.inputs.CO2Species};
 			resultsCtrl.ceilingHeight = {baseValue: resultsCtrl.inputs.residential.predefined.ceilingHeight, conversion: 0, label: "Ceiling Height", 

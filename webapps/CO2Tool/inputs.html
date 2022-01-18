@@ -37,10 +37,10 @@
 						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.commercial.predefined.ceilingHeight}} m
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">62.1 Ventilation per Person</span><br>{{inputsCtrl.inputs.commercial.predefined.ventPerPerson}} L/s
+						<span class="underline">62.1 Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.commercial.predefined.ventPerPerson}} L/s
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">62.1 Ventilation per Floor Area</span><br>{{inputsCtrl.inputs.commercial.predefined.ventPerFloorArea}} L/s&dot;m&sup2;
+						<span class="underline">62.1 Ventilation Rate per Floor Area</span><br>{{inputsCtrl.inputs.commercial.predefined.ventPerFloorArea}} L/s&dot;m&sup2;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Occupant Density</span><br>{{inputsCtrl.inputs.commercial.predefined.occupantDensity}} #/100 m&sup2;
@@ -184,13 +184,6 @@
 					field-label="inputsCtrl.inputs.commercial.altVentilationRate.label"
 					min="inputsCtrl.inputs.commercial.altVentilationRate.min"></unitconverter>					
 
-				<div class="col-md-3 col-sm-4 col-xs-12">
-					<div class="row" style="padding: 1ex 0px;">
-						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Occupant Density:</div>
-						<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.commercial.userOccupantDensity" min="0" class="form-control"></div>
-						<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">#/100 m&sup2;</div>
-					</div>
-				</div>
 				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 					unit-strings="inputsCtrl.inputs.commercial.timeToMetric.unitStrings" 
 					unit-function="inputsCtrl.inputs.commercial.timeToMetric.unitFunction"
@@ -225,12 +218,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2 col-sm-4 col-xs-12">
-					<div class="row" style="padding: 1ex 0px;">
-						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
-						<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.commercial.new_occupants.numPeople" min="1" class="form-control"></div>
-					</div>
-				</div>
 				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 					unit-strings="inputsCtrl.inputs.commercial.new_occupants.mass.unitStrings" 
 					unit-function="inputsCtrl.inputs.commercial.new_occupants.mass.unitFunction"
@@ -246,6 +233,19 @@
 						<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">met</div>
 					</div>
 				</div>
+				<div class="col-md-2 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
+						<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.commercial.new_occupants.numPeople" min="1" class="form-control"></div>
+					</div>
+				</div>
+				<!--<div class="col-md-3 col-sm-4 col-xs-12">
+					<div class="row" style="padding: 1ex 0px;">
+						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Occupant Density:</div>
+						<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.commercial.new_occupants.userOccupantDensity" min="0" class="form-control" ng-disabled="true"></div>
+						<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">#/100 m&sup2;</div>
+					</div>
+				</div>-->
 				<div class="col-md-3 col-sm-4 col-xs-12" style="text-align:right; height: 90px; display:flex; flex-direction: column; justify-content: center;padding: 1ex 0px; align-items: center;">
 					<div><input type="button" value="Add Occupants" ng-click="inputsCtrl.addGroup()" class="btn btn-primary btn-sm"></div>
 				</div>
@@ -397,7 +397,7 @@
 				<h4 class="col-xs-12">Whole House Scenario</h4>
 				<div class="col-xs-12">
 					<div class="row">
-						<h5 class="col-xs-12">Primary Ventilation per Person</h5>
+						<h5 class="col-xs-12">Primary Ventilation Rate per Person</h5>
 						<div class="col-xs-12" style="padding-bottom: 1ex;">
 							<div class="row">
 								<div class="col-md-3 col-sm-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
@@ -417,7 +417,7 @@
 						</div>
 						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.wholeVentType == '62.2'">
 							<div class="row" style="padding: 1ex 0px;">
-								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation Rate per Person:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622PerPersonValue" class="form-control" ng-disabled="true"></div>
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
@@ -431,7 +431,7 @@
 						</div>
 						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.wholeVentType == 'ACH'">
 							<div class="row" style="padding: 1ex 0px;">
-								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation Rate per Person:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" ng-model="inputsCtrl.inputs.residential.wholeACHPerPerson" class="form-control" ng-disabled="true"></div>
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
@@ -469,12 +469,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2 col-sm-4 col-xs-12">
-									<div class="row" style="padding: 1ex 0px;">
-										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
-										<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.new_house_occupants.numPeople" min="1" class="form-control"></div>
-									</div>
-								</div>
 								<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 									unit-strings="inputsCtrl.inputs.residential.new_house_occupants.mass.unitStrings" 
 									unit-function="inputsCtrl.inputs.residential.new_house_occupants.mass.unitFunction"
@@ -488,6 +482,12 @@
 										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Activity Level:</div>
 										<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.residential.new_house_occupants.met" min="0" class="form-control"></div>
 										<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">met</div>
+									</div>
+								</div>
+								<div class="col-md-2 col-sm-4 col-xs-12">
+									<div class="row" style="padding: 1ex 0px;">
+										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
+										<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.new_house_occupants.numPeople" min="1" class="form-control"></div>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12" style="height: 90px; display:flex; flex-direction: column; justify-content: center;padding: 1ex 0px; align-items: center;">
@@ -534,7 +534,7 @@
 							field-label="inputsCtrl.inputs.residential.reduceVentilationRate.label"
 							min="inputsCtrl.inputs.residential.reduceVentilationRate.min"
 							value-change-callback="inputsCtrl.update622Values"></unitconverter>					
-						<h5 class="col-xs-12">Primary Ventilation per Person</h5>
+						<h5 class="col-xs-12">Primary Ventilation Rate per Person</h5>
 						<div class="col-xs-12">
 							<div class="row" style="padding-bottom: 1ex;">
 								<div class="col-md-4 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">
@@ -550,7 +550,7 @@
 						</div>
 						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'Perfect'">
 							<div class="row" style="padding: 1ex 0px;">
-								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation Rate per Person:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622PerfectValue" class="form-control" ng-disabled="true"></div>
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
@@ -564,7 +564,7 @@
 						</div>
 						<div class="col-md-3 col-sm-4 col-xs-12" ng-show="inputsCtrl.inputs.residential.roomVentType == 'Uniform'">
 							<div class="row" style="padding: 1ex 0px;">
-								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation per Person:</div>
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Ventilation Rate per Person:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.calc622UniformPerPersonValue" class="form-control" ng-disabled="true"></div>
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
@@ -609,12 +609,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-2 col-sm-4 col-xs-12">
-							<div class="row" style="padding: 1ex 0px;">
-								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
-								<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.numPeople" min="1" class="form-control"></div>
-							</div>
-						</div>
 						<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 							unit-strings="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.unitStrings" 
 							unit-function="inputsCtrl.inputs.residential.new_bedroom_occupants.mass.unitFunction"
@@ -628,6 +622,12 @@
 								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Activity Level:</div>
 								<div class="col-md-6 col-xs-12"><input type="number" step="any" ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.met" min="0" class="form-control"></div>
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">met</div>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-4 col-xs-12">
+							<div class="row" style="padding: 1ex 0px;">
+								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants:</div>
+								<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.numPeople" min="1" class="form-control"></div>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-4 col-xs-12" style="height: 90px; display:flex; flex-direction: column; justify-content: center;padding: 1ex 0px; align-items: center;">
