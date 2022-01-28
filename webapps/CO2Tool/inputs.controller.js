@@ -63,7 +63,7 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.preDefinedResSpaceTypeSelection = "0";
 		
 		//residential
-		inputsCtrl.inputs.residential = {buildingName: "", numBedrooms: 1, houseNumPeople: 4, bedroomNumPeople: 4, resType: "Whole House", 
+		inputsCtrl.inputs.residential = {buildingName: "", numBedrooms: 1, houseNumPeople: 4, bedroomNumPeople: 2, resType: "Whole House", 
 			wholeVentType: '62.2', wholeACH: 0.5, roomVentType: "Perfect", house_occupants: [], bedroom_occupants: []};
 		// this will make the grouplist show the remove group button for the user list only
 		inputsCtrl.inputs.residential.house_occupants.showRemove = true;
@@ -83,7 +83,7 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.residential.ceilingHeight = {baseValue: 3, conversion: 0, label: "Ceiling Height", 
 			unitStrings: CONTAM.Units.Strings2.Length, unitFunction: CONTAM.Units.LengthConvert, min: 0};
 
-		inputsCtrl.inputs.residential.timeToMetric = {baseValue: 7200, conversion: 2, label: "Time to Metric",
+		inputsCtrl.inputs.residential.timeToMetric = {baseValue: 21600, conversion: 2, label: "Time to Metric",
 			unitStrings: CONTAM.Units.Strings2.Time, unitFunction: CONTAM.Units.TimeConvert, min: 1};
 
 		inputsCtrl.inputs.residential.altVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
@@ -134,14 +134,15 @@ function InputsController($state, InputsService) {
 	inputsCtrl.spaceTypeData = [
 		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 25, timeToMetric: 2, ventilationRate:7.4, CO2Outdoor: 400, ceilingHeight: 3},
 		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 35, timeToMetric: 2, ventilationRate:6.7, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.9, occupantDensity: 70, timeToMetric: 2, ventilationRate:5.1, CO2Outdoor: 400, ceilingHeight: 3},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 4},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 5},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.9, occupantDensity: 70, timeToMetric: 2, ventilationRate:5.1, CO2Outdoor: 400, ceilingHeight: 4},
 		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 50, timeToMetric: 1, ventilationRate:3.1, CO2Outdoor: 400, ceilingHeight: 3},
 		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 10, timeToMetric: 6, ventilationRate:5.5, CO2Outdoor: 400, ceilingHeight: 3},
 		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 5, timeToMetric: 2, ventilationRate:8.5, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.6, occupantDensity: 15, timeToMetric: 2, ventilationRate:7.8, CO2Outdoor: 400, ceilingHeight: 3}
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 7.5},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 5},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.6, occupantDensity: 15, timeToMetric: 2, ventilationRate:7.8, CO2Outdoor: 400, ceilingHeight: 4}
 	];
 
 	// stored data on houses
@@ -185,28 +186,33 @@ function InputsController($state, InputsService) {
 			{ sex: "M", ageGroup: 4, mass: 85, met: 3, numPeople: 1}
 		],
 		[
-			{ sex: "M", ageGroup: 2, mass: 68, met: 1.7, numPeople: 17},
-			{ sex: "F", ageGroup: 2, mass: 61, met: 1.7, numPeople: 17},
+			{ sex: "M", ageGroup: 2, mass: 65, met: 1.7, numPeople: 17},
+			{ sex: "F", ageGroup: 2, mass: 60, met: 1.7, numPeople: 17},
 			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 1},
 		],
 		[
-			{ sex: "M", ageGroup: 3, mass: 83, met: 1.3, numPeople: 32},
-			{ sex: "F", ageGroup: 3, mass: 71, met: 1.3, numPeople: 32},
-			{ sex: "M", ageGroup: 4, mass: 85, met: 2, numPeople: 1},
+			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 32},
+			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 32},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.5, numPeople: 35},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.5, numPeople: 35},
+			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 74.5},
+			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 74.5},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1},
+		],
+		[
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.5, numPeople: 33},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.5, numPeople: 33},
 			{ sex: "M", ageGroup: 4, mass: 85, met: 3, numPeople: 2},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 3, numPeople: 2},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 25},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 25},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 25},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 25},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1, numPeople: 5},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1, numPeople: 5},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1, numPeople: 1},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1, numPeople: 1},
 		],
 		[
 			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 2.5},
@@ -221,8 +227,8 @@ function InputsController($state, InputsService) {
 			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 75},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 2, numPeople: 7.5},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 7.5},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 7.5},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 2.5, numPeople: 7.5},
 		]
 	];
 
