@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>CO2 Tool</title>
+    <title>Quick Indoor CO2</title>
     <meta charset="UTF-8">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="CO2Calcs.js"></script>
@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
     <script src="https://pages.nist.gov/nist-header-footer/js/jquery-1.9.0.min.js" type="text/javascript" defer="defer"></script>
     <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+    <script type="module">
+      import {TestMod} from "./testMod.js";
+      window.TestMod = TestMod;
+    </script>
 	<style>
 		.section 
 		{ 
@@ -53,14 +57,15 @@
     <article>
       <div style="display: flex; justify-content: space-between;">
         <div>
-			<h1>CO2 Metric Analysis Tool</h1>
-			<p>
-				link to documentation of this tool.
-			</p>
+          <h1>Quick Indoor CO2 (QICO2)</h1>
+          <p>An Indoor Carbon Dioxide Metric Analysis Tool</p>
+          <p>
+            link to documentation of this tool.
+          </p>
         </div>
       </div>
       <section>
-		<ui-view></ui-view>
+        <ui-view></ui-view>
       </section>
     </article>
     <footer>

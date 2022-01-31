@@ -15,8 +15,8 @@
 			</div>
 		</div>
 		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'pre' && inputsCtrl.inputs.SpaceCategory == 'com'">
-			<h3>Predefined Commercial Buildings (from ASHRAE Standard 62.1-2019)</h3>
 			<div class="container section" style="padding-top: 1ex; padding-bottom: 1ex;">
+        <h2>Predefined Commercial Buildings (from ASHRAE Standard 62.1-2019)</h2>
 				<select ng-model="inputsCtrl.inputs.preDefinedSpaceTypeSelection" ng-Change="inputsCtrl.changeSpaceType()" class="form-control">
 					<option value="0">Classroom (5-8 y)</option>
 					<option value="1">Classroom (9 y+)</option>
@@ -72,8 +72,8 @@
 			</div>
 		</div>
 		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'user' && inputsCtrl.inputs.SpaceCategory == 'com'">
-			<h3>User-Defined Commercial Building</h3>
 			<div class="container section">
+        <h2>User-Defined Commercial Building</h2>
 				<h3>Building Description</h3>
 				<div class="row">
 					<div class="col-md-3 col-sm-4 col-xs-12">
@@ -119,8 +119,8 @@
 			</div>
 		</div>
 		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'user' && inputsCtrl.inputs.SpaceCategory == 'res'">
-			<h3>User-Defined Residential Building</h3>
 			<div class="container section">
+        <h2>User-Defined Residential Building</h2>
 				<h3>Building Description</h3>
 				<div class="row">
 					<div class="col-md-3 col-sm-4 col-xs-12">
@@ -257,8 +257,8 @@
 			</div>
 		</div>
 		<div ng-show="inputsCtrl.inputs.SpaceTypeType == 'pre' && inputsCtrl.inputs.SpaceCategory == 'res'">
-			<h3>Predefined Residential Buildings</h3>
 			<div class="container section" style="padding-top: 1ex; padding-bottom: 1ex;">
+        <h2>Predefined Residential Buildings</h2>
 				<select ng-model="inputsCtrl.inputs.preDefinedResSpaceTypeSelection" ng-Change="inputsCtrl.changeResSpaceType()" class="form-control col-xs-12">
 					<option value="0">Large House, Baseline Family, Whole House, ASHRAE Standard 62.2-2019</option>
 					<option value="1">Large House, Baseline Family, Whole House, 0.5 Air Changes per Hour</option>
@@ -292,13 +292,13 @@
 				</select>
 				<div class="row">
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.CO2Outdoor | number:1}} ppm
+						<span class="underline">Outdoor CO2 Concentration</span><br>{{inputsCtrl.inputs.residential.predefined.CO2Outdoor}} ppm
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Building Floor Area</span><br>{{inputsCtrl.inputs.residential.predefined.floorArea | number:1}} m&sup2;
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
-						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.residential.predefined.ceilingHeight | number:1}} m
+						<span class="underline">Ceiling Height</span><br>{{inputsCtrl.inputs.residential.predefined.ceilingHeight}} m
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Time To Metric</span><br>{{inputsCtrl.inputs.residential.predefined.timeToMetric | number:1}} h

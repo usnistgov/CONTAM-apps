@@ -249,14 +249,14 @@ function InputsController($state, InputsService) {
 			{ sex: "F", ageGroup: 1, mass: 14, met: 2, numPeople: 1},
 		],
 		[ // Primary bedroom
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.0, numPeople: 1},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.0, numPeople: 1},
 		],
-		[ // this represents the average of the male and female child which will result in the desired 0.0023 Vco2
-			{ sex: "M", ageGroup: 1, mass: 23, met: 1.1072, numPeople: 1},
+		[ 
+			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 1},
 		],
-		[ // this represents the average of the four children in the large family which will result in the desired 0.0022 Vco2
-			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0591, numPeople: 1},
+		[ 
+			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 1},
 		],
 	];
 

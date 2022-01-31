@@ -57,7 +57,7 @@ function ResultsController($stateParams) {
 			resultsCtrl.altVentilationRate = resultsCtrl.inputs.residential.predefined.altVentilationRate;
 			// convert to kg/kg
 			let CO2Outdoor = CONTAM.Units.Concen_M_Convert(resultsCtrl.inputs.residential.predefined.CO2Outdoor, 
-				11, 1, resultsCtrl.inputs.residential.CO2Outdoor.species);
+				1, 1, resultsCtrl.inputs.residential.CO2Outdoor.species);
 			resultsCtrl.CO2Outdoor = {baseValue: CO2Outdoor, conversion: 1, label: "Outdoor CO2 Concentration", 
 				unitStrings: CONTAM.Units.Strings2.Concentration_M, unitFunction: CONTAM.Units.Concen_M_Convert,
 				min: 0, species: resultsCtrl.inputs.CO2Species};
@@ -264,7 +264,7 @@ function ResultsController($stateParams) {
 		}
 		report.push([]);			
 		
-		report.push(["", "tss (h)", "Css (mg/m\xB3)", "Cm (mg/m\xB3)", "C1h (mg/m\xB3)"]);
+		report.push(["", "tss (h)", "Css (ppm)", "Cm (ppm)", "C1h (ppm)"]);
 		report.push(["Primary Results", resultsCtrl.results.base.timeToCSS.toFixed(1), resultsCtrl.results.base.Css.toFixed(0), 
 			resultsCtrl.results.base.c_at_metric.toFixed(0), resultsCtrl.results.base.c_at_h.toFixed(0)]);
 		report.push(["Alternate  Results", resultsCtrl.results.alt.timeToCSS.toFixed(1), resultsCtrl.results.alt.Css.toFixed(0),
@@ -272,7 +272,7 @@ function ResultsController($stateParams) {
 		report.push([]);			
 
 		report.push(["Plot Data"]);
-		report.push(["", "Time (h)", "C (mg/m\xB3)", "Calt (mg/m\xB3)"]);
+		report.push(["", "Time (h)", "C (ppm)", "Calt (ppm)"]);
 		for(var i=1; i<resultsCtrl.chartData.length; ++i) {
 			report.push(["", resultsCtrl.chartData[i][0].toFixed(2), 
 				resultsCtrl.chartData[i][1].toFixed(0), resultsCtrl.chartData[i][2].toFixed(0)]);
