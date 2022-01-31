@@ -351,7 +351,9 @@ function InputsController($state, InputsService) {
 				for(var i=0; i<inputsCtrl.inputs.commercial.occupants.length; ++i) {
 					occupantCount += inputsCtrl.inputs.commercial.occupants[i].numPeople;
 				}
-				occupantDensity = inputsCtrl.inputs.commercial.userOccupantDensity;
+        occupantDensity = occupantCount / inputsCtrl.inputs.commercial.floorArea.baseValue * 100;
+        inputsCtrl.inputs.commercial.userOccupantDensity = occupantDensity;
+
 				// convert from seconds to hours
 				timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.timeToMetric.baseValue, 2, 0);
 
