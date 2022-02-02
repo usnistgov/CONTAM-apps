@@ -135,7 +135,7 @@ function InputsController($state, InputsService) {
 		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 25, timeToMetric: 2, ventilationRate:7.4, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 100},
 		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 35, timeToMetric: 1, ventilationRate:6.7, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 100},
 		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 4, floorArea: 100},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.0, CO2Outdoor: 400, ceilingHeight: 5, floorArea: 100},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:4.0, CO2Outdoor: 400, ceilingHeight: 5, floorArea: 100},
 		{ventPerPerson: 3.8, ventPerFloorArea: 0.9, occupantDensity: 70, timeToMetric: 1, ventilationRate:5.1, CO2Outdoor: 400, ceilingHeight: 4, floorArea: 100},
 		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 50, timeToMetric: 1, ventilationRate:3.1, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 100},
 		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 10, timeToMetric: 6, ventilationRate:5.5, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 20},
