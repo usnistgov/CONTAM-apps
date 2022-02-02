@@ -132,17 +132,17 @@ function InputsController($state, InputsService) {
 	
 	// stored data on spaces
 	inputsCtrl.spaceTypeData = [
-		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 25, timeToMetric: 2, ventilationRate:7.4, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 35, timeToMetric: 2, ventilationRate:6.7, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 4},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 5},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.9, occupantDensity: 70, timeToMetric: 2, ventilationRate:5.1, CO2Outdoor: 400, ceilingHeight: 4},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 50, timeToMetric: 1, ventilationRate:3.1, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 10, timeToMetric: 6, ventilationRate:5.5, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 5, timeToMetric: 2, ventilationRate:8.5, CO2Outdoor: 400, ceilingHeight: 3},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 7.5},
-		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 5},
-		{ventPerPerson: 3.8, ventPerFloorArea: 0.6, occupantDensity: 15, timeToMetric: 2, ventilationRate:7.8, CO2Outdoor: 400, ceilingHeight: 4}
+		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 25, timeToMetric: 2, ventilationRate:7.4, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 100},
+		{ventPerPerson: 5, ventPerFloorArea: 0.6, occupantDensity: 35, timeToMetric: 1, ventilationRate:6.7, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 100},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.3, CO2Outdoor: 400, ceilingHeight: 4, floorArea: 100},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.3, occupantDensity: 65, timeToMetric: 1, ventilationRate:4.0, CO2Outdoor: 400, ceilingHeight: 5, floorArea: 100},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.9, occupantDensity: 70, timeToMetric: 1, ventilationRate:5.1, CO2Outdoor: 400, ceilingHeight: 4, floorArea: 100},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 50, timeToMetric: 1, ventilationRate:3.1, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 100},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 10, timeToMetric: 6, ventilationRate:5.5, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 20},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 5, timeToMetric: 2, ventilationRate:8.5, CO2Outdoor: 400, ceilingHeight: 3, floorArea: 100},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 7.5, floorArea: 100},
+		{ventPerPerson: 2.5, ventPerFloorArea: 0.3, occupantDensity: 150, timeToMetric: 1, ventilationRate:2.7, CO2Outdoor: 400, ceilingHeight: 5, floorArea: 100},
+		{ventPerPerson: 3.8, ventPerFloorArea: 0.6, occupantDensity: 15, timeToMetric: 2, ventilationRate:7.8, CO2Outdoor: 400, ceilingHeight: 4, floorArea: 100}
 	];
 
 	// stored data on houses
@@ -153,18 +153,26 @@ function InputsController($state, InputsService) {
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 2, numBedrooms: 5, ach: 0.5, achpp: 15.86, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 6, occupants: 1}, // big house big family (ACH)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 3, calc622: 29, calc622pp: 7.25, scenario: 'Whole House', method: '62.2', numWholeOccupants: 4, occupants: 0}, // little house normal family (622)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 3, ach: 0.5, achpp: 8.5, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 4, occupants: 0}, // little house normal family (ACH)
-		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, calc622: 22, calc622pp: 11, scenario: 'Whole House', method: '62.2', numWholeOccupants: 2, occupants: 2}, // little house small family (622)
-		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, ach: 0.5, achpp: 17, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 2, occupants: 2}, // little house small family (ACH)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, calc622: 22, calc622pp: 11, scenario: 'Whole House', method: '62.2', numWholeOccupants: 2, occupants: 5}, // little house small family (622)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 2, numBedrooms: 1, ach: 0.5, achpp: 17, scenario: 'Whole House', method: 'ACH', numWholeOccupants: 2, occupants: 5}, // little house small family (ACH)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 25.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family perfect (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 12.875, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family perfect (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 6.18, uniformpp: 3.09, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family uniform (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 4.12, uniformpp: 2.06, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family uniform (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Perfect (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family ACH Perfect (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Uniform (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family ACH Uniform (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family 10 L/s (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family 10 L/s (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 19.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family perfect (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 9.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family perfect (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 7.02, uniformpp: 3.51, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family uniform (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 4.68, uniformpp: 4.68, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family uniform (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family ACH Perfect (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family ACH Perfect (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family ACH Uniform (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family ACH Uniform (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family 10 L/s (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family 10 L/s (child)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, perfect: 14.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family perfect (Primary)
@@ -175,6 +183,8 @@ function InputsController($state, InputsService) {
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family 10 L/s (child)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, perfect: 11, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family perfect (Primary)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, uniform: 4.4, uniformpp: 2.2, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family uniform (Primary)
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family ACH Perfect
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family ACH Uniform
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2} // little house small family 10 L/s (Primary)
 	];
 
@@ -252,12 +262,20 @@ function InputsController($state, InputsService) {
 			{ sex: "M", ageGroup: 4, mass: 85, met: 1.0, numPeople: 1},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 1.0, numPeople: 1},
 		],
-		[ 
-			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 1},
+		[ //child bedroom 
+			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 0.5},
+			{ sex: "F", ageGroup: 2, mass: 40, met: 1.0, numPeople: 0.5},
 		],
-		[ 
-			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 1},
+		[ //child bedroom - big family
+			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 0.25},
+			{ sex: "F", ageGroup: 2, mass: 40, met: 1.0, numPeople: 0.25},
+			{ sex: "M", ageGroup: 1, mass: 32, met: 1.0, numPeople: 0.25},
+			{ sex: "F", ageGroup: 1, mass: 14, met: 1.0, numPeople: 0.25},
 		],
+		[ // small family
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1},
+		]
 	];
 
 	// initailize predefined space variable
@@ -269,7 +287,8 @@ function InputsController($state, InputsService) {
 		ventilationRate: inputsCtrl.spaceTypeData[inputsCtrl.inputs.preDefinedSpaceTypeSelection].ventilationRate,
 		CO2Outdoor: inputsCtrl.spaceTypeData[inputsCtrl.inputs.preDefinedSpaceTypeSelection].CO2Outdoor,
 		ceilingHeight: inputsCtrl.spaceTypeData[inputsCtrl.inputs.preDefinedSpaceTypeSelection].ceilingHeight,
-		occupants: inputsCtrl.predefinedGroups[inputsCtrl.inputs.preDefinedSpaceTypeSelection].slice()
+		occupants: inputsCtrl.predefinedGroups[inputsCtrl.inputs.preDefinedSpaceTypeSelection].slice(),
+		floorArea: inputsCtrl.spaceTypeData[inputsCtrl.inputs.preDefinedSpaceTypeSelection].floorArea
 	};
 	
 	inputsCtrl.inputs.commercial.predefined.altVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
@@ -316,211 +335,247 @@ function InputsController($state, InputsService) {
 	inputsCtrl.inputs.residential.new_bedroom_occupants = {numPeople: 1, sex: "M", ageGroup: "3", met: 1.2};
 	inputsCtrl.inputs.residential.new_bedroom_occupants.mass = {baseValue: 20, conversion: 0, label: "Mass", unitStrings: CONTAM.Units.Strings2.Mass, 
 		unitFunction: CONTAM.Units.MassConvert, min: 1};
+    
+  inputsCtrl.calculateNumberOfPeople = function(groupsOfPeople){
+    let sumPeople = 0;
+    for(let i=0; i<groupsOfPeople.length; ++i) {
+      sumPeople += groupsOfPeople[i].numPeople;
+    }
+    return sumPeople;
+  }
+  
+  inputsCtrl.calculateCommPre = function(){
+    let timeToMetric = inputsCtrl.inputs.commercial.predefined.timeToMetric
+    //let ventilationRate = inputsCtrl.inputs.commercial.predefined.ventilationRate;
+    let ceilingHeight = inputsCtrl.inputs.commercial.predefined.ceilingHeight;
+    let CO2Outdoor = inputsCtrl.inputs.commercial.predefined.CO2Outdoor;
+    let occupants = inputsCtrl.inputs.commercial.predefined.occupants;
+    let altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.predefined.altVentilationRate.baseValue, 2, 0);
+    let floorArea = inputsCtrl.inputs.commercial.predefined.floorArea;
+    let temperature = 296.15;
+    let numPeople = inputsCtrl.calculateNumberOfPeople(occupants);
+    
+    //save inputs to the InputsService
+    InputsService.setInputs(inputsCtrl.inputs);
+
+    inputsCtrl.inputs.commercial.predefined.ventilationRate = window.CO2Tool.calculateCommercialTotalVent(inputsCtrl.inputs.commercial.predefined.ventPerFloorArea, 
+      inputsCtrl.inputs.commercial.predefined.ventPerPerson, floorArea, numPeople);
+
+    // do calculations
+    inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, timeToMetric, 
+      inputsCtrl.inputs.commercial.predefined.ventilationRate, occupants, altVentilationRate, temperature, floorArea, ceilingHeight);
+
+  }
+  
+  inputsCtrl.calculateCommUser = function(){
+    
+    // determine number of occupants entered
+    let numPeople = inputsCtrl.calculateNumberOfPeople(inputsCtrl.inputs.commercial.occupants);
+
+    let occupantDensity = numPeople / inputsCtrl.inputs.commercial.floorArea.baseValue * 100;
+    inputsCtrl.inputs.commercial.userOccupantDensity = occupantDensity;
+
+    // convert from seconds to hours
+    let timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.timeToMetric.baseValue, 2, 0);
+
+    // convert to L/s
+    let ventilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.ventilationRate.baseValue, 2, 0);
+    let altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.altVentilationRate.baseValue, 2, 0);
+    
+    let occupants = inputsCtrl.inputs.commercial.occupants.slice();
+    // this will make the grouplist not show the remove group button for the input list
+    occupants.showRemove = false;
+    
+    let ceilingHeight = inputsCtrl.inputs.commercial.ceilingHeight.baseValue; // m
+    let temperature = inputsCtrl.inputs.commercial.temperature.baseValue; // K
+    let floorArea = inputsCtrl.inputs.commercial.floorArea.baseValue; // m2
+    // convert CO2 to ppm
+    let CO2Outdoor = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.CO2Outdoor.baseValue, 
+      1, 0, inputsCtrl.inputs.commercial.CO2Outdoor.species);
+    //save inputs to the InputsService
+    InputsService.setInputs(inputsCtrl.inputs);
+
+    // do calculations
+    inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, timeToMetric, 
+      ventilationRate, occupants, altVentilationRate, temperature, floorArea, ceilingHeight);
+    
+
+  }
+  
+  inputsCtrl.calculateResPre = function(){
+    let scenarioData = inputsCtrl.resHouseData[inputsCtrl.inputs.preDefinedResSpaceTypeSelection];
+    let occupants = inputsCtrl.predefined_residential_occupants[scenarioData.occupants].slice();
+    occupants.showRemove = false;
+    
+    let calc622value = CO2Tool.calculateResidentialTotalVent622(scenarioData.floorArea, scenarioData.numBedrooms)
+    let ventilationRate;
+    let floorArea;
+    let volumeOfBldg = scenarioData.ceilingHeight * scenarioData.floorArea;
+  
+    if(scenarioData.scenario == 'Whole House'){
+      if(scenarioData.method == '62.2') {
+        ventilationRate = calc622value;
+      } else {
+        console.log('volumeOfBldg: ' + volumeOfBldg);
+        ventilationRate = CO2Tool.calculateResidentialTotalVentACH(scenarioData.ach, volumeOfBldg);
+        console.log('ACH ventilationRate: ' + ventilationRate);
+      }
+      floorArea = scenarioData.floorArea;
+    } else {
+      let volumeOfBedroom = scenarioData.ceilingHeight * scenarioData.bedFloorArea;
+      let numPeopleInBedroom = inputsCtrl.inputs.countOccupants(occupants);
+      console.log('volumeOfBedroom: ' + volumeOfBedroom);
+      if(scenarioData.method == 'Perfect') {
+        ventilationRate = CO2Tool.calculateBedroomTotalVent(calc622value, scenarioData.numWholeOccupants, numPeopleInBedroom);
+      } else if (scenarioData.method == 'Uniform') {
+        ventilationRate = (calc622value / 
+          (scenarioData.floorArea * scenarioData.ceilingHeight)) * 
+          (scenarioData.bedFloorArea * scenarioData.ceilingHeight);
+        console.log('uniform ventilationRate: ' + ventilationRate);
+      } else if (scenarioData.method == 'ACHP') {
+        let wholeVent = CO2Tool.calculateResidentialTotalVentACH (scenarioData.ach, volumeOfBldg); // ventilation for whole house
+        ventilationRate = CO2Tool.calculateBedroomTotalVent(wholeVent, scenarioData.numWholeOccupants, numPeopleInBedroom); // ventilation for bedroom
+        console.log('ACHP bedroom ventilationRate: ' + ventilationRate);
+      } else if (scenarioData.method == 'ACHU') {
+          let wholeVent = CO2Tool.calculateResidentialTotalVentACH (scenarioData.ach, volumeOfBldg); // ventilation for whole house
+          ventilationRate = CO2Tool.calculateBedroomFloorTotalVent(wholeVent, scenarioData.floorArea, scenarioData.bedFloorArea);
+          console.log('ACHU bedroom ventilationRate: ' + ventilationRate);
+      } else {
+        // use 10 L/s per person
+        ventilationRate = 10 * numPeopleInBedroom;
+        console.log('10 L/s ventilationRate: ' + ventilationRate);
+      }
+      floorArea = scenarioData.bedFloorArea;
+    }
+    inputsCtrl.inputs.residential.predefined.ventilationRate = ventilationRate;
+    
+    //save inputs to the InputsService
+    InputsService.setInputs(inputsCtrl.inputs);
+    let temperature = 296.15;
+    
+    // do calculations
+    inputsCtrl.results = window.CO2Tool.calculateResult(scenarioData.CO2Outdoor, 
+      scenarioData.timeToMetric, ventilationRate, occupants, 
+      CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.predefined.altVentilationRate.baseValue, 2, 0), //convert to L/s
+      temperature, floorArea, scenarioData.ceilingHeight);
+    
+  }
+  
+  inputsCtrl.calculateResUser = function(){
+    let occupants;
+    let ventilationRate; // in L/s
+    let floorArea;
+    
+    if(inputsCtrl.inputs.residential.resType == 'Whole House') {
+
+      if(inputsCtrl.inputs.residential.wholeVentType == '62.2'){
+        ventilationRate = inputsCtrl.inputs.calc622value;
+      } else {
+        let volumeOfBldg = inputsCtrl.inputs.residential.ceilingHeight.baseValue * inputsCtrl.inputs.residential.floorArea.baseValue;
+        ventilationRate = CO2Tool.calculateResidentialTotalVentACH(inputsCtrl.inputs.residential.wholeACH, volumeOfBldg);
+      }
+      occupants = inputsCtrl.inputs.residential.house_occupants.slice();
+      floorArea = inputsCtrl.inputs.residential.floorArea.baseValue;
+    } else {
+
+      if(inputsCtrl.inputs.residential.roomVentType == 'Perfect') {
+        ventilationRate = inputsCtrl.inputs.calc622PerfectValue;
+      } else if(inputsCtrl.inputs.roomVentType == 'Uniform') {
+        ventilationRate = inputsCtrl.inputs.calc622UniformValue;
+      } else {
+        // convert from kg/s to L/s
+        ventilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.roomVentilationRate.baseValue, 2, 0);
+      }
+      occupants = inputsCtrl.inputs.residential.bedroom_occupants.slice();
+      floorArea = inputsCtrl.inputs.residential.roomFloorArea.baseValue;
+    }
+    occupants.showRemove = false;
+
+    // convert to L/s
+    let altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.altVentilationRate.baseValue, 2, 0);
+      
+    // convert from seconds to hours
+    let timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.timeToMetric.baseValue, 2, 0);
+    
+    let temperature = inputsCtrl.inputs.residential.temperature.baseValue;
+    //save inputs to the InputsService
+    InputsService.setInputs(inputsCtrl.inputs);
+    
+    // convert CO2 to ppm
+    var CO2Outdoor_ppm = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.CO2Outdoor.baseValue, 
+      1, 0, inputsCtrl.inputs.residential.CO2Outdoor.species);
+
+    // do calculations
+    inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor_ppm, 
+      timeToMetric, ventilationRate, occupants, altVentilationRate, 
+      temperature, floorArea, inputsCtrl.inputs.residential.ceilingHeight.baseValue);
+    
+  }
 	
 	inputsCtrl.getResults = function(){
-		if(inputsCtrl.validateInputs() === true){
-			return;
-		}
-			
-		if(inputsCtrl.inputs.SpaceCategory =='com') {
-			let ceilingHeight; // in m
-			let CO2Outdoor; // in ppm
-			let occupantDensity;
-			let occupants; 
-			let timeToMetric; // in h
-			let ventilationRate; // in mg/m^3
-			let altVentilationRate; // in mg/m^3
-			let temperature; // in K
+    if(inputsCtrl.validateInputs() === true){
+      return;
+    }
 
-			if(inputsCtrl.inputs.SpaceTypeType == "pre"){
-				timeToMetric = inputsCtrl.inputs.commercial.predefined.timeToMetric
-				ventilationRate = inputsCtrl.inputs.commercial.predefined.ventilationRate;
-				ceilingHeight = inputsCtrl.inputs.commercial.predefined.ceilingHeight;
-				CO2Outdoor = inputsCtrl.inputs.commercial.predefined.CO2Outdoor;
-				occupants = inputsCtrl.inputs.commercial.predefined.occupants;
-				altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.predefined.altVentilationRate.baseValue, 2, 0);
-				occupantDensity = inputsCtrl.inputs.commercial.predefined.occupantDensity;
-        temperature = 296.15;
-			}else{
-				if(inputsCtrl.inputs.commercial.occupants.length == 0) {
-					alert("At least one occupant must be defined.");
-					return;
-				}
-				var occupantCount = 0;
-				// determine number of occupants entered
-				for(var i=0; i<inputsCtrl.inputs.commercial.occupants.length; ++i) {
-					occupantCount += inputsCtrl.inputs.commercial.occupants[i].numPeople;
-				}
-        occupantDensity = occupantCount / inputsCtrl.inputs.commercial.floorArea.baseValue * 100;
-        inputsCtrl.inputs.commercial.userOccupantDensity = occupantDensity;
+    if(inputsCtrl.inputs.SpaceCategory =='com') {
 
-				// convert from seconds to hours
-				timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.timeToMetric.baseValue, 2, 0);
+      if(inputsCtrl.inputs.SpaceTypeType == "pre"){
+        inputsCtrl.calculateCommPre();
+      }else{
+        if(inputsCtrl.inputs.commercial.occupants.length == 0) {
+          alert("At least one occupant must be defined.");
+          return;
+        }
+        inputsCtrl.calculateCommUser();
+      }
+    } else {
+      if(inputsCtrl.inputs.SpaceTypeType == "pre"){
+        inputsCtrl.calculateResPre();
+      } else {
 
-				// convert to L/s
-				ventilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.ventilationRate.baseValue, 2, 0);
-				altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.altVentilationRate.baseValue, 2, 0);
-				
-				occupants = inputsCtrl.inputs.commercial.occupants.slice();
-				// this will make the grouplist not show the remove group button for the input list
-				occupants.showRemove = false;
-				
-				ceilingHeight = inputsCtrl.inputs.commercial.ceilingHeight.baseValue;
-				temperature = inputsCtrl.inputs.commercial.temperature.baseValue;
-				// convert CO2 to ppm
-				CO2Outdoor = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.CO2Outdoor.baseValue, 
-					1, 0, inputsCtrl.inputs.commercial.CO2Outdoor.species);
-			}
-			//save inputs to the InputsService
-			InputsService.setInputs(inputsCtrl.inputs);
+        if(inputsCtrl.inputs.residential.resType == 'Whole House') {
+          if(inputsCtrl.inputs.residential.house_occupants.length == 0) {
+            alert(inputsCtrl.inputs.residential.houseNumPeople + " occupants must be defined.");
+            return;
+          }
+          // determine number of occupants entered
+          let numPeople = inputsCtrl.calculateNumberOfPeople(inputsCtrl.inputs.residential.house_occupants);
+          
+          if(numPeople != inputsCtrl.inputs.residential.houseNumPeople) { 
+            alert("The total number of occupants defined in the whole house must match the number of occupants entered.\n" + 
+              "Number of Occupants entered: " + inputsCtrl.inputs.residential.houseNumPeople + "\n" +
+              "Total Occupants defined: " + numPeople);
+            return;
+          }
 
-			let volumePerPerson = (100 / occupantDensity) * ceilingHeight;
-
-			// do calculations
-			inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, volumePerPerson, 
-				timeToMetric, ventilationRate, occupants, altVentilationRate, temperature);
-		
-		} else {
-			if(inputsCtrl.inputs.SpaceTypeType == "pre"){
-				let volumePerPerson;
-				let scenarioData = inputsCtrl.resHouseData[inputsCtrl.inputs.preDefinedResSpaceTypeSelection];
-				let occupants = inputsCtrl.predefined_residential_occupants[scenarioData.occupants].slice();
-				occupants.showRemove = false;
-				let volumeOfBldg = scenarioData.ceilingHeight * scenarioData.floorArea;
-				console.log('volumeOfBldg: ' + volumeOfBldg);
-				
-				let calc622value = 0.15 * scenarioData.floorArea + 3.5 * (scenarioData.numBedrooms + 1);
-				console.log('calc622value: ' + calc622value);
-				let ventilationRate;
-			
-				if(scenarioData.scenario == 'Whole House'){
-					volumePerPerson = volumeOfBldg / scenarioData.numWholeOccupants; 
-					console.log('volumePerPerson: ' + volumePerPerson);
-					if(scenarioData.method == '62.2') {
-						ventilationRate = calc622value / scenarioData.numWholeOccupants;
-						console.log('62.2 ventilationRate pp: ' + ventilationRate);
-					} else {
-						ventilationRate = (scenarioData.ach * volumeOfBldg / 3.6) / scenarioData.numWholeOccupants;
-						console.log('ACH ventilationRate pp: ' + ventilationRate);
-					}
-				} else {
-					let volumeOfBedroom = scenarioData.ceilingHeight * scenarioData.bedFloorArea;
-					let numPeopleInBedroom = inputsCtrl.inputs.countOccupants(occupants);
-					console.log('volumeOfBedroom: ' + volumeOfBedroom);
-					volumePerPerson = volumeOfBedroom / numPeopleInBedroom;
-					console.log('volumePerPerson: ' + volumePerPerson);
-					if(scenarioData.method == 'Perfect') {
-						ventilationRate = calc622value / scenarioData.numWholeOccupants;
-						console.log('perfect ventilationRate: ' + ventilationRate);
-					} else if (scenarioData.method == 'Uniform') {
-						let calc622UniformValue = (calc622value / 
-							(scenarioData.floorArea * scenarioData.ceilingHeight)) * 
-							(scenarioData.bedFloorArea * scenarioData.ceilingHeight);
-						console.log('uniform ventilationRate: ' + calc622UniformValue);
-						ventilationRate = calc622UniformValue / numPeopleInBedroom;
-						console.log('uniform ventilationRate pp: ' + ventilationRate);
-					} else {
-						// use 10 L/s
-						ventilationRate = 10;
-						console.log('10 L/s ventilationRate: ' + ventilationRate);
-					}
-				}
-				inputsCtrl.inputs.residential.predefined.ventilationRate = ventilationRate;
-				
-				//save inputs to the InputsService
-				InputsService.setInputs(inputsCtrl.inputs);
-        let temperature = 296.15;
-				
-				// do calculations
-				inputsCtrl.results = window.CO2Tool.calculateResult(scenarioData.CO2Outdoor, 
-					volumePerPerson, scenarioData.timeToMetric, ventilationRate, occupants, 
-					CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.predefined.altVentilationRate.baseValue, 2, 0), temperature);
-			} else {
-				let volumeOfBldg = inputsCtrl.inputs.residential.ceilingHeight.baseValue * inputsCtrl.inputs.residential.floorArea.baseValue;
-				let occupants;
-				let ventilationRate; // in mg/m^3
-				let volumePerPerson = volumeOfBldg / inputsCtrl.inputs.residential.houseNumPeople; 
-				
-				if(inputsCtrl.inputs.residential.resType == 'Whole House') {
-					if(inputsCtrl.inputs.residential.house_occupants.length == 0) {
-						alert(inputsCtrl.inputs.residential.houseNumPeople + " occupants must be defined.");
-						return;
-					}
-					let occupantCount = 0;
-					// determine number of occupants entered
-					for(let i=0; i<inputsCtrl.inputs.residential.house_occupants.length; ++i) {
-						occupantCount += inputsCtrl.inputs.residential.house_occupants[i].numPeople;
-					}
-					if(occupantCount != inputsCtrl.inputs.residential.houseNumPeople) { 
-						alert("The total number of occupants defined in the whole house must match the number of occupants entered.\n" + 
-							"Number of Occupants entered: " + inputsCtrl.inputs.residential.houseNumPeople + "\n" +
-							"Total Occupants defined: " + occupantCount);
-						return;
-					}
-
-					if(inputsCtrl.inputs.residential.wholeVentType == '62.2'){
-						ventilationRate = inputsCtrl.inputs.calc622value / inputsCtrl.inputs.residential.houseNumPeople;
-					} else {
-						ventilationRate = (inputsCtrl.inputs.residential.wholeACH * volumeOfBldg / 3.6) / inputsCtrl.inputs.residential.houseNumPeople;
-					}
-					occupants = inputsCtrl.inputs.residential.house_occupants.slice();
-				} else {
-				
-					if(inputsCtrl.inputs.residential.houseNumPeople < inputsCtrl.inputs.residential.bedroomNumPeople) {
-						alert("The number of ocupants the bedroom cannot exceed the number of occupants in the whole house.");
-						return;
-					}				
-					if(inputsCtrl.inputs.residential.bedroom_occupants.length == 0) {
-						alert(inputsCtrl.inputs.residential.bedroomNumPeople + " occupants must be defined in the bedroom.");
-						return;
-					}
-					if(inputsCtrl.inputs.residential.roomFloorArea.baseValue > inputsCtrl.inputs.residential.floorArea.baseValue) {
-						alert("The bedroom floor area cannot be larger than the building floor area.");
-						return;					
-					}					
-					let occupantCount = 0;
-					// determine number of occupants entered
-					for(let i=0; i<inputsCtrl.inputs.residential.bedroom_occupants.length; ++i) {
-						occupantCount += inputsCtrl.inputs.residential.bedroom_occupants[i].numPeople;
-					}
-					if(occupantCount != inputsCtrl.inputs.residential.bedroomNumPeople) { 
-						alert("The total number of occupants defined in the bedroom must match the number of occupants entered.\n" + 
-							"Number of Occupants entered: " + inputsCtrl.inputs.residential.bedroomNumPeople + "\n" +
-							"Total Occupants defined: " + occupantCount);
-						return;
-					}
-
-					if(inputsCtrl.inputs.residential.roomVentType == 'Perfect') {
-						ventilationRate = inputsCtrl.inputs.calc622PerfectValue;
-					} else if(inputsCtrl.inputs.roomVentType == 'Uniform') {
-						ventilationRate = inputsCtrl.inputs.calc622UniformValue / inputsCtrl.inputs.residential.bedroomNumPeople;
-					} else {
-						// convert from kg/s to L/s
-						ventilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.roomVentilationRate.baseValue, 2, 0);
-					}
-					occupants = inputsCtrl.inputs.residential.bedroom_occupants.slice();
-				}
-				occupants.showRemove = false;
-
-				// convert to L/s
-				let altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.altVentilationRate.baseValue, 2, 0);
-					
-				// convert from seconds to hours
-				let timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.timeToMetric.baseValue, 2, 0);
+        } else {
         
-        let temperature = inputsCtrl.inputs.residential.temperature.baseValue;
-				//save inputs to the InputsService
-				InputsService.setInputs(inputsCtrl.inputs);
-				
-				// convert CO2 to ppm
-				var CO2Outdoor_ppm = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.CO2Outdoor.baseValue, 
-					1, 0, inputsCtrl.inputs.residential.CO2Outdoor.species);
-
-				// do calculations
-				inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor_ppm, volumePerPerson, 
-					timeToMetric, ventilationRate, occupants, altVentilationRate, temperature);
-			}
-		}
+          if(inputsCtrl.inputs.residential.houseNumPeople < inputsCtrl.inputs.residential.bedroomNumPeople) {
+            alert("The number of ocupants the bedroom cannot exceed the number of occupants in the whole house.");
+            return;
+          }
+          if(inputsCtrl.inputs.residential.bedroom_occupants.length == 0) {
+            alert(inputsCtrl.inputs.residential.bedroomNumPeople + " occupants must be defined in the bedroom.");
+            return;
+          }
+          if(inputsCtrl.inputs.residential.roomFloorArea.baseValue > inputsCtrl.inputs.residential.floorArea.baseValue) {
+            alert("The bedroom floor area cannot be larger than the building floor area.");
+            return;
+          }
+          // determine number of occupants entered
+          let numPeople = inputsCtrl.calculateNumberOfPeople(inputsCtrl.inputs.residential.bedroom_occupants);
+          
+          if(numPeople != inputsCtrl.inputs.residential.bedroomNumPeople) { 
+            alert("The total number of occupants defined in the bedroom must match the number of occupants entered.\n" + 
+              "Number of Occupants entered: " + inputsCtrl.inputs.residential.bedroomNumPeople + "\n" +
+              "Total Occupants defined: " + numPeople);
+            return;
+          }
+        }
+        inputsCtrl.calculateResUser();
+        
+      }
+    }
 		$state.go('results', {results: inputsCtrl.results, inputs: inputsCtrl.inputs});
 	}
   
@@ -608,6 +663,7 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.commercial.predefined.occupants =  inputsCtrl.predefinedGroups[inputsCtrl.inputs.preDefinedSpaceTypeSelection].slice();
 		inputsCtrl.inputs.commercial.predefined.CO2Outdoor = inputsCtrl.spaceTypeData[inputsCtrl.inputs.preDefinedSpaceTypeSelection].CO2Outdoor;
 		inputsCtrl.inputs.commercial.predefined.ceilingHeight = inputsCtrl.spaceTypeData[inputsCtrl.inputs.preDefinedSpaceTypeSelection].ceilingHeight;
+		inputsCtrl.inputs.commercial.predefined.floorArea = inputsCtrl.spaceTypeData[inputsCtrl.inputs.preDefinedSpaceTypeSelection].floorArea;
 
 	}
 
@@ -644,6 +700,7 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.commercial.timeToMetric.baseValue = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.predefined.timeToMetric, 2, 1);
 		// convert from L/s to kg/s 
 		inputsCtrl.inputs.commercial.ventilationRate.baseValue = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.predefined.ventilationRate, 2, 1);
+    inputsCtrl.inputs.commercial.floorArea.baseValue = inputsCtrl.inputs.commercial.predefined.floorArea;
 		inputsCtrl.inputs.commercial.occupants = inputsCtrl.inputs.commercial.predefined.occupants.slice();
 		// this will make the grouplist show the remove group button for the user list only
 		inputsCtrl.inputs.commercial.occupants.showRemove = true;
