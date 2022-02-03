@@ -350,7 +350,7 @@ function InputsController($state, InputsService) {
     let ceilingHeight = inputsCtrl.inputs.commercial.predefined.ceilingHeight;
     let CO2Outdoor = inputsCtrl.inputs.commercial.predefined.CO2Outdoor;
     let occupants = inputsCtrl.inputs.commercial.predefined.occupants;
-    let altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.predefined.altVentilationRate.baseValue, 2, 0);
+    let altVentilationRatePerPerson = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.predefined.altVentilationRate.baseValue, 2, 0);
     let floorArea = inputsCtrl.inputs.commercial.predefined.floorArea;
     let temperature = 296.15;
     let numPeople = inputsCtrl.calculateNumberOfPeople(occupants);
@@ -358,12 +358,13 @@ function InputsController($state, InputsService) {
     //save inputs to the InputsService
     InputsService.setInputs(inputsCtrl.inputs);
 
-    inputsCtrl.inputs.commercial.predefined.ventilationRate = window.CO2Tool.calculateCommercialTotalVent(inputsCtrl.inputs.commercial.predefined.ventPerFloorArea, 
+    let ventRate = window.CO2Tool.calculateCommercialTotalVent(inputsCtrl.inputs.commercial.predefined.ventPerFloorArea, 
       inputsCtrl.inputs.commercial.predefined.ventPerPerson, floorArea, numPeople);
+    let altVentRateTotal = altVentilationRatePerPerson * numPeople;
 
     // do calculations
     inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, timeToMetric, 
-      inputsCtrl.inputs.commercial.predefined.ventilationRate, occupants, altVentilationRate, temperature, floorArea, ceilingHeight);
+      ventRate, occupants, altVentRateTotal, temperature, floorArea, ceilingHeight);
 
   }
   
