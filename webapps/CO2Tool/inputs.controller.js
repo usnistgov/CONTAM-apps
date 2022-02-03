@@ -691,15 +691,20 @@ function InputsController($state, InputsService) {
 	// copy the current predefined values to the user defined space type
 	inputsCtrl.copyPredefinedToUser = function() {
 					
-		// convert from mg/m^3 to kg/kg
+		// convert from ppm to kg/kg
 		inputsCtrl.inputs.commercial.CO2Outdoor.baseValue = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.commercial.predefined.CO2Outdoor, 
-			11, 1, inputsCtrl.inputs.commercial.CO2Outdoor.species);
+			1, 1, inputsCtrl.inputs.commercial.CO2Outdoor.species);
 
 		inputsCtrl.inputs.commercial.ceilingHeight.baseValue = inputsCtrl.inputs.commercial.predefined.ceilingHeight;
 		//convert from hours to seconds
 		inputsCtrl.inputs.commercial.timeToMetric.baseValue = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.predefined.timeToMetric, 2, 1);
+
+    let numPeople = inputsCtrl.calculateNumberOfPeople(inputsCtrl.inputs.commercial.predefined.occupants);
+    let totalVent = window.CO2Tool.calculateCommercialTotalVent(inputsCtrl.inputs.commercial.predefined.ventPerFloorArea, 
+      inputsCtrl.inputs.commercial.predefined.ventPerPerson, inputsCtrl.inputs.commercial.predefined.floorArea, numPeople);
 		// convert from L/s to kg/s 
-		inputsCtrl.inputs.commercial.ventilationRate.baseValue = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.predefined.ventilationRate, 2, 1);
+		inputsCtrl.inputs.commercial.ventilationRate.baseValue = CONTAM.Units.FlowConvert(totalVent, 2, 1);
+    
     inputsCtrl.inputs.commercial.floorArea.baseValue = inputsCtrl.inputs.commercial.predefined.floorArea;
 		inputsCtrl.inputs.commercial.occupants = inputsCtrl.inputs.commercial.predefined.occupants.slice();
 		// this will make the grouplist show the remove group button for the user list only
@@ -710,9 +715,9 @@ function InputsController($state, InputsService) {
 	// copy the current predefined values to the user defined space type
 	inputsCtrl.copyPredefinedResToUser = function() {
 					
-		// convert from mg/m^3 to kg/kg
+		// convert from ppm to kg/kg
 		inputsCtrl.inputs.residential.CO2Outdoor.baseValue = CONTAM.Units.Concen_M_Convert(inputsCtrl.inputs.residential.predefined.CO2Outdoor, 
-			11, 1, inputsCtrl.inputs.residential.CO2Outdoor.species);
+			1, 1, inputsCtrl.inputs.residential.CO2Outdoor.species);
 		inputsCtrl.inputs.residential.ceilingHeight.baseValue = inputsCtrl.inputs.residential.predefined.ceilingHeight;
 		inputsCtrl.inputs.residential.floorArea.baseValue = inputsCtrl.inputs.residential.predefined.floorArea;
 		//convert from hours to seconds
