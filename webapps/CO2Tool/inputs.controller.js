@@ -379,9 +379,12 @@ function InputsController($state, InputsService) {
     let timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.timeToMetric.baseValue, 2, 0);
 
     // convert to L/s
-    let ventilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.ventilationRate.baseValue, 2, 0);
-    let altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.altVentilationRate.baseValue, 2, 0);
-    
+    let ventilationRatePerPerson = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.ventilationRate.baseValue, 2, 0);
+    let totalVentilationRate = ventilationRatePerPerson *  numPeople;
+
+    let altVentilationRatePerPerson = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.altVentilationRate.baseValue, 2, 0);
+    let altVentilationRate = altVentilationRatePerPerson * numPeople;
+
     let occupants = inputsCtrl.inputs.commercial.occupants.slice();
     // this will make the grouplist not show the remove group button for the input list
     occupants.showRemove = false;
@@ -397,8 +400,7 @@ function InputsController($state, InputsService) {
 
     // do calculations
     inputsCtrl.results = window.CO2Tool.calculateResult(CO2Outdoor, timeToMetric, 
-      ventilationRate, occupants, altVentilationRate, temperature, floorArea, ceilingHeight);
-    
+      totalVentilationRate, occupants, altVentilationRate, temperature, floorArea, ceilingHeight);
 
   }
   
@@ -699,12 +701,9 @@ function InputsController($state, InputsService) {
 		//convert from hours to seconds
 		inputsCtrl.inputs.commercial.timeToMetric.baseValue = CONTAM.Units.TimeConvert(inputsCtrl.inputs.commercial.predefined.timeToMetric, 2, 1);
 
-    let numPeople = inputsCtrl.calculateNumberOfPeople(inputsCtrl.inputs.commercial.predefined.occupants);
-    let totalVent = window.CO2Tool.calculateCommercialTotalVent(inputsCtrl.inputs.commercial.predefined.ventPerFloorArea, 
-      inputsCtrl.inputs.commercial.predefined.ventPerPerson, inputsCtrl.inputs.commercial.predefined.floorArea, numPeople);
-		// convert from L/s to kg/s 
-		inputsCtrl.inputs.commercial.ventilationRate.baseValue = CONTAM.Units.FlowConvert(totalVent, 2, 1);
-    
+    // convert from L/s to kg/s 
+    inputsCtrl.inputs.commercial.ventilationRate.baseValue = CONTAM.Units.FlowConvert(inputsCtrl.inputs.commercial.predefined.ventilationRate, 2, 1);
+
     inputsCtrl.inputs.commercial.floorArea.baseValue = inputsCtrl.inputs.commercial.predefined.floorArea;
 		inputsCtrl.inputs.commercial.occupants = inputsCtrl.inputs.commercial.predefined.occupants.slice();
 		// this will make the grouplist show the remove group button for the user list only
