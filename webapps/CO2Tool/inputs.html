@@ -322,10 +322,10 @@
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;">
 						<span class="underline">Number of Occupants in House</span><br>{{inputsCtrl.inputs.residential.predefined.numWholeOccupants | number:0}}
 					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.showACHValues()">
 						<span class="underline">Number of Air Changes</span><br>{{inputsCtrl.inputs.residential.predefined.ach | number:1}}
 					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.method == 'ACH'">
+					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.showACHValues()">
 						<span class="underline">Primary Ventilation Rate per Person</span><br>{{inputsCtrl.inputs.residential.predefined.achpp | number:1}} L/s
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-12" style="padding-top: 1ex;" ng-if="inputsCtrl.inputs.residential.predefined.scenario == 'Bedroom'">

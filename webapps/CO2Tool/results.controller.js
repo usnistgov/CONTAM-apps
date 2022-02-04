@@ -51,7 +51,7 @@ function ResultsController($stateParams) {
 	} else {
 		if(resultsCtrl.inputs.SpaceTypeType == "pre"){
 			// convert from mg/m3 to kg/kg
-			let ventRate = CONTAM.Units.FlowConvert(resultsCtrl.inputs.residential.predefined.ventilationRate, 2, 1); 
+			let ventRate = CONTAM.Units.FlowConvert(resultsCtrl.inputs.residential.predefined.ventPP, 2, 1); 
 			resultsCtrl.ventilationRate = {baseValue: ventRate, conversion: 2, label: "Primary Ventilation per Person",
 				unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
 			resultsCtrl.altVentilationRate = resultsCtrl.inputs.residential.predefined.altVentilationRate;

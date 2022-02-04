@@ -159,20 +159,20 @@ function InputsController($state, InputsService) {
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 12.875, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family perfect (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 6.18, uniformpp: 3.09, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family uniform (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 4.12, uniformpp: 2.06, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family uniform (child)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Perfect (primary)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family ACH Perfect (child)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Uniform (primary)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family ACH Uniform (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, achpp: 23.78, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Perfect (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, achpp: 23.78, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family ACH Perfect (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, achpp: 6.7, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Uniform (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, achpp: 7.6, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family ACH Uniform (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family 10 L/s (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family 10 L/s (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 19.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family perfect (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, perfect: 9.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family perfect (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 7.02, uniformpp: 3.51, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family uniform (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, calc622: 58.5, calc622pp: 9.75, uniform: 4.68, uniformpp: 4.68, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family uniform (child)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family ACH Perfect (primary)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family ACH Perfect (child)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family ACH Uniform (primary)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family ACH Uniform (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, achpp: 15.856, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family ACH Perfect (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, achpp: 15.856, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family ACH Perfect (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, achpp: 11.42, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family ACH Uniform (primary)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, ach: 0.5, achpp: 7.61, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family ACH Uniform (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 30, numWholeOccupants: 6, occupants: 2}, // big house big family 10 L/s (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 5, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 6, occupants: 4}, // big house big family 10 L/s (child)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, calc622: 29, calc622pp: 7.25, perfect: 14.5, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 2}, // little house normal family perfect (Primary)
@@ -183,8 +183,8 @@ function InputsController($state, InputsService) {
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 3, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 15, numWholeOccupants: 4, occupants: 3}, // little house normal family 10 L/s (child)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, perfect: 11, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family perfect (Primary)
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, calc622: 22, calc622pp: 11, uniform: 4.4, uniformpp: 2.2, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family uniform (Primary)
-		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, ach: 0.5, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family ACH Perfect
-		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, ach: 0.5, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family ACH Uniform
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, ach: 0.5, achpp: 16.95, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family ACH Perfect
+		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, ach: 0.5, achpp: 3.39, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2}, // little house small family ACH Uniform
 		{CO2Outdoor: 400, floorArea: 100, ceilingHeight: 2.44, timeToMetric: 6, numBedrooms: 1, scenario: 'Bedroom', method: 'CEN', bedFloorArea: 20, numWholeOccupants: 2, occupants: 2} // little house small family 10 L/s (Primary)
 	];
 
@@ -418,10 +418,12 @@ function InputsController($state, InputsService) {
     if(scenarioData.scenario == 'Whole House'){
       if(scenarioData.method == '62.2') {
         ventilationRate = calc622value;
+        inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.calc622pp;
       } else {
         console.log('volumeOfBldg: ' + volumeOfBldg);
         ventilationRate = CO2Tool.calculateResidentialTotalVentACH(scenarioData.ach, volumeOfBldg);
         console.log('ACH ventilationRate: ' + ventilationRate);
+        inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.achpp;
       }
       floorArea = scenarioData.floorArea;
     } else {
@@ -430,28 +432,32 @@ function InputsController($state, InputsService) {
       console.log('volumeOfBedroom: ' + volumeOfBedroom);
       if(scenarioData.method == 'Perfect') {
         ventilationRate = CO2Tool.calculateBedroomTotalVent(calc622value, scenarioData.numWholeOccupants, numPeopleInBedroom);
+        inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.calc622pp;
       } else if (scenarioData.method == 'Uniform') {
         ventilationRate = (calc622value / 
           (scenarioData.floorArea * scenarioData.ceilingHeight)) * 
           (scenarioData.bedFloorArea * scenarioData.ceilingHeight);
         console.log('uniform ventilationRate: ' + ventilationRate);
+        inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.uniformpp;
       } else if (scenarioData.method == 'ACHP') {
         let wholeVent = CO2Tool.calculateResidentialTotalVentACH (scenarioData.ach, volumeOfBldg); // ventilation for whole house
         ventilationRate = CO2Tool.calculateBedroomTotalVent(wholeVent, scenarioData.numWholeOccupants, numPeopleInBedroom); // ventilation for bedroom
         console.log('ACHP bedroom ventilationRate: ' + ventilationRate);
+        inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.achpp;
       } else if (scenarioData.method == 'ACHU') {
           let wholeVent = CO2Tool.calculateResidentialTotalVentACH (scenarioData.ach, volumeOfBldg); // ventilation for whole house
           ventilationRate = CO2Tool.calculateBedroomFloorTotalVent(wholeVent, scenarioData.floorArea, scenarioData.bedFloorArea);
           console.log('ACHU bedroom ventilationRate: ' + ventilationRate);
+        inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.achpp;
       } else {
         // use 10 L/s per person
         ventilationRate = 10 * numPeopleInBedroom;
         console.log('10 L/s ventilationRate: ' + ventilationRate);
+        inputsCtrl.inputs.residential.predefined.ventPP = 10;
       }
       floorArea = scenarioData.bedFloorArea;
     }
-    inputsCtrl.inputs.residential.predefined.ventilationRate = ventilationRate;
-    
+
     //save inputs to the InputsService
     InputsService.setInputs(inputsCtrl.inputs);
     let temperature = 296.15;
@@ -879,6 +885,12 @@ function InputsController($state, InputsService) {
 		return inputsCtrl.inputs.residential.predefined.method == '62.2' || 
 			inputsCtrl.inputs.residential.predefined.method == 'Perfect' || 
 			inputsCtrl.inputs.residential.predefined.method == 'Uniform';
+	};
+
+	inputsCtrl.showACHValues = function () {
+		return inputsCtrl.inputs.residential.predefined.method == 'ACH' || 
+			inputsCtrl.inputs.residential.predefined.method == 'ACHP' || 
+			inputsCtrl.inputs.residential.predefined.method == 'ACHU';
 	};
 	
 	
