@@ -377,7 +377,7 @@ function InputsController($state, InputsService) {
     // determine number of occupants entered
     let numPeople = inputsCtrl.calculateNumberOfPeople(inputsCtrl.inputs.commercial.occupants);
 
-    let occupantDensity = numPeople / inputsCtrl.inputs.commercial.floorArea.baseValue * 100;
+    let occupantDensity = parseFloat((numPeople / inputsCtrl.inputs.commercial.floorArea.baseValue * 100).toFixed(2));
     inputsCtrl.inputs.commercial.userOccupantDensity = occupantDensity;
 
     // convert from seconds to hours
