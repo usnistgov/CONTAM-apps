@@ -197,7 +197,7 @@ function ResultsController($stateParams) {
 		}
 	
 		if(resultsCtrl.inputs.SpaceCategory =='com'){
-			report.push([type + "Commcercial Building"]);
+			report.push([type + "Commercial Building"]);
 		} else {
 			report.push([type + "Residential Building"]);
 		}		
@@ -267,7 +267,7 @@ function ResultsController($stateParams) {
 		report.push(["", "tss (h)", "Css (ppm)", "Cm (ppm)", "C1h (ppm)"]);
 		report.push(["Primary Results", resultsCtrl.results.base.timeToCSS.toFixed(1), resultsCtrl.results.base.Css.toFixed(0), 
 			resultsCtrl.results.base.c_at_metric.toFixed(0), resultsCtrl.results.base.c_at_h.toFixed(0)]);
-		report.push(["Alternate  Results", resultsCtrl.results.alt.timeToCSS.toFixed(1), resultsCtrl.results.alt.Css.toFixed(0),
+		report.push(["Alternate Results", resultsCtrl.results.alt.timeToCSS.toFixed(1), resultsCtrl.results.alt.Css.toFixed(0),
 			resultsCtrl.results.alt.c_at_metric.toFixed(0), resultsCtrl.results.alt.c_at_h.toFixed(0)]);
 		report.push([]);			
 

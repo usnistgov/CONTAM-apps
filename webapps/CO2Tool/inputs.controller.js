@@ -88,7 +88,7 @@ function InputsController($state, InputsService) {
 
 		inputsCtrl.inputs.residential.altVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
 			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
-		inputsCtrl.inputs.residential.reduceVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Reduced Ventilation to Bedroom",
+		inputsCtrl.inputs.residential.reduceVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Reduced Ventilation to Bedrooms",
 			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0};			
 
 		inputsCtrl.inputs.residential.roomFloorArea = {baseValue: 12, conversion: 0, label: "Bedroom Floor Area", 
