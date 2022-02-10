@@ -83,7 +83,9 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.residential.ceilingHeight = {baseValue: 3, conversion: 0, label: "Ceiling Height", 
 			unitStrings: CONTAM.Units.Strings2.Length, unitFunction: CONTAM.Units.LengthConvert, min: 0};
 
-		inputsCtrl.inputs.residential.timeToMetric = {baseValue: 21600, conversion: 2, label: "Time to Metric",
+		inputsCtrl.inputs.residential.houseTimeToMetric = {baseValue: 7200, conversion: 2, label: "Time to Metric",
+			unitStrings: CONTAM.Units.Strings2.Time, unitFunction: CONTAM.Units.TimeConvert, min: 1};
+		inputsCtrl.inputs.residential.roomTimeToMetric = {baseValue: 21600, conversion: 2, label: "Time to Metric",
 			unitStrings: CONTAM.Units.Strings2.Time, unitFunction: CONTAM.Units.TimeConvert, min: 1};
 
 		inputsCtrl.inputs.residential.altHouseVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
@@ -481,6 +483,7 @@ function InputsController($state, InputsService) {
     let ventilationRate; // in L/s
     let floorArea;
     let altVentilationRate;
+    let timeToMetric;
     
     if(inputsCtrl.inputs.residential.resType == 'Whole House') {
 
@@ -494,6 +497,8 @@ function InputsController($state, InputsService) {
       floorArea = inputsCtrl.inputs.residential.floorArea.baseValue;
       // convert to L/s
       altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.altHouseVentilationRate.baseValue, 2, 0);
+      // convert from seconds to hours
+      timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.houseTimeToMetric.baseValue, 2, 0);
     } else {
 
       if(inputsCtrl.inputs.residential.roomVentType == 'Perfect') {
@@ -508,12 +513,12 @@ function InputsController($state, InputsService) {
       floorArea = inputsCtrl.inputs.residential.roomFloorArea.baseValue;
       // convert to L/s
       altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.altRoomVentilationRate.baseValue, 2, 0);
+      // convert from seconds to hours
+      timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.roomTimeToMetric.baseValue, 2, 0);
     }
     occupants.showRemove = false;
 
       
-    // convert from seconds to hours
-    let timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.timeToMetric.baseValue, 2, 0);
     
     let temperature = inputsCtrl.inputs.residential.temperature.baseValue;
     //save inputs to the InputsService
@@ -848,10 +853,6 @@ function InputsController($state, InputsService) {
 				return true;
 			}
 			if(inputsCtrl.inputs.SpaceTypeType == "user"){
-				if(inputsCtrl.inputs.residential.timeToMetric.baseValue == null) {
-					alert(inputsCtrl.inputs.residential.timeToMetric.label + message);
-					return true;
-				}
 				if(inputsCtrl.inputs.residential.numBedrooms == null) {
 					alert("Number of bedrooms" + message);
 					return true;
@@ -869,6 +870,10 @@ function InputsController($state, InputsService) {
             alert(inputsCtrl.inputs.residential.altHouseVentilationRate.label + message);
             return true;
           }
+          if(inputsCtrl.inputs.residential.houseTimeToMetric.baseValue == null) {
+            alert(inputsCtrl.inputs.residential.houseTimeToMetric.label + message);
+            return true;
+          }
 				} else {
 					if(inputsCtrl.inputs.residential.roomFloorArea.baseValue == null) {
 						alert(inputsCtrl.inputs.residential.roomFloorArea.label + message);
@@ -884,6 +889,10 @@ function InputsController($state, InputsService) {
 					}
           if(inputsCtrl.inputs.residential.altRoomVentilationRate.baseValue == null) {
             alert(inputsCtrl.inputs.residential.altRoomVentilationRate.label + message);
+            return true;
+          }
+          if(inputsCtrl.inputs.residential.roomTimeToMetric.baseValue == null) {
+            alert(inputsCtrl.inputs.residential.roomTimeToMetric.label + message);
             return true;
           }
 				}				
