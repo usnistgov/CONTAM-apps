@@ -209,12 +209,12 @@
 						<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Age Group:</div>
 						<div class="col-xs-12">
 							<select ng-model="inputsCtrl.inputs.commercial.new_occupants.ageGroup" class="form-control">
-								<option value="0">< 3</option>
+								<option value="0">&lt; 3</option>
 								<option value="1">3 to 9</option>
 								<option value="2">10 to 17</option>
 								<option value="3">18 to 29</option>
 								<option value="4">30 to 59</option>
-								<option value="5">>= 60</option>
+								<option value="5">&gt;= 60</option>
 							</select>
 						</div>
 					</div>
@@ -391,13 +391,6 @@
 						<div class="col-xs-12"><input type="number" step="1" ng-model="inputsCtrl.inputs.residential.numBedrooms" min="1" class="form-control" ng-Change="inputsCtrl.update622Values();"></div>
 					</div>
 				</div>
-				<unitconverter class="col-md-3 col-sm-4 col-xs-12"
-					unit-strings="inputsCtrl.inputs.residential.altVentilationRate.unitStrings" 
-					unit-function="inputsCtrl.inputs.residential.altVentilationRate.unitFunction"
-					unit-conversion="inputsCtrl.inputs.residential.altVentilationRate.conversion"
-					base-value="inputsCtrl.inputs.residential.altVentilationRate.baseValue"
-					field-label="inputsCtrl.inputs.residential.altVentilationRate.label"
-					min="inputsCtrl.inputs.residential.altVentilationRate.min"></unitconverter>					
 			</div>
 			<div class="row">
 				<h4 class="col-md-3 col-sm-4 col-xs-12">Scenario Type:</h4>
@@ -451,6 +444,13 @@
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
 						</div>
+            <unitconverter class="col-md-3 col-sm-4 col-xs-12"
+              unit-strings="inputsCtrl.inputs.residential.altHouseVentilationRate.unitStrings" 
+              unit-function="inputsCtrl.inputs.residential.altHouseVentilationRate.unitFunction"
+              unit-conversion="inputsCtrl.inputs.residential.altHouseVentilationRate.conversion"
+              base-value="inputsCtrl.inputs.residential.altHouseVentilationRate.baseValue"
+              field-label="inputsCtrl.inputs.residential.altHouseVentilationRate.label"
+              min="inputsCtrl.inputs.residential.altHouseVentilationRate.min"></unitconverter>
 					</div>
 				</div>
 				<div class="col-xs-12">
@@ -474,12 +474,12 @@
 										<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Age Group:</div>
 										<div class="col-xs-12">
 											<select ng-model="inputsCtrl.inputs.residential.new_house_occupants.ageGroup" class="form-control">
-												<option value="0">< 3</option>
+												<option value="0">%lt; 3</option>
 												<option value="1">3 to 9</option>
 												<option value="2">10 to 17</option>
 												<option value="3">18 to 29</option>
 												<option value="4">30 to 59</option>
-												<option value="5">>= 60</option>
+												<option value="5">&gt;= 60</option>
 											</select>
 										</div>
 									</div>
@@ -593,6 +593,13 @@
 								field-label="inputsCtrl.inputs.residential.roomVentilationRate.label"
 								min="inputsCtrl.inputs.residential.roomVentilationRate.min"></unitconverter>		
 						</div>
+            <unitconverter class="col-md-3 col-sm-4 col-xs-12"
+              unit-strings="inputsCtrl.inputs.residential.altRoomVentilationRate.unitStrings" 
+              unit-function="inputsCtrl.inputs.residential.altRoomVentilationRate.unitFunction"
+              unit-conversion="inputsCtrl.inputs.residential.altRoomVentilationRate.conversion"
+              base-value="inputsCtrl.inputs.residential.altRoomVentilationRate.baseValue"
+              field-label="inputsCtrl.inputs.residential.altRoomVentilationRate.label"
+              min="inputsCtrl.inputs.residential.altRoomVentilationRate.min"></unitconverter>
 					</div>
 				</div>
 				<div class="col-xs-12">
@@ -614,12 +621,12 @@
 								<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Age Group:</div>
 								<div class="col-xs-12">
 									<select ng-model="inputsCtrl.inputs.residential.new_bedroom_occupants.ageGroup" class="form-control">
-										<option value="0">< 3</option>
+										<option value="0">&lt; 3</option>
 										<option value="1">3 to 9</option>
 										<option value="2">10 to 17</option>
 										<option value="3">18 to 29</option>
 										<option value="4">30 to 59</option>
-										<option value="5">>= 60</option>
+										<option value="5">&gt;= 60</option>
 									</select>
 								</div>
 							</div>

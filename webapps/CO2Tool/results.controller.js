@@ -82,7 +82,6 @@ function ResultsController($stateParams) {
 			resultsCtrl.houseNumPeople = resultsCtrl.inputs.residential.predefined.numWholeOccupants;
 			resultsCtrl.numBedrooms = resultsCtrl.inputs.residential.predefined.numBedrooms;
 		} else {
-			resultsCtrl.altVentilationRate = resultsCtrl.inputs.residential.altVentilationRate;
 			resultsCtrl.CO2Outdoor = resultsCtrl.inputs.residential.CO2Outdoor;
 			resultsCtrl.ceilingHeight = resultsCtrl.inputs.residential.ceilingHeight;
 			resultsCtrl.floorArea = resultsCtrl.inputs.residential.floorArea;
@@ -103,6 +102,7 @@ function ResultsController($stateParams) {
 				}
 				resultsCtrl.occupants =	resultsCtrl.inputs.residential.house_occupants.slice();
 				resultsCtrl.method = resultsCtrl.inputs.residential.wholeVentType;
+        resultsCtrl.altVentilationRate = resultsCtrl.inputs.residential.altHouseVentilationRate;
 			} else {
 				if(resultsCtrl.inputs.residential.roomVentType == 'Perfect') {
 					let ventilationRate = CONTAM.Units.FlowConvert(resultsCtrl.inputs.calc622PerfectValue, 2, 1);
@@ -121,6 +121,7 @@ function ResultsController($stateParams) {
 				resultsCtrl.bedroomNumPeople = resultsCtrl.inputs.residential.bedroomNumPeople;
 				resultsCtrl.roomFloorArea = resultsCtrl.inputs.residential.roomFloorArea;
 				resultsCtrl.reduceVentilationRate = resultsCtrl.inputs.residential.reduceVentilationRate;
+        resultsCtrl.altVentilationRate = resultsCtrl.inputs.residential.altRoomVentilationRate;
 			}
 			// this will make the grouplist not show the remove occupants button
 			resultsCtrl.occupants.showRemove = false;

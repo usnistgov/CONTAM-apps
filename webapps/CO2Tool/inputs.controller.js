@@ -86,7 +86,9 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.residential.timeToMetric = {baseValue: 21600, conversion: 2, label: "Time to Metric",
 			unitStrings: CONTAM.Units.Strings2.Time, unitFunction: CONTAM.Units.TimeConvert, min: 1};
 
-		inputsCtrl.inputs.residential.altVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
+		inputsCtrl.inputs.residential.altHouseVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
+			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
+		inputsCtrl.inputs.residential.altRoomVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Alternate Ventilation Rate per Person",
 			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
 		inputsCtrl.inputs.residential.reduceVentilationRate = {baseValue: 0.012041, conversion: 2, label: "Reduced Ventilation to Bedrooms",
 			unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0};			
@@ -478,6 +480,7 @@ function InputsController($state, InputsService) {
     let occupants;
     let ventilationRate; // in L/s
     let floorArea;
+    let altVentilationRate;
     
     if(inputsCtrl.inputs.residential.resType == 'Whole House') {
 
@@ -489,6 +492,8 @@ function InputsController($state, InputsService) {
       }
       occupants = inputsCtrl.inputs.residential.house_occupants.slice();
       floorArea = inputsCtrl.inputs.residential.floorArea.baseValue;
+      // convert to L/s
+      altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.altHouseVentilationRate.baseValue, 2, 0);
     } else {
 
       if(inputsCtrl.inputs.residential.roomVentType == 'Perfect') {
@@ -501,11 +506,11 @@ function InputsController($state, InputsService) {
       }
       occupants = inputsCtrl.inputs.residential.bedroom_occupants.slice();
       floorArea = inputsCtrl.inputs.residential.roomFloorArea.baseValue;
+      // convert to L/s
+      altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.altRoomVentilationRate.baseValue, 2, 0);
     }
     occupants.showRemove = false;
 
-    // convert to L/s
-    let altVentilationRate = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.altVentilationRate.baseValue, 2, 0);
       
     // convert from seconds to hours
     let timeToMetric = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.timeToMetric.baseValue, 2, 0);
@@ -855,15 +860,15 @@ function InputsController($state, InputsService) {
 					alert("Number of occupants in house" + message);
 					return true;
 				}
-				if(inputsCtrl.inputs.residential.altVentilationRate.baseValue == null) {
-					alert(inputsCtrl.inputs.residential.altVentilationRate.label + message);
-					return true;
-				}
 				if(inputsCtrl.inputs.residential.resType == 'Whole House') {
 					if(inputsCtrl.inputs.residential.wholeVentType == 'ACH' && inputsCtrl.inputs.residential.wholeACH == null) {
 						alert("Air Change Rate" + message);
 						return true;
 					}					
+          if(inputsCtrl.inputs.residential.altHouseVentilationRate.baseValue == null) {
+            alert(inputsCtrl.inputs.residential.altHouseVentilationRate.label + message);
+            return true;
+          }
 				} else {
 					if(inputsCtrl.inputs.residential.roomFloorArea.baseValue == null) {
 						alert(inputsCtrl.inputs.residential.roomFloorArea.label + message);
@@ -877,6 +882,10 @@ function InputsController($state, InputsService) {
 						alert(inputsCtrl.inputs.residential.roomVentilationRate.label + message);
 						return true;
 					}
+          if(inputsCtrl.inputs.residential.altRoomVentilationRate.baseValue == null) {
+            alert(inputsCtrl.inputs.residential.altRoomVentilationRate.label + message);
+            return true;
+          }
 				}				
 			} else {
 				
