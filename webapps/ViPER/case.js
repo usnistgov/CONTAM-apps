@@ -290,7 +290,7 @@ export class ViperCaseState {
         let change;
         if(basePart > casePart){
           change = (basePart - casePart) / basePart * 100;
-          this.status = sprintf("%4g", Math.round(change))  + "% decrease";
+          this.status = sprintf("%4g", Math.round(change))  + " % decrease";
           this.statusColor = "green";
           
         } else if(basePart < casePart) {
@@ -299,7 +299,7 @@ export class ViperCaseState {
           if(change >= 100){
             this.status = sprintf("%4.2g", (change+100)/100)  + " times greater";
           } else {
-            this.status = sprintf("%4g", Math.round(change))  + "% increase";
+            this.status = sprintf("%4g", Math.round(change))  + " % increase";
           }
           this.statusColor = "red";
         } else {
@@ -314,7 +314,7 @@ export class ViperCaseState {
         let change60;
         if(basePart60 > casePart60){
           change60 = (basePart60 - casePart60) / basePart60 * 100;
-          this.status60 = sprintf("%4g", Math.round(change60))  + "% decrease";
+          this.status60 = sprintf("%4g", Math.round(change60))  + " % decrease";
           this.statusColor60 = "green";
           
         } else if(basePart60 < casePart60) {
@@ -323,7 +323,7 @@ export class ViperCaseState {
           if(change60 >= 100){
             this.status60 = sprintf("%4.2g", (change60+100)/100)  + " times greater";
           } else {
-            this.status60 = sprintf("%4g", Math.round(change60))  + "% increase";
+            this.status60 = sprintf("%4g", Math.round(change60))  + " % increase";
           }
           this.statusColor60 = "red";
         } else {
@@ -340,7 +340,7 @@ export class ViperCaseState {
         let change;
         if(baseIE > caseIE){
           change = (baseIE - caseIE) / baseIE * 100;
-          this.status = sprintf("%4g", Math.round(change))  + "% decrease";
+          this.status = sprintf("%4g", Math.round(change))  + " % decrease";
           this.statusColor = "green";
           
         } else if(baseIE < caseIE) {
@@ -349,7 +349,7 @@ export class ViperCaseState {
           if(change >= 100){
             this.status = sprintf("%4.2g", (change+100)/100)  + " times greater";
           } else {
-            this.status = sprintf("%4g", Math.round(change))  + "% increase";
+            this.status = sprintf("%4g", Math.round(change))  + " % increase";
           }
           this.statusColor = "red";
         } else {
@@ -364,7 +364,7 @@ export class ViperCaseState {
         let change60;
         if(baseIE60 > caseIE60){
           change60 = (baseIE60 - caseIE60) / baseIE60 * 100;
-          this.status60 = sprintf("%4g", Math.round(change60))  + "% decrease";
+          this.status60 = sprintf("%4g", Math.round(change60))  + " % decrease";
           this.statusColor60 = "green";
           
         } else if(baseIE60 < caseIE60) {
@@ -373,7 +373,7 @@ export class ViperCaseState {
           if(change60 >= 100){
             this.status60 = sprintf("%4.2g", (change60+100)/100)  + " times greater";
           } else {
-            this.status60 = sprintf("%4g", Math.round(change60))  + "% increase";
+            this.status60 = sprintf("%4g", Math.round(change60))  + " % increase";
           }
           this.statusColor60 = "red";
         } else {
