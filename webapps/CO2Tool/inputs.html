@@ -548,14 +548,6 @@
 								<div class="col-md-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s</div>
 							</div>
 						</div>
-						<unitconverter class="col-md-3 col-sm-4 col-xs-12"
-							unit-strings="inputsCtrl.inputs.residential.reduceVentilationRate.unitStrings" 
-							unit-function="inputsCtrl.inputs.residential.reduceVentilationRate.unitFunction"
-							unit-conversion="inputsCtrl.inputs.residential.reduceVentilationRate.conversion"
-							base-value="inputsCtrl.inputs.residential.reduceVentilationRate.baseValue"
-							field-label="inputsCtrl.inputs.residential.reduceVentilationRate.label"
-							min="inputsCtrl.inputs.residential.reduceVentilationRate.min"
-							value-change-callback="inputsCtrl.update622Values"></unitconverter>					
 						<h5 class="col-xs-12">Primary Ventilation Rate per Person</h5>
 						<div class="col-xs-12">
 							<div class="row" style="padding-bottom: 1ex;">
@@ -600,13 +592,25 @@
 								field-label="inputsCtrl.inputs.residential.roomVentilationRate.label"
 								min="inputsCtrl.inputs.residential.roomVentilationRate.min"></unitconverter>		
 						</div>
-            <unitconverter class="col-md-3 col-sm-4 col-xs-12"
-              unit-strings="inputsCtrl.inputs.residential.altRoomVentilationRate.unitStrings" 
-              unit-function="inputsCtrl.inputs.residential.altRoomVentilationRate.unitFunction"
-              unit-conversion="inputsCtrl.inputs.residential.altRoomVentilationRate.conversion"
-              base-value="inputsCtrl.inputs.residential.altRoomVentilationRate.baseValue"
-              field-label="inputsCtrl.inputs.residential.altRoomVentilationRate.label"
-              min="inputsCtrl.inputs.residential.altRoomVentilationRate.min"></unitconverter>
+						<div>
+              <unitconverter class="col-md-3 col-sm-4 col-xs-12"
+                unit-strings="inputsCtrl.inputs.residential.altRoomVentilationRate.unitStrings" 
+                unit-function="inputsCtrl.inputs.residential.altRoomVentilationRate.unitFunction"
+                unit-conversion="inputsCtrl.inputs.residential.altRoomVentilationRate.conversion"
+                base-value="inputsCtrl.inputs.residential.altRoomVentilationRate.baseValue"
+                field-label="inputsCtrl.inputs.residential.altRoomVentilationRate.label"
+                min="inputsCtrl.inputs.residential.altRoomVentilationRate.min"></unitconverter>
+            </div>
+						<div ng-show="inputsCtrl.inputs.residential.roomVentType == 'Perfect'">
+              <unitconverter class="col-md-3 col-sm-4 col-xs-12"
+                unit-strings="inputsCtrl.inputs.residential.reduceVentilationRate.unitStrings" 
+                unit-function="inputsCtrl.inputs.residential.reduceVentilationRate.unitFunction"
+                unit-conversion="inputsCtrl.inputs.residential.reduceVentilationRate.conversion"
+                base-value="inputsCtrl.inputs.residential.reduceVentilationRate.baseValue"
+                field-label="inputsCtrl.inputs.residential.reduceVentilationRate.label"
+                min="inputsCtrl.inputs.residential.reduceVentilationRate.min"
+                value-change-callback="inputsCtrl.update622Values"></unitconverter>					
+            </div>
 					</div>
 				</div>
 				<div class="col-xs-12">

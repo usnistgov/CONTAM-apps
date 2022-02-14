@@ -19,7 +19,7 @@ function InputsController($state, InputsService) {
 			
 		inputsCtrl.inputs.calc622PerfectValue = reducedVentilationRate / inputsCtrl.inputs.residential.bedroomNumPeople;
 		
-		inputsCtrl.inputs.calc622UniformValue = (reducedVentilationRate / inputsCtrl.inputs.residential.floorArea.baseValue) * 
+		inputsCtrl.inputs.calc622UniformValue = (inputsCtrl.inputs.calc622value / inputsCtrl.inputs.residential.floorArea.baseValue) * 
 			inputsCtrl.inputs.residential.roomFloorArea.baseValue;
 		inputsCtrl.inputs.calc622UniformPerPersonValue = inputsCtrl.inputs.calc622UniformValue / inputsCtrl.inputs.residential.bedroomNumPeople
 		//console.log('622 value: ' + inputsCtrl.inputs.calc622value);
