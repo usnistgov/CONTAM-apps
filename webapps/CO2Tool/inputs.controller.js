@@ -741,7 +741,8 @@ function InputsController($state, InputsService) {
 		inputsCtrl.inputs.residential.ceilingHeight.baseValue = inputsCtrl.inputs.residential.predefined.ceilingHeight;
 		inputsCtrl.inputs.residential.floorArea.baseValue = inputsCtrl.inputs.residential.predefined.floorArea;
 		//convert from hours to seconds
-		inputsCtrl.inputs.residential.timeToMetric.baseValue = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.predefined.timeToMetric, 2, 1);
+		inputsCtrl.inputs.residential.houseTimeToMetric.baseValue = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.predefined.timeToMetric, 2, 1);
+		inputsCtrl.inputs.residential.roomTimeToMetric.baseValue = CONTAM.Units.TimeConvert(inputsCtrl.inputs.residential.predefined.timeToMetric, 2, 1);
 		inputsCtrl.inputs.residential.houseNumPeople = inputsCtrl.inputs.residential.predefined.numWholeOccupants;
 		inputsCtrl.inputs.residential.numBedrooms = inputsCtrl.inputs.residential.predefined.numBedrooms;
 		let scenarioData = inputsCtrl.resHouseData[inputsCtrl.inputs.preDefinedResSpaceTypeSelection];
