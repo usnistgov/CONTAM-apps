@@ -61,7 +61,7 @@ menuModule.menuClick = function(ev)
   
   var link3 = document.createElement("A");
   link3.textContent = "Climate Suitability Tool";
-  link3.href = "https://pages.nist.gov/CONTAM-apps/software/CSTWebprogram.htm";
+  link3.href = location.origin + "/CONTAM-apps/software/CSTWebprogram.htm";
   link3.className = "blacklink";
   link3.style.display = "block";
   link3.style.padding = "1ex";
@@ -69,7 +69,7 @@ menuModule.menuClick = function(ev)
     
   var link4 = document.createElement("A");
   link4.textContent = "CONTAM Results Export Tool";
-  link4.href = "https://pages.nist.gov/CONTAM-apps/webapps/contam_results_exporter/index.htm";
+  link4.href = location.origin + "/CONTAM-apps/webapps/contam_results_exporter/index.htm";
   link4.className = "blacklink";
   link4.style.display = "block";
   link4.style.padding = "1ex";
@@ -77,7 +77,7 @@ menuModule.menuClick = function(ev)
   
   var link5 = document.createElement("A");
   link5.textContent = "CONTAM Particle Distribution Calculator";
-  link5.href = "https://pages.nist.gov/CONTAM-apps/software/CPDC/index.htm";
+  link5.href = location.origin + "/CONTAM-apps/software/CPDC/index.htm";
   link5.className = "blacklink";
   link5.style.display = "block";
   link5.style.padding = "1ex";
@@ -85,7 +85,7 @@ menuModule.menuClick = function(ev)
   
   var link6 = document.createElement("A");
   link6.textContent = "CONTAM Weather Tool";
-  link6.href = "https://pages.nist.gov/CONTAM-apps/webapps/WeatherTool/index.htm";
+  link6.href = location.origin + "/CONTAM-apps/webapps/WeatherTool/index.htm";
   link6.className = "blacklink";
   link6.style.display = "block";
   link6.style.padding = "1ex";
@@ -93,7 +93,7 @@ menuModule.menuClick = function(ev)
   
   var link7 = document.createElement("A");
   link7.textContent = "Engineered Nanoparticle Airborne Exposure Tool";
-  link7.href = "https://pages.nist.gov/CONTAM-apps/webapps/NanoParticleTool/index.htm";
+  link7.href = location.origin + "/CONTAM-apps/webapps/NanoParticleTool/index.htm";
   link7.className = "blacklink";
   link7.style.display = "block";
   link7.style.padding = "1ex";
@@ -101,7 +101,7 @@ menuModule.menuClick = function(ev)
 
   var nextLink = document.createElement("A");
   nextLink.textContent = "FaTIMA";
-  nextLink.href = "https://pages.nist.gov/CONTAM-apps/webapps/FaTIMA";
+  nextLink.href = location.origin + "/CONTAM-apps/webapps/FaTIMA";
   nextLink.className = "blacklink";
   nextLink.style.display = "block";
   nextLink.style.padding = "1ex";
@@ -109,7 +109,7 @@ menuModule.menuClick = function(ev)
   
   var link8 = document.createElement("A");
   link8.textContent = "Nanoparticle Coagulation Tool";
-  link8.href = "https://pages.nist.gov/CONTAM-apps/webapps/coag/index.htm";
+  link8.href = location.origin + "/CONTAM-apps/webapps/coag/index.htm";
   link8.className = "blacklink";
   link8.style.display = "block";
   link8.style.padding = "1ex";
@@ -117,7 +117,7 @@ menuModule.menuClick = function(ev)
   
   var link9 = document.createElement("A");
   link9.textContent = "ViPER";
-  link9.href = "https://pages.nist.gov/CONTAM-apps/webapps/ViPER";
+  link9.href = location.origin + "/CONTAM-apps/webapps/ViPER";
   link9.className = "blacklink";
   link9.style.display = "block";
   link9.style.padding = "1ex";
