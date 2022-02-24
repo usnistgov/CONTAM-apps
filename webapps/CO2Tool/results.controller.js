@@ -95,7 +95,8 @@ function ResultsController($stateParams) {
 					resultsCtrl.ventilationRate = {baseValue: ventilationRate, conversion: 2, label: "Primary Ventilation per Person",
 						unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
 				} else {
-					let ventilationRate = CONTAM.Units.FlowConvert((resultsCtrl.inputs.residenytial.wholeACH * volumeOfBldg / 3.6) / resultsCtrl.inputs.residential.houseNumPeople, 2, 1);
+          let volumeOfBldg = resultsCtrl.inputs.residential.ceilingHeight.baseValue * resultsCtrl.inputs.residential.floorArea.baseValue;
+					let ventilationRate = CONTAM.Units.FlowConvert((resultsCtrl.inputs.residential.wholeACH * volumeOfBldg / 3.6) / resultsCtrl.inputs.residential.houseNumPeople, 2, 1);
 					resultsCtrl.ventilationRate = {baseValue: ventilationRate, conversion: 2, label: "Primary Ventilation per Person",
 						unitStrings: CONTAM.Units.Strings2.Flow, unitFunction: CONTAM.Units.FlowConvert, min: 0.0000001};
 				}
