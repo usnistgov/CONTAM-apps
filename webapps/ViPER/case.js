@@ -290,16 +290,16 @@ export class ViperCaseState {
         let change;
         if(basePart > casePart){
           change = (basePart - casePart) / basePart * 100;
-          this.status = sprintf("%4g", Math.round(change))  + " % decrease";
+          this.status = sprintf("%4g", Math.round(change))  + " % decrease in <br> particle concentration";
           this.statusColor = "green";
           
         } else if(basePart < casePart) {
           change = (casePart - basePart) / basePart * 100;
           console.log('change: ' + change);
           if(change >= 100){
-            this.status = sprintf("%4.2g", (change+100)/100)  + " times greater";
+            this.status = sprintf("%4.2g", (change+100)/100)  + " times greater <br> particle concentration";
           } else {
-            this.status = sprintf("%4g", Math.round(change))  + " % increase";
+            this.status = sprintf("%4g", Math.round(change))  + " % increase in <br> particle concentration";
           }
           this.statusColor = "red";
         } else {
@@ -314,16 +314,16 @@ export class ViperCaseState {
         let change60;
         if(basePart60 > casePart60){
           change60 = (basePart60 - casePart60) / basePart60 * 100;
-          this.status60 = sprintf("%4g", Math.round(change60))  + " % decrease";
+          this.status60 = sprintf("%4g", Math.round(change60))  + " % decrease in <br> particle concentration";
           this.statusColor60 = "green";
           
         } else if(basePart60 < casePart60) {
           change60 = (casePart60 - basePart60) / basePart60 * 100;
           console.log('change60: ' + change60);
           if(change60 >= 100){
-            this.status60 = sprintf("%4.2g", (change60+100)/100)  + " times greater";
+            this.status60 = sprintf("%4.2g", (change60+100)/100)  + " times greater <br> particle concentration";
           } else {
-            this.status60 = sprintf("%4g", Math.round(change60))  + " % increase";
+            this.status60 = sprintf("%4g", Math.round(change60))  + " % increase in <br> particle concentration";
           }
           this.statusColor60 = "red";
         } else {
@@ -340,16 +340,16 @@ export class ViperCaseState {
         let change;
         if(baseIE > caseIE){
           change = (baseIE - caseIE) / baseIE * 100;
-          this.status = sprintf("%4g", Math.round(change))  + " % decrease";
+          this.status = sprintf("%4g", Math.round(change))  + " % decrease in <br> integrated exposure";
           this.statusColor = "green";
           
         } else if(baseIE < caseIE) {
           change = (caseIE - baseIE) / baseIE * 100;
           console.log('change: ' + change);
           if(change >= 100){
-            this.status = sprintf("%4.2g", (change+100)/100)  + " times greater";
+            this.status = sprintf("%4.2g", (change+100)/100)  + " times greater <br> integrated exposure";
           } else {
-            this.status = sprintf("%4g", Math.round(change))  + " % increase";
+            this.status = sprintf("%4g", Math.round(change))  + " % increase in <br> integrated exposure";
           }
           this.statusColor = "red";
         } else {
@@ -364,16 +364,16 @@ export class ViperCaseState {
         let change60;
         if(baseIE60 > caseIE60){
           change60 = (baseIE60 - caseIE60) / baseIE60 * 100;
-          this.status60 = sprintf("%4g", Math.round(change60))  + " % decrease";
+          this.status60 = sprintf("%4g", Math.round(change60))  + " % decrease in <br> integrated exposure";
           this.statusColor60 = "green";
           
         } else if(baseIE60 < caseIE60) {
           change60 = (caseIE60 - baseIE60) / baseIE60 * 100;
           console.log('change60: ' + change60);
           if(change60 >= 100){
-            this.status60 = sprintf("%4.2g", (change60+100)/100)  + " times greater";
+            this.status60 = sprintf("%4.2g", (change60+100)/100)  + " times greater <br> integrated exposure";
           } else {
-            this.status60 = sprintf("%4g", Math.round(change60))  + " % increase";
+            this.status60 = sprintf("%4g", Math.round(change60))  + " % increase in <br> integrated exposure";
           }
           this.statusColor60 = "red";
         } else {
@@ -423,7 +423,7 @@ export class ViperCase extends HTMLElement {
           padding:1ex;
         }
       </style>
-      <div style="margin:5px;" class="section">
+      <div style="margin:5px; padding:5px;" class="section">
         <div class="flex-end">
           <h3 id="caseHeading" style="margin:1ex 0px;">Case</h3>
           <hover-box>
@@ -445,9 +445,9 @@ export class ViperCase extends HTMLElement {
               <div slot="boxContent" class="tooltip">
                 <div>Select the option that most closely reflects the home size where the visit will take place. </div>
                 <ul>
-                  <li>‘Small’ = 92.9 m<sup>2</sup> (1,000 ft<sup>2</sup>)</li>
-                  <li>‘Medium’ = 162.6 m<sup>2</sup> (1,750 ft<sup>2</sup>)</li>
-                  <li>‘Large’ = 232.3 m<sup>2</sup> (2,500 ft<sup>2</sup>)</li>
+                  <li>‘Small’ = 90 m<sup>2</sup> (1,000 ft<sup>2</sup>)</li>
+                  <li>‘Medium’ = 160 m<sup>2</sup> (1,750 ft<sup>2</sup>)</li>
+                  <li>‘Large’ = 230 m<sup>2</sup> (2,500 ft<sup>2</sup>)</li>
                 </ul>
               </div>
             </hover-box>
@@ -535,11 +535,13 @@ export class ViperCase extends HTMLElement {
               </div>
             </hover-box>
           </div>
-          <h4 id="expChangeHeading" style="margin:1ex 0px;">Result change from base:</h4>
-          <div id="expChangeAV" style="font-weight:bold;">End of visit:</div>
-          <display-value id="statusDisplay" value="status"></display-value>
-          <div id="expChange60" style="font-weight:bold;">60 minutes after visit:</div>
-          <display-value id="statusDisplay60" value="status60"></display-value>
+          <div id="resultsDiv">
+            <h4 id="expChangeHeading" style="margin:1ex 0px;">Result change from base:</h4>
+            <div id="expChangeAV" style="font-weight:bold;">End of visit:</div>
+            <display-value id="statusDisplay" value="status"></display-value>
+            <div id="expChange60" style="font-weight:bold;">60 minutes after visit:</div>
+            <display-value id="statusDisplay60" value="status60"></display-value>
+          </div>
         </div>
       </div>
     `;
@@ -616,6 +618,8 @@ export class ViperCase extends HTMLElement {
       helpItems.forEach((helpItem) => {
         helpItem.style.display = "inline";
       });
+      this.shadowRoot.querySelector('#resultsDiv').style.display = 'none';
+
     } else {
       this.caseHeading.textContent = "Comparison Case " + (this.#state.cases.length - 1);
     }
