@@ -63,13 +63,13 @@ CO2Tool.calculateResult = function(CO2Outdoor, timeToMetric, ventilationRate,
   let volume = floorArea * ceilingHeight;
 	console.log("volume: " + volume + " m3");
 	
-	let TCo2Gen = CO2Tool.calculateGenerationRate(groupsOfPeople, temperature);	
-
+	let genResult = CO2Tool.calculateGenerationRate(groupsOfPeople, temperature);	
+  
 	// main result
 	let totalVentACH = 3.6 * ventilationRate / volume;
 	console.log("totalVent: " + totalVentACH + " ACH");
   
-	let Css = CO2Outdoor + 1000000 * TCo2Gen / ventilationRate;
+	let Css = CO2Outdoor + 1000000 * genResult.sum / ventilationRate;
 	console.log("Css: " + Css + " ppmv");
   
 	let c_at_h = CO2Outdoor * Math.exp(-totalVentACH * 1) + Css * (1 - Math.exp(-totalVentACH * 1));
@@ -85,7 +85,7 @@ CO2Tool.calculateResult = function(CO2Outdoor, timeToMetric, ventilationRate,
 	let altTotalVentACH = 3.6 * altVentilationRate / volume;
 	console.log("alt totalVent: " + altTotalVentACH + " ACH");
   
-	let altCss = CO2Outdoor + 1000000 * TCo2Gen / altVentilationRate;
+	let altCss = CO2Outdoor + 1000000 * genResult.sum / altVentilationRate;
 	console.log("alt Css: " + altCss + " ppmv");
   
 	let alt_c_at_h = CO2Outdoor * Math.exp(-altTotalVentACH * 1) + altCss * (1 - Math.exp(-altTotalVentACH * 1));
@@ -111,8 +111,9 @@ CO2Tool.calculateResult = function(CO2Outdoor, timeToMetric, ventilationRate,
 		points.push({'time': time, 'value': valueAtTime, 'altvalue': altValueAtTime});
 	}
 	
-	let retVal = { base: {Css: Css, c_at_metric: c_at_metric, c_at_h: c_at_h, timeToCSS: timeToCSS}, 
-		alt: {Css: altCss, c_at_metric: alt_c_at_metric, c_at_h: alt_c_at_h, timeToCSS: alt_timeToCSS},
+	let retVal = { tCO2gen: parseFloat(genResult.sum.toFixed(3)), avgCO2gen: parseFloat(genResult.avg.toFixed(4)), 
+		base: {Css: Css, c_at_metric: c_at_metric, c_at_h: c_at_h, timeToCSS: timeToCSS, ach: totalVentACH }, 
+		alt: {Css: altCss, c_at_metric: alt_c_at_metric, c_at_h: alt_c_at_h, timeToCSS: alt_timeToCSS, ach: altTotalVentACH },
 		points: points };
   console.dir(retVal);
   return retVal;
@@ -155,10 +156,10 @@ CO2Tool.calculateGenerationRate = function(groupsOfPeople, temperature){
 	}
 	//console.log("Tco2: " + sumTco2);
 	console.log("Number of Occupants: " + sumPeople);
-	//let Vco2avg = sumVco2 / sumPeople;
-	//console.log("Vco2avg: " + Vco2avg);
+	let avgCo2Gen = sumCo2Gen / sumPeople;
+	console.log("avg CO2 Gen: " + avgCo2Gen);
 	console.log("Total CO2 Gen: " + sumCo2Gen);
 
 	//return Vco2avg;
-  return sumCo2Gen;
+  return {sum: sumCo2Gen, avg: avgCo2Gen };
 }
