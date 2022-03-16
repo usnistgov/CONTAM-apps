@@ -112,8 +112,8 @@ CO2Tool.calculateResult = function(CO2Outdoor, timeToMetric, ventilationRate,
 	}
 	
 	let retVal = { tCO2gen: parseFloat(genResult.sum.toFixed(3)), avgCO2gen: parseFloat(genResult.avg.toFixed(4)), 
-		base: {Css: Css, c_at_metric: c_at_metric, c_at_h: c_at_h, timeToCSS: timeToCSS, ach: totalVentACH }, 
-		alt: {Css: altCss, c_at_metric: alt_c_at_metric, c_at_h: alt_c_at_h, timeToCSS: alt_timeToCSS, ach: altTotalVentACH },
+		base: {Css: Css, c_at_metric: c_at_metric, c_at_h: c_at_h, timeToCSS: timeToCSS, ach: parseFloat(totalVentACH.toFixed(2)) }, 
+		alt: {Css: altCss, c_at_metric: alt_c_at_metric, c_at_h: alt_c_at_h, timeToCSS: alt_timeToCSS, ach: parseFloat(altTotalVentACH.toFixed(2)) },
 		points: points };
   console.dir(retVal);
   return retVal;

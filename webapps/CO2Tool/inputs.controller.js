@@ -162,7 +162,7 @@ function InputsController($state, InputsService) {
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 25.75, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family perfect (Primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, perfect: 12.875, scenario: 'Bedroom', method: 'Perfect', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family perfect (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 6.18, uniformpp: 3.09, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family uniform (Primary)
-		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 4.12, uniformpp: 2.06, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family uniform (child)
+		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, calc622: 51.5, calc622pp: 12.875, uniform: 4.12, uniformpp: 4.12, scenario: 'Bedroom', method: 'Uniform', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family uniform (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, achpp: 23.78, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Perfect (primary)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, achpp: 23.78, scenario: 'Bedroom', method: 'ACHP', bedFloorArea: 20, numWholeOccupants: 4, occupants: 3}, // big house normal family ACH Perfect (child)
 		{CO2Outdoor: 400, floorArea: 250, ceilingHeight: 2.74, timeToMetric: 6, numBedrooms: 3, ach: 0.5, achpp: 5.7, scenario: 'Bedroom', method: 'ACHU', bedFloorArea: 30, numWholeOccupants: 4, occupants: 2}, // big house normal family ACH Uniform (primary)
@@ -415,17 +415,20 @@ function InputsController($state, InputsService) {
   
   inputsCtrl.calculateResPre = function(){
     let scenarioData = inputsCtrl.resHouseData[inputsCtrl.inputs.preDefinedResSpaceTypeSelection];
-    let occupants = inputsCtrl.predefined_residential_occupants[scenarioData.occupants].slice();
+    let occupants = inputsCtrl.inputs.residential.predefined.occupants.slice();
     occupants.showRemove = false;
+    let numPeople = inputsCtrl.inputs.countOccupants(occupants);
     
-    let calc622value = CO2Tool.calculateResidentialTotalVent622(scenarioData.floorArea, scenarioData.numBedrooms)
     let ventilationRate;
     let floorArea;
     let volumeOfBldg = scenarioData.ceilingHeight * scenarioData.floorArea;
+    let altVentilationRate; 
   
+    let altVentilationRatePP = CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.predefined.altVentilationRate.baseValue, 2, 0); //convert to L/s
+    altVentilationRate = altVentilationRatePP * numPeople;
     if(scenarioData.scenario == 'Whole House'){
       if(scenarioData.method == '62.2') {
-        ventilationRate = calc622value;
+        ventilationRate = scenarioData.calc622;
         inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.calc622pp;
       } else {
         console.log('volumeOfBldg: ' + volumeOfBldg);
@@ -436,20 +439,19 @@ function InputsController($state, InputsService) {
       floorArea = scenarioData.floorArea;
     } else {
       let volumeOfBedroom = scenarioData.ceilingHeight * scenarioData.bedFloorArea;
-      let numPeopleInBedroom = inputsCtrl.inputs.countOccupants(occupants);
       console.log('volumeOfBedroom: ' + volumeOfBedroom);
       if(scenarioData.method == 'Perfect') {
-        ventilationRate = CO2Tool.calculateBedroomTotalVent(calc622value, scenarioData.numWholeOccupants, numPeopleInBedroom);
+        ventilationRate = CO2Tool.calculateBedroomTotalVent(scenarioData.calc622, scenarioData.numWholeOccupants, numPeople);
         inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.calc622pp;
       } else if (scenarioData.method == 'Uniform') {
-        ventilationRate = (calc622value / 
+        ventilationRate = (scenarioData.calc622 / 
           (scenarioData.floorArea * scenarioData.ceilingHeight)) * 
           (scenarioData.bedFloorArea * scenarioData.ceilingHeight);
         console.log('uniform ventilationRate: ' + ventilationRate);
         inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.uniformpp;
       } else if (scenarioData.method == 'ACHP') {
         let wholeVent = CO2Tool.calculateResidentialTotalVentACH (scenarioData.ach, volumeOfBldg); // ventilation for whole house
-        ventilationRate = CO2Tool.calculateBedroomTotalVent(wholeVent, scenarioData.numWholeOccupants, numPeopleInBedroom); // ventilation for bedroom
+        ventilationRate = CO2Tool.calculateBedroomTotalVent(wholeVent, scenarioData.numWholeOccupants, numPeople); // ventilation for bedroom
         console.log('ACHP bedroom ventilationRate: ' + ventilationRate);
         inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.achpp;
       } else if (scenarioData.method == 'ACHU') {
@@ -459,7 +461,7 @@ function InputsController($state, InputsService) {
         inputsCtrl.inputs.residential.predefined.ventPP = scenarioData.achpp;
       } else {
         // use 10 L/s per person
-        ventilationRate = 10 * numPeopleInBedroom;
+        ventilationRate = 10 * numPeople;
         console.log('10 L/s ventilationRate: ' + ventilationRate);
         inputsCtrl.inputs.residential.predefined.ventPP = 10;
       }
@@ -473,8 +475,7 @@ function InputsController($state, InputsService) {
     // do calculations
     inputsCtrl.results = window.CO2Tool.calculateResult(scenarioData.CO2Outdoor, 
       scenarioData.timeToMetric, ventilationRate, occupants, 
-      CONTAM.Units.FlowConvert(inputsCtrl.inputs.residential.predefined.altVentilationRate.baseValue, 2, 0), //convert to L/s
-      temperature, floorArea, scenarioData.ceilingHeight);
+      altVentilationRate, temperature, floorArea, scenarioData.ceilingHeight);
     
   }
   
