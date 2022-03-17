@@ -7,6 +7,7 @@
 		<th>Mass (kg)</th>
 		<th>Age Group</th>
 		<th>Activity Level (met)</th>
+    <th>CO2 Generation Rate Per Person (L/s)</th>
 	</tr>
 	<tr ng-repeat="group in $ctrl.grouplist">
 		<td>{{ group.numPeople }}</td>
@@ -23,6 +24,7 @@
 			</div>	
 		</td>
 		<td>{{ group.met }}</td>
+		<td>{{ group.igen | number:4 }}</td>
 		<td ng-if="$ctrl.grouplist.showRemove"><button ng-click="$ctrl.onRemove({itemIndex: $index});" class="btn btn-primary btn-sm">Remove these occupants</button></td>
 	</tr>
 </table>

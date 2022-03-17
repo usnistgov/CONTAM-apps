@@ -121,17 +121,32 @@ CO2Tool.calculateResult = function(CO2Outdoor, timeToMetric, ventilationRate,
 
 CO2Tool.calculateGenerationRate = function(groupsOfPeople, temperature){
 	
-	let RQ = 0.85;
 	let sumCo2Gen = 0;
 	let sumPeople = 0;
+	
+	for(let i=0; i<groupsOfPeople.length; ++i)
+	{
+		let groupOfPeople = groupsOfPeople[i];
+    co2Gen = CO2Tool.calculateIndividualGenerationRate(groupOfPeople, temperature);
+		sumCo2Gen += co2Gen * groupOfPeople.numPeople;
+		sumPeople += groupOfPeople.numPeople;
+	}
+	console.log("Number of Occupants: " + sumPeople);
+	let avgCo2Gen = sumCo2Gen / sumPeople;
+	console.log("avg CO2 Gen: " + avgCo2Gen);
+	console.log("Total CO2 Gen: " + sumCo2Gen);
+
+  return {sum: sumCo2Gen, avg: avgCo2Gen };
+}
+
+CO2Tool.calculateIndividualGenerationRate = function(groupOfPeople, temperature){
+	
+	let RQ = 0.85;
 	let maleA = [0.249, 0.095, 0.074, 0.063, 0.048, 0.049];
 	let maleB = [-0.127, 2.11, 2.754, 2.896, 3.653, 2.459];
 	let femaleA = [0.244, 0.085, 0.056, 0.062, 0.034, 0.038];
 	let femaleB = [-0.13, 2.033, 2.898, 2.036, 3.538, 2.755];
 	
-	for(let i=0; i<groupsOfPeople.length; ++i)
-	{
-		let groupOfPeople = groupsOfPeople[i];
 		let BMR;
 		if(groupOfPeople.sex == "M")
 		{
@@ -149,17 +164,8 @@ CO2Tool.calculateGenerationRate = function(groupsOfPeople, temperature){
 		}
 		//console.log("BMR: " + BMR);
     let pressure = 101; //kPa
+    
     co2Gen = RQ * BMR * groupOfPeople.met*(temperature/ pressure) * 0.000211; // L/s
-		//console.log("Vco2: " + Vco2);
-		sumCo2Gen += co2Gen * groupOfPeople.numPeople;
-		sumPeople += groupOfPeople.numPeople;
-	}
-	//console.log("Tco2: " + sumTco2);
-	console.log("Number of Occupants: " + sumPeople);
-	let avgCo2Gen = sumCo2Gen / sumPeople;
-	console.log("avg CO2 Gen: " + avgCo2Gen);
-	console.log("Total CO2 Gen: " + sumCo2Gen);
-
-	//return Vco2avg;
-  return {sum: sumCo2Gen, avg: avgCo2Gen };
+		console.log("co2Gen: " + co2Gen);
+    return co2Gen;
 }

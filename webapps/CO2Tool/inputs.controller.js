@@ -199,90 +199,90 @@ function InputsController($state, InputsService) {
 	// predefined occupant data
 	inputsCtrl.predefinedGroups = [
 		[
-			{ sex: "M", ageGroup: 1, mass: 23, met: 2, numPeople: 12},
-			{ sex: "F", ageGroup: 1, mass: 23, met: 2, numPeople: 12},
-			{ sex: "M", ageGroup: 4, mass: 85, met: 3, numPeople: 1}
+			{ sex: "M", ageGroup: 1, mass: 23, met: 2, numPeople: 12, igen: 0.0045},
+			{ sex: "F", ageGroup: 1, mass: 23, met: 2, numPeople: 12, igen: 0.0041},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 3, numPeople: 1, igen: 0.0122}
 		],
 		[
-			{ sex: "M", ageGroup: 2, mass: 65, met: 1.7, numPeople: 17},
-			{ sex: "F", ageGroup: 2, mass: 60, met: 1.7, numPeople: 17},
-			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 1},
+			{ sex: "M", ageGroup: 2, mass: 65, met: 1.7, numPeople: 17, igen: 0.0067},
+			{ sex: "F", ageGroup: 2, mass: 60, met: 1.7, numPeople: 17, igen: 0.0055},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 1, igen: 0.0101},
 		],
 		[
-			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 32},
-			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 32},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1},
+			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 32, igen: 0.0054},
+			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 32, igen: 0.0043},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1, igen: 0.0064},
 		],
 		[
-			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 74.5},
-			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 74.5},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1},
+			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 74.5, igen: 0.0054},
+			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 74.5, igen: 0.0043},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1, igen: 0.0064},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.5, numPeople: 33},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.5, numPeople: 33},
-			{ sex: "M", ageGroup: 4, mass: 85, met: 3, numPeople: 2},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 3, numPeople: 2},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.5, numPeople: 33, igen: 0.0061},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.5, numPeople: 33, igen: 0.0048},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 3, numPeople: 2, igen: 0.0122},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 3, numPeople: 2, igen: 0.0096},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 25},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 25},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 25, igen: 0.0056},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 25, igen: 0.0044},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1, numPeople: 1},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1, numPeople: 1},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1, numPeople: 1, igen: 0.0040},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1, numPeople: 1, igen: 0.0032},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 2.5},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 2.5},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 2.5, igen: 0.0056},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 2.5, igen: 0.0044},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 75},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 75},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 75, igen: 0.0052},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 75, igen: 0.0041},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 2, numPeople: 75},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 75},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 2, numPeople: 75, igen: 0.0081},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 75, igen: 0.0064},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 7.5},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 2.5, numPeople: 7.5},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 7.5, igen: 0.0101},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 2.5, numPeople: 7.5, igen: 0.0080},
 		]
 	];
 
 	// predefined residential occupant data
 	inputsCtrl.predefined_residential_occupants = [
 		[ // normal family
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1},
-			{ sex: "M", ageGroup: 1, mass: 23, met: 2, numPeople: 1},
-			{ sex: "F", ageGroup: 2, mass: 40, met: 1.7, numPeople: 1},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1, igen: 0.0053},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1, igen: 0.0042},
+			{ sex: "M", ageGroup: 1, mass: 23, met: 2, numPeople: 1, igen: 0.0045},
+			{ sex: "F", ageGroup: 2, mass: 40, met: 1.7, numPeople: 1, igen: 0.0046},
 		],
 		[ // big family
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1},
-			{ sex: "M", ageGroup: 1, mass: 23, met: 2, numPeople: 1},
-			{ sex: "F", ageGroup: 2, mass: 40, met: 1.7, numPeople: 1},
-			{ sex: "M", ageGroup: 1, mass: 32, met: 2, numPeople: 1},
-			{ sex: "F", ageGroup: 1, mass: 14, met: 2, numPeople: 1},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1, igen: 0.0053},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1, igen: 0.0042},
+			{ sex: "M", ageGroup: 1, mass: 23, met: 2, numPeople: 1, igen: 0.0045},
+			{ sex: "F", ageGroup: 2, mass: 40, met: 1.7, numPeople: 1, igen: 0.0046},
+			{ sex: "M", ageGroup: 1, mass: 32, met: 2, numPeople: 1, igen: 0.0054},
+			{ sex: "F", ageGroup: 1, mass: 14, met: 2, numPeople: 1, igen: 0.0034},
 		],
 		[ // Primary bedroom
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.0, numPeople: 1},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.0, numPeople: 1},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.0, numPeople: 1, igen: 0.0040},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.0, numPeople: 1, igen: 0.0032},
 		],
 		[ //child bedroom 
-			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 0.5},
-			{ sex: "F", ageGroup: 2, mass: 40, met: 1.0, numPeople: 0.5},
+			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 0.5, igen: 0.0023},
+			{ sex: "F", ageGroup: 2, mass: 40, met: 1.0, numPeople: 0.5, igen: 0.0027},
 		],
 		[ //child bedroom - big family
-			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 0.25},
-			{ sex: "F", ageGroup: 2, mass: 40, met: 1.0, numPeople: 0.25},
-			{ sex: "M", ageGroup: 1, mass: 32, met: 1.0, numPeople: 0.25},
-			{ sex: "F", ageGroup: 1, mass: 14, met: 1.0, numPeople: 0.25},
+			{ sex: "M", ageGroup: 1, mass: 23, met: 1.0, numPeople: 0.25, igen: 0.0023 },
+			{ sex: "F", ageGroup: 2, mass: 40, met: 1.0, numPeople: 0.25, igen: 0.0027},
+			{ sex: "M", ageGroup: 1, mass: 32, met: 1.0, numPeople: 0.25, igen: 0.0027},
+			{ sex: "F", ageGroup: 1, mass: 14, met: 1.0, numPeople: 0.25, igen: 0.0017},
 		],
 		[ // small family
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 1, igen: 0.0053},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 1, igen: 0.0042},
 		]
 	];
 
@@ -619,13 +619,15 @@ function InputsController($state, InputsService) {
 			alert("Number of Occupants" + message);
 			return true;
 		}
-		inputsCtrl.inputs.commercial.occupants.push({
+    let group = {
 			sex: inputsCtrl.inputs.commercial.new_occupants.sex,
 			ageGroup: parseInt(inputsCtrl.inputs.commercial.new_occupants.ageGroup),
 			mass: inputsCtrl.inputs.commercial.new_occupants.mass.baseValue,
 			met: inputsCtrl.inputs.commercial.new_occupants.met,
-			numPeople: inputsCtrl.inputs.commercial.new_occupants.numPeople
-		});
+			numPeople: inputsCtrl.inputs.commercial.new_occupants.numPeople,
+		}
+    group.igen = CO2Tool.calculateIndividualGenerationRate(group, inputsCtrl.inputs.commercial.temperature.baseValue);
+		inputsCtrl.inputs.commercial.occupants.push(group);
 	}
   
 	//residential
@@ -644,13 +646,15 @@ function InputsController($state, InputsService) {
 			alert("Number of Occupants" + message);
 			return true;
 		}
-		inputsCtrl.inputs.residential.house_occupants.push({
+    let group = {
 			sex: inputsCtrl.inputs.residential.new_house_occupants.sex,
 			ageGroup: parseInt(inputsCtrl.inputs.residential.new_house_occupants.ageGroup),
 			mass: inputsCtrl.inputs.residential.new_house_occupants.mass.baseValue,
 			met: inputsCtrl.inputs.residential.new_house_occupants.met,
 			numPeople: inputsCtrl.inputs.residential.new_house_occupants.numPeople
-		});
+		};
+    group.igen = CO2Tool.calculateIndividualGenerationRate(group, inputsCtrl.inputs.residential.temperature.baseValue);
+		inputsCtrl.inputs.residential.house_occupants.push(group);
 	}
 
 	// function to add a group of occupants for the bedroom to the user defined space
@@ -668,13 +672,15 @@ function InputsController($state, InputsService) {
 			alert("Number of Occupants" + message);
 			return true;
 		}
-		inputsCtrl.inputs.residential.bedroom_occupants.push({
+    let group = {
 			sex: inputsCtrl.inputs.residential.new_bedroom_occupants.sex,
 			ageGroup: parseInt(inputsCtrl.inputs.residential.new_bedroom_occupants.ageGroup),
 			mass: inputsCtrl.inputs.residential.new_bedroom_occupants.mass.baseValue,
 			met: inputsCtrl.inputs.residential.new_bedroom_occupants.met,
 			numPeople: inputsCtrl.inputs.residential.new_bedroom_occupants.numPeople
-		});
+		};    
+    group.igen = CO2Tool.calculateIndividualGenerationRate(group, inputsCtrl.inputs.residential.temperature.baseValue);
+		inputsCtrl.inputs.residential.bedroom_occupants.push(group);
 	}
 	
 	// the pre-defined space type has changed so put in new values
