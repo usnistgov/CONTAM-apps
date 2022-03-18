@@ -200,22 +200,22 @@ function InputsController($state, InputsService) {
 	inputsCtrl.predefinedGroups = [
 		[
 			{ sex: "M", ageGroup: 1, mass: 23, met: 2, numPeople: 12, igen: 0.0045},
-			{ sex: "F", ageGroup: 1, mass: 23, met: 2, numPeople: 12, igen: 0.0041},
+			{ sex: "F", ageGroup: 1, mass: 23, met: 2, numPeople: 12, igen: 0.0042},
 			{ sex: "M", ageGroup: 4, mass: 85, met: 3, numPeople: 1, igen: 0.0122}
 		],
 		[
-			{ sex: "M", ageGroup: 2, mass: 65, met: 1.7, numPeople: 17, igen: 0.0067},
-			{ sex: "F", ageGroup: 2, mass: 60, met: 1.7, numPeople: 17, igen: 0.0055},
-			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 1, igen: 0.0101},
+			{ sex: "M", ageGroup: 2, mass: 65, met: 1.7, numPeople: 17, igen: 0.0068},
+			{ sex: "F", ageGroup: 2, mass: 60, met: 1.7, numPeople: 17, igen: 0.0056},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 1, igen: 0.0102},
 		],
 		[
 			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 32, igen: 0.0054},
-			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 32, igen: 0.0043},
+			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 32, igen: 0.0044},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1, igen: 0.0064},
 		],
 		[
 			{ sex: "M", ageGroup: 3, mass: 80, met: 1.3, numPeople: 74.5, igen: 0.0054},
-			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 74.5, igen: 0.0043},
+			{ sex: "F", ageGroup: 3, mass: 70, met: 1.3, numPeople: 74.5, igen: 0.0044},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 1, igen: 0.0064},
 		],
 		[
@@ -225,27 +225,27 @@ function InputsController($state, InputsService) {
 			{ sex: "F", ageGroup: 4, mass: 75, met: 3, numPeople: 2, igen: 0.0096},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 25, igen: 0.0056},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 25, igen: 0.0044},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 25, igen: 0.0057},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 25, igen: 0.0045},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1, numPeople: 1, igen: 0.0040},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1, numPeople: 1, igen: 0.0041},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 1, numPeople: 1, igen: 0.0032},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 2.5, igen: 0.0056},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 2.5, igen: 0.0044},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.4, numPeople: 2.5, igen: 0.0057},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.4, numPeople: 2.5, igen: 0.0045},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 75, igen: 0.0052},
-			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 75, igen: 0.0041},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.3, numPeople: 75, igen: 0.0053},
+			{ sex: "F", ageGroup: 4, mass: 75, met: 1.3, numPeople: 75, igen: 0.0042},
 		],
 		[
 			{ sex: "M", ageGroup: 4, mass: 85, met: 2, numPeople: 75, igen: 0.0081},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 2, numPeople: 75, igen: 0.0064},
 		],
 		[
-			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 7.5, igen: 0.0101},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 2.5, numPeople: 7.5, igen: 0.0102},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 2.5, numPeople: 7.5, igen: 0.0080},
 		]
 	];
@@ -267,7 +267,7 @@ function InputsController($state, InputsService) {
 			{ sex: "F", ageGroup: 1, mass: 14, met: 2, numPeople: 1, igen: 0.0034},
 		],
 		[ // Primary bedroom
-			{ sex: "M", ageGroup: 4, mass: 85, met: 1.0, numPeople: 1, igen: 0.0040},
+			{ sex: "M", ageGroup: 4, mass: 85, met: 1.0, numPeople: 1, igen: 0.0041},
 			{ sex: "F", ageGroup: 4, mass: 75, met: 1.0, numPeople: 1, igen: 0.0032},
 		],
 		[ //child bedroom 
