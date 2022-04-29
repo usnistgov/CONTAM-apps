@@ -115,6 +115,14 @@ menuModule.menuClick = function(ev)
   link8.style.padding = "1ex";
   menu.appendChild(link8);
   
+  var link10 = document.createElement("A");
+  link10.textContent = "Quick Indoor CO2";
+  link10.href = location.origin + "/CONTAM-apps/webapps/CO2Tool/index.html";
+  link10.className = "blacklink";
+  link10.style.display = "block";
+  link10.style.padding = "1ex";
+  menu.appendChild(link10);
+  
   var link9 = document.createElement("A");
   link9.textContent = "ViPER";
   link9.href = location.origin + "/CONTAM-apps/webapps/ViPER";
