@@ -94,7 +94,7 @@ CO2Tool.calculateResult = function(CO2Outdoor, timeToMetric, ventilationRate,
 	let alt_c_at_metric = CO2Outdoor * Math.exp(-altTotalVentACH * timeToMetric) + altCss * (1 - Math.exp(-altTotalVentACH * timeToMetric));
 	console.log("alt C metric: " + alt_c_at_metric + " ppmv");
   
-	let alt_timeToCSS = 3 * (1 / totalVentACH);
+	let alt_timeToCSS = 3 * (1 / altTotalVentACH);
 	console.log("alt time to css: " + alt_timeToCSS + " h");
 	
 	let points = [];
