@@ -1,103 +1,171 @@
 var CO2Tool = {};
 
-//people - # of people, mass, age group, sex, activity (met)
-// age group (0-5) <3, 3 to 10, 10 to 18, 18 to 30, 30 to 60, > 60
-CO2Tool.calculateResult = function(CO2Outdoor, initialCO2Indoor, 
-	volumePerPerson, timeToMetric, ventilationRate, groupsOfPeople, altVentilationRate){
+CO2Tool.calculateCommercialTotalVent = function(RA, RP, floorArea, numberOfPeople) {
+  
+  let totalVent = RA * floorArea + RP * numberOfPeople;
+  console.log("commercial total ventilation: " + totalVent + " L/s");
+  return totalVent; // return total ventilation L/s
+}
+
+CO2Tool.calculateResidentialTotalVent622 = function(floorArea, numberOfBedrooms) {
+  
+  let totalVent = (0.15 * floorArea)+(3.5 * (1 + numberOfBedrooms));
+  console.log("62.2 total ventilation: " + totalVent + " L/s");
+  return totalVent; // return total ventilation L/s
+}
+
+CO2Tool.calculateResidentialTotalVentACH = function(totalACH, houseVolume) {
+  
+  let totalVent = totalACH * houseVolume / 3.6;
+  console.log("ACH total ventilation: " + totalVent + " L/s");
+  return totalVent; // return total ventilation L/s
+}
+
+CO2Tool.calculateBedroomTotalVent = function(totalVent, numPeopleHouse, numPeopleBedroom){
+  let bedVent = (totalVent / numPeopleHouse) * numPeopleBedroom;
+  console.log("bedroom (people) ventilation: " + bedVent + " L/s");
+  return bedVent; // return bedroom ventilation L/s
+}
+
+CO2Tool.calculateBedroomFloorTotalVent = function(totalVent, floorAreaHouse, floorAreaBedroom){
+  let bedVent = (totalVent / floorAreaHouse) * floorAreaBedroom;
+  console.log("bedroom (floor) ventilation: " + bedVent + " L/s");
+  return bedVent; // return bedroom ventilation L/s
+}
+
+// CO2Outdoor - the concentration of CO2 outside the building (ppm)
+// timeToMetric - the time for the metric (h)
+// ventilationRate - the primary ventilation rate (L/s)
+// groupsOfPeople - an array of groups of people
+//   a group of people consists of:
+//   numPeople - # of people in the group
+//   mass - the mass of every person in the group (kg)
+//   ageGroup - the age group that every person in the group
+//     age group (0-5): <3, 3 to 10, 10 to 18, 18 to 30, 30 to 60, > 60
+//   sex - the sex of every person in the group (M|F)
+//   met - the activity of every peron in the group
+// altVentilationRate - the alternate ventilation rate (L/s)
+// temperature - the temperature in the building (K)
+// floorArea - the floor Area of the building(m3)
+// ceilingHeight - the ceiling height in the building (m)
+CO2Tool.calculateResult = function(CO2Outdoor, timeToMetric, ventilationRate, 
+  groupsOfPeople, altVentilationRate, temperature, floorArea, ceilingHeight){
 			
 	console.log("Calculate results: ");
-	console.log("CO2Outdoor: " + CO2Outdoor + " mg/m3");
-	console.log("initialCO2Indoor: " + initialCO2Indoor + " mg/m3");
-	console.log("volumePerPerson: " + volumePerPerson + " m3");
+	console.log("CO2Outdoor: " + CO2Outdoor + " ppm");
 	console.log("timeToMetric: " + timeToMetric + " h");
 	console.log("ventilationRate: " + ventilationRate + " L/s");
 	console.log("altVentilationRate: " + altVentilationRate + " L/s");
+	console.log("temperature: " + temperature + " K");
+	console.log("floor area: " + floorArea + " m2");
+	console.log("ceiling height: " + ceilingHeight + " m");
+  
+  let volume = floorArea * ceilingHeight;
+	console.log("volume: " + volume + " m3");
 	
-	var Vco2avg = CO2Tool.calculateGenerationRate(groupsOfPeople);	
-	
+	let genResult = CO2Tool.calculateGenerationRate(groupsOfPeople, temperature);	
+  
 	// main result
-	var defaultOA = 3.6 * ventilationRate / volumePerPerson;
-	console.log("defaultOA: " + defaultOA);
-
-	var Css = 1 * (CO2Outdoor + (1.8 * 1000000 * Vco2avg / ventilationRate));
-	console.log("Css: " + Css);
-	var c_at_metric = initialCO2Indoor * Math.exp(-defaultOA * timeToMetric) + Css * (1 - Math.exp(-defaultOA * timeToMetric));
-	console.log("c_at_metric: " + c_at_metric);
-	var c_at_h = initialCO2Indoor * Math.exp(-defaultOA * 1) + Css * (1 - Math.exp(-defaultOA * 1));
-	console.log("c_at_h: " + c_at_h);
-	var timeToCSS = 3 * (volumePerPerson / ventilationRate) / 3.6;
-	console.log("timeToCSS: " + timeToCSS);
+	let totalVentACH = 3.6 * ventilationRate / volume;
+	console.log("totalVent: " + totalVentACH + " ACH");
+  
+	let Css = CO2Outdoor + 1000000 * genResult.sum / ventilationRate;
+	console.log("Css: " + Css + " ppmv");
+  
+	let c_at_h = CO2Outdoor * Math.exp(-totalVentACH * 1) + Css * (1 - Math.exp(-totalVentACH * 1));
+	console.log("C 1h: " + c_at_h + " ppmv");
+  
+	let c_at_metric = CO2Outdoor * Math.exp(-totalVentACH * timeToMetric) + Css * (1 - Math.exp(-totalVentACH * timeToMetric));
+	console.log("C metric: " + c_at_metric + " ppmv");
+  
+	let timeToCSS = 3 * (1 / totalVentACH);
+	console.log("time to css: " + timeToCSS + " h");
 	
 	// alternate result
-	var altDefaultOA = 3.6 * altVentilationRate / volumePerPerson;
-	console.log("alt defaultOA: " + altDefaultOA);
-
-	var altCss = 1 * (CO2Outdoor + (1.8 * 1000000 * Vco2avg / altVentilationRate));
-	console.log("alt Css: " + altCss);
-	var alt_c_at_metric = initialCO2Indoor * Math.exp(-altDefaultOA * timeToMetric) + altCss * (1 - Math.exp(-altDefaultOA * timeToMetric));
-	console.log("alt c_at_metric: " + alt_c_at_metric);
-	var alt_c_at_h = initialCO2Indoor * Math.exp(-altDefaultOA * 1) + altCss * (1 - Math.exp(-altDefaultOA * 1));
-	console.log("alt c_at_h: " + alt_c_at_h);
-	var alt_timeToCSS = 3 * (volumePerPerson / altVentilationRate) / 3.6;
-	console.log("alt timeToCSS: " + alt_timeToCSS);
+	let altTotalVentACH = 3.6 * altVentilationRate / volume;
+	console.log("alt totalVent: " + altTotalVentACH + " ACH");
+  
+	let altCss = CO2Outdoor + 1000000 * genResult.sum / altVentilationRate;
+	console.log("alt Css: " + altCss + " ppmv");
+  
+	let alt_c_at_h = CO2Outdoor * Math.exp(-altTotalVentACH * 1) + altCss * (1 - Math.exp(-altTotalVentACH * 1));
+	console.log("alt C 1h: " + alt_c_at_h + " ppmv");
+  
+	let alt_c_at_metric = CO2Outdoor * Math.exp(-altTotalVentACH * timeToMetric) + altCss * (1 - Math.exp(-altTotalVentACH * timeToMetric));
+	console.log("alt C metric: " + alt_c_at_metric + " ppmv");
+  
+	let alt_timeToCSS = 3 * (1 / altTotalVentACH);
+	console.log("alt time to css: " + alt_timeToCSS + " h");
 	
-	var points = [];
-	var maxTime = timeToMetric;
+	let points = [];
+	let maxTime = timeToMetric;
 	if(timeToCSS > maxTime)
 		maxTime = timeToCSS;
 	if(alt_timeToCSS > maxTime)
 		maxTime = alt_timeToCSS;
 	maxTime += 2;
-	for(var time=0; time <= maxTime; time+=0.01666666666)
+	for(let time=0; time <= maxTime; time+=0.01666666666)
 	{
-		var valueAtTime = initialCO2Indoor * Math.exp(-defaultOA * time) + Css * (1 - Math.exp(-defaultOA * time));
-		var altValueAtTime = initialCO2Indoor * Math.exp(-altDefaultOA * time) + altCss * (1 - Math.exp(-altDefaultOA * time));
+		let valueAtTime = CO2Outdoor * Math.exp(-totalVentACH * time) + Css * (1 - Math.exp(-totalVentACH * time));
+		let altValueAtTime = CO2Outdoor * Math.exp(-altTotalVentACH * time) + altCss * (1 - Math.exp(-altTotalVentACH * time));
 		points.push({'time': time, 'value': valueAtTime, 'altvalue': altValueAtTime});
 	}
 	
-	return { base: {Css: Css, c_at_metric: c_at_metric, c_at_h: c_at_h, timeToCSS: timeToCSS}, 
-		alt: {Css: altCss, c_at_metric: alt_c_at_metric, c_at_h: alt_c_at_h, timeToCSS: alt_timeToCSS},
+	let retVal = { tCO2gen: parseFloat(genResult.sum.toFixed(3)), avgCO2gen: parseFloat(genResult.avg.toFixed(4)), 
+		base: {Css: Css, c_at_metric: c_at_metric, c_at_h: c_at_h, timeToCSS: timeToCSS, ach: parseFloat(totalVentACH.toFixed(2)) }, 
+		alt: {Css: altCss, c_at_metric: alt_c_at_metric, c_at_h: alt_c_at_h, timeToCSS: alt_timeToCSS, ach: parseFloat(altTotalVentACH.toFixed(2)) },
 		points: points };
+  console.dir(retVal);
+  return retVal;
 }
 
-CO2Tool.calculateGenerationRate = function(groupsOfPeople){
+CO2Tool.calculateGenerationRate = function(groupsOfPeople, temperature){
 	
-	var RQ = 0.85;
-	var sumVco2 = 0;
-	var sumPeople = 0;
-	var maleA = [0.249, 0.095, 0.074, 0.063, 0.048, 0.049];
-	var maleB = [-0.127, 2.11, 2.754, 2.896, 3.653, 2.459];
-	var femaleA = [0.244, 0.085, 0.056, 0.062, 0.034, 0.038];
-	var femaleB = [-0.13, 2.033, 2.898, 2.036, 3.538, 2.755];
+	let sumCo2Gen = 0;
+	let sumPeople = 0;
 	
-	for(var i=0; i<groupsOfPeople.length; ++i)
+	for(let i=0; i<groupsOfPeople.length; ++i)
 	{
-		var groupOfPeople = groupsOfPeople[i];
-		var BMR;
+		let groupOfPeople = groupsOfPeople[i];
+    co2Gen = CO2Tool.calculateIndividualGenerationRate(groupOfPeople, temperature);
+		sumCo2Gen += co2Gen * groupOfPeople.numPeople;
+		sumPeople += groupOfPeople.numPeople;
+	}
+	console.log("Number of Occupants: " + sumPeople);
+	let avgCo2Gen = sumCo2Gen / sumPeople;
+	console.log("avg CO2 Gen: " + avgCo2Gen);
+	console.log("Total CO2 Gen: " + sumCo2Gen);
+
+  return {sum: sumCo2Gen, avg: avgCo2Gen };
+}
+
+CO2Tool.calculateIndividualGenerationRate = function(groupOfPeople, temperature){
+	
+	let RQ = 0.85;
+	let maleA = [0.249, 0.095, 0.074, 0.063, 0.048, 0.049];
+	let maleB = [-0.127, 2.11, 2.754, 2.896, 3.653, 2.459];
+	let femaleA = [0.244, 0.085, 0.056, 0.062, 0.034, 0.038];
+	let femaleB = [-0.13, 2.033, 2.898, 2.036, 3.538, 2.755];
+	
+		let BMR;
 		if(groupOfPeople.sex == "M")
 		{
 			BMR = maleA[groupOfPeople.ageGroup] * groupOfPeople.mass + maleB[groupOfPeople.ageGroup];
-			console.log("A: " + maleA[groupOfPeople.ageGroup]);
-			console.log("B: " + maleB[groupOfPeople.ageGroup]);
-			console.log("mass: " + groupOfPeople.mass);
+			//console.log("A: " + maleA[groupOfPeople.ageGroup]);
+			//console.log("B: " + maleB[groupOfPeople.ageGroup]);
+			//console.log("mass: " + groupOfPeople.mass);
 		}
 		else
 		{
 			BMR = femaleA[groupOfPeople.ageGroup] * groupOfPeople.mass + femaleB[groupOfPeople.ageGroup];
-			console.log("A: " + femaleA[groupOfPeople.ageGroup]);
-			console.log("B: " + femaleB[groupOfPeople.ageGroup]);
-			console.log("mass: " + groupOfPeople.mass);
+			//console.log("A: " + femaleA[groupOfPeople.ageGroup]);
+			//console.log("B: " + femaleB[groupOfPeople.ageGroup]);
+			//console.log("mass: " + groupOfPeople.mass);
 		}
-		console.log("BMR: " + BMR);
-		Vco2 = RQ * BMR * groupOfPeople.met * 0.000569;
-		console.log("Vco2: " + Vco2);
-		sumVco2 += Vco2 * groupOfPeople.numPeople;
-		sumPeople += groupOfPeople.numPeople;
-	}
-	console.log("sumVco2: " + sumVco2);
-	console.log("sumPeople: " + sumPeople);
-	var Vco2avg = sumVco2 / sumPeople;
-	console.log("Vco2avg: " + Vco2avg);
-
-	return Vco2avg;
+		//console.log("BMR: " + BMR);
+    let pressure = 101; //kPa
+    
+    co2Gen = RQ * BMR * groupOfPeople.met*(temperature/ pressure) * 0.000211; // L/s
+		console.log("co2Gen: " + co2Gen);
+    return co2Gen;
 }

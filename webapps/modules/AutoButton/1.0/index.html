@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta charset="UTF-8"> 
+<script type="module" src="testApp.js"></script>
+<style>
+input, select, auto-button::part(button) {
+  border: 1px solid #12659c;
+  border-radius: 4px;
+  padding:4px;
+}
+
+</style>
+</head>
+<body>
+
+<div>
+  <h1>Auto Button Example</h1>
+  <auto-button id="te" state="document.state" func="testButton">Click me</auto-button>
+  <auto-button id="fb" state="document.state" func="testFileButton" file accept=".txt">Click me</auto-button>
+</div>
+
+</body>
+</html>

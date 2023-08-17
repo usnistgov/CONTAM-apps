@@ -1,9 +1,9 @@
-	<h2>Inputs & Space Description - 
-		<span ng-if="resultsCtrl.inputs.SpaceTypeType == 'pre'">Predefined</span> 
-		<span ng-if="resultsCtrl.inputs.SpaceTypeType == 'user'">User-defined</span> 
-		<span ng-if="resultsCtrl.inputs.SpaceCategory =='com'">Commercial</span> 
-		<span ng-if="resultsCtrl.inputs.SpaceCategory =='res'">Residential</span> Building</h2>
 	<div class="container section" style="padding: 1ex;">
+    <h2>Inputs & Space Description - 
+      <span ng-if="resultsCtrl.inputs.SpaceTypeType == 'pre'">Predefined</span> 
+      <span ng-if="resultsCtrl.inputs.SpaceTypeType == 'user'">User-defined</span> 
+      <span ng-if="resultsCtrl.inputs.SpaceCategory =='com'">Commercial</span> 
+      <span ng-if="resultsCtrl.inputs.SpaceCategory =='res'">Residential</span> Building</h2>
 		<div class="row">
 			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 				unit-strings="resultsCtrl.ventilationRate.unitStrings" 
@@ -13,7 +13,14 @@
 				field-label="resultsCtrl.ventilationRate.label"
 				min="resultsCtrl.ventilationRate.min"
 				disable-number="true"
-				disable-units="true"></unitconverter>					
+				disable-units="true"></unitconverter>
+			<div class="col-md-3 col-sm-4 col-xs-12">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Primary Ventilation Rate:</div>
+					<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="resultsCtrl.results.base.ach" min="0" class="form-control" disabled></div>
+					<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">Air Changes Per Hour</div>
+				</div>
+			</div>
 			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 				unit-strings="resultsCtrl.altVentilationRate.unitStrings" 
 				unit-function="resultsCtrl.altVentilationRate.unitFunction"
@@ -22,17 +29,14 @@
 				field-label="resultsCtrl.altVentilationRate.label"
 				min="resultsCtrl.altVentilationRate.min"
 				disable-number="true"
-				disable-units="true"></unitconverter>					
-			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
-				unit-strings="resultsCtrl.initialCO2Indoor.unitStrings" 
-				unit-function="resultsCtrl.initialCO2Indoor.unitFunction"
-				unit-conversion="resultsCtrl.initialCO2Indoor.conversion"
-				base-value="resultsCtrl.initialCO2Indoor.baseValue"
-				field-label="resultsCtrl.initialCO2Indoor.label"
-				min="resultsCtrl.initialCO2Indoor.min"
-				species="resultsCtrl.initialCO2Indoor.species"
-				disable-number="true"
-				disable-units="true"></unitconverter>					
+				disable-units="true"></unitconverter>
+			<div class="col-md-3 col-sm-4 col-xs-12">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Alternate Ventilation Rate:</div>
+					<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="resultsCtrl.results.alt.ach" min="0" class="form-control" disabled></div>
+					<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">Air Changes Per Hour</div>
+				</div>
+			</div>
 			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 				unit-strings="resultsCtrl.CO2Outdoor.unitStrings" 
 				unit-function="resultsCtrl.CO2Outdoor.unitFunction"
@@ -42,7 +46,7 @@
 				min="resultsCtrl.CO2Outdoor.min"
 				species="resultsCtrl.CO2Outdoor.species"
 				disable-number="true"
-				disable-units="true"></unitconverter>					
+				disable-units="true"></unitconverter>
 			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 				unit-strings="resultsCtrl.ceilingHeight.unitStrings" 
 				unit-function="resultsCtrl.ceilingHeight.unitFunction"
@@ -51,7 +55,23 @@
 				field-label="resultsCtrl.ceilingHeight.label"
 				min="resultsCtrl.ceilingHeight.min"
 				disable-number="true"
-				disable-units="true"></unitconverter>					
+				disable-units="true"></unitconverter>
+			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
+				unit-strings="resultsCtrl.temperature.unitStrings" 
+				unit-function="resultsCtrl.temperature.unitFunction"
+				unit-conversion="resultsCtrl.temperature.conversion"
+				base-value="resultsCtrl.temperature.baseValue"
+				field-label="resultsCtrl.temperature.label"
+				min="resultsCtrl.temperature.min"
+				disable-number="true"
+				disable-units="true"></unitconverter>
+			<div class="col-md-3 col-sm-4 col-xs-12">
+				<div class="row" style="padding: 1ex 0px;">
+					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Average CO2 Generation Rate:</div>
+					<div class="col-sm-6 col-xs-12"><input type="number" step="any" ng-model="resultsCtrl.results.avgCO2gen" min="0" class="form-control" disabled></div>
+					<div class="col-sm-6 col-xs-12" style="height: 34px; display:flex; flex-direction: column; justify-content: center;">L/s Per Person</div>
+				</div>
+			</div>
 			<unitconverter class="col-md-3 col-sm-4 col-xs-12"
 				unit-strings="resultsCtrl.floorArea.unitStrings" 
 				unit-function="resultsCtrl.floorArea.unitFunction"
@@ -61,7 +81,7 @@
 				min="resultsCtrl.floorArea.min"
 				disable-number="true"
 				disable-units="true"
-				ng-if="resultsCtrl.inputs.SpaceCategory !=='com'"></unitconverter>					
+				ng-if="resultsCtrl.inputs.SpaceCategory !=='com'"></unitconverter>
 			<div class="col-md-3 col-sm-4 col-xs-12" ng-if="resultsCtrl.inputs.SpaceCategory =='com'">
 				<div class="row" style="padding: 1ex 0px;">
 					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Occupant Density:</div>
@@ -77,7 +97,7 @@
 				field-label="resultsCtrl.timeToMetric.label"
 				min="resultsCtrl.timeToMetric.min"
 				disable-number="true"
-				disable-units="true"></unitconverter>					
+				disable-units="true"></unitconverter>
 			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="resultsCtrl.inputs.SpaceCategory =='res'">
 				<div class="row" style="padding: 1ex 0px;">
 					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants in House:</div>
@@ -111,7 +131,7 @@
 				min="resultsCtrl.inputs.residential.roomFloorArea.min"
 				disable-number="true"
 				disable-units="true"
-				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'Bedroom')"></unitconverter>				
+				ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'Bedroom')"></unitconverter>
 			<div class="col-md-2 col-sm-4 col-xs-12" ng-if="(resultsCtrl.inputs.SpaceCategory =='res' && resultsCtrl.scenario == 'Bedroom')">
 				<div class="row" style="padding: 1ex 0px;">
 					<div class="col-xs-12" style="min-height: 3em;display: flex;flex-direction: column-reverse;">Number of Occupants in Room:</div>
@@ -134,8 +154,8 @@
 			<grouplist grouplist="resultsCtrl.occupants"></grouplist>
 		</div>
 	</div>
-	<h2>Results</h2>
 	<div class="container section" style="padding: 1ex;">
+    <h2>Results</h2>
 		<div class="col-xs-12 table-responsive">
 			<table class="table table-striped table-bordered" style="background-color: white;">
 				<tr>
@@ -144,22 +164,22 @@
 					<th>Alternate</th>
 				</tr>
 				<tr>
-					<td>Time to steady state (h):</td>
-					<td>{{resultsCtrl.results.base.timeToCSS | number:1}}</td>
-					<td>{{resultsCtrl.results.alt.timeToCSS | number:1}}</td>
+					<td>Time to 95 % of steady state (h):</td>
+					<td>{{resultsCtrl.results.base.timeToCSS | number:2}}</td>
+					<td>{{resultsCtrl.results.alt.timeToCSS | number:2}}</td>
 				</tr>
 				<tr>
-					<td>CO2 concentration at steady state (mg/m&sup3;):</td>
+					<td>CO2 concentration at steady state (ppm):</td>
 					<td>{{resultsCtrl.results.base.Css | number:0}}</td>
 					<td>{{resultsCtrl.results.alt.Css | number:0}}</td>
 				</tr>
 				<tr>
-					<td>CO2 concentration at time to metric (mg/m&sup3;):</td>
+					<td>CO2 concentration at time to metric (ppm):</td>
 					<td>{{resultsCtrl.results.base.c_at_metric | number:0}}</td>
 					<td>{{resultsCtrl.results.alt.c_at_metric | number:0}}</td>
 				</tr>
 				<tr>
-					<td>CO2 concentration at 1 hour (mg/m&sup3;):</td>
+					<td>CO2 concentration at 1 hour (ppm):</td>
 					<td>{{resultsCtrl.results.base.c_at_h | number:0}}</td>
 					<td>{{resultsCtrl.results.alt.c_at_h | number:0}}</td>
 				</tr>
