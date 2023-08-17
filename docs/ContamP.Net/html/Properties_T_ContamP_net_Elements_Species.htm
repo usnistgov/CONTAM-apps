@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html ><html lang="en-US"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="shortcut icon" href="../icons/favicon.ico" /><link rel="stylesheet" href="../css/bulma.css" /><link rel="stylesheet" href="../css/font-awesome.min.css" /><link rel="stylesheet" href="../css/presentationStyle.css" /><link rel="stylesheet" href="../css/vs.min.css" /><script src="../scripts/jquery-3.5.1.min.js"></script><script src="../scripts/clipboard.min.js"></script><script src="../scripts/highlight.min.js"></script><script src="../scripts/presentationStyle.js"></script><title>Species Properties</title><meta name="Title" content="Properties" /><meta name="Help.Id" content="Properties.T:ContamP.net.Elements.Species" /><meta name="Help.ContentType" content="Reference" /><meta name="container" content="ContamP.net.Elements" /><meta name="guid" content="Properties_T_ContamP_net_Elements_Species" /><meta name="tocFile" content="../toc/IDODA.xml" /></head><body><div class="fixedLayout"><div id="Header" class="fixedHeader"><div class="pageHeader level mb-0 py-2 px-4"><div id="TitleContainer" class="level-left"><div id="DocumentationTitle" class="level-item">A Sandcastle Documented Class Library</div></div><div id="LangFilterSearchContainer" class="level-right"><div class="level-item"><div class="dropdown is-hoverable"><div class="dropdown-trigger"><button class="button" aria-haspopup="true" aria-controls="dropdown-menu"><span id="CurrentLanguage"></span><span class="icon is-small"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button></div><div class="dropdown-menu" role="menu"><div id="LanguageSelections" class="dropdown-content"><a class="dropdown-item languageFilterItem" data-languageId="cs">C#</a></div></div></div></div><div class="level-item"><form id="SearchForm" action="#" onsubmit="TransferToSearchPage(); return false;"><div class="field"><div class="control has-icons-left"><input id="SearchTerms" class="input" type="text" maxlength="200" placeholder="Search" /><span class="icon is-small is-left"><i class="fa fa-search"></i></span><button id="SearchButton" type="submit" class="is-hidden"></button></div></div></form></div></div></div></div><div class="fixedContent"><nav class="breadcrumb my-1 px-2 border-bottom" role="navigation"><ul id="TopicBreadcrumbs" /></nav><div class="columns pl-5 pr-5 fixedContent"><div id="ShowHideTOCColumn" class="column is-hidden-tablet"><a id="ShowHideTOC">Show/Hide TOC</a></div><div id="TOCColumn" class="column is-hidden-mobile"><nav class="toc"><ul id="TableOfContents" class="toc-menu" /></nav></div><div id="TopicContent" class="column content is-7"><h1>Species Properties</h1><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Properties</h2><div id="IDADASection"><table id="PropertyList" class="table is-hoverable"><tr><td><a href="P_ContamP_net_Elements_Species_Ccdef.htm">Ccdef</a></td><td>
+            CONTAM will apply this value as the default initial concentration for each zone that you create. You can revise the initial concentration for individual zones as per your requirements. This is also the ambient contaminant concentration during simulations which do not utilize contaminant data from one of the external contaminant data files (CTM or WPC).
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Cp.htm">Cp</a></td><td>
+            The specific heat of a contaminant will used during simulation only when the Variable Junction Temperatures method is selected.
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Decay.htm">Decay</a></td><td>
+            This is an exponential decay constant based upon the half-life of the radioactive species 
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Desc.htm">Desc</a></td><td>
+            Use this to provide a more detailed description of the species.
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Dm.htm">Dm</a></td><td>
+             This value will be used during simulations using the 1D Duct Model of the Short Time Step Method. The dispersal coefficient will be calculated from this value depending on the Reynolds Number in a given duct segment.
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Edens.htm">Edens</a></td><td>
+             Enter a density that you want CONTAM to use as the effective density of a species you want to consider to be a particulate type species. Currently, CONTAM only utilizes this value when converting between particle count units and particle mass and volume units.
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Kuv.htm">Kuv</a></td><td>
+             A species-dependent rate constant used to determine UVGI filter effectiveness for a specific contaminant 
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Mdiam.htm">Mdiam</a></td><td>
+             Enter the mean particle diameter if this species is to be a particulate type species. CONTAM utilizes this value when converting between particle count units and particle mass and volume units and to determine filter efficiency of Simple Particle Filter elements for this size particle 
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Molwt.htm">Molwt</a></td><td>
+             The molar mass in g/mol or kg/kmol. CONTAM uses this value to convert volumetric concentrations to mass fractions and to calculate the gas constant of the air mixture made up by non-trace contaminants. You must enter a value of at least 1.0.
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Name.htm">Name</a></td><td>
+            You will use this name to refer to the species throughout the program. You must give each species a name that is unique to the current project.
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Ntflag.htm">Ntflag</a></td><td>
+            0 = trace contaminant, 1 = non-trace contaminant
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Sflag.htm">Sflag</a></td><td>
+            0 = not simulated, 1 = simulated
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Ucc.htm">Ucc</a></td><td>
+            concentration units
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Ucp.htm">Ucp</a></td><td>
+            specific heat units
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Udm.htm">Udm</a></td><td>
+            diffusion units
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Ued.htm">Ued</a></td><td>
+            effective density units
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Umd.htm">Umd</a></td><td>
+            mean diameter units
+            </td></tr><tr><td><a href="P_ContamP_net_Elements_Species_Used.htm">Used</a></td><td>
+            0 = species is not used, !0 = species is used
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>See Also</h2><div id="seeAlsoSection"><h4>Reference</h4><div><a href="T_ContamP_net_Elements_Species.htm">Species Class</a></div><div><a href="N_ContamP_net_Elements.htm">ContamP.net.Elements Namespace</a></div></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">Properties</a></li><li><a class="quickLink">See Also</a></li></ul></nav></div></div></div><footer id="PageFooter" class="footer border-top py-3 fixedFooter"><div class="columns"><div class="column"> 
+				</div><div class="column"> 
+				</div></div></footer></div><script>$(function(){
+SetDefaultLanguage("cs");
+LoadTocFile(null, null);
+InitializeQuickLinks();
+
+$(".toggleSection" ).click(function () {
+    SectionExpandCollapse(this);
+});
+
+$(".toggleSection").keypress(function () {
+    SectionExpandCollapseCheckKey(this, event)
+});
+});</script></body></html>

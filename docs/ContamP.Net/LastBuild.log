@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.12.30.0" projectFile="D:\Brian's Documents\test.shfbproj" started="8/17/2023 11:52:52 AM">
+<buildStep step="Initializing">
+The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder&#39;
+Locating components in the following folder(s):
+    D:\Brian&#39;s Documents
+    C:\ProgramData\EWSoftware\Sandcastle Help File Builder\Components and Plug-Ins
+    C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components
+Using framework reflection data for &#39;.NET Framework 4.7.2&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NETFramework&#39;
+Using presentation style &#39;Default2022&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022&#39;
+Loading and initializing plug-ins...
+Website Table of Contents Generator Version 2022.12.30.0
+Copyright &#169; 2006-2022, Eric Woodruff, All Rights Reserved
+-------------------------------
+Clearing any prior web/markdown output...
+</buildStep>
+<buildStep step="ValidatingDocumentationSources">
+Validating and copying documentation source information
+Source: C:\Users\polidobj\OneDrive - NIST\repos\1\contamp.net\build\3.5.0.0\Debug\ContamP.net.dll
+    Found assembly &#39;C:\Users\polidobj\OneDrive - NIST\repos\1\contamp.net\build\3.5.0.0\Debug\ContamP.net.dll&#39;
+Source: C:\Users\polidobj\OneDrive - NIST\repos\1\contamp.net\build\3.5.0.0\Debug\ContamP.net.xml
+
+Copying XML comments files
+    C:\Users\polidobj\OneDrive - NIST\repos\1\contamp.net\build\3.5.0.0\Debug\ContamP.net.xml -&gt; D:\Brian&#39;s Documents\Help\Working\ContamP.net.xml
+</buildStep>
+<buildStep step="GenerateSharedContent">
+Generating shared content files (en-US, English (United States))...
+    Last step completed in 00:00:00.0030
+</buildStep>
+<buildStep step="GenerateApiFilter">
+Generating API filter for MRefBuilder...
+    Last step completed in 00:00:00.0070
+</buildStep>
+<buildStep step="GenerateReflectionInfo">
+Generating reflection information...
+[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - GenerateRefInfo-d0af05c3-acdc-475c-90bb-4dd9716ef604.proj]
+Build started 8/17/2023 11:52:57 AM.
+Included response file: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.rsp
+
+Project &quot;D:\Brian&#39;s Documents\Help\Working\GenerateRefInfo-d0af05c3-acdc-475c-90bb-4dd9716ef604.proj&quot; on node 1 (default targets).
+PrepareForBuild:
+  Creating directory &quot;obj\Debug\&quot;.
+GenerateBindingRedirects:
+  No suggested binding redirects from ResolveAssemblyReferences.
+GenerateRefInfo:
+  Microsoft.Build (v17.5.1+f6fdcf537aded4f49ebedfcb800e2a3c1483fddc)
+  c Microsoft Corporation. All rights reserved.
+  No source code context base path specified.  Source context information is unavailable.
+  Loaded 1 assemblies for reflection and 1 dependency assemblies.
+  Wrote information on 7 namespaces, 159 types, and 1594 members
+  Merging duplicate type and member information
+  Merged 0 duplicate type(s) and 0 duplicate member(s)
+Done Building Project &quot;D:\Brian&#39;s Documents\Help\Working\GenerateRefInfo-d0af05c3-acdc-475c-90bb-4dd9716ef604.proj&quot; (default targets).
+    Last step completed in 00:00:02.8158
+</buildStep>
+<buildStep step="ApplyDocumentModel">
+Applying document model to reflection output...
+    Last step completed in 00:00:00.1521
+</buildStep>
+<buildStep step="AddApiTopicFilenames">
+Adding topic filenames to API members...
+    Unique name M_ContamP_net_ContamContaminantLibrary__ctor_1 generated for M:ContamP.net.ContamContaminantLibrary.#ctor(ContamP.net.ContamCommon,System.String)
+    Unique name M_ContamP_net_ContamDuctAirflowLibrary__ctor_1 generated for M:ContamP.net.ContamDuctAirflowLibrary.#ctor(ContamP.net.ContamCommon,System.String)
+    Unique name M_ContamP_net_ContamPathAirflowLibrary__ctor_1 generated for M:ContamP.net.ContamPathAirflowLibrary.#ctor(ContamP.net.ContamCommon,System.String)
+    Unique name M_ContamP_net_ContamProject__ctor_1 generated for M:ContamP.net.ContamProject.#ctor(ContamP.net.ContamCommon,System.String)
+    Unique name M_ContamP_net_ContamScheduleLibrary__ctor_1 generated for M:ContamP.net.ContamScheduleLibrary.#ctor(ContamP.net.ContamCommon,System.String)
+    Unique name M_ContamP_net_ContamWindPressureLibrary__ctor_1 generated for M:ContamP.net.ContamWindPressureLibrary.#ctor(ContamP.net.ContamCommon,System.String)
+    Last step completed in 00:00:00.0853
+</buildStep>
+<buildStep step="GenerateApiTopicManifest">
+Generating API topic manifest...
+    Last step completed in 00:00:00.0708
+</buildStep>
+<buildStep step="GenerateNamespaceSummaries">
+Generating namespace summary information...
+    Last step completed in 00:00:00.0549
+</buildStep>
+<buildStep step="CopyAdditionalContent">
+Copying additional content files...
+No additional content to copy
+    Last step completed in 00:00:00.0000
+</buildStep>
+<buildStep step="MergeTablesOfContents">
+Merging conceptual and additional tables of contents...
+    Last step completed in 00:00:00.0010
+</buildStep>
+<buildStep step="GenerateIntermediateTableOfContents">
+Generating intermediate table of contents file for API content...
+Generating conceptual content intermediate TOC file...
+    Last step completed in 00:00:00.0808
+</buildStep>
+<buildStep step="CreateBuildAssemblerConfigs">
+Creating Sandcastle configuration files...
+    Last step completed in 00:00:00.1566
+</buildStep>
+<buildStep step="CombiningIntermediateTocFiles">
+Combining conceptual and API intermediate TOC files...
+    Last step completed in 00:00:00.0020
+</buildStep>
+<buildStep step="MergeCustomConfigs">
+Merging custom build component configurations
+D:\Brian&#39;s Documents\Help\Working\BuildAssembler.config
+  Updating reference topic configurations.
+  No conceptual content.  Removing conceptual content components.
+    Last step completed in 00:00:00.0040
+</buildStep>
+<buildStep step="BuildTopics">
+Building help topics...
+<plugIn name="Website Table of Contents Generator" behavior="Before" priority="1000">
+Loading TOC info and adding unique IDs to parent nodes
+</plugIn>Loading configuration...
+Processing topics...
+SHFB: Warning BE0066: ShowMissingComponent: [N:ContamP.net] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.CloseLogFile] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.CloseLogFile] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertAngle(System.Double,System.Double@,ContamP.net.unitsAngleOptions,ContamP.net.unitsAngleOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertAngle(System.Double,System.Double@,ContamP.net.unitsAngleOptions,ContamP.net.unitsAngleOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertAngle(System.Double,System.Double@,ContamP.net.unitsAngleOptions,ContamP.net.unitsAngleOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertAngle(System.Double,System.Double@,ContamP.net.unitsAngleOptions,ContamP.net.unitsAngleOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertAngle(System.Double,System.Double@,ContamP.net.unitsAngleOptions,ContamP.net.unitsAngleOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertAngle(System.Double,System.Double@,ContamP.net.unitsAngleOptions,ContamP.net.unitsAngleOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertArea(System.Double,System.Double@,ContamP.net.unitsAreaOptions,ContamP.net.unitsAreaOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertArea(System.Double,System.Double@,ContamP.net.unitsAreaOptions,ContamP.net.unitsAreaOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertArea(System.Double,System.Double@,ContamP.net.unitsAreaOptions,ContamP.net.unitsAreaOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertArea(System.Double,System.Double@,ContamP.net.unitsAreaOptions,ContamP.net.unitsAreaOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertArea(System.Double,System.Double@,ContamP.net.unitsAreaOptions,ContamP.net.unitsAreaOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertArea(System.Double,System.Double@,ContamP.net.unitsAreaOptions,ContamP.net.unitsAreaOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;molWt&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;decay&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;edens&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertConcen(System.Double,System.Double@,ContamP.net.unitsConcenOptions,ContamP.net.unitsConcenOptions,System.Double,System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;mdiam&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;molWt&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;decay&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;edens&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertCtmSS(System.Double,System.Double@,ContamP.net.unitsConcenSSOptions,ContamP.net.unitsConcenSSOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;mdiam&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDensity(System.Double,System.Double@,ContamP.net.unitsDensityOptions,ContamP.net.unitsDensityOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDensity(System.Double,System.Double@,ContamP.net.unitsDensityOptions,ContamP.net.unitsDensityOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDensity(System.Double,System.Double@,ContamP.net.unitsDensityOptions,ContamP.net.unitsDensityOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDensity(System.Double,System.Double@,ContamP.net.unitsDensityOptions,ContamP.net.unitsDensityOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDensity(System.Double,System.Double@,ContamP.net.unitsDensityOptions,ContamP.net.unitsDensityOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDensity(System.Double,System.Double@,ContamP.net.unitsDensityOptions,ContamP.net.unitsDensityOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;param name=&quot;edens&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDepFlowRate(System.Double,System.Double@,ContamP.net.unitsDepFlowRateOptions,ContamP.net.unitsDepFlowRateOptions,System.Single,System.Single)] Missing &lt;param name=&quot;mdiam&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDuctLeak(System.Double,System.Double@,ContamP.net.unitsDuctLeakOptions,ContamP.net.unitsDuctLeakOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDuctLeak(System.Double,System.Double@,ContamP.net.unitsDuctLeakOptions,ContamP.net.unitsDuctLeakOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDuctLeak(System.Double,System.Double@,ContamP.net.unitsDuctLeakOptions,ContamP.net.unitsDuctLeakOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDuctLeak(System.Double,System.Double@,ContamP.net.unitsDuctLeakOptions,ContamP.net.unitsDuctLeakOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDuctLeak(System.Double,System.Double@,ContamP.net.unitsDuctLeakOptions,ContamP.net.unitsDuctLeakOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertDuctLeak(System.Double,System.Double@,ContamP.net.unitsDuctLeakOptions,ContamP.net.unitsDuctLeakOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowArea(System.Double,System.Double@,ContamP.net.unitsFlowAreaOptions,ContamP.net.unitsFlowAreaOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowArea(System.Double,System.Double@,ContamP.net.unitsFlowAreaOptions,ContamP.net.unitsFlowAreaOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowArea(System.Double,System.Double@,ContamP.net.unitsFlowAreaOptions,ContamP.net.unitsFlowAreaOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowArea(System.Double,System.Double@,ContamP.net.unitsFlowAreaOptions,ContamP.net.unitsFlowAreaOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowArea(System.Double,System.Double@,ContamP.net.unitsFlowAreaOptions,ContamP.net.unitsFlowAreaOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowArea(System.Double,System.Double@,ContamP.net.unitsFlowAreaOptions,ContamP.net.unitsFlowAreaOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowRate(System.Double,System.Double@,ContamP.net.unitsFlowRateOptions,ContamP.net.unitsFlowRateOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowRate(System.Double,System.Double@,ContamP.net.unitsFlowRateOptions,ContamP.net.unitsFlowRateOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowRate(System.Double,System.Double@,ContamP.net.unitsFlowRateOptions,ContamP.net.unitsFlowRateOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowRate(System.Double,System.Double@,ContamP.net.unitsFlowRateOptions,ContamP.net.unitsFlowRateOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowRate(System.Double,System.Double@,ContamP.net.unitsFlowRateOptions,ContamP.net.unitsFlowRateOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertFlowRate(System.Double,System.Double@,ContamP.net.unitsFlowRateOptions,ContamP.net.unitsFlowRateOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageArea(System.Double,System.Double@,ContamP.net.unitsLeakagePerAreaOptions,ContamP.net.unitsLeakagePerAreaOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageArea(System.Double,System.Double@,ContamP.net.unitsLeakagePerAreaOptions,ContamP.net.unitsLeakagePerAreaOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageArea(System.Double,System.Double@,ContamP.net.unitsLeakagePerAreaOptions,ContamP.net.unitsLeakagePerAreaOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageArea(System.Double,System.Double@,ContamP.net.unitsLeakagePerAreaOptions,ContamP.net.unitsLeakagePerAreaOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageArea(System.Double,System.Double@,ContamP.net.unitsLeakagePerAreaOptions,ContamP.net.unitsLeakagePerAreaOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageArea(System.Double,System.Double@,ContamP.net.unitsLeakagePerAreaOptions,ContamP.net.unitsLeakagePerAreaOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageLen(System.Double,System.Double@,ContamP.net.unitsLeakagePerLengthOptions,ContamP.net.unitsLeakagePerLengthOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageLen(System.Double,System.Double@,ContamP.net.unitsLeakagePerLengthOptions,ContamP.net.unitsLeakagePerLengthOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageLen(System.Double,System.Double@,ContamP.net.unitsLeakagePerLengthOptions,ContamP.net.unitsLeakagePerLengthOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageLen(System.Double,System.Double@,ContamP.net.unitsLeakagePerLengthOptions,ContamP.net.unitsLeakagePerLengthOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageLen(System.Double,System.Double@,ContamP.net.unitsLeakagePerLengthOptions,ContamP.net.unitsLeakagePerLengthOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLeakageLen(System.Double,System.Double@,ContamP.net.unitsLeakagePerLengthOptions,ContamP.net.unitsLeakagePerLengthOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLength(System.Double,System.Double@,ContamP.net.unitsLengthOptions,ContamP.net.unitsLengthOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLength(System.Double,System.Double@,ContamP.net.unitsLengthOptions,ContamP.net.unitsLengthOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLength(System.Double,System.Double@,ContamP.net.unitsLengthOptions,ContamP.net.unitsLengthOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLength(System.Double,System.Double@,ContamP.net.unitsLengthOptions,ContamP.net.unitsLengthOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLength(System.Double,System.Double@,ContamP.net.unitsLengthOptions,ContamP.net.unitsLengthOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertLength(System.Double,System.Double@,ContamP.net.unitsLengthOptions,ContamP.net.unitsLengthOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;molWt&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;decay&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;edens&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMass(System.Double,System.Double@,ContamP.net.unitsMassOptions,ContamP.net.unitsMassOptions,System.Single,System.Single,System.Single,System.Single)] Missing &lt;param name=&quot;mdiam&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMolDiff(System.Double,System.Double@,ContamP.net.unitsMolDifOptions,ContamP.net.unitsMolDifOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMolDiff(System.Double,System.Double@,ContamP.net.unitsMolDifOptions,ContamP.net.unitsMolDifOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMolDiff(System.Double,System.Double@,ContamP.net.unitsMolDifOptions,ContamP.net.unitsMolDifOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMolDiff(System.Double,System.Double@,ContamP.net.unitsMolDifOptions,ContamP.net.unitsMolDifOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMolDiff(System.Double,System.Double@,ContamP.net.unitsMolDifOptions,ContamP.net.unitsMolDifOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertMolDiff(System.Double,System.Double@,ContamP.net.unitsMolDifOptions,ContamP.net.unitsMolDifOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertOccDens(System.Double,System.Double@,ContamP.net.unitsOccDensOptions,ContamP.net.unitsOccDensOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertOccDens(System.Double,System.Double@,ContamP.net.unitsOccDensOptions,ContamP.net.unitsOccDensOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertOccDens(System.Double,System.Double@,ContamP.net.unitsOccDensOptions,ContamP.net.unitsOccDensOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertOccDens(System.Double,System.Double@,ContamP.net.unitsOccDensOptions,ContamP.net.unitsOccDensOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertOccDens(System.Double,System.Double@,ContamP.net.unitsOccDensOptions,ContamP.net.unitsOccDensOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertOccDens(System.Double,System.Double@,ContamP.net.unitsOccDensOptions,ContamP.net.unitsOccDensOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPower(System.Double,System.Double@,ContamP.net.unitsPowerOptions,ContamP.net.unitsPowerOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPower(System.Double,System.Double@,ContamP.net.unitsPowerOptions,ContamP.net.unitsPowerOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPower(System.Double,System.Double@,ContamP.net.unitsPowerOptions,ContamP.net.unitsPowerOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPower(System.Double,System.Double@,ContamP.net.unitsPowerOptions,ContamP.net.unitsPowerOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPower(System.Double,System.Double@,ContamP.net.unitsPowerOptions,ContamP.net.unitsPowerOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPower(System.Double,System.Double@,ContamP.net.unitsPowerOptions,ContamP.net.unitsPowerOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPowerArea(System.Double,System.Double@,ContamP.net.unitsPowerAreaOptions,ContamP.net.unitsPowerAreaOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPowerArea(System.Double,System.Double@,ContamP.net.unitsPowerAreaOptions,ContamP.net.unitsPowerAreaOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPowerArea(System.Double,System.Double@,ContamP.net.unitsPowerAreaOptions,ContamP.net.unitsPowerAreaOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPowerArea(System.Double,System.Double@,ContamP.net.unitsPowerAreaOptions,ContamP.net.unitsPowerAreaOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPowerArea(System.Double,System.Double@,ContamP.net.unitsPowerAreaOptions,ContamP.net.unitsPowerAreaOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPowerArea(System.Double,System.Double@,ContamP.net.unitsPowerAreaOptions,ContamP.net.unitsPowerAreaOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressure(System.Double,System.Double@,ContamP.net.unitsPressureOptions,ContamP.net.unitsPressureOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressure(System.Double,System.Double@,ContamP.net.unitsPressureOptions,ContamP.net.unitsPressureOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressure(System.Double,System.Double@,ContamP.net.unitsPressureOptions,ContamP.net.unitsPressureOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressure(System.Double,System.Double@,ContamP.net.unitsPressureOptions,ContamP.net.unitsPressureOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressure(System.Double,System.Double@,ContamP.net.unitsPressureOptions,ContamP.net.unitsPressureOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressure(System.Double,System.Double@,ContamP.net.unitsPressureOptions,ContamP.net.unitsPressureOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressureDiff(System.Double,System.Double@,ContamP.net.unitsPressureDiffOptions,ContamP.net.unitsPressureDiffOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressureDiff(System.Double,System.Double@,ContamP.net.unitsPressureDiffOptions,ContamP.net.unitsPressureDiffOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressureDiff(System.Double,System.Double@,ContamP.net.unitsPressureDiffOptions,ContamP.net.unitsPressureDiffOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressureDiff(System.Double,System.Double@,ContamP.net.unitsPressureDiffOptions,ContamP.net.unitsPressureDiffOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressureDiff(System.Double,System.Double@,ContamP.net.unitsPressureDiffOptions,ContamP.net.unitsPressureDiffOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertPressureDiff(System.Double,System.Double@,ContamP.net.unitsPressureDiffOptions,ContamP.net.unitsPressureDiffOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpeed(System.Double,System.Double@,ContamP.net.unitsSpeedOptions,ContamP.net.unitsSpeedOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpeed(System.Double,System.Double@,ContamP.net.unitsSpeedOptions,ContamP.net.unitsSpeedOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpeed(System.Double,System.Double@,ContamP.net.unitsSpeedOptions,ContamP.net.unitsSpeedOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpeed(System.Double,System.Double@,ContamP.net.unitsSpeedOptions,ContamP.net.unitsSpeedOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpeed(System.Double,System.Double@,ContamP.net.unitsSpeedOptions,ContamP.net.unitsSpeedOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpeed(System.Double,System.Double@,ContamP.net.unitsSpeedOptions,ContamP.net.unitsSpeedOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpHeat(System.Double,System.Double@,ContamP.net.unitsSpecificHeatOptions,ContamP.net.unitsSpecificHeatOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpHeat(System.Double,System.Double@,ContamP.net.unitsSpecificHeatOptions,ContamP.net.unitsSpecificHeatOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpHeat(System.Double,System.Double@,ContamP.net.unitsSpecificHeatOptions,ContamP.net.unitsSpecificHeatOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpHeat(System.Double,System.Double@,ContamP.net.unitsSpecificHeatOptions,ContamP.net.unitsSpecificHeatOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpHeat(System.Double,System.Double@,ContamP.net.unitsSpecificHeatOptions,ContamP.net.unitsSpecificHeatOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSpHeat(System.Double,System.Double@,ContamP.net.unitsSpecificHeatOptions,ContamP.net.unitsSpecificHeatOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;param name=&quot;edens&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertSurfConcen(System.Double,System.Double@,ContamP.net.unitsSurfaceConcenOptions,ContamP.net.unitsSurfaceConcenOptions,System.Single,System.Single)] Missing &lt;param name=&quot;mdiam&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTempDif(System.Double,System.Double@,ContamP.net.unitsTempDifOptions,ContamP.net.unitsTempDifOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTempDif(System.Double,System.Double@,ContamP.net.unitsTempDifOptions,ContamP.net.unitsTempDifOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTempDif(System.Double,System.Double@,ContamP.net.unitsTempDifOptions,ContamP.net.unitsTempDifOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTempDif(System.Double,System.Double@,ContamP.net.unitsTempDifOptions,ContamP.net.unitsTempDifOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTempDif(System.Double,System.Double@,ContamP.net.unitsTempDifOptions,ContamP.net.unitsTempDifOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTempDif(System.Double,System.Double@,ContamP.net.unitsTempDifOptions,ContamP.net.unitsTempDifOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTemperature(System.Double,System.Double@,ContamP.net.unitsTemperatureOptions,ContamP.net.unitsTemperatureOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTemperature(System.Double,System.Double@,ContamP.net.unitsTemperatureOptions,ContamP.net.unitsTemperatureOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTemperature(System.Double,System.Double@,ContamP.net.unitsTemperatureOptions,ContamP.net.unitsTemperatureOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTemperature(System.Double,System.Double@,ContamP.net.unitsTemperatureOptions,ContamP.net.unitsTemperatureOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTemperature(System.Double,System.Double@,ContamP.net.unitsTemperatureOptions,ContamP.net.unitsTemperatureOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTemperature(System.Double,System.Double@,ContamP.net.unitsTemperatureOptions,ContamP.net.unitsTemperatureOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertThermCond(System.Double,System.Double@,ContamP.net.unitsThermalConductivityOptions,ContamP.net.unitsThermalConductivityOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertThermCond(System.Double,System.Double@,ContamP.net.unitsThermalConductivityOptions,ContamP.net.unitsThermalConductivityOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertThermCond(System.Double,System.Double@,ContamP.net.unitsThermalConductivityOptions,ContamP.net.unitsThermalConductivityOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertThermCond(System.Double,System.Double@,ContamP.net.unitsThermalConductivityOptions,ContamP.net.unitsThermalConductivityOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertThermCond(System.Double,System.Double@,ContamP.net.unitsThermalConductivityOptions,ContamP.net.unitsThermalConductivityOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertThermCond(System.Double,System.Double@,ContamP.net.unitsThermalConductivityOptions,ContamP.net.unitsThermalConductivityOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTime(System.Double,System.Double@,ContamP.net.unitsTimeOptions,ContamP.net.unitsTimeOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTime(System.Double,System.Double@,ContamP.net.unitsTimeOptions,ContamP.net.unitsTimeOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTime(System.Double,System.Double@,ContamP.net.unitsTimeOptions,ContamP.net.unitsTimeOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTime(System.Double,System.Double@,ContamP.net.unitsTimeOptions,ContamP.net.unitsTimeOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTime(System.Double,System.Double@,ContamP.net.unitsTimeOptions,ContamP.net.unitsTimeOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTime(System.Double,System.Double@,ContamP.net.unitsTimeOptions,ContamP.net.unitsTimeOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTimeConst(System.Double,System.Double@,ContamP.net.unitsTimeConstOptions,ContamP.net.unitsTimeConstOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTimeConst(System.Double,System.Double@,ContamP.net.unitsTimeConstOptions,ContamP.net.unitsTimeConstOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTimeConst(System.Double,System.Double@,ContamP.net.unitsTimeConstOptions,ContamP.net.unitsTimeConstOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTimeConst(System.Double,System.Double@,ContamP.net.unitsTimeConstOptions,ContamP.net.unitsTimeConstOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTimeConst(System.Double,System.Double@,ContamP.net.unitsTimeConstOptions,ContamP.net.unitsTimeConstOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertTimeConst(System.Double,System.Double@,ContamP.net.unitsTimeConstOptions,ContamP.net.unitsTimeConstOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowArea(System.Double,System.Double@,ContamP.net.unitsVolFlowAreaOptions,ContamP.net.unitsVolFlowAreaOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowArea(System.Double,System.Double@,ContamP.net.unitsVolFlowAreaOptions,ContamP.net.unitsVolFlowAreaOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowArea(System.Double,System.Double@,ContamP.net.unitsVolFlowAreaOptions,ContamP.net.unitsVolFlowAreaOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowArea(System.Double,System.Double@,ContamP.net.unitsVolFlowAreaOptions,ContamP.net.unitsVolFlowAreaOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowArea(System.Double,System.Double@,ContamP.net.unitsVolFlowAreaOptions,ContamP.net.unitsVolFlowAreaOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowArea(System.Double,System.Double@,ContamP.net.unitsVolFlowAreaOptions,ContamP.net.unitsVolFlowAreaOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowRate(System.Double,System.Double@,ContamP.net.unitsVolFlowRateOptions,ContamP.net.unitsVolFlowRateOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowRate(System.Double,System.Double@,ContamP.net.unitsVolFlowRateOptions,ContamP.net.unitsVolFlowRateOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowRate(System.Double,System.Double@,ContamP.net.unitsVolFlowRateOptions,ContamP.net.unitsVolFlowRateOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowRate(System.Double,System.Double@,ContamP.net.unitsVolFlowRateOptions,ContamP.net.unitsVolFlowRateOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowRate(System.Double,System.Double@,ContamP.net.unitsVolFlowRateOptions,ContamP.net.unitsVolFlowRateOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolFlowRate(System.Double,System.Double@,ContamP.net.unitsVolFlowRateOptions,ContamP.net.unitsVolFlowRateOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolume(System.Double,System.Double@,ContamP.net.unitsVolumeOptions,ContamP.net.unitsVolumeOptions)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolume(System.Double,System.Double@,ContamP.net.unitsVolumeOptions,ContamP.net.unitsVolumeOptions)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolume(System.Double,System.Double@,ContamP.net.unitsVolumeOptions,ContamP.net.unitsVolumeOptions)] Missing &lt;param name=&quot;value&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolume(System.Double,System.Double@,ContamP.net.unitsVolumeOptions,ContamP.net.unitsVolumeOptions)] Missing &lt;param name=&quot;result&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolume(System.Double,System.Double@,ContamP.net.unitsVolumeOptions,ContamP.net.unitsVolumeOptions)] Missing &lt;param name=&quot;from&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.ConvertVolume(System.Double,System.Double@,ContamP.net.unitsVolumeOptions,ContamP.net.unitsVolumeOptions)] Missing &lt;param name=&quot;to&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.Finalize] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.OpenLogFile(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.OpenLogFile(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.OpenLogFile(System.String)] Missing &lt;param name=&quot;logfilePath&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.PrintToLog(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.PrintToLog(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.PrintToLog(System.String)] Missing &lt;param name=&quot;content&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamCommon.SetEcho(System.Int32)] Missing &lt;param name=&quot;echo&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamList`1.#ctor(System.IntPtr,ContamP.net.ProjectOrLibrary,ContamP.net.ListTypes)] Missing &lt;param name=&quot;state&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamList`1.#ctor(System.IntPtr,ContamP.net.ProjectOrLibrary,ContamP.net.ListTypes)] Missing &lt;param name=&quot;pol&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamList`1.#ctor(System.IntPtr,ContamP.net.ProjectOrLibrary,ContamP.net.ListTypes)] Missing &lt;param name=&quot;listType&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamList`1.Add(`0,System.String@)] Missing &lt;param name=&quot;newName&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamList`1.Count] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamList`1.getDefaultItem(`0@,System.Int16)] Missing &lt;param name=&quot;subType&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamList`1.GetEnumerator] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamListEnumerator`1.#ctor(ContamP.net.ContamList{`0})] Missing &lt;param name=&quot;list&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamListEnumerator`1.MoveNext] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamListEnumerator`1.MoveNext] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.ContamListEnumerator`1.Reset] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.IContamListItem.FromJson(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.IContamListItem.FromJson(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.IContamListItem.FromJson(System.String)] Missing &lt;param name=&quot;json&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [P:ContamP.net.IContamListItem.Name] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.IContamListItem.ToJson] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.IContamListItem.ToJson] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsAngleOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsAreaOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsConcenOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsConcenSSOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsDensityOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsDepFlowRateOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsDuctLeakOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsFlowAreaOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsFlowRateOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsLeakagePerAreaOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsLeakagePerLengthOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsLengthOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsMassOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsMolDifOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsOccDensOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsPowerAreaOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsPowerOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsPressureDiffOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsPressureOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsSpecificHeatOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsSpeedOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsSurfaceConcenOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsTempDifOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsTemperatureOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsThermalConductivityOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsTimeConstOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsTimeOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsVolFlowAreaOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsVolFlowRateOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.unitsVolumeOptions] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [N:ContamP.net.BuildingComponents] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [N:ContamP.net.BuildingControls] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.BuildingControls.IntegrateControl] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.FilterElement.FromJson(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.FilterElement.FromJson(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.FilterElement.FromJson(System.String)] Missing &lt;param name=&quot;json&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.FilterElement.ToJson] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.FilterElement.ToJson] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [F:ContamP.net.Elements.KineticReaction.knrElementType] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.Elements.UvgiFilterElmt] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [N:ContamP.net.Elements.Airflow] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.Elements.Airflow.DdFan] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [F:ContamP.net.Elements.Airflow.DuctAirflowElement.dfeElementType] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.DuctAirflowElement.FromJson(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.DuctAirflowElement.FromJson(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.DuctAirflowElement.FromJson(System.String)] Missing &lt;param name=&quot;json&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.Elements.Airflow.FnFan] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.PathAirflowElement.FromJson(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.PathAirflowElement.FromJson(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.PathAirflowElement.FromJson(System.String)] Missing &lt;param name=&quot;json&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.PathAirflowElement.stFromJson(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.PathAirflowElement.stFromJson(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.Airflow.PathAirflowElement.stFromJson(System.String)] Missing &lt;param name=&quot;json&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:ContamP.net.Elements.Airflow.PlBdf] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [N:ContamP.net.Elements.CtmSourceSink] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.CtmSourceSink.CtmSourceSinkElement.FromJson(System.String)] Missing &lt;summary&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.CtmSourceSink.CtmSourceSinkElement.FromJson(System.String)] Missing &lt;returns&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [M:ContamP.net.Elements.CtmSourceSink.CtmSourceSinkElement.FromJson(System.String)] Missing &lt;param name=&quot;json&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [N:ContamP.net.Elements.Schedules] Missing &lt;summary&gt; documentation
+Processed 1426 topic(s)
+283 warning(s)
+CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 5 of 15.
+CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 2 of 30.
+ResolveReferenceLinksComponent: 10 entries added to the member ID URL cache.  New cache size: 27 entries
+<plugIn name="Website Table of Contents Generator" behavior="After" priority="1000">
+Generating TOC fragment files
+</plugIn>    Last step completed in 00:00:10.2155
+</buildStep>
+<buildStep step="CopyStandardHelpContent">
+Copying standard help content...
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\bulma.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\bulma.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\bulma.css.map -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\bulma.css.map
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\bulma.min.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\bulma.min.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\font-awesome.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\font-awesome.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\font-awesome.min.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\font-awesome.min.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\ja-JP.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\ja-JP.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\ko-KR.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\ko-KR.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\presentationStyle.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\presentationStyle.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\vs.min.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\vs.min.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\zh-CN.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\zh-CN.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\zh-TW.css -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\css\zh-TW.css
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\icons\favicon.ico -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\icons\favicon.ico
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\clipboard.min.js -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\scripts\clipboard.min.js
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\highlight.min.js -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\scripts\highlight.min.js
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\jquery-3.5.1.min.js -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\scripts\jquery-3.5.1.min.js
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\presentationStyle.js -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\scripts\presentationStyle.js
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-brands-400.ttf -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-brands-400.ttf
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-brands-400.woff2 -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-brands-400.woff2
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-regular-400.ttf -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-regular-400.ttf
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-regular-400.woff2 -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-regular-400.woff2
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-solid-900.ttf -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-solid-900.ttf
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-solid-900.woff2 -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-solid-900.woff2
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-v4compatibility.ttf -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-v4compatibility.ttf
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-v4compatibility.woff2 -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\webfonts\fa-v4compatibility.woff2
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\GeneralError.html -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\GeneralError.html
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\index.html -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\index.html
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\PageNotFound.html -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\PageNotFound.html
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\search.html -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\search.html
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.aspx -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\SearchHelp.aspx
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.inc.php -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\SearchHelp.inc.php
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.php -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\SearchHelp.php
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\Web.Config -&gt; D:\Brian&#39;s Documents\Help\Working\Output\Website\Web.Config
+    Last step completed in 00:00:00.0818
+</buildStep>
+<buildStep step="GenerateFullTextIndex">
+Generating full-text index for the website...
+
+    Last step completed in 00:00:01.0278
+</buildStep>
+<buildStep step="CopyingWebsiteFiles">
+Copying website files to output folder...
+
+Copied 500 files
+Copied 1000 files
+Copied 1500 files
+Copied 1843 files for the website content
+    Last step completed in 00:00:04.3097
+</buildStep>
+<buildStep step="CleanIntermediates">
+Removing intermediate files...
+    Last step completed in 00:00:00.3710
+</buildStep>
+<buildStep step="Completed">
+
+Build completed successfully at 8/17/2023 11:53:16 AM.  Total time: 00:00:23.7487
+
+</buildStep>
+</shfbBuild>
