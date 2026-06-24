@@ -35,6 +35,11 @@
 		</div>
 	</div>
 </div>
+<br>
+<div class="section" style="padding:1ex;">
+	<input type="button" value="Save Report" ng-click="resultsCtrl.createReport();" class="btn btn-primary btn-lg">
+	<input type="button" value="Back to Search" ui-sref="inputs" class="btn btn-primary btn-lg">
+</div>
 
 <h3>Search Results</h3>
 
@@ -57,7 +62,7 @@
 <p>Select Columns to display:</p>
 <div class="container-fluid section">
 	<div class="row">
-		<div ng-repeat="column in resultsCtrl.ColumnData" class="col-lg-3 col-md-3 col-xs-12">
+		<div ng-repeat="column in resultsCtrl.ColumnData"  ng-if="column.Display == true" class="col-lg-3 col-md-3 col-xs-12">
 			<label><input type="checkbox" ng-model="column.displayColumnInResults"> {{column.ColumnDisplayName}}</label>
 		</div>
 	</div>
@@ -93,10 +98,5 @@
 			</td>
 		</tr>
 	</table>
-</div>
-<br>
-<div class="section" style="padding:1ex;">
-	<input type="button" value="Save Report" ng-click="resultsCtrl.createReport();" class="btn btn-primary btn-lg">
-	<input type="button" value="Back to Search" ui-sref="inputs" class="btn btn-primary btn-lg">
 </div>
 	

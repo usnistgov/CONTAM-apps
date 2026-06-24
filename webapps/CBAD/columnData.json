@@ -21,46 +21,6 @@
         "Category": 3
     }, {
         "Display": true,
-        "ID": 5,
-        "ColumnName": "GeneralDescription",
-        "ForeignTableName": "none",
-        "Type": "string",
-        "ForeignColumnName": "none",
-        "ColumnDisplayName": "General Description",
-        "ColumnMinimum": -1,
-        "Category": 3
-    }, {
-        "Display": true,
-        "ID": 6,
-        "ColumnName": "City",
-        "ForeignTableName": "Cities",
-        "Type": "enum",
-        "ForeignColumnName": "CityName",
-        "ColumnDisplayName": "City",
-        "ColumnMinimum": -1,
-        "Category": 1
-    }, {
-        "Display": true,
-        "ID": 7,
-        "ColumnName": "ProvinceState",
-        "ForeignTableName": "StateProvinces",
-        "Type": "enum",
-        "ForeignColumnName": "StateProvinceName",
-        "ColumnDisplayName": "Province/State",
-        "ColumnMinimum": -1,
-        "Category": 1
-    }, {
-        "Display": true,
-        "ID": 8,
-        "ColumnName": "Country",
-        "ForeignTableName": "Countries",
-        "Type": "enum",
-        "ForeignColumnName": "CountryName",
-        "ColumnDisplayName": "Country",
-        "ColumnMinimum": -1,
-        "Category": 1
-    }, {
-        "Display": true,
         "ID": 9,
         "ColumnName": "YearOfConstruction",
         "ForeignTableName": "none",
@@ -124,22 +84,12 @@
 		"units": "Volume"
     }, {
         "Display": true,
-        "ID": 16,
-        "ColumnName": "WallConstructionType",
-        "ForeignTableName": "WallConstructionTypes",
-        "Type": "enum",
-        "ForeignColumnName": "TypeName",
-        "ColumnDisplayName": "Wall Construction Type",
-        "ColumnMinimum": -1,
-        "Category": 3
-    }, {
-        "Display": true,
         "ID": 17,
         "ColumnName": "AirBarrierType",
         "ForeignTableName": "AirBarrierTypes",
         "Type": "enum",
         "ForeignColumnName": "TypeName",
-        "ColumnDisplayName": "Air Barrier Type",
+        "ColumnDisplayName": "Air Barrier (yes or unknown)",
         "ColumnMinimum": -1,
         "Category": 3
     }, {
@@ -154,36 +104,6 @@
         "Category": 2
     }, {
         "Display": true,
-        "ID": 20,
-        "ColumnName": "ReasonForTest",
-        "ForeignTableName": "TestReasons",
-        "Type": "enum",
-        "ForeignColumnName": "Reason",
-        "ColumnDisplayName": "Reason for Test",
-        "ColumnMinimum": -1,
-        "Category": 2
-    }, {
-        "Display": true,
-        "ID": 21,
-        "ColumnName": "RequirementForTesting",
-        "ForeignTableName": "TestRequirements",
-        "Type": "enum",
-        "ForeignColumnName": "RequiementName",
-        "ColumnDisplayName": "Requirement for Testing",
-        "ColumnMinimum": -1,
-        "Category": 2
-    }, {
-        "Display": true,
-        "ID": 22,
-        "ColumnName": "PerformanceTargetOrRequirement",
-        "ForeignTableName": "PerformanceOrTarget",
-        "Type": "enum",
-        "ForeignColumnName": "StateName",
-        "ColumnDisplayName": "Performance Target or Requirement",
-        "ColumnMinimum": -1,
-        "Category": 2
-    }, {
-        "Display": true,
         "ID": 23,
         "ColumnName": "MaximumRequirement",
         "ForeignTableName": "none",
@@ -192,18 +112,7 @@
         "ColumnDisplayName": "Maximum Requirement in L/(s · m²) at 75 Pa",
         "ColumnMinimum": 0,
         "Category": 2,
-		"units": "VolArea"
-    }, {
-        "Display": false,
-        "ID": 25,
-        "ColumnName": "FlowExponent",
-        "ForeignTableName": "none",
-        "Type": "double",
-        "ForeignColumnName": "none",
-        "ColumnDisplayName": "Flow Exponent (n)",
-        "ColumnMinimum": 0,
-        "Category": 4,
-		"units": "none"
+	      "units": "VolArea"
     }, {
         "Display": false,
         "ID": 27,
@@ -214,7 +123,7 @@
         "ColumnDisplayName": "Pre-retrofit q (L/s · m²) at 75 Pa",
         "ColumnMinimum": 0,
         "Category": 4,
-		"units": "VolArea"
+        "units": "VolArea"
     }, {
         "Display": false,
         "ID": 28,
@@ -225,7 +134,7 @@
         "ColumnDisplayName": "q (L/s · m²) at 75 Pa",
         "ColumnMinimum": 0,
         "Category": 4,
-		"units": "VolArea"
+        "units": "VolArea"
     }, {
         "Display": false,
         "ID": 29,
@@ -236,7 +145,7 @@
         "ColumnDisplayName": "SLA(ef) (Cd = 1, deltaPref = 4 Pa) (cm²/100 m²)",
         "ColumnMinimum": 0,
         "Category": 4,
-		"units": "none"
+        "units": "none"
     }, {
         "Display": true,
         "ID": 30,
@@ -244,7 +153,7 @@
         "ForeignTableName": "ClimateZones",
         "Type": "enum",
         "ForeignColumnName": "ZoneName",
-        "ColumnDisplayName": "DOE Climate Zone",
+        "ColumnDisplayName": "IECC Climate Zone",
         "ColumnMinimum": -1,
         "Category": 1
     }],

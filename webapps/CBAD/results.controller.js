@@ -14,10 +14,9 @@ function ResultsController($stateParams) {
 	resultsCtrl.chartdata = $stateParams.chartdata;
 	resultsCtrl.database = $stateParams.database;
 	resultsCtrl.chartoptions = {
-      title: 'Q Counts Frequency Plot',
-      hAxis: {title: "Bin (L/s · m²)"},
+      hAxis: {title: "Leakage Airflow (L/s-mv)"},
       legend: { position: 'bottom' },
-      vAxis: { title: "Number of occurrences" },
+      vAxis: { title: "Number of Buildings" },
     };
 	resultsCtrl.foreignTableLookup = function(row, column) {
 		
